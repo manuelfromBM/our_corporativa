@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client"
 
 //import Link from "next/link";
@@ -35,17 +34,3 @@ const NavbarPrincipal: React.FC = () => {
     )
 }
 export default NavbarPrincipal;
-=======
-//import Link from "next/link";
-// import React, {useState} from "react";
-//import styles from './Navbar.module.css';
-
-const Navbar:React.FC = () => {
-    //const [open, setOpen] = useState<boolean>(false);
-
-    return (
-        "Hola"
-    )
-}
-export default Navbar
->>>>>>> 4375a1d0525bd89bb71d735afe4fa768b20f4c3f
