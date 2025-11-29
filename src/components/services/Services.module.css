@@ -2,7 +2,7 @@
 
 .section {
   padding: 4rem 2rem;
-  background-color: #ffffff;
+  background-color: #000000;
 }
 
 .container {
@@ -38,7 +38,7 @@
 }
 
 .card {
-  background-color: #fff;
+  background-color: #000000;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);

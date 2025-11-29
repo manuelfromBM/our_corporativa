@@ -4,7 +4,7 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image"
 import styles from './Navbar.module.css';
 
