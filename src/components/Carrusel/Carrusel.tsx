@@ -1,13 +1,14 @@
 "use client"
 
 import React from "react"
+import styles from './Carrusel.module.css'
 import ImagenesCarrusel from "./imagenesCarrusel"
 import Carousel from "react-bootstrap/Carousel"
 
 
 const CarruselInicio: React.FC = () => {
     return (
-        <>
+        <section id="Inicio" className={styles.SectionPrincipal}>
             <Carousel>
                 <Carousel.Item>
                     <ImagenesCarrusel
@@ -31,7 +32,7 @@ const CarruselInicio: React.FC = () => {
                     />
                 </Carousel.Item>
             </Carousel>
-        </>
+        </section>
     )
 
 }

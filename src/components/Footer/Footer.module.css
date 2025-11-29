@@ -1,0 +1,34 @@
+.FooterContainer {
+    background: linear-gradient(180deg, #0f0f1e 0%, #1a1a2e 100%);
+    padding: 3rem 0 1.5rem;
+    margin-top: auto;
+    border-top: 2px solid #16c79a;
+}
+
+.FooterTitle {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #16c79a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.FooterText {
+    color: #b8b8b8;
+    font-size: 0.95rem;
+}
+
+.FooterLink {
+    color: #eee !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    padding: 0.3rem 0;
+    display: inline-block;
+}
+
+.FooterLink:hover {
+    color: #16c79a !important;
+    transform: translateX(5px);
+}

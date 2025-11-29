@@ -11,10 +11,10 @@ import styles from './Navbar.module.css';
 const NavbarPrincipal: React.FC = () => {
     return (
         <>
-            <Navbar style={{ backgroundColor: 'black' }}>
+            <Navbar className={styles.NavBar}>
                 <Container>
                     <Image
-                        src="/imgCarrusel/logo.jpg"
+                        src="/logo3.jpg"
                         alt="logo"
                         width={60}
                         height={60}
@@ -23,10 +23,10 @@ const NavbarPrincipal: React.FC = () => {
                     />
                     {/* <Navbar.Brand href="#home">BM Code Lab</Navbar.Brand> */}
                     <Nav className="me-auto">
-                        <Nav.Link style={{ color: 'white' }}>Inicio</Nav.Link>
-                        <Nav.Link style={{ color: 'white' }}>Nosotros</Nav.Link>
-                        <Nav.Link style={{ color: 'white' }}>Servicios</Nav.Link>
-                        <Nav.Link style={{ color: 'white' }}>Contacto</Nav.Link>
+                        <Nav.Link href="#Inicio" className={styles.ItemsNav}>Inicio</Nav.Link>
+                        <Nav.Link href="#Servicios" className={styles.ItemsNav}>Servicios</Nav.Link>
+                        <Nav.Link href="#Nosotros" className={styles.ItemsNav}>Nosotros</Nav.Link>
+                        <Nav.Link href="#Contacto" className={styles.ItemsNav}>Contacto</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

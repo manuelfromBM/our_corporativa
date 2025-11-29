@@ -9,12 +9,12 @@ interface AtributosImagen {
 
 const ImagenesCarrusel = ({ src, alt, text }: AtributosImagen) => {
     return (
-        <div style={{ position: 'relative', width: '100%', height: '500px' }}>
+        <div style={{ position: 'relative', width: '100%', height: '550px' }}>
             <Image
                 src={src}
                 alt={alt}
                 fill
-                style={{ objectFit: "cover", filter: "brightness(80%)" }}
+                style={{ objectFit: "fill", filter: "brightness(100%)" }}
                 priority
             />
             {text && (

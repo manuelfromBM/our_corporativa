@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import FooterContainer from "@/components/Footer/Footer";
 import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./globals.css";
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <FooterContainer />
       </body>
     </html>
   );
