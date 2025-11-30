@@ -1,6 +1,7 @@
-import NavbarPrincipal from "@/components/Navbar/Navbar";
+
 import Servicios from "@/components/services/Services";
 import Inicio from "@/pages/Home/Home";
+
 
 export default function Home() {
   return (

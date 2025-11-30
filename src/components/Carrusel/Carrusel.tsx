@@ -12,7 +12,7 @@ const CarruselInicio: React.FC = () => {
             <Carousel>
                 <Carousel.Item>
                     <ImagenesCarrusel
-                        src="/imgCarrusel/imagen1.jpg"
+                        src="/imgCarrusel/redneuronal.png"
                         alt="primera imagen"
                         text="Servicios"
                     />
