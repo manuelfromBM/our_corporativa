@@ -21,13 +21,13 @@ const NavbarPrincipal: React.FC = () => {
                         style={{ borderRadius: 50 }}
 
                     />
-                    {/* <Navbar.Brand href="#home">BM Code Lab</Navbar.Brand> */}
                     <Nav className="me-auto">
                         <Nav.Link href="#Inicio" className={styles.ItemsNav}>Inicio</Nav.Link>
                         <Nav.Link href="#Servicios" className={styles.ItemsNav}>Servicios</Nav.Link>
                         <Nav.Link href="#Nosotros" className={styles.ItemsNav}>Nosotros</Nav.Link>
                         <Nav.Link href="#Contacto" className={styles.ItemsNav}>Contacto</Nav.Link>
                     </Nav>
+                    <Navbar.Brand href="#home" className={styles.ItemsNav}>BM CODE LAB</Navbar.Brand>
                 </Container>
             </Navbar>
         </>
