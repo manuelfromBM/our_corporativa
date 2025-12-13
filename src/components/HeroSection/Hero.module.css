@@ -1,0 +1,415 @@
+/* --- HERO SECTION CSS MODULES --- */
+
+.hero {
+    position: relative;
+    min-height: 100vh;
+    background: #000;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* Fondo animado */
+.heroBackground {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.gradientOrb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    animation: float 8s ease-in-out infinite;
+}
+
+.orb1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #00e6e6, transparent);
+    top: -200px;
+    right: -100px;
+    animation-delay: 0s;
+}
+
+.orb2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #00a8a8, transparent);
+    bottom: -150px;
+    left: -100px;
+    animation-delay: 2s;
+}
+
+.gridOverlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(0, 230, 230, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 230, 230, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.3;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -30px) scale(1.05); }
+    50% { transform: translate(-20px, 20px) scale(0.95); }
+    75% { transform: translate(40px, 10px) scale(1.02); }
+}
+
+.heroContainer {
+    position: relative;
+    width: 100%;
+    padding: 100px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 80px;
+    z-index: 1;
+}
+
+/* Contenido */
+.heroContent {
+    flex: 1;
+    max-width: 600px;
+    animation: fadeSlideUp 1s ease forwards;
+    opacity: 0;
+}
+
+.heroBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: rgba(0, 230, 230, 0.1);
+    border: 1px solid rgba(0, 230, 230, 0.3);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #00e6e6;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.badgeDot {
+    width: 8px;
+    height: 8px;
+    background: #00e6e6;
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.heroTitle {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.00;
+    font-weight: 700;
+    margin-bottom: 25px;
+    background: linear-gradient(to bottom, #fff 60%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.highlight {
+    display: block;
+    background: linear-gradient(135deg, #00e6e6, #00a8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 5px;
+}
+
+.heroSubtitle {
+    font-size: 1.15rem;
+    color: #b0b0b0;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.heroSubtitle strong {
+    color: #fff;
+}
+
+/* Botones mejorados */
+.heroButtons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.btnPrimary, .btnSecondary {
+    padding: 14px 32px;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btnPrimary {
+    background: linear-gradient(135deg, #00e6e6, #00b8b8);
+    color: #000;
+    box-shadow: 0 10px 30px rgba(0, 230, 230, 0.3);
+}
+
+.btnPrimary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #00ffff, #00d4d4);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.btnPrimary:hover::before {
+    opacity: 1;
+}
+
+.btnPrimary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0, 230, 230, 0.4);
+}
+
+.btnIcon {
+    width: 18px;
+    height: 18px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s;
+}
+
+.btnPrimary:hover .btnIcon {
+    transform: translateX(4px);
+}
+
+.btnSecondary {
+    background: rgba(0, 230, 230, 0.05);
+    border: 1px solid rgba(0, 230, 230, 0.3);
+    color: #00e6e6;
+    backdrop-filter: blur(10px);
+}
+
+.btnSecondary:hover {
+    background: rgba(0, 230, 230, 0.15);
+    border-color: #00e6e6;
+    transform: translateY(-2px);
+}
+
+/* Stats */
+.heroStats {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    padding: 25px 0;
+}
+
+.statItem {
+    text-align: center;
+}
+
+.statNumber {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00e6e6, #00a8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.statLabel {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.statDivider {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(0, 230, 230, 0.3), transparent);
+}
+
+/* Imagen mejorada - Ocupa más espacio */
+.heroImageContainer {
+    flex: 1.2;
+    position: relative;
+    max-width: 650px;
+    width: 100%;
+    animation: fadeScale 1.2s ease forwards 0.3s;
+    opacity: 0;
+}
+
+.heroImage {
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 100px rgba(0, 230, 230, 0.2);
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(0, 230, 230, 0.1);
+    object-fit: cover;
+}
+
+.imageDecoration {
+    position: absolute;
+    border-radius: 24px;
+    z-index: 1;
+}
+
+.decoration1 {
+    inset: -20px;
+    background: linear-gradient(135deg, rgba(0, 230, 230, 0.1), transparent);
+    animation: rotate 20s linear infinite;
+}
+
+.decoration2 {
+    inset: -10px;
+    border: 1px solid rgba(0, 230, 230, 0.2);
+    animation: rotate 15s linear infinite reverse;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Tarjetas flotantes */
+.floatingCard {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 230, 230, 0.3);
+    padding: 15px 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+.card1 {
+    top: 10%;
+    right: -5%;
+    animation: floatCard 3s ease-in-out infinite;
+}
+
+.card2 {
+    bottom: 15%;
+    left: -8%;
+    animation: floatCard 3s ease-in-out infinite 1.5s;
+}
+
+@keyframes floatCard {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.cardIcon {
+    font-size: 1.5rem;
+}
+
+.cardText {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+/* Animaciones */
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .heroContainer {
+        flex-direction: column;
+        text-align: center;
+        padding: 80px 6%;
+        gap: 50px;
+    }
+
+    .heroContent {
+        max-width: 100%;
+    }
+
+    .heroBadge {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .heroButtons {
+        justify-content: center;
+    }
+
+    .heroStats {
+        justify-content: center;
+    }
+
+    .heroImageContainer {
+        max-width: 100%;
+    }
+
+    .floatingCard {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .heroContainer {
+        padding: 60px 5%;
+    }
+
+    .heroStats {
+        gap: 20px;
+    }
+
+    .statNumber {
+        font-size: 1.5rem;
+    }
+
+    .statLabel {
+        font-size: 0.75rem;
+    }
+
+    .btnPrimary, .btnSecondary {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+}
