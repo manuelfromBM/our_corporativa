@@ -1,3 +1,15 @@
-.divPrincipal{
-    background-color: aliceblue;
+.branchWrapper {
+  width: 100%;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+}
+
+@media (max-width: 768px) {
+  .branchWrapper {
+    padding-top: 120px;
+    padding-bottom: 60px;
+  }
 }
