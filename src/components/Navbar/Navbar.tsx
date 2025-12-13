@@ -14,7 +14,7 @@ const NavbarPrincipal: React.FC = () => {
             <Navbar className={styles.NavBar}>
                 <Container>
                     <Image
-                        src="/logo3.jpg"
+                        src="/img_definitive.jpeg"
                         alt="logo"
                         width={60}
                         height={60}
