@@ -3,6 +3,7 @@
 import React from "react"
 import styles from './Contacto.module.css'
 import { useState } from "react"
+import Image from "next/image"
 
 const SeccionContacto: React.FC = () => {
 
@@ -30,6 +31,14 @@ const SeccionContacto: React.FC = () => {
             </div>
             <div className={styles.divFila}>
                 <div className={styles.textoGrande}>
+                    <Image
+                        src="/img_definitive.jpeg"
+                        alt="Contacto"
+                        width={400}
+                        height={300}
+                        className={styles.imagenContacto}
+                        priority
+                    />
                     <h3 className={styles.subTitulo}>¿Buscas más detalles? Hablemos</h3>
                     <p className={styles.textoPequeno}>Estamos listos para ayudarte a transformar tus ideas en soluciones tecnológicas reales. Completa el formulario y te responderemos a la brevedad.</p>
                 </div>

@@ -1,38 +1,168 @@
 .NavBar {
-    background-color: #000000;
+    background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(150, 248, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.5rem 0;
 }
 
-.ItemsNav {
+.NavBar.Scrolled {
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 4px 30px rgba(150, 248, 255, 0.2);
+    padding: 0.3rem 0;
+}
+
+.BrandContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.LogoWrapper {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.LogoWrapper:hover {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.Logo {
+    border-radius: 50%;
+    border: 2px solid #96f8ff;
+    box-shadow: 0 0 20px rgba(150, 248, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+.Logo:hover {
+    border-color: #8a00c0;
+    box-shadow: 0 0 30px rgba(138, 0, 192, 0.6);
+}
+
+.Brand {
     color: #96f8ff !important;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500;
-    padding: 0.5rem 1rem !important;
-    margin: 0 0.2rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-decoration: none;
     transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.BrandText {
+    background: linear-gradient(135deg, #96f8ff 0%, #8a00c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.3s ease;
+}
+
+.Brand:hover .BrandText {
+    background: linear-gradient(135deg, #8a00c0 0%, #96f8ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 10px rgba(150, 248, 255, 0.5));
+}
+
+.NavLinks {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.NavLink {
+    color: #00e6e6 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem !important;
+    margin: 0 0.3rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
 }
 
-.ItemsNav:hover {
-    color: #8a00c0 !important;
+.NavLink::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(150, 248, 255, 0.1) 0%, rgba(138, 0, 192, 0.1) 100%);
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
 }
 
-.ItemsNav::after {
+.NavLink::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
     width: 0;
     height: 2px;
-    background-color: #8a00c0;
-    transition: all 0.3s ease;
+    background: linear-gradient(90deg, #96f8ff 0%, #8a00c0 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateX(-50%);
+    box-shadow: 0 0 10px rgba(138, 0, 192, 0.5);
 }
 
-.ItemsNav:hover::after {
-    width: 80%;
+.NavLink:hover {
+    color: #ffffff !important;
+    transform: translateY(-2px);
+}
+
+.NavLink:hover::before {
+    opacity: 1;
+}
+
+.NavLink:hover::after {
+    width: 85%;
+}
+
+.NavLink:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .NavLinks {
+        flex-direction: column;
+        gap: 0.2rem;
+        width: 100%;
+    }
+
+    .NavLink {
+        width: 100%;
+        text-align: center;
+        padding: 0.8rem 1rem !important;
+    }
+
+    .Brand {
+        font-size: 1.2rem;
+    }
+
+    .Logo {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .Brand {
+        font-size: 1rem;
+    }
+
+    .NavLink {
+        font-size: 0.9rem;
+    }
 }

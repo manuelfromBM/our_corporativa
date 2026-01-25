@@ -38,13 +38,13 @@ export default function Hero() {
 
                     <div className={styles.heroStats}>
                         <div className={styles.statItem}>
-                            <div className={styles.statNumber}>50+</div>
+                            <div className={styles.statNumber}>SaaS</div>
                             <div className={styles.statLabel}>Proyectos</div>
                         </div>
                         <div className={styles.statDivider}></div>
                         <div className={styles.statItem}>
-                            <div className={styles.statNumber}>98%</div>
-                            <div className={styles.statLabel}>Satisfacción</div>
+                            <div className={styles.statNumber}>100%</div>
+                            <div className={styles.statLabel}>Compromiso</div>
                         </div>
                         <div className={styles.statDivider}></div>
                         <div className={styles.statItem}>
