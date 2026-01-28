@@ -1,4 +1,4 @@
-import styles from './Home.module.css'
+//import styles from './Home.module.css'
 import NavbarPrincipal from '@/components/Navbar/Navbar'
 import HeroBranch from '@/components/HeroSection/Hero'
 import AppPromo from '@/components/PromocionK/PromocionK'

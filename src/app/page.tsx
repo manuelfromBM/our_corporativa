@@ -15,7 +15,7 @@ export default function Home() {
     </>
   )
 }
-//import Navbar from "@/components/Navbar/Navbar";
+//G-5VK3L72BE1 id de medicion para google analytics
 
 
 
