@@ -54,7 +54,7 @@
 }
 
 .BrandText {
-    background: linear-gradient(135deg, #96f8ff 0%, #8a00c0 100%);
+    background: linear-gradient(135deg, #e7e7e7 0%, #ffffff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -62,11 +62,11 @@
 }
 
 .Brand:hover .BrandText {
-    background: linear-gradient(135deg, #8a00c0 0%, #96f8ff 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #96f8ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 10px rgba(150, 248, 255, 0.5));
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
 }
 
 .NavLinks {
