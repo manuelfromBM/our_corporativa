@@ -1,0 +1,23 @@
+.section {
+  padding: 5rem 3rem;
+  background: var(--bg-soft);
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.phones {
+  margin-top: 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+}
+
+.phones img {
+  width: 210px;
+  border-radius: 22px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}

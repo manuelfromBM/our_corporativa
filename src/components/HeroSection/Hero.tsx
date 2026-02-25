@@ -1,5 +1,6 @@
 import React from "react";
 import styles from './Hero.module.css';
+import Link from "next/link";
 
 export default function Hero() {
     return (
@@ -16,6 +17,7 @@ export default function Hero() {
                     <h1 className={styles.heroTitle}>
                         Impulsamos tu Negocio con
                         <span className={styles.highlight}> Soluciones Digitales Modernas</span>
+                        <Link href='/Krona'>impulsa tu negocio</Link>
                     </h1>
 
                     <p className={styles.heroSubtitle}>

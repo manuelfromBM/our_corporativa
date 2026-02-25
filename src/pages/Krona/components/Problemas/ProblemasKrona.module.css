@@ -1,0 +1,99 @@
+.problemSolution {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: #0c0c14;
+  padding: 120px 8%;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.psContainer {
+  display: flex;
+  width: 100%;
+  gap: 80px;
+}
+
+.psLeft {
+  flex: 1;
+}
+
+.psLeft h2 {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+}
+
+.psItem {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 18px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.psItem:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateX(-10px);
+}
+
+.psItem span {
+  font-size: 1.2rem;
+}
+
+.psItem p {
+  font-size: 1.05rem;
+  color: #b5b5c3;
+}
+
+/* RIGHT SIDE */
+
+.psRight {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 350px;
+}
+
+.solution {
+  position: absolute;   /* se superponen */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateX(40px);
+  opacity: 0;
+  transition: all 0.4s ease;
+  width: 100%;
+  max-width: 480px;
+  padding: 40px;
+  border-radius: 20px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(91,95,255,0.15),
+    rgba(124,77,255,0.15)
+  );
+
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(124,77,255,0.3);
+}
+
+.solution h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+.solution p {
+  color: #d0d0e0;
+  line-height: 1.6;
+}
+
+/* ACTIVO */
+.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateX(0);
+}

@@ -1,0 +1,106 @@
+.target {
+  padding: 120px 8%;
+  background: #0c0c14;
+  color: white;
+}
+
+.target {
+  position: relative;
+}
+
+.target::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(to left, #0c0c14, transparent);
+}
+
+.targetContainer h2 {
+  font-size: 2.4rem;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.targetSlider {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 20px;
+}
+
+.targetSlider {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 20px;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(124,77,255,0.6) transparent;
+}
+
+/* Chrome, Edge, Opera */
+.targetSlider::-webkit-scrollbar {
+  height: 8px;
+}
+
+.targetSlider::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.targetSlider::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #5b5fff, #7c4dff);
+  border-radius: 20px;
+}
+
+.targetSlider::-webkit-scrollbar-thumb:hover {
+  background: #7c4dff;
+}
+
+.targetSlider::after {
+  content: "→";
+  position: absolute;
+  right: 5%;
+  bottom: -20px;
+  font-size: 1.5rem;
+  opacity: 0.4;
+}
+
+.targetCard {
+  flex: 0 0 260px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 30px;
+  scroll-snap-align: start;
+  transition: all 0.35s ease;
+  position: relative;
+}
+
+.targetCard:hover {
+  transform: translateY(-8px);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(124,77,255,0.5);
+  box-shadow: 0 20px 40px rgba(124,77,255,0.15);
+}
+
+.targetCard .icon {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.targetCard h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.targetCard p {
+  font-size: 0.95rem;
+  color: #b5b5c3;
+  line-height: 1.5;
+}
