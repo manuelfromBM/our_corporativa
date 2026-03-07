@@ -26,7 +26,6 @@
 
 .psItem {
   display: flex;
-  gap: 15px;
   align-items: center;
   padding: 18px 20px;
   border-radius: 14px;
