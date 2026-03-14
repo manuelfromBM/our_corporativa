@@ -1,0 +1,18 @@
+.krona-theme {
+  --krona-primary: #174A7E;
+  --krona-secondary: #1BB68C;
+  --krona-accent: #6A4BC4;
+
+  --krona-text: #0F172A;
+  --krona-subtext: #64748B;
+  --krona-bg: #F8FAFC;
+
+  --krona-dark: #0c0c14;
+  --krona-dark-2: #1f1f3a;
+
+  --krona-text-light: #FFFFFF;
+  --krona-subtext-light: #CBD5E1;
+
+  --krona-gradient-primary: linear-gradient(135deg, #174A7E, #6A4BC4);
+  --krona-gradient-accent: linear-gradient(135deg, #1BB68C, #6A4BC4);
+}

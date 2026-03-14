@@ -1,0 +1,19 @@
+:root{
+
+  /* colores marca Krona */
+
+  --krona-primary: #174A7E;
+  --krona-secondary: #1BB68C;
+  --krona-accent: #6A4BC4;
+
+  /* texto */
+
+  --krona-text: #0F172A;
+  --krona-subtext: #64748B;
+
+  /* fondos */
+
+  --krona-bg: #F8FAFC;
+  --krona-dark: #020617;
+
+}

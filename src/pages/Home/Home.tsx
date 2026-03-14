@@ -10,7 +10,7 @@ export default function Inicio() {
             <NavbarPrincipal />
             <HeroBranch />
             <AppPromo />
-            <NosotrosSection></NosotrosSection>
+            <NosotrosSection/>
         </div>
     )
 }

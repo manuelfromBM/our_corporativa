@@ -1,106 +1,220 @@
-.target {
-  padding: 120px 8%;
-  background: #0c0c14;
-  color: white;
-}
+/* =============================================
+   TARGET SECTION — Krona
+   ============================================= */
 
 .target {
+  padding: 110px 8%;
+  background: #0B0F1A;
+  color: var(--krona-text-light);
   position: relative;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+/* Orb de fondo ambiental */
+.target::before {
+  content: "";
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(106, 75, 196, 0.18) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
+/* Fade-out derecha */
 .target::after {
   content: "";
   position: absolute;
   top: 0;
   right: 0;
-  width: 120px;
+  width: 160px;
   height: 100%;
   pointer-events: none;
-  background: linear-gradient(to left, #0c0c14, transparent);
+  background: linear-gradient(to left, #070710 10%, transparent);
+  z-index: 2;
+}
+
+/* ---- Contenedor ---- */
+.targetContainer {
+  position: relative;
+  z-index: 1;
 }
 
 .targetContainer h2 {
-  font-size: 2.4rem;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 12px;
+  line-height: 1.15;
 }
 
+/* Subtítulo opcional bajo el h2 */
+.targetContainer p.targetSubtitle {
+  text-align: center;
+  color: #7a7a98;
+  font-size: 1rem;
+  margin-bottom: 52px;
+  font-weight: 300;
+}
+
+/* ---- Slider ---- */
 .targetSlider {
   display: flex;
-  gap: 25px;
+  gap: 18px;
   overflow-x: auto;
+  overflow-y: visible;
   scroll-snap-type: x mandatory;
-  padding-bottom: 20px;
+  padding-bottom: 28px;
+  padding-top: 20px;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(106, 75, 196, 0.45) transparent;
 }
 
-.targetSlider {
-  display: flex;
-  gap: 25px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 20px;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(124,77,255,0.6) transparent;
-}
+.targetSlider:active { cursor: grabbing; }
 
-/* Chrome, Edge, Opera */
-.targetSlider::-webkit-scrollbar {
-  height: 8px;
-}
-
-.targetSlider::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+/* Scrollbar Webkit */
+.targetSlider::-webkit-scrollbar { height: 5px; }
+.targetSlider::-webkit-scrollbar-track { background: transparent; }
 .targetSlider::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #5b5fff, #7c4dff);
+ background: linear-gradient(90deg, #174A7E, #6A4BC4);
   border-radius: 20px;
 }
+.targetSlider::-webkit-scrollbar-thumb:hover { background: #9c6dff; }
 
-.targetSlider::-webkit-scrollbar-thumb:hover {
-  background: #7c4dff;
-}
-
-.targetSlider::after {
-  content: "→";
-  position: absolute;
-  right: 5%;
-  bottom: -20px;
-  font-size: 1.5rem;
-  opacity: 0.4;
-}
-
+/* ---- Cards ---- */
 .targetCard {
-  flex: 0 0 260px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 20px;
-  padding: 30px;
+  flex: 0 0 270px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 22px;
+  padding: 32px 28px;
   scroll-snap-align: start;
-  transition: all 0.35s ease;
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.38s ease,
+              background 0.3s ease;
   position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Línea superior de acento (invisible por defecto) */
+.targetCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+  90deg,
+  #174A7E,
+  #6A4BC4,
+  #1BB68C,
+  transparent
+);
+  border-radius: 22px 22px 0 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* Brillo interno en hover */
+.targetCard::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 77, 255, 0.18), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
 }
 
 .targetCard:hover {
-  transform: translateY(-8px);
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(124,77,255,0.5);
-  box-shadow: 0 20px 40px rgba(124,77,255,0.15);
+  transform: translateY(-10px) scale(1.015);
+  background: rgba(255, 255, 255, 0.065);
+  border-color: rgba(106, 75, 196, 0.45);
+  box-shadow:
+  0 24px 50px rgba(106, 75, 196, 0.18),
+  0 8px 16px rgba(0, 0, 0, 0.3),
+  inset 0 0 0 1px rgba(106, 75, 196, 0.1);
 }
 
+.targetCard:hover::before { opacity: 1; }
+.targetCard:hover::after  { opacity: 1; }
+
+/* ---- Icono ---- */
 .targetCard .icon {
-  font-size: 2rem;
-  margin-bottom: 15px;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  background: rgba(106, 75, 196, 0.12);
+  border: 1px solid rgba(106, 75, 196, 0.25);
+  border-radius: 14px;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
 }
 
+.targetCard:hover .icon {
+  background: rgba(124, 77, 255, 0.18);
+  border-color: rgba(124, 77, 255, 0.4);
+  transform: scale(1.08);
+}
+
+/* ---- Texto ---- */
 .targetCard h3 {
-  font-size: 1.2rem;
-  margin-bottom: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  color: #f0f0fa;
 }
 
 .targetCard p {
-  font-size: 0.95rem;
-  color: #b5b5c3;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  color: #8080a0;
+  line-height: 1.6;
+  font-weight: 300;
+  transition: color 0.3s;
+}
+
+.targetCard:hover p { color: #a5a5c5; }
+
+/* ---- Tag / Pill opcional ---- */
+.targetCard .targetTag {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6A4BC4;
+  background: rgba(106, 75, 196, 0.12);
+border: 1px solid rgba(106, 75, 196, 0.25);
+  border-radius: 100px;
+  padding: 4px 13px;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.targetCard:hover .targetTag {
+  background: rgba(124, 77, 255, 0.2);
+  border-color: rgba(124, 77, 255, 0.4);
 }

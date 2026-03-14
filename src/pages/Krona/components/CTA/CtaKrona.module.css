@@ -1,0 +1,166 @@
+/* ============================= */
+/* SECCIÓN */
+/* ============================= */
+
+.cta {
+
+  padding: 200px 10%;
+  text-align: center;
+  position: relative;
+
+  background:
+
+  radial-gradient(
+    circle at 50% 20%,
+    rgba(0,200,255,0.2),
+    transparent 60%
+  ),
+
+  radial-gradient(
+    circle at 80% 80%,
+    rgba(99,102,241,0.2),
+    transparent 60%
+  ),
+
+  linear-gradient(
+    180deg,
+    #020617,
+    #020617
+  );
+
+  color: white;
+
+}
+
+/* ============================= */
+/* CONTENEDOR */
+/* ============================= */
+
+.container {
+
+  max-width: 900px;
+  margin: auto;
+
+}
+
+/* ============================= */
+/* TITULO */
+/* ============================= */
+
+.cta h2 {
+
+  font-size: 52px;
+  font-weight: 800;
+
+  margin-bottom: 25px;
+
+  line-height: 1.2;
+
+}
+
+.cta span {
+
+  background: linear-gradient(
+    90deg,
+    #38bdf8,
+    #6366f1
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ============================= */
+/* TEXTO */
+/* ============================= */
+
+.cta p {
+
+  font-size: 20px;
+  color: #94a3b8;
+  margin-bottom: 50px;
+
+}
+
+/* ============================= */
+/* BOTONES */
+/* ============================= */
+
+.buttons {
+
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+}
+
+/* botón principal */
+
+.primary {
+
+  padding: 16px 34px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  border-radius: 14px;
+
+  border: none;
+
+  background: linear-gradient(
+    135deg,
+    #38bdf8,
+    #6366f1
+  );
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: all .3s ease;
+
+  box-shadow:
+
+  0 10px 25px rgba(99,102,241,0.5);
+
+}
+
+.primary:hover {
+
+  transform: translateY(-4px);
+
+  box-shadow:
+
+  0 20px 40px rgba(99,102,241,0.6);
+
+}
+
+/* botón secundario */
+
+.secondary {
+
+  padding: 16px 34px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  background: transparent;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: all .3s ease;
+
+}
+
+.secondary:hover {
+
+  background: rgba(255,255,255,0.08);
+
+}

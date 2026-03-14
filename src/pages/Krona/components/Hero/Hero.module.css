@@ -2,8 +2,11 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: radial-gradient(circle at 20% 40%, #1f1f3a, #0c0c14 60%);
-  color: #ffffff;
+  background: radial-gradient(
+    circle at 20% 40%,
+    #1a2a4f,
+    #0b0f1a 65%);
+  color: var(--krona-text-light);
   padding: 0 8%;
   overflow: hidden;
   position: relative;
@@ -15,6 +18,8 @@
   justify-content: space-between;
   width: 100%;
   gap: 60px;
+  position: relative;
+  z-index: 1;
 }
 
 .heroContent {
@@ -26,11 +31,12 @@
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 20px;
+  color: var(--krona-text-light);
 }
 
 .hero p {
   font-size: 1.1rem;
-  color: #b5b5c3;
+  color: var(--krona-subtext-light);
   margin-bottom: 35px;
   line-height: 1.6;
 }
@@ -41,38 +47,42 @@
 }
 
 .btnPrimary {
-  background: linear-gradient(135deg, #5b5fff, #7c4dff);
+  background: linear-gradient(
+  135deg,
+  #174A7E,
+  #6A4BC4);
   padding: 14px 28px;
   border-radius: 12px;
   color: white;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 0 25px rgba(124, 77, 255, 0.5);
+  box-shadow: 0 0 25px rgba(106, 75, 196, 0.35);
   transition: all 0.3s ease;
 }
 
 .btnPrimary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 35px rgba(124, 77, 255, 0.8);
+  box-shadow: 0 0 35px rgba(106,75,196,0.6);
 }
 
 .btnSecondary {
   padding: 14px 28px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--krona-text-light);
   text-decoration: none;
   transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .btnSecondary:hover {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .heroMockup img {
   width: 420px;
   border-radius: 25px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
   transform: rotate(-3deg);
   transition: 0.5s ease;
 }
@@ -81,18 +91,26 @@
   transform: rotate(0deg) scale(1.03);
 }
 
-/*.hero::after {
+.hero::after {
   content: "";
   position: absolute;
   width: 500px;
   height: 500px;
-  background: #5b5fff;
-  filter: blur(200px);
-  opacity: 0.25;
+
+  background: radial-gradient(
+    circle,
+    #6A4BC4,
+    #1BB68C
+  );
+
+  filter: blur(220px);
+  opacity: 0.35;
+
   top: 10%;
   right: 10%;
+
   z-index: 0;
-}*/
+}
 
 @media (max-width: 992px) {
   .heroContainer {
@@ -107,5 +125,14 @@
 
   .heroButtons {
     justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
   }
 }

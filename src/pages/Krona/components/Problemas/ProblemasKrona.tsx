@@ -2,77 +2,135 @@
 
 import styles from "./ProblemasKrona.module.css"
 import { useState } from "react";
-export default function ProblemasKronaSection() {
 
-  const [activeSolution, setActiveSolution] = useState("sol1");
+
+type SolutionId = "sol1" | "sol2" | "sol3" | "sol4";
+interface Problem {
+  id: SolutionId;
+  icon: string;
+  title: string;
+  sub: string;
+  num: string;
+}
+
+
+const problems = [
+  { id: "sol1", icon: "📱", title: "Agenda por WhatsApp",  sub: "Mensajes perdidos y doble-bookings constantes",        num: "01" },
+  { id: "sol2", icon: "📋", title: "Planillas manuales",   sub: "Sin control de disponibilidad ni historial real",       num: "02" },
+  { id: "sol3", icon: "💸", title: "Cobros informales",    sub: "Transferencias sin registro ni reportes",               num: "03" },
+  { id: "sol4", icon: "📉", title: "Cero métricas",        sub: "No sabes qué vende más ni cuándo tienes más demanda",   num: "04" },
+];
+
+const solutions = [
+  {
+    id: "sol1",
+    icon: "📅",
+    title: "Agenda inteligente en tiempo real",
+    body: "Olvídate de los mensajes de WhatsApp. Krona gestiona tu disponibilidad, confirma reservas automáticamente y evita conflictos de horario con tecnología WebSocket.",
+    feats: ["Disponibilidad en vivo", "Auto-confirmación", "Anti doble-booking", "Notificaciones push"],
+  },
+  {
+    id: "sol2",
+    icon: "🗂️",
+    title: "Gestión centralizada sin planillas",
+    body: "Un panel profesional reemplaza tus planillas. Ve reservas, clientes, historial y disponibilidad en tiempo real desde cualquier dispositivo.",
+    feats: ["Panel unificado", "Historial completo", "Multi-dispositivo", "Filtros avanzados"],
+  },
+  {
+    id: "sol3",
+    icon: "💳",
+    title: "Pagos integrados con registro total",
+    body: "Acepta pagos directamente en la app con Stripe, Flow o Mercado Pago. Cada cobro queda registrado con historial, reportes y liquidaciones automáticas.",
+    feats: ["Stripe / Flow", "Mercado Pago", "Historial de cobros", "Reportes automáticos"],
+  },
+  {
+    id: "sol4",
+    icon: "📊",
+    title: "Dashboard de métricas en tiempo real",
+    body: "Visualiza ingresos, servicios más vendidos, visitas a tu perfil y rendimiento por empleado. Toma decisiones basadas en datos reales, no en intuición.",
+    feats: ["KPIs en vivo", "Por empleado", "Servicios top", "Exportar datos"],
+  },
+];
+
+export default function ProblemasKronaSection() {
+  
+  const [active, setActive] = useState<SolutionId>("sol1");
 
   return (
-    <section className={styles.problemSolution}>
-      <div className={styles.psContainer}>
 
-        {/* IZQUIERDA */}
-        <div className={styles.psLeft}
-        onMouseLeave={() => setActiveSolution("sol1")}>
-          <h2>¿Te suena familiar?</h2>
+<section className={styles.problemSolution}>
 
+  {/* Líneas de circuito SVG decorativas */}
+  <div className={styles.circuitLines}>
+    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <g stroke="rgba(124,77,255,0.25)" strokeWidth="1" fill="none">
+        <polyline points="900,0 820,0 820,80 750,80 750,140 680,140" />
+        <circle cx="680" cy="140" r="4" fill="rgba(124,77,255,0.5)" stroke="none" />
+        <polyline points="900,600 840,600 840,500 780,500 780,420" />
+        <circle cx="780" cy="420" r="3" fill="rgba(91,143,255,0.5)" stroke="none" />
+        <polyline points="0,300 60,300 60,220 120,220" />
+        <circle cx="120" cy="220" r="3" fill="rgba(124,77,255,0.4)" stroke="none" />
+      </g>
+    </svg>
+  </div>
+
+  <div className={styles.psContainer}>
+
+    {/* LEFT */}
+    <div className={styles.psLeft}>
+      <div className={styles.psEyebrow}>El problema</div>
+      <h2 className={styles.psTitle}>
+        Gestionas tu negocio<br />en modo <em>caos.</em>
+      </h2>
+
+      <div className={styles.psItems}>
+        {problems.map((p) => (
           <div
-            className={styles.psItem}
-            onMouseEnter={() => setActiveSolution("sol1")}
+            key={p.id}
+            className={`${styles.psItem} ${active === p.id ? styles.active : ""}`}
+            onClick={() => setActive(p.id)}
           >
-            <span>❌</span>
-            <p>Pierdes reservas por mala coordinación.</p>
+            <div className={styles.psItemIcon}>{p.icon}</div>
+            <div className={styles.psItemText}>
+              <strong>{p.title}</strong>
+              <span>{p.sub}</span>
+            </div>
+            <span className={styles.psItemNum}>{p.num}</span>
           </div>
-
-          <div
-            className={styles.psItem}
-            onMouseEnter={() => setActiveSolution("sol2")}
-          >
-            <span>❌</span>
-            <p>Todo lo gestionas por mensajes y notas.</p>
-          </div>
-
-          <div
-            className={styles.psItem}
-            onMouseEnter={() => setActiveSolution("sol3")}
-          >
-            <span>❌</span>
-            <p>No sabes cuánto ganas realmente al mes.</p>
-          </div>
-
-          <div
-            className={styles.psItem}
-            onMouseEnter={() => setActiveSolution("sol4")}
-          >
-            <span>❌</span>
-            <p>No tienes métricas claras para crecer.</p>
-          </div>
-        </div>
-
-        {/* DERECHA */}
-        <div className={styles.psRight}>
-
-          <div className={`${styles.solution} ${activeSolution === "sol1" ? styles.active : ""}`}>
-            <h3>📅 Agenda Inteligente</h3>
-            <p>Nunca pierdas una reserva. Todo se organiza automáticamente.</p>
-          </div>
-
-          <div className={`${styles.solution} ${activeSolution === "sol2" ? styles.active : ""}`}>
-            <h3>📲 Sistema Centralizado</h3>
-            <p>Olvídate del caos. Todo tu negocio en un solo lugar.</p>
-          </div>
-
-          <div className={`${styles.solution} ${activeSolution === "sol3" ? styles.active : ""}`}>
-            <h3>💳 Control de Ingresos</h3>
-            <p>Visualiza ganancias en tiempo real, sin cálculos manuales.</p>
-          </div>
-
-          <div className={`${styles.solution} ${activeSolution === "sol4" ? styles.active : ""}`}>
-            <h3>📊 Métricas Claras</h3>
-            <p>Toma decisiones estratégicas con datos reales.</p>
-          </div>
-
-        </div>
+        ))}
       </div>
-    </section>
-    );
-}
+    </div>
+
+    {/* RIGHT */}
+    <div className={styles.psRight}>
+      {solutions
+        .filter((s) => s.id === active)
+        .map((s) => (
+          <div key={s.id} className={styles.solutionCard}>
+
+            <div className={styles.solutionHeader}>
+              <div className={styles.solutionIconBig}>{s.icon}</div>
+              <div className={styles.solutionMeta}>
+                <div className={styles.solutionStatus}>Resuelto por Krona</div>
+                <h3>{s.title}</h3>
+              </div>
+            </div>
+
+            <div className={styles.solutionDivider} />
+
+            <p>{s.body}</p>
+
+            <div className={styles.solutionFeatures}>
+              {s.feats.map((f) => (
+                <span key={f} className={styles.sFeat}>{f}</span>
+              ))}
+            </div>
+
+          </div>
+        ))}
+    </div>
+
+  </div>
+</section>
+      );
+  }
