@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Container, Row, Col } from 'react-bootstrap'
 import styles from './Footer.module.css'

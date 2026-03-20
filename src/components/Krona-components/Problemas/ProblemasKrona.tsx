@@ -14,7 +14,7 @@ interface Problem {
 }
 
 
-const problems = [
+const problems: Problem[] = [
   { id: "sol1", icon: "📱", title: "Agenda por WhatsApp",  sub: "Mensajes perdidos y doble-bookings constantes",        num: "01" },
   { id: "sol2", icon: "📋", title: "Planillas manuales",   sub: "Sin control de disponibilidad ni historial real",       num: "02" },
   { id: "sol3", icon: "💸", title: "Cobros informales",    sub: "Transferencias sin registro ni reportes",               num: "03" },

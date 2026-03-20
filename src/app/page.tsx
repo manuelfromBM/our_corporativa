@@ -1,7 +1,7 @@
 
 import SeccionContacto from "@/components/Contacto/Contacto";
 import Servicios from "@/components/services/Services";
-import Inicio from "@/pages/Home/Home";
+import Inicio from "@/components/Home/Home";
 import WhatsAppButton from "@/components/BtnWasap/BtnWasap";
 
 

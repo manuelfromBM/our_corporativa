@@ -44,7 +44,7 @@ const testimonials = [
         <div className={styles.stars}>★★★★★</div>
 
         <p className={styles.text}>
-        "{t.text}"
+        &ldquo;{t.text}&rdquo;
         </p>
 
         <div className={styles.user}>
