@@ -1,12 +1,12 @@
 import WhatsAppButton from "@/components/BtnWasap/BtnWasap"
-import NavKronaSection from "@/components/Krona-components/NavBarKrona/NavKrona"
+import NavKrona from "@/components/Krona-components/NavBarKrona/NavKrona"
 
 export default function publiclayout({ children }: { children: React.ReactNode }) {
     return (
-            <>
-            <NavKronaSection/>
+        <div className="krona-theme">
+           
             <main>{children}</main>
             <WhatsAppButton/>
-            </>        
+        </div>            
     )
 }

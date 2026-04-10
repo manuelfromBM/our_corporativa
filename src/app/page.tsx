@@ -8,6 +8,7 @@ import NavbarPrincipal from "@/components/Navbar/Navbar";
 
 export default function Home() {
   return (
+      
     <>
       <NavbarPrincipal/>
       <Inicio />
