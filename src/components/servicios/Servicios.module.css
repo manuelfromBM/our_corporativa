@@ -1,3 +1,4 @@
+/* ─── Sección principal ──────────────────────────────────────────────────────── */
 .section {
   min-height: 100vh;
   padding: 8rem 2rem;
@@ -28,6 +29,7 @@
   animation: pulse 8s ease-in-out infinite reverse;
 }
 
+/* ─── Contenedor ─────────────────────────────────────────────────────────────── */
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -35,9 +37,10 @@
   z-index: 1;
 }
 
+/* ─── Encabezado ─────────────────────────────────────────────────────────────── */
 .headerSection {
   text-align: center;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   animation: fadeInDown 1s ease-out;
 }
 
@@ -58,10 +61,61 @@
   font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.7);
   max-width: 600px;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
   line-height: 1.6;
 }
 
+/* ─── Toggle ─────────────────────────────────────────────────────────────────── */
+.toggleWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.togglePill {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.toggleBtn {
+  padding: 10px 28px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.25s ease;
+}
+
+.toggleBtn:hover:not(.toggleBtnActive) {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.toggleBtnActive {
+  background: rgba(150, 248, 255, 0.08);
+  color: #96f8ff;
+  border-color: rgba(150, 248, 255, 0.3);
+}
+
+.toggleSubtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0.5rem 0 0;
+  min-height: 20px;
+  transition: opacity 0.25s ease;
+}
+
+.toggleSubtitleFading {
+  opacity: 0;
+}
+
+/* ─── Grid ───────────────────────────────────────────────────────────────────── */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -69,6 +123,7 @@
   animation: fadeInUp 1s ease-out 0.3s backwards;
 }
 
+/* ─── Card ───────────────────────────────────────────────────────────────────── */
 .card {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
@@ -79,7 +134,9 @@
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
-  --card-color: #96f8ff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .card::before {
@@ -101,7 +158,7 @@
   inset: 0;
   background: radial-gradient(
     circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(150, 248, 255, 0.1) 0%,
+    rgba(150, 248, 255, 0.08) 0%,
     transparent 50%
   );
   opacity: 0;
@@ -124,7 +181,7 @@
   transform: translateY(-12px) scale(1.03);
   background: rgba(255, 255, 255, 0.06);
   border-color: var(--card-color);
-  box-shadow: 
+  box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.5),
     0 0 0 1px var(--card-color) inset;
 }
@@ -141,11 +198,11 @@
   opacity: 0.3;
 }
 
+/* ─── Card header ────────────────────────────────────────────────────────────── */
 .cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1.2rem;
 }
 
 .iconWrapper {
@@ -182,7 +239,8 @@
 }
 
 .icon {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   color: var(--card-color);
   transition: all 0.4s ease;
   position: relative;
@@ -191,7 +249,7 @@
 
 .card:hover .icon {
   transform: scale(1.1);
-  filter: drop-shadow(0 0 10px var(--card-color));
+  filter: drop-shadow(0 0 8px var(--card-color));
 }
 
 .cardNumber {
@@ -206,15 +264,21 @@
   color: rgba(150, 248, 255, 0.1);
 }
 
+/* ─── Card body ──────────────────────────────────────────────────────────────── */
 .cardContent {
-  margin-bottom: 1.2rem;
+  flex: 1;
+  transition: opacity 0.25s ease;
+}
+
+.cardContentFading {
+  opacity: 0;
 }
 
 .cardTitle {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 0.6rem;
+  margin: 0 0 0.5rem;
   transition: all 0.3s ease;
   line-height: 1.3;
 }
@@ -225,21 +289,24 @@
 }
 
 .cardDescription {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
   transition: color 0.3s ease;
 }
 
 .card:hover .cardDescription {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.85);
 }
 
+/* ─── Card footer ────────────────────────────────────────────────────────────── */
 .cardFooter {
   display: flex;
   justify-content: flex-end;
   padding-top: 0.8rem;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: auto;
   transition: border-color 0.3s ease;
 }
 
@@ -248,7 +315,7 @@
 }
 
 .learnMore {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
   font-size: 0.9rem;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -262,12 +329,13 @@
   transform: translateX(5px);
 }
 
-/* Partículas de fondo */
+/* ─── Partículas ─────────────────────────────────────────────────────────────── */
 .particles {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  z-index: 0;
 }
 
 .particle {
@@ -280,15 +348,15 @@
   animation: float 15s infinite ease-in-out;
 }
 
-.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-.particle:nth-child(2) { left: 20%; animation-delay: 2s; }
-.particle:nth-child(3) { left: 30%; animation-delay: 4s; }
-.particle:nth-child(4) { left: 40%; animation-delay: 1s; }
-.particle:nth-child(5) { left: 50%; animation-delay: 3s; }
-.particle:nth-child(6) { left: 60%; animation-delay: 5s; }
-.particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
-.particle:nth-child(8) { left: 80%; animation-delay: 4.5s; }
-.particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+.particle:nth-child(1)  { left: 10%; animation-delay: 0s; }
+.particle:nth-child(2)  { left: 20%; animation-delay: 2s; }
+.particle:nth-child(3)  { left: 30%; animation-delay: 4s; }
+.particle:nth-child(4)  { left: 40%; animation-delay: 1s; }
+.particle:nth-child(5)  { left: 50%; animation-delay: 3s; }
+.particle:nth-child(6)  { left: 60%; animation-delay: 5s; }
+.particle:nth-child(7)  { left: 70%; animation-delay: 2.5s; }
+.particle:nth-child(8)  { left: 80%; animation-delay: 4.5s; }
+.particle:nth-child(9)  { left: 90%; animation-delay: 1.5s; }
 .particle:nth-child(10) { left: 15%; animation-delay: 3.5s; }
 .particle:nth-child(11) { left: 25%; animation-delay: 0.5s; }
 .particle:nth-child(12) { left: 35%; animation-delay: 2.8s; }
@@ -301,7 +369,7 @@
 .particle:nth-child(19) { left: 12%; animation-delay: 1.2s; }
 .particle:nth-child(20) { left: 88%; animation-delay: 3.8s; }
 
-/* Efecto stagger para las cards */
+/* ─── Stagger animación cards ────────────────────────────────────────────────── */
 .card:nth-child(1) { animation: slideInCard 0.8s ease-out 0.1s backwards; }
 .card:nth-child(2) { animation: slideInCard 0.8s ease-out 0.2s backwards; }
 .card:nth-child(3) { animation: slideInCard 0.8s ease-out 0.3s backwards; }
@@ -311,72 +379,38 @@
 .card:nth-child(7) { animation: slideInCard 0.8s ease-out 0.7s backwards; }
 .card:nth-child(8) { animation: slideInCard 0.8s ease-out 0.8s backwards; }
 
-/* Animaciones */
+/* ─── Keyframes ──────────────────────────────────────────────────────────────── */
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInCard {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: scale(1.15);
-    opacity: 0.6;
-  }
+  0%, 100% { transform: scale(1);    opacity: 0.3; }
+  50%       { transform: scale(1.15); opacity: 0.6; }
 }
 
 @keyframes gradientFlow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translateY(-100vh) translateX(20px);
-    opacity: 0.6;
-  }
+  0%, 100% { transform: translateY(0) translateX(0);    opacity: 0.3; }
+  50%       { transform: translateY(-100vh) translateX(20px); opacity: 0.6; }
 }
 
-/* Responsivo */
+/* ─── Responsive ─────────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -385,72 +419,25 @@
 }
 
 @media (max-width: 768px) {
-  .section {
-    padding: 5rem 1.5rem;
-  }
+  .section  { padding: 5rem 1.5rem; }
+  .title    { font-size: 2.5rem; }
+  .subtitle { font-size: 1rem; }
+  .grid     { grid-template-columns: 1fr; gap: 1.5rem; }
+  .card     { padding: 1.75rem; }
 
-  .title {
-    font-size: 2.5rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .card {
-    padding: 1.75rem;
-  }
-
-  .iconWrapper {
-    width: 60px;
-    height: 60px;
-  }
-
-  .icon {
-    font-size: 1.75rem;
-  }
-
-  .cardTitle {
-    font-size: 1.3rem;
-  }
+  .iconWrapper { width: 60px; height: 60px; }
+  .icon        { font-size: 1.5rem; }
+  .cardTitle   { font-size: 1.2rem; }
 }
 
 @media (max-width: 480px) {
-  .section {
-    padding: 4rem 1rem;
-  }
+  .section       { padding: 4rem 1rem; }
+  .title         { font-size: 2rem; }
+  .headerSection { margin-bottom: 3rem; }
 
-  .title {
-    font-size: 2rem;
-  }
-
-  .headerSection {
-    margin-bottom: 3rem;
-  }
-
-  .iconWrapper {
-    width: 55px;
-    height: 55px;
-  }
-
-  .icon {
-    font-size: 1.5rem;
-  }
-
-  .cardNumber {
-    font-size: 2.5rem;
-  }
-
-  .cardTitle {
-    font-size: 1.2rem;
-  }
-
-  .cardDescription {
-    font-size: 0.95rem;
-  }
+  .iconWrapper  { width: 55px; height: 55px; }
+  .icon         { font-size: 1.4rem; }
+  .cardNumber   { font-size: 2.5rem; }
+  .cardTitle    { font-size: 1.1rem; }
+  .cardDescription { font-size: 0.9rem; }
 }
