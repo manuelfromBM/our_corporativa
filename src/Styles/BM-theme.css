@@ -1,0 +1,83 @@
+.bmcodelab-theme {
+  /* Colores principales */
+  --bm-primary: #00c896;
+  --bm-secondary: #aaff00;
+  --bm-accent: #007a50;
+
+  /* Texto */
+  --bm-text: #e8f5ee;
+  --bm-subtext: #3a6048;
+  --bm-bg: #06100a;
+
+  /* Fondos oscuros */
+  --bm-dark: #06100a;
+  --bm-dark-2: #0b1a10;
+  --bm-dark-3: #071209;
+
+  /* Texto sobre oscuro */
+  --bm-text-light: #e8f5ee;
+  --bm-subtext-light: #1e3828;
+
+  /* Gradientes */
+  --bm-gradient-primary: linear-gradient(135deg, #00c896, #aaff00);
+  --bm-gradient-accent: linear-gradient(135deg, #007a50, #00c896);
+  --bm-gradient-hero: linear-gradient(135deg, #00c896 0%, #aaff00 100%);
+
+  /* Navbar */
+  --navbar-bg: rgba(6, 16, 10, 0.95);
+  --navbar-bg-scrolled: rgba(4, 12, 7, 0.98);
+  --navbar-shadow: 0 4px 20px rgba(0, 200, 150, 0.12);
+  --navbar-shadow-scrolled: 0 4px 30px rgba(0, 200, 150, 0.18);
+  --navbar-logo-border: #00c896;
+  --navbar-logo-shadow: 0 0 20px rgba(0, 200, 150, 0.3);
+  --navbar-logo-border-hover: #aaff00;
+  --navbar-logo-shadow-hover: 0 0 30px rgba(170, 255, 0, 0.35);
+  --navbar-brand-color: #e8f5ee;
+  --navbar-brand-gradient: linear-gradient(135deg, #e8f5ee 0%, #00c896 100%);
+  --navbar-brand-gradient-hover: linear-gradient(135deg, #ffffff 0%, #aaff00 100%);
+  --navbar-brand-hover-shadow: drop-shadow(0 0 10px rgba(0, 200, 150, 0.3));
+  --navbar-link-color: #3a6048;
+  --navbar-link-hover: #e8f5ee;
+  --navbar-link-overlay: linear-gradient(135deg, rgba(0, 200, 150, 0.12) 0%, rgba(170, 255, 0, 0.08) 100%);
+  --navbar-link-underline: linear-gradient(90deg, #00c896 0%, #aaff00 100%);
+  --navbar-link-underline-shadow: 0 0 12px rgba(0, 200, 150, 0.3);
+
+  /* Bordes y superficies */
+  --bm-border: rgba(0, 200, 150, 0.1);
+  --bm-border-hover: rgba(0, 200, 150, 0.25);
+  --bm-surface: rgba(0, 200, 150, 0.05);
+  --bm-surface-hover: rgba(0, 200, 150, 0.1);
+
+  /* Orbs / fondos animados */
+  --bm-orb-primary: rgba(0, 200, 150, 0.18);
+  --bm-orb-secondary: rgba(0, 122, 80, 0.18);
+  --bm-orb-accent: rgba(170, 255, 0, 0.06);
+
+  /* Grid overlay */
+  --bm-grid-color: rgba(0, 200, 150, 0.035);
+
+  /* Badges y pills */
+  --bm-badge-bg: rgba(0, 200, 150, 0.07);
+  --bm-badge-border: rgba(0, 200, 150, 0.2);
+  --bm-badge-text: #00c896;
+  --bm-badge-lime-bg: rgba(170, 255, 0, 0.07);
+  --bm-badge-lime-border: rgba(170, 255, 0, 0.15);
+  --bm-badge-lime-text: #7acc00;
+
+  /* Botones */
+  --bm-btn-primary-bg: #aaff00;
+  --bm-btn-primary-text: #06100a;
+  --bm-btn-secondary-bg: rgba(0, 200, 150, 0.06);
+  --bm-btn-secondary-text: #00c896;
+  --bm-btn-secondary-border: rgba(0, 200, 150, 0.2);
+
+  /* Stats band (fondo sólido) */
+  --bm-band-bg: #00c896;
+  --bm-band-text: #06100a;
+  --bm-band-subtext: rgba(6, 16, 10, 0.5);
+
+  /* Floating cards */
+  --bm-float-bg: rgba(7, 18, 9, 0.94);
+  --bm-float-border: rgba(0, 200, 150, 0.18);
+  --bm-float-dot: #aaff00;
+}
