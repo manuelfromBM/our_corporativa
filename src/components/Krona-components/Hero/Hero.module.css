@@ -4,9 +4,10 @@
   align-items: center;
   background: radial-gradient(
     circle at 20% 40%,
-    #1a2a4f,
-    #0b0f1a 65%);
-  color: var(--krona-text-light);
+    var(--krona-primary),
+    var(--krona-dark) 65%);
+  color: var(--krona-secondary);
+  border-color: var(--krona-gradient-accent);
   padding: 0 8%;
   overflow: hidden;
   position: relative;
@@ -29,9 +30,10 @@
 .hero h1 {
   font-size: 3.2rem;
   font-weight: 700;
+  color: var(--krona-accent);
   line-height: 1.1;
   margin-bottom: 20px;
-  color: var(--krona-text-light);
+  
 }
 
 .hero p {
@@ -47,13 +49,10 @@
 }
 
 .btnPrimary {
-  background: linear-gradient(
-  135deg,
-  #174A7E,
-  #6A4BC4);
+  background: var(--krona-gradient-primary);
   padding: 14px 28px;
   border-radius: 12px;
-  color: var(--krona-subtext-light);
+  color: var(--krona-text-light);
   font-weight: 600;
   text-decoration: none;
   box-shadow: 0 0 25px rgba(106, 75, 196, 0.35);
@@ -99,8 +98,8 @@
 
   background: radial-gradient(
     circle,
-    #6A4BC4,
-    #1BB68C
+    var(--krona-accent),
+    var(--krona-secondary)
   );
 
   filter: blur(220px);
