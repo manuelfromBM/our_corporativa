@@ -1,71 +1,81 @@
-/* ─── Sección principal ──────────────────────────────────────────────────────── */
 .section {
-  min-height: 100vh;
-  padding: 8rem 2rem;
-  background: #000000;
   position: relative;
+  min-height: 100vh;
+  padding: 7rem 2rem;
+  background: linear-gradient(180deg, var(--bm-dark-2) 0%, var(--bm-dark) 100%);
   overflow: hidden;
 }
 
-.section::before {
-  content: '';
+.section::before,
+.section::after {
+  content: "";
   position: absolute;
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(150, 248, 255, 0.08) 0%, transparent 70%);
-  top: -400px;
-  left: -400px;
-  animation: pulse 10s ease-in-out infinite;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.section::before {
+  width: 48rem;
+  height: 48rem;
+  top: -24rem;
+  left: -22rem;
+  background: radial-gradient(circle, var(--bm-orb-primary), transparent 70%);
+  animation: pulseGlow 10s ease-in-out infinite;
 }
 
 .section::after {
-  content: '';
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(138, 0, 192, 0.1) 0%, transparent 70%);
-  bottom: -300px;
-  right: -300px;
-  animation: pulse 8s ease-in-out infinite reverse;
+  width: 36rem;
+  height: 36rem;
+  right: -18rem;
+  bottom: -18rem;
+  background: radial-gradient(circle, var(--bm-orb-secondary), transparent 70%);
+  animation: pulseGlow 8s ease-in-out infinite reverse;
 }
 
-/* ─── Contenedor ─────────────────────────────────────────────────────────────── */
 .container {
-  max-width: 1400px;
-  margin: 0 auto;
   position: relative;
   z-index: 1;
+  max-width: 1320px;
+  margin: 0 auto;
 }
 
-/* ─── Encabezado ─────────────────────────────────────────────────────────────── */
 .headerSection {
+  margin-bottom: 3.75rem;
   text-align: center;
-  margin-bottom: 4rem;
-  animation: fadeInDown 1s ease-out;
+  animation: fadeInDown 0.9s ease-out;
+}
+
+.badge {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: var(--bm-badge-lime-bg);
+  border: 1px solid var(--bm-badge-lime-border);
+  color: var(--bm-badge-lime-text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .title {
-  font-size: 3.5rem;
+  margin-bottom: 0.9rem;
+  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
   font-weight: 800;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #96f8ff 0%, #8a00c0 50%, #96f8ff 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -1px;
-  animation: gradientFlow 4s ease infinite;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--bm-text-light);
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  line-height: 1.6;
+  max-width: 42rem;
+  margin: 0 auto 1.8rem;
+  color: var(--bm-subtext);
+  font-size: 1.08rem;
+  line-height: 1.75;
 }
 
-/* ─── Toggle ─────────────────────────────────────────────────────────────────── */
 .toggleWrap {
   display: flex;
   justify-content: center;
@@ -74,40 +84,41 @@
 
 .togglePill {
   display: inline-flex;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
+  gap: 0.25rem;
   padding: 4px;
-  gap: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--bm-border);
+  backdrop-filter: blur(10px);
 }
 
 .toggleBtn {
-  padding: 10px 28px;
-  border-radius: 999px;
+  padding: 0.7rem 1.5rem;
   border: 1px solid transparent;
+  border-radius: 999px;
   background: transparent;
+  color: var(--bm-subtext);
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
   transition: all 0.25s ease;
 }
 
 .toggleBtn:hover:not(.toggleBtnActive) {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--bm-text-light);
 }
 
 .toggleBtnActive {
-  background: rgba(150, 248, 255, 0.08);
-  color: #96f8ff;
-  border-color: rgba(150, 248, 255, 0.3);
+  background: var(--bm-surface-hover);
+  color: var(--bm-primary);
+  border-color: var(--bm-border-hover);
 }
 
 .toggleSubtitle {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.3);
-  margin: 0.5rem 0 0;
   min-height: 20px;
+  margin: 0.45rem 0 0;
+  color: var(--bm-subtext);
+  font-size: 0.85rem;
   transition: opacity 0.25s ease;
 }
 
@@ -115,156 +126,110 @@
   opacity: 0;
 }
 
-/* ─── Grid ───────────────────────────────────────────────────────────────────── */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  animation: fadeInUp 1s ease-out 0.3s backwards;
+  gap: 1.6rem;
+  animation: fadeInUp 1s ease-out 0.25s backwards;
 }
 
-/* ─── Card ───────────────────────────────────────────────────────────────────── */
 .card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.95rem;
+  padding: 1.45rem;
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(7, 18, 9, 0.86) 100%);
+  border: 1px solid var(--bm-border);
+  backdrop-filter: blur(12px);
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
 }
 
 .card::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 3px;
   background: linear-gradient(90deg, var(--card-color), transparent);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.5s ease;
-}
-
-.card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(150, 248, 255, 0.08) 0%,
-    transparent 50%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
+  transition: transform 0.35s ease;
 }
 
 .cardGlow {
   position: absolute;
   inset: -2px;
-  background: linear-gradient(135deg, var(--card-color), transparent);
-  border-radius: 24px;
-  opacity: 0;
-  filter: blur(20px);
-  transition: opacity 0.5s ease;
   z-index: -1;
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--card-color), transparent 65%);
+  opacity: 0;
+  filter: blur(24px);
+  transition: opacity 0.4s ease;
 }
 
 .card:hover {
-  transform: translateY(-12px) scale(1.03);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: var(--card-color);
+  transform: translateY(-8px);
+  border-color: color-mix(in srgb, var(--card-color) 50%, transparent);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(7, 18, 9, 0.92) 100%);
   box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
-    0 0 0 1px var(--card-color) inset;
+    0 22px 50px rgba(0, 0, 0, 0.35),
+    0 0 0 1px color-mix(in srgb, var(--card-color) 28%, transparent) inset;
 }
 
 .card:hover::before {
   transform: scaleX(1);
 }
 
-.card:hover::after {
-  opacity: 1;
-}
-
 .card:hover .cardGlow {
-  opacity: 0.3;
+  opacity: 0.25;
 }
 
-/* ─── Card header ────────────────────────────────────────────────────────────── */
 .cardHeader {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  justify-content: space-between;
 }
 
 .iconWrapper {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, rgba(150, 248, 255, 0.1), rgba(138, 0, 192, 0.1));
-  border-radius: 16px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(150, 248, 255, 0.2);
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.iconWrapper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--card-color), transparent);
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--card-color) 12%, transparent), rgba(255, 255, 255, 0.02));
+  border: 1px solid color-mix(in srgb, var(--card-color) 30%, transparent);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .card:hover .iconWrapper {
-  transform: rotate(5deg) scale(1.1);
-  border-color: var(--card-color);
-  box-shadow: 0 8px 24px rgba(150, 248, 255, 0.3);
-}
-
-.card:hover .iconWrapper::before {
-  opacity: 0.2;
+  transform: rotate(4deg) scale(1.06);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--card-color) 18%, transparent);
 }
 
 .icon {
-  font-size: 1.5rem;
-  font-weight: 600;
   color: var(--card-color);
-  transition: all 0.4s ease;
-  position: relative;
-  z-index: 1;
-}
-
-.card:hover .icon {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 8px var(--card-color));
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 .cardNumber {
-  font-size: 2.5rem;
+  color: rgba(255, 255, 255, 0.06);
+  font-size: 2.45rem;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.05);
   line-height: 1;
-  transition: all 0.4s ease;
+  transition: color 0.3s ease;
 }
 
 .card:hover .cardNumber {
-  color: rgba(150, 248, 255, 0.1);
+  color: color-mix(in srgb, var(--card-color) 18%, rgba(255, 255, 255, 0.06));
 }
 
-/* ─── Card body ──────────────────────────────────────────────────────────────── */
 .cardContent {
   flex: 1;
   transition: opacity 0.25s ease;
@@ -275,169 +240,349 @@
 }
 
 .cardTitle {
-  font-size: 1.2rem;
+  margin: 0 0 0.55rem;
+  color: var(--bm-text-light);
+  font-size: 1.18rem;
   font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 0.5rem;
-  transition: all 0.3s ease;
   line-height: 1.3;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .card:hover .cardTitle {
   color: var(--card-color);
-  transform: translateX(5px);
+  transform: translateX(4px);
 }
 
 .cardDescription {
-  font-size: 0.9rem;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.55);
   margin: 0;
-  transition: color 0.3s ease;
+  color: var(--bm-subtext);
+  font-size: 0.94rem;
+  line-height: 1.72;
+  transition: color 0.25s ease;
 }
 
 .card:hover .cardDescription {
-  color: rgba(255, 255, 255, 0.85);
+  color: color-mix(in srgb, var(--bm-text-light) 82%, transparent);
 }
 
-/* ─── Card footer ────────────────────────────────────────────────────────────── */
 .cardFooter {
   display: flex;
   justify-content: flex-end;
-  padding-top: 0.8rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
   margin-top: auto;
-  transition: border-color 0.3s ease;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  transition: border-color 0.25s ease;
 }
 
 .card:hover .cardFooter {
-  border-color: rgba(150, 248, 255, 0.2);
+  border-color: color-mix(in srgb, var(--card-color) 22%, transparent);
 }
 
 .learnMore {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
+  color: var(--bm-subtext);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .card:hover .learnMore {
   color: var(--card-color);
-  transform: translateX(5px);
+  transform: translateX(4px);
 }
 
-/* ─── Partículas ─────────────────────────────────────────────────────────────── */
 .particles {
   position: absolute;
   inset: 0;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 0;
 }
 
 .particle {
   position: absolute;
   width: 4px;
   height: 4px;
-  background: #96f8ff;
   border-radius: 50%;
-  opacity: 0.3;
-  animation: float 15s infinite ease-in-out;
+  background: var(--bm-primary);
+  opacity: 0.22;
+  animation: particleFloat 15s infinite ease-in-out;
 }
 
-.particle:nth-child(1)  { left: 10%; animation-delay: 0s; }
-.particle:nth-child(2)  { left: 20%; animation-delay: 2s; }
-.particle:nth-child(3)  { left: 30%; animation-delay: 4s; }
-.particle:nth-child(4)  { left: 40%; animation-delay: 1s; }
-.particle:nth-child(5)  { left: 50%; animation-delay: 3s; }
-.particle:nth-child(6)  { left: 60%; animation-delay: 5s; }
-.particle:nth-child(7)  { left: 70%; animation-delay: 2.5s; }
-.particle:nth-child(8)  { left: 80%; animation-delay: 4.5s; }
-.particle:nth-child(9)  { left: 90%; animation-delay: 1.5s; }
-.particle:nth-child(10) { left: 15%; animation-delay: 3.5s; }
-.particle:nth-child(11) { left: 25%; animation-delay: 0.5s; }
-.particle:nth-child(12) { left: 35%; animation-delay: 2.8s; }
-.particle:nth-child(13) { left: 45%; animation-delay: 4.2s; }
-.particle:nth-child(14) { left: 55%; animation-delay: 1.8s; }
-.particle:nth-child(15) { left: 65%; animation-delay: 3.2s; }
-.particle:nth-child(16) { left: 75%; animation-delay: 0.8s; }
-.particle:nth-child(17) { left: 85%; animation-delay: 2.2s; }
-.particle:nth-child(18) { left: 95%; animation-delay: 4.8s; }
-.particle:nth-child(19) { left: 12%; animation-delay: 1.2s; }
-.particle:nth-child(20) { left: 88%; animation-delay: 3.8s; }
+.particle:nth-child(1) {
+  left: 10%;
+  animation-delay: 0s;
+}
 
-/* ─── Stagger animación cards ────────────────────────────────────────────────── */
-.card:nth-child(1) { animation: slideInCard 0.8s ease-out 0.1s backwards; }
-.card:nth-child(2) { animation: slideInCard 0.8s ease-out 0.2s backwards; }
-.card:nth-child(3) { animation: slideInCard 0.8s ease-out 0.3s backwards; }
-.card:nth-child(4) { animation: slideInCard 0.8s ease-out 0.4s backwards; }
-.card:nth-child(5) { animation: slideInCard 0.8s ease-out 0.5s backwards; }
-.card:nth-child(6) { animation: slideInCard 0.8s ease-out 0.6s backwards; }
-.card:nth-child(7) { animation: slideInCard 0.8s ease-out 0.7s backwards; }
-.card:nth-child(8) { animation: slideInCard 0.8s ease-out 0.8s backwards; }
+.particle:nth-child(2) {
+  left: 20%;
+  animation-delay: 2s;
+}
 
-/* ─── Keyframes ──────────────────────────────────────────────────────────────── */
+.particle:nth-child(3) {
+  left: 30%;
+  animation-delay: 4s;
+}
+
+.particle:nth-child(4) {
+  left: 40%;
+  animation-delay: 1s;
+}
+
+.particle:nth-child(5) {
+  left: 50%;
+  animation-delay: 3s;
+}
+
+.particle:nth-child(6) {
+  left: 60%;
+  animation-delay: 5s;
+}
+
+.particle:nth-child(7) {
+  left: 70%;
+  animation-delay: 2.5s;
+}
+
+.particle:nth-child(8) {
+  left: 80%;
+  animation-delay: 4.5s;
+}
+
+.particle:nth-child(9) {
+  left: 90%;
+  animation-delay: 1.5s;
+}
+
+.particle:nth-child(10) {
+  left: 15%;
+  animation-delay: 3.5s;
+}
+
+.particle:nth-child(11) {
+  left: 25%;
+  animation-delay: 0.5s;
+}
+
+.particle:nth-child(12) {
+  left: 35%;
+  animation-delay: 2.8s;
+}
+
+.particle:nth-child(13) {
+  left: 45%;
+  animation-delay: 4.2s;
+}
+
+.particle:nth-child(14) {
+  left: 55%;
+  animation-delay: 1.8s;
+}
+
+.particle:nth-child(15) {
+  left: 65%;
+  animation-delay: 3.2s;
+}
+
+.particle:nth-child(16) {
+  left: 75%;
+  animation-delay: 0.8s;
+}
+
+.particle:nth-child(17) {
+  left: 85%;
+  animation-delay: 2.2s;
+}
+
+.particle:nth-child(18) {
+  left: 95%;
+  animation-delay: 4.8s;
+}
+
+.particle:nth-child(19) {
+  left: 12%;
+  animation-delay: 1.2s;
+}
+
+.particle:nth-child(20) {
+  left: 88%;
+  animation-delay: 3.8s;
+}
+
+.card:nth-child(1) {
+  animation: slideInCard 0.8s ease-out 0.1s backwards;
+}
+
+.card:nth-child(2) {
+  animation: slideInCard 0.8s ease-out 0.18s backwards;
+}
+
+.card:nth-child(3) {
+  animation: slideInCard 0.8s ease-out 0.26s backwards;
+}
+
+.card:nth-child(4) {
+  animation: slideInCard 0.8s ease-out 0.34s backwards;
+}
+
+.card:nth-child(5) {
+  animation: slideInCard 0.8s ease-out 0.42s backwards;
+}
+
+.card:nth-child(6) {
+  animation: slideInCard 0.8s ease-out 0.5s backwards;
+}
+
+.card:nth-child(7) {
+  animation: slideInCard 0.8s ease-out 0.58s backwards;
+}
+
+.card:nth-child(8) {
+  animation: slideInCard 0.8s ease-out 0.66s backwards;
+}
+
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-40px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideInCard {
-  from { opacity: 0; transform: translateY(40px) scale(0.95); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(34px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1);    opacity: 0.3; }
-  50%       { transform: scale(1.15); opacity: 0.6; }
+@keyframes pulseGlow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.32;
+  }
+
+  50% {
+    transform: scale(1.12);
+    opacity: 0.55;
+  }
 }
 
-@keyframes gradientFlow {
-  0%, 100% { background-position: 0% 50%; }
-  50%       { background-position: 100% 50%; }
+@keyframes particleFloat {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.18;
+  }
+
+  50% {
+    transform: translateY(-100vh) translateX(18px);
+    opacity: 0.42;
+  }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) translateX(0);    opacity: 0.3; }
-  50%       { transform: translateY(-100vh) translateX(20px); opacity: 0.6; }
-}
-
-/* ─── Responsive ─────────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
+  .section {
+    padding: 6rem 1.5rem;
+  }
+
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    gap: 1.4rem;
   }
 }
 
 @media (max-width: 768px) {
-  .section  { padding: 5rem 1.5rem; }
-  .title    { font-size: 2.5rem; }
-  .subtitle { font-size: 1rem; }
-  .grid     { grid-template-columns: 1fr; gap: 1.5rem; }
-  .card     { padding: 1.75rem; }
+  .section {
+    padding: 5rem 1.25rem;
+  }
 
-  .iconWrapper { width: 60px; height: 60px; }
-  .icon        { font-size: 1.5rem; }
-  .cardTitle   { font-size: 1.2rem; }
+  .title {
+    font-size: 2.3rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .toggleBtn {
+    padding: 0.7rem 1rem;
+    font-size: 0.84rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .card {
+    padding: 1.3rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .section       { padding: 4rem 1rem; }
-  .title         { font-size: 2rem; }
-  .headerSection { margin-bottom: 3rem; }
+  .section {
+    padding: 4rem 1rem;
+  }
 
-  .iconWrapper  { width: 55px; height: 55px; }
-  .icon         { font-size: 1.4rem; }
-  .cardNumber   { font-size: 2.5rem; }
-  .cardTitle    { font-size: 1.1rem; }
-  .cardDescription { font-size: 0.9rem; }
+  .title {
+    font-size: 2rem;
+  }
+
+  .headerSection {
+    margin-bottom: 3rem;
+  }
+
+  .badge {
+    font-size: 0.72rem;
+  }
+
+  .togglePill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .toggleBtn {
+    flex: 1;
+  }
+
+  .iconWrapper {
+    width: 52px;
+    height: 52px;
+  }
+
+  .cardNumber {
+    font-size: 2.2rem;
+  }
+
+  .cardTitle {
+    font-size: 1.05rem;
+  }
+
+  .cardDescription {
+    font-size: 0.9rem;
+  }
 }

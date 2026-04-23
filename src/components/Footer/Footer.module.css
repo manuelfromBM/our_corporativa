@@ -1,13 +1,14 @@
 .FooterContainer{
-    background-color: #000000;
+    background-color: var(--bm-dark);
+    color: var(--bm-text-light);
+    position: relative;
 }
 
 .BrandGradient {
-    background: linear-gradient(135deg, #96f8ff 0%, #8a00c0 100%);
+    background: var(--bm-gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 3s ease infinite;
 }
 
 @keyframes gradientShift {
@@ -20,21 +21,15 @@
 }
 
 .FooterDescription {
-    color: #b8b8b8;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    color: var(--bm-subtext);
 }
 
 .FooterSubtitle {
-    color: #96f8ff;
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
+    color: var(--bm-primary);
+    border-bottom: 2px solid transparent;
     padding-bottom: 0.5rem;
+    position: relative;
+
 }
 
 .FooterSubtitle::after {
@@ -44,13 +39,12 @@
     left: 0;
     width: 40px;
     height: 2px;
-    background: linear-gradient(90deg, #96f8ff 0%, #8a00c0 100%);
+    background: var(--bm-gradient-primary);
 }
 
 .SocialLinks {
     display: flex;
     gap: 1rem;
-    margin-top: 1.5rem;
 }
 
 .SocialLink {
@@ -59,20 +53,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(150, 248, 255, 0.1);
-    border: 2px solid #96f8ff;
+    background: var(--bm-surface);
+    border: 2px solid var(--bm-primary);
     border-radius: 50%;
-    color: #96f8ff;
-    font-size: 1.2rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    text-decoration: none;
+    color: var(--bm-primary);
+    transition: all 0.3s ease;
 }
 
 .SocialLink:hover {
-    background: linear-gradient(135deg, #96f8ff 0%, #8a00c0 100%);
-    color: #ffffff;
-    transform: translateY(-5px) rotate(5deg);
-    box-shadow: 0 10px 25px rgba(150, 248, 255, 0.4);
+    background: var(--bm-gradient-primary);
+    color: var(--bm-dark);
+    transform: translateY(-5px);
+    box-shadow: var(--navbar-logo-shadow);
 }
 
 .LinkList {
@@ -86,12 +78,9 @@
 }
 
 .FooterLink {
-    color: #b8b8b8 !important;
+    color: var(--bm-subtext) !important;
     text-decoration: none;
     transition: all 0.3s ease;
-    font-weight: 500;
-    font-size: 0.95rem;
-    display: inline-block;
     position: relative;
 }
 
@@ -101,11 +90,11 @@
     left: -20px;
     opacity: 0;
     transition: all 0.3s ease;
-    color: #8a00c0;
+    color: var(--bm-secondary);
 }
 
 .FooterLink:hover {
-    color: #96f8ff !important;
+    color: var(--bm-text-light) !important;
     padding-left: 20px;
 }
 
@@ -124,10 +113,9 @@
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    color: #b8b8b8;
+    color: var(--bm-subtext);
     text-decoration: none;
     transition: all 0.3s ease;
-    font-size: 0.95rem;
 }
 
 .ContactItem:hover {
@@ -136,21 +124,20 @@
 }
 
 .ContactIcon {
-    color: #8a00c0;
-    font-size: 1.1rem;
-    min-width: 20px;
+    color: var(--bm-primary);
     transition: all 0.3s ease;
 }
 
 .ContactItem:hover .ContactIcon {
-    color: #96f8ff;
+    color: var(--bm-secondary);
     transform: scale(1.2);
 }
 
 .FooterDivider {
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, #8a00c0 50%, transparent 100%);
-    margin: 2rem 0 1.5rem;
+    background: var(--bm-gradient-primary);
+    opacity: 0.3;
+    margin: 2rem 0;
 }
 
 .FooterBottom {
@@ -164,33 +151,25 @@
 }
 
 .FooterText {
-    color: #808080;
-    font-size: 0.9rem;
-    margin: 0;
+    color: var(--bm-subtext-light);
 }
 
 .LegalLinksCol {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.5rem;
+    color: var(--bm-subtext-light) !important;
+    transition: all 0.3s ease;
 }
 
 .LegalLink {
-    color: #808080 !important;
-    text-decoration: none;
-    font-size: 0.9rem;
+    color: var(--bm-subtext-light) !important;
     transition: all 0.3s ease;
-    padding: 0.2rem 0.5rem;
 }
 
 .LegalLink:hover {
-    color: #96f8ff !important;
+    color: var(--bm-primary) !important;
 }
 
 .Separator {
-    color: #404040;
-    margin: 0 0.3rem;
+    color: var(--bm-border);
 }
 
 .GlowEffect {
@@ -199,10 +178,10 @@
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, #8a00c0 30%, #96f8ff 50%, #8a00c0 70%, transparent 100%);
-    opacity: 0.5;
-    animation: glowPulse 3s ease-in-out infinite;
+    height: 2px;
+    background: var(--bm-gradient-primary);
+    opacity: 0.4;
+    filter: blur(4px);
 }
 
 @keyframes glowPulse {
