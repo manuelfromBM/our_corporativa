@@ -26,10 +26,10 @@ const NavbarPrincipal: React.FC = () => {
     }, [menuOpen]);
 
     const navItems = [
-        { href: "#Inicio", label: "Inicio" },
-        { href: "#Servicios", label: "Servicios" },
-        { href: "#Proyectos", label: "Proyectos" },
-        { href: "#Nosotros", label: "Nosotros" },
+        { href: "/#inicio", label: "Inicio" },
+        { href: "/#proyectos", label: "Proyectos" },
+        { href: "/#nosotros", label: "Nosotros" },
+        { href: "/#servicios", label: "Servicios" },
     ];
 
     const handleNavClick = () => setMenuOpen(false);
@@ -40,10 +40,12 @@ const NavbarPrincipal: React.FC = () => {
                 <div className={styles.NavInner}>
                     {/* Izquierda: Brand */}
                     <div className={styles.BrandContainer}>
-                        <div className={styles.LogoBadge}>BM</div>
-                        <a href="#Inicio" className={styles.Brand} onClick={handleNavClick}>
+                        <img src="/BM-imagenes/logodefinitivonav.jpeg" alt="BM Code Lab" className={styles.imgLogo} />
+
+                        {/* <div className={styles.LogoBadge}>BM</div>
+                        <a href="/#inicio" className={styles.Brand} onClick={handleNavClick}>
                             BM <span className={styles.BrandAccent}>CODE LAB</span>
-                        </a>
+                        </a> */}
                     </div>
 
                     {/* Centro: Nav links (desktop) */}
@@ -61,7 +63,7 @@ const NavbarPrincipal: React.FC = () => {
 
                     {/* Derecha: CTA (desktop) + Hamburger (mobile) */}
                     <div className={styles.RightSection}>
-                        <a href="#Contacto" className={styles.CTAButton}>
+                        <a href="/#contacto" className={styles.CTAButton} onClick={handleNavClick}>
                             Contáctanos
                         </a>
 
@@ -94,7 +96,7 @@ const NavbarPrincipal: React.FC = () => {
                         </a>
                     ))}
                     <a
-                        href="#Contacto"
+                        href="/#contacto"
                         className={styles.MobileCTAButton}
                         style={{ animationDelay: `${navItems.length * 0.06}s` }}
                         onClick={handleNavClick}

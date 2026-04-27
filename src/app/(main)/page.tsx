@@ -4,17 +4,18 @@ import Servicios from "@/components/servicios/Servicios";
 import HeroBranch from '@/components/HeroSection/Hero'
 import AppPromo from '@/components/PromocionK/PromocionK'
 import NosotrosSection from '@/components/Nosotros/Nosotros'
-// import Inicio from "@/components/Home/Home";
-
+import SeccionPublicoObjetivo from "@/components/publico_objetivo/PublicoObjetivo";
+import SeccionNuestroProceso from "@/components/NuestroProceso/NuestroProceso";
 
 export default function Home() {
   return (
     <>
-      {/* <Inicio /> */}
       <HeroBranch />
-      <AppPromo />
-      <NosotrosSection />
       <Servicios />
+      <SeccionPublicoObjetivo />
+      <SeccionNuestroProceso />
+      <NosotrosSection />
+      <AppPromo />
       <SeccionContacto />
     </>
   )

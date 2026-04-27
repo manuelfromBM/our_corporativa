@@ -12,20 +12,35 @@ export default function SeccionContacto() {
     mensaje: "",
   });
 
+  const [estado, setEstado] = useState<'idle' | 'cargando' | 'ok' | 'error'>('idle')
+
   const cambioValor = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const subidaDatos = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Formulario enviado:", form);
-  };
+  const subidaDatos = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setEstado('cargando')
+
+    const res = await fetch('/api/contacto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    })
+
+    if (!res.ok) {
+      setEstado('error')
+      return
+    }
+
+    setEstado('ok')
+    setForm({ nombre: '', email: '', telefono: '', tipoProyecto: '', mensaje: '' }) // limpia el form
+  }
 
   return (
-    <section id="Contacto" className={styles.section}>
-      <span id="contacto" className={styles.anchorAlias} aria-hidden="true" />
+    <section id="contacto" className={styles.section}>
 
       <div className={styles.inner}>
         <div className={styles.header}>
@@ -85,14 +100,18 @@ export default function SeccionContacto() {
                 name="tipoProyecto"
                 value={form.tipoProyecto}
                 onChange={cambioValor}
-                className={styles.input}
+                className={`${styles.input} ${styles.select} ${!form.tipoProyecto ? styles.selectPlaceholder : ""
+                  }`}
               >
-                <option value="">Selecciona una opcion</option>
+                <option value="" disabled>
+                  Selecciona una opcion
+                </option>
                 <option value="Pagina web">Pagina web</option>
                 <option value="App movil">App movil</option>
                 <option value="Sistema a medida">Sistema a medida</option>
                 <option value="E-commerce">E-commerce</option>
                 <option value="Consultoria">Consultoria</option>
+                <option value="Mantención / Soporte">Mantención / Soporte</option>
                 <option value="Otro">Otro</option>
               </select>
             </label>
@@ -110,9 +129,20 @@ export default function SeccionContacto() {
             </label>
           </div>
 
-          <button type="submit" className={styles.submitButton}>
-            Enviar mensaje
+          <button type="submit" className={styles.submitButton} disabled={estado === 'cargando'}>
+            {estado === 'cargando' ? 'Enviando...' : 'Enviar mensaje'}
           </button>
+          {estado === 'ok' && (
+            <p className={styles.mensajeOk}>
+              ✅ ¡Mensaje enviado! Te responderemos en menos de 24 horas.
+            </p>
+          )}
+
+          {estado === 'error' && (
+            <p className={styles.mensajeError}>
+              ❌ Hubo un error al enviar. Intenta nuevamente.
+            </p>
+          )}
         </form>
       </div>
     </section>

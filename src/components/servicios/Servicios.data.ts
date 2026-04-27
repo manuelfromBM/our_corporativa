@@ -47,7 +47,7 @@ const SERVICIOS: Servicio[] = [
       desc: "Apps nativas y cross-platform con React Native, integracion con APIs, notificaciones y publicacion en tiendas.",
     },
     cas: {
-      titulo: "Tu app para iOS y Android",
+      titulo: "Tu app para iOS & Android",
       desc: "Lanzamos tu aplicacion en ambas tiendas para que tus clientes la descarguen y la usen sin fricciones.",
     },
   },
@@ -69,7 +69,7 @@ const SERVICIOS: Servicio[] = [
     icon: "SEC",
     accentColor: "#00d6a0",
     tec: {
-      titulo: "Seguridad y gestion",
+      titulo: "Seguridad & gestion",
       desc: "Control de acceso, politicas de seguridad, gestion de dispositivos y buenas practicas para proteger tus datos.",
     },
     cas: {
@@ -82,7 +82,7 @@ const SERVICIOS: Servicio[] = [
     icon: "UI",
     accentColor: "#8cff4f",
     tec: {
-      titulo: "UX y UI",
+      titulo: "UX & UI",
       desc: "Disenamos experiencias digitales claras, sistemas visuales consistentes y flujos centrados en el usuario.",
     },
     cas: {
@@ -95,7 +95,7 @@ const SERVICIOS: Servicio[] = [
     icon: "DEV",
     accentColor: "#11b886",
     tec: {
-      titulo: "DevOps y hosting",
+      titulo: "DevOps & hosting",
       desc: "Infraestructura, CI/CD, observabilidad, automatizacion de despliegues y entornos listos para crecer sin dolor.",
     },
     cas: {
@@ -108,7 +108,7 @@ const SERVICIOS: Servicio[] = [
     icon: "OPS",
     accentColor: "#3a6048",
     tec: {
-      titulo: "Soporte y mantenimiento",
+      titulo: "Soporte & mantenimiento",
       desc: "Monitoreo, mejoras continuas, parches, correccion de incidentes y acompanamiento tecnico despues del lanzamiento.",
     },
     cas: {

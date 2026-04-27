@@ -3,7 +3,7 @@ import styles from './Hero.module.css';
 
 export default function Hero() {
     return (
-        <section className={styles.hero}>
+        <section id="inicio" className={styles.hero}>
             <div className={styles.heroBackground}>
                 <div className={`${styles.gradientOrb} ${styles.orb1}`}></div>
                 <div className={`${styles.gradientOrb} ${styles.orb2}`}></div>
@@ -30,13 +30,13 @@ export default function Hero() {
                     </p>
 
                     <div className={styles.heroButtons}>
-                        <a href="#contacto" className={styles.btnPrimary}>
+                        <a href="/#contacto" className={styles.btnPrimary}>
                             Nuestros trabajos
                             <svg className={styles.btnIcon} viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#servicios" className={styles.btnSecondary}>
+                        <a href="/#servicios" className={styles.btnSecondary}>
                             Ver Servicios
                         </a>
                     </div>

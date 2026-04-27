@@ -4,7 +4,7 @@ import styles from "./PromocionK.module.css";
 
 const teamImages = [
   {
-    src: "/EquipoKronaAnime.jpg",
+    src: "/BM-imagenes/img_krona_1.jpg",
     alt: "Equipo de desarrollo",
     label: "Nuestro equipo",
   },
@@ -14,7 +14,7 @@ const teamImages = [
     label: "Innovacion",
   },
   {
-    src: "/Work.jpg",
+    src: "/BM-imagenes/fotogrupal.png",
     alt: "Experiencia de usuario",
     label: "Experiencia",
   },
@@ -22,7 +22,7 @@ const teamImages = [
 
 export default function AppPromo() {
   return (
-    <section className={styles.container}>
+    <section id="proyectos" className={styles.container}>
       <div className={styles.content}>
         <span className={styles.badge}>Producto propio</span>
 

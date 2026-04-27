@@ -20,6 +20,11 @@
     }
 }
 
+.imgFooter{
+    width: 150px;
+    height: auto;
+}
+
 .FooterDescription {
     color: var(--bm-subtext);
 }

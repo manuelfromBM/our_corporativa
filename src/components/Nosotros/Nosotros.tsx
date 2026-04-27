@@ -4,7 +4,7 @@ import { team } from './Nosotros.team'
 
 export default function NosotrosSection() {
   return (
-    <section id="Nosotros" className={styles.section}>
+    <section id="nosotros" className={styles.section}>
       <div className={styles.container}>
 
         {/* Bloque de texto — ahora centrado arriba */}
@@ -29,7 +29,7 @@ export default function NosotrosSection() {
             trabajamos.
           </p>
 
-          <div className={styles.stats}>
+          {/* <div className={styles.stats}>
             <div className={styles.stat}>
               <span className={styles.statNumber}>50+</span>
               <span className={styles.statLabel}>Proyectos</span>
@@ -42,7 +42,7 @@ export default function NosotrosSection() {
               <span className={styles.statNumber}>5+</span>
               <span className={styles.statLabel}>Años</span>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Grilla de tarjetas del equipo */}

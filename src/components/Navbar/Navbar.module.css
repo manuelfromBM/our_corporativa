@@ -44,6 +44,13 @@
     flex: 0 0 auto;
 }
 
+
+.imgLogo {
+    width: auto;
+    height: 50px;
+    object-fit: contain;
+}
+
 .LogoBadge {
     width: 34px;
     height: 34px;
