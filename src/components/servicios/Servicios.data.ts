@@ -5,8 +5,11 @@ export interface ServicioContenido {
 
 export interface Servicio {
   num: string;
+  slug: string;
   icon: string;
   accentColor: string;
+  imageSrc: string;   
+  imageAlt: string;
   tec: ServicioContenido;
   cas: ServicioContenido;
 }
@@ -14,8 +17,11 @@ export interface Servicio {
 const SERVICIOS: Servicio[] = [
   {
     num: "01",
+    slug: "consultoria-tecnica",
     icon: "IA",
     accentColor: "#00c896",
+    imageSrc: "/BM-imagenes/imgservicios/img1.jpeg",
+    imageAlt: "Consultoría técnica BM Code Lab",
     tec: {
       titulo: "Consultoria tecnica",
       desc: "Auditoria de infraestructura, arquitectura de sistemas y definicion de roadmap tecnologico alineado a tu stack actual.",
@@ -27,8 +33,11 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "02",
+    slug: "desarrollo-web",
     icon: "</>",
     accentColor: "#aaff00",
+    imageSrc: "/BM-imagenes/imgservicios/img2.jfif",
+    imageAlt: "Desarrollo web BM Code Lab",
     tec: {
       titulo: "Desarrollo web",
       desc: "Construimos plataformas con Next.js, APIs modernas, integraciones y despliegues optimizados para velocidad y escalabilidad.",
@@ -40,8 +49,11 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "03",
+    slug: "aplicaciones-moviles",
     icon: "APP",
     accentColor: "#007a50",
+    imageSrc: "/BM-imagenes/imgservicios/img3.webp",
+    imageAlt: "Aplicaciones móviles BM Code Lab",
     tec: {
       titulo: "Aplicaciones moviles",
       desc: "Apps nativas y cross-platform con React Native, integracion con APIs, notificaciones y publicacion en tiendas.",
@@ -53,8 +65,11 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "04",
+    slug: "integracion-ia",
     icon: "AI",
     accentColor: "#7acc00",
+    imageSrc: "/BM-imagenes/imgservicios/img4.jpg",
+    imageAlt: "Integración de IA BM Code Lab",
     tec: {
       titulo: "Integracion de IA",
       desc: "Automatizaciones, asistentes, busqueda inteligente y flujos con LLMs conectados a datos y procesos reales.",
@@ -66,8 +81,11 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "05",
+    slug: "seguridad-gestion",
     icon: "SEC",
     accentColor: "#00d6a0",
+    imageSrc: "/BM-imagenes/imgservicios/img5.avif",
+    imageAlt: "Seguridad y gestión BM Code Lab",
     tec: {
       titulo: "Seguridad & gestion",
       desc: "Control de acceso, politicas de seguridad, gestion de dispositivos y buenas practicas para proteger tus datos.",
@@ -79,8 +97,11 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "06",
+    slug: "ux-ui",
     icon: "UI",
     accentColor: "#8cff4f",
+    imageSrc: "/BM-imagenes/imgservicios/img6.webp",
+    imageAlt: "Diseño UX y UI BM Code Lab",
     tec: {
       titulo: "UX & UI",
       desc: "Disenamos experiencias digitales claras, sistemas visuales consistentes y flujos centrados en el usuario.",
@@ -92,8 +113,11 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "07",
+    slug: "devops-hosting",
     icon: "DEV",
     accentColor: "#11b886",
+    imageSrc: "/BM-imagenes/imgservicios/img7.jpg",
+    imageAlt: "DevOps y hosting BM Code Lab",
     tec: {
       titulo: "DevOps & hosting",
       desc: "Infraestructura, CI/CD, observabilidad, automatizacion de despliegues y entornos listos para crecer sin dolor.",
@@ -105,8 +129,11 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "08",
+    slug: "soporte-mantenimiento",
     icon: "OPS",
     accentColor: "#3a6048",
+    imageSrc: "/BM-imagenes/imgservicios/img8.webp",
+    imageAlt: "Soporte y mantenimiento BM Code Lab",
     tec: {
       titulo: "Soporte & mantenimiento",
       desc: "Monitoreo, mejoras continuas, parches, correccion de incidentes y acompanamiento tecnico despues del lanzamiento.",

@@ -1,7 +1,8 @@
-.FooterContainer{
+.FooterContainer {
     background-color: var(--bm-dark);
     color: var(--bm-text-light);
     position: relative;
+    padding: 4rem 0 0;
 }
 
 .BrandGradient {
@@ -11,30 +12,45 @@
     background-clip: text;
 }
 
-@keyframes gradientShift {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
+.imgFooter {
+    width: 140px;
+    height: auto;
+    margin-bottom: 1rem;
+    display: block;
 }
 
-.imgFooter{
-    width: 150px;
-    height: auto;
+.FooterMain {
+    padding-bottom: 2rem;
+}
+
+.FooterCol {
+    padding-right: 2rem;
+    margin-bottom: 2rem;
+}
+
+.BrandSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .FooterDescription {
     color: var(--bm-subtext);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
 }
 
 .FooterSubtitle {
     color: var(--bm-primary);
-    border-bottom: 2px solid transparent;
-    padding-bottom: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
     position: relative;
-
+    border-bottom: none;
 }
 
 .FooterSubtitle::after {
@@ -42,33 +58,38 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 40px;
+    width: 32px;
     height: 2px;
     background: var(--bm-gradient-primary);
+    border-radius: 2px;
 }
 
 .SocialLinks {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
 }
 
 .SocialLink {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--bm-surface);
-    border: 2px solid var(--bm-primary);
+    border: 1px solid var(--bm-border-hover);
     border-radius: 50%;
     color: var(--bm-primary);
+    font-size: 0.95rem;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .SocialLink:hover {
     background: var(--bm-gradient-primary);
     color: var(--bm-dark);
-    transform: translateY(-5px);
+    border-color: transparent;
+    transform: translateY(-4px);
     box-shadow: var(--navbar-logo-shadow);
 }
 
@@ -76,31 +97,33 @@
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.LinkList li {
-    margin-bottom: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
 }
 
 .FooterLink {
     color: var(--bm-subtext) !important;
     text-decoration: none;
-    transition: all 0.3s ease;
+    font-size: 0.875rem;
+    transition: all 0.25s ease;
     position: relative;
+    padding-left: 0;
+    display: inline-block;
 }
 
 .FooterLink::before {
     content: '→';
     position: absolute;
-    left: -20px;
+    left: -18px;
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     color: var(--bm-secondary);
 }
 
 .FooterLink:hover {
     color: var(--bm-text-light) !important;
-    padding-left: 20px;
+    padding-left: 18px;
 }
 
 .FooterLink:hover::before {
@@ -111,43 +134,46 @@
 .ContactInfo {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.85rem;
 }
 
 .ContactItem {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.75rem;
     color: var(--bm-subtext);
     text-decoration: none;
-    transition: all 0.3s ease;
+    font-size: 0.875rem;
+    transition: all 0.25s ease;
+    line-height: 1.4;
 }
 
 .ContactItem:hover {
-    color: #96f8ff;
-    transform: translateX(5px);
+    color: var(--bm-text-light);
+    transform: translateX(4px);
 }
 
 .ContactIcon {
     color: var(--bm-primary);
-    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
 }
 
 .ContactItem:hover .ContactIcon {
     color: var(--bm-secondary);
-    transform: scale(1.2);
 }
 
 .FooterDivider {
     height: 1px;
-    background: var(--bm-gradient-primary);
-    opacity: 0.3;
-    margin: 2rem 0;
+    background: var(--bm-border);
+    margin: 0;
 }
 
 .FooterBottom {
     display: flex;
     align-items: center;
+    padding: 1.25rem 0;
 }
 
 .CopyrightCol {
@@ -156,17 +182,24 @@
 }
 
 .FooterText {
-    color: var(--bm-subtext-light);
+    color: var(--bm-subtext);
+    font-size: 0.8rem;
+    margin: 0;
 }
 
 .LegalLinksCol {
-    color: var(--bm-subtext-light) !important;
-    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .LegalLink {
-    color: var(--bm-subtext-light) !important;
-    transition: all 0.3s ease;
+    color: var(--bm-subtext) !important;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s ease;
 }
 
 .LegalLink:hover {
@@ -175,6 +208,7 @@
 
 .Separator {
     color: var(--bm-border);
+    font-size: 0.8rem;
 }
 
 .GlowEffect {
@@ -182,65 +216,46 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
-    height: 2px;
+    width: 60%;
+    height: 1px;
     background: var(--bm-gradient-primary);
-    opacity: 0.4;
-    filter: blur(4px);
-}
-
-@keyframes glowPulse {
-    0%, 100% {
-        opacity: 0.3;
-        transform: translateX(-50%) scaleX(0.8);
-    }
-    50% {
-        opacity: 0.7;
-        transform: translateX(-50%) scaleX(1);
-    }
+    opacity: 0.5;
+    filter: blur(3px);
 }
 
 /* Responsive */
 @media (max-width: 992px) {
     .FooterCol {
-        margin-bottom: 2.5rem;
+        padding-right: 1rem;
     }
-    
+
     .LegalLinksCol {
         justify-content: flex-start;
-        margin-top: 1rem;
     }
 }
 
 @media (max-width: 768px) {
     .FooterContainer {
-        padding: 3rem 0 1.5rem;
-    }
-
-    .FooterTitle {
-        font-size: 1.5rem;
+        padding: 3rem 0 0;
     }
 
     .FooterBottom {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.75rem;
+        padding: 1.25rem 0;
     }
 
     .CopyrightCol,
     .LegalLinksCol {
         justify-content: center;
         text-align: center;
-    }
-
-    .LegalLinksCol {
-        flex-wrap: wrap;
-        margin-top: 0;
+        width: 100%;
     }
 }
 
 @media (max-width: 480px) {
-    .SocialLinks {
-        justify-content: center;
+    .FooterSubtitle {
+        text-align: center;
     }
 
     .FooterSubtitle::after {
@@ -248,12 +263,20 @@
         transform: translateX(-50%);
     }
 
-    .FooterSubtitle {
-        text-align: center;
+    .SocialLinks {
+        justify-content: center;
     }
 
     .LinkList {
-        text-align: center;
+        align-items: center;
+    }
+
+    .FooterLink::before {
+        display: none;
+    }
+
+    .FooterLink:hover {
+        padding-left: 0;
     }
 
     .ContactInfo {

@@ -4,44 +4,56 @@ import { useState } from "react";
 import styles from "./Servicios.module.css";
 import SERVICIOS, { type Servicio } from "./Servicios.data";
 
-function ServiceCard({
-  servicio,
-  modo,
-  isTransitioning,
-}: {
+function ServiceCard({ servicio, modo, isTransitioning, }: {
   servicio: Servicio;
   modo: "tec" | "cas";
   isTransitioning: boolean;
 }) {
   const contenido = modo === "tec" ? servicio.tec : servicio.cas;
+  const SERVICE_DETAIL_BASE_URL = "/servicios";
+  const href = `${SERVICE_DETAIL_BASE_URL}#${servicio.slug}`;
 
   return (
-    <div
+    <a
+      href={href}
       className={styles.card}
       style={{ "--card-color": servicio.accentColor } as React.CSSProperties}
     >
       <div className={styles.cardGlow} />
 
-      <div className={styles.cardHeader}>
-        <div className={styles.iconWrapper}>
-          <span className={styles.icon}>{servicio.icon}</span>
-        </div>
+      <div className={styles.imagenWrap}>
+        <img
+          className={styles.imagen}
+          src={servicio.imageSrc}
+          alt={servicio.imageAlt}
+          aria-hidden="true"
+        />
+        <div className={styles.imagenOverlay} />
         <span className={styles.cardNumber}>{servicio.num}</span>
       </div>
-
       <div
-        className={`${styles.cardContent} ${
-          isTransitioning ? styles.cardContentFading : ""
-        }`}
+        className={`${styles.cardFooter} ${isTransitioning ? styles.cardFooterFading : ""
+          }`}
       >
         <h3 className={styles.cardTitle}>{contenido.titulo}</h3>
-        <p className={styles.cardDescription}>{contenido.desc}</p>
+        <svg
+          className={styles.arrow}
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M2 7h10M8 3l4 4-4 4"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </div>
-
-      <div className={styles.cardFooter}>
-        <span className={styles.learnMore}>Mas informacion -&gt;</span>
-      </div>
-    </div>
+    </a>
   );
 }
 
@@ -60,7 +72,7 @@ export default function ServiciosSection() {
 
   const subtitulo =
     modo === "tec"
-      ? "Stack tecnologico y enfoque tecnico"
+      ? "Stack tecnológico y enfoque técnico"
       : "Beneficios claros para tu negocio";
 
   return (
@@ -83,28 +95,25 @@ export default function ServiciosSection() {
           <div className={styles.toggleWrap}>
             <div className={styles.togglePill}>
               <button
-                className={`${styles.toggleBtn} ${
-                  modo === "cas" ? styles.toggleBtnActive : ""
-                }`}
+                className={`${styles.toggleBtn} ${modo === "cas" ? styles.toggleBtnActive : ""
+                  }`}
                 onClick={() => handleToggle("cas")}
               >
                 Para empresas
               </button>
               <button
-                className={`${styles.toggleBtn} ${
-                  modo === "tec" ? styles.toggleBtnActive : ""
-                }`}
+                className={`${styles.toggleBtn} ${modo === "tec" ? styles.toggleBtnActive : ""
+                  }`}
                 onClick={() => handleToggle("tec")}
               >
-                Para tecnicos
+                Para técnicos
               </button>
             </div>
           </div>
 
           <p
-            className={`${styles.toggleSubtitle} ${
-              isTransitioning ? styles.toggleSubtitleFading : ""
-            }`}
+            className={`${styles.toggleSubtitle} ${isTransitioning ? styles.toggleSubtitleFading : ""
+              }`}
           >
             {subtitulo}
           </p>

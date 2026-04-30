@@ -4,7 +4,7 @@ import Servicios from "@/components/servicios/Servicios";
 import HeroBranch from '@/components/HeroSection/Hero'
 import AppPromo from '@/components/PromocionK/PromocionK'
 import NosotrosSection from '@/components/Nosotros/Nosotros'
-import SeccionPublicoObjetivo from "@/components/publico_objetivo/PublicoObjetivo";
+import SeccionAsesoramiento from "@/components/Asesoramiento/Asesoramiento";
 import SeccionNuestroProceso from "@/components/NuestroProceso/NuestroProceso";
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
     <>
       <HeroBranch />
       <Servicios />
-      <SeccionPublicoObjetivo />
+      <SeccionAsesoramiento />
       <SeccionNuestroProceso />
       <NosotrosSection />
       <AppPromo />

@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import React, { useState, useEffect } from "react";
 import styles from './Navbar.module.css';
+import Link from 'next/link'
 
 const NavbarPrincipal: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -42,10 +43,6 @@ const NavbarPrincipal: React.FC = () => {
                     <div className={styles.BrandContainer}>
                         <img src="/BM-imagenes/logodefinitivonav.jpeg" alt="BM Code Lab" className={styles.imgLogo} />
 
-                        {/* <div className={styles.LogoBadge}>BM</div>
-                        <a href="/#inicio" className={styles.Brand} onClick={handleNavClick}>
-                            BM <span className={styles.BrandAccent}>CODE LAB</span>
-                        </a> */}
                     </div>
 
                     {/* Centro: Nav links (desktop) */}
@@ -63,9 +60,9 @@ const NavbarPrincipal: React.FC = () => {
 
                     {/* Derecha: CTA (desktop) + Hamburger (mobile) */}
                     <div className={styles.RightSection}>
-                        <a href="/#contacto" className={styles.CTAButton} onClick={handleNavClick}>
+                        <Link href="/#contacto" className={styles.CTAButton} onClick={handleNavClick}>
                             Contáctanos
-                        </a>
+                        </Link>
 
                         <button
                             className={`${styles.HamburgerBtn} ${menuOpen ? styles.HamburgerOpen : ''}`}
@@ -85,7 +82,7 @@ const NavbarPrincipal: React.FC = () => {
             <div className={`${styles.MobileMenu} ${menuOpen ? styles.MobileMenuOpen : ''}`}>
                 <div className={styles.MobileMenuInner}>
                     {navItems.map((item, i) => (
-                        <a
+                        <Link
                             key={item.href}
                             href={item.href}
                             className={styles.MobileNavLink}
@@ -93,16 +90,16 @@ const NavbarPrincipal: React.FC = () => {
                             onClick={handleNavClick}
                         >
                             {item.label}
-                        </a>
+                        </Link>
                     ))}
-                    <a
+                    <Link
                         href="/#contacto"
                         className={styles.MobileCTAButton}
                         style={{ animationDelay: `${navItems.length * 0.06}s` }}
                         onClick={handleNavClick}
                     >
                         Contáctanos
-                    </a>
+                    </Link>
                 </div>
             </div>
 

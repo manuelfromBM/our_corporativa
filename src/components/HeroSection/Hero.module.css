@@ -1,497 +1,531 @@
 /* --- HERO SECTION CSS MODULES --- */
 
 .hero {
-    --hero-nav-offset: clamp(74px, 6vw, 92px);
-    --hero-bottom-space: clamp(28px, 4vh, 44px);
-    position: relative;
-    min-height: calc(100svh - 8px);
-    padding-top: var(--hero-nav-offset);
-    padding-bottom: var(--hero-bottom-space);
-    box-sizing: border-box;
-    background: var(--bm-dark);
-    color: var(--bm-text-light);
-    overflow: hidden;
-    display: flex;
-    align-items: stretch;
+  --hero-nav-offset: clamp(74px, 6vw, 92px);
+  --hero-bottom-space: clamp(28px, 4vh, 44px);
+  position: relative;
+  min-height: calc(100svh - 8px);
+  padding-top: var(--hero-nav-offset);
+  padding-bottom: var(--hero-bottom-space);
+  box-sizing: border-box;
+  background: var(--bm-dark);
+  color: var(--bm-text-light);
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
 }
 
 .hero::before,
 .hero::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .hero::before {
-    width: min(48vw, 760px);
-    height: min(48vw, 760px);
-    top: -14%;
-    right: -10%;
-    background: radial-gradient(circle, var(--bm-orb-primary), transparent 68%);
-    opacity: 0.8;
+  width: min(48vw, 760px);
+  height: min(48vw, 760px);
+  top: -14%;
+  right: -10%;
+  background: radial-gradient(circle, var(--bm-orb-primary), transparent 68%);
+  opacity: 0.8;
 }
 
 .hero::after {
-    width: min(32vw, 440px);
-    height: min(32vw, 440px);
-    bottom: -12%;
-    left: -4%;
-    background: radial-gradient(circle, var(--bm-orb-secondary), transparent 70%);
-    opacity: 0.62;
+  width: min(32vw, 440px);
+  height: min(32vw, 440px);
+  bottom: -12%;
+  left: -4%;
+  background: radial-gradient(circle, var(--bm-orb-secondary), transparent 70%);
+  opacity: 0.62;
 }
 
 .heroBackground {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
 
 .gradientOrb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.2;
-    animation: float 10s ease-in-out infinite;
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.2;
+  animation: float 10s ease-in-out infinite;
 }
 
 .orb1 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, var(--bm-primary), transparent);
-    top: -180px;
-    right: -80px;
-    animation-delay: 0s;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--bm-primary), transparent);
+  top: -180px;
+  right: -80px;
+  animation-delay: 0s;
 }
 
 .orb2 {
-    width: 360px;
-    height: 360px;
-    background: radial-gradient(circle, var(--bm-accent), transparent);
-    bottom: -120px;
-    left: -60px;
-    animation-delay: 2s;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, var(--bm-accent), transparent);
+  bottom: -120px;
+  left: -60px;
+  animation-delay: 2s;
 }
 
 .orb3 {
-    width: 240px;
-    height: 240px;
-    background: radial-gradient(circle, var(--bm-secondary), transparent);
-    top: 50%;
-    left: 38%;
-    opacity: 0.06;
-    animation-delay: 1s;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, var(--bm-secondary), transparent);
+  top: 50%;
+  left: 38%;
+  opacity: 0.06;
+  animation-delay: 1s;
 }
 
 .gridOverlay {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(var(--bm-grid-color) 1px, transparent 1px),
-        linear-gradient(90deg, var(--bm-grid-color) 1px, transparent 1px);
-    background-size: 48px 48px;
-    opacity: 1;
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--bm-grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bm-grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 1;
 }
 
 @keyframes float {
-    0%,
-    100% {
-        transform: translate(0, 0) scale(1);
-    }
-    25% {
-        transform: translate(26px, -24px) scale(1.04);
-    }
-    50% {
-        transform: translate(-18px, 16px) scale(0.96);
-    }
-    75% {
-        transform: translate(34px, 10px) scale(1.01);
-    }
+  0%,  100% { transform: translate(0, 0) scale(1); }
+  25%        { transform: translate(26px, -24px) scale(1.04); }
+  50%        { transform: translate(-18px, 16px) scale(0.96); }
+  75%        { transform: translate(34px, 10px) scale(1.01); }
 }
 
 .heroContainer {
-    position: relative;
-    width: 100%;
-    max-width: 980px;
-    min-height: calc(88svh - var(--hero-nav-offset));
-    margin: 0 auto;
-    padding: 28px 48px 36px;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    align-items: center;
-    justify-items: center;
-    z-index: 1;
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  min-height: calc(88svh - var(--hero-nav-offset));
+  margin: 0 auto;
+  padding: 28px 48px 36px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: center;
+  justify-items: center;
+  z-index: 1;
 }
 
 .heroContent {
-    width: 100%;
-    max-width: 580px;
-    text-align: center;
-    animation: fadeSlideUp 1s ease forwards;
-    opacity: 0;
+  width: 100%;
+  max-width: 580px;
+  text-align: center;
+  animation: fadeSlideUp 1s ease forwards;
+  opacity: 0;
 }
 
 .heroBadge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 18px;
-    margin: 0 auto 28px;
-    background: var(--bm-badge-bg);
-    border: 1px solid var(--bm-badge-border);
-    border-radius: 999px;
-    color: var(--bm-badge-text);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0;
-    backdrop-filter: blur(12px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  margin: 0 auto 28px;
+  background: var(--bm-badge-bg);
+  border: 1px solid var(--bm-badge-border);
+  border-radius: 999px;
+  color: var(--bm-badge-text);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  backdrop-filter: blur(12px);
 }
 
 .badgeDot {
-    width: 7px;
-    height: 7px;
-    background: var(--bm-secondary);
-    border-radius: 50%;
-    box-shadow: none;
-    animation: pulse 2.2s ease infinite;
+  width: 7px;
+  height: 7px;
+  background: var(--bm-secondary);
+  border-radius: 50%;
+  animation: pulse 2.2s ease infinite;
 }
 
 @keyframes pulse {
-    0%,
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.72;
-        transform: scale(1.18);
-    }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.72; transform: scale(1.18); }
 }
 
 .heroTitle {
-    max-width: 580px;
-    margin: 0 auto 20px;
-    font-size: clamp(3rem, 4.2vw, 46px);
-    line-height: 1.1;
-    font-weight: 500;
-    letter-spacing: -1px;
-    color: var(--bm-text-light);
-    background: none;
-    -webkit-text-fill-color: initial;
+  max-width: 580px;
+  margin: 0 auto 20px;
+  font-size: clamp(3rem, 4.2vw, 46px);
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -1px;
+  color: var(--bm-text-light);
+  background: none;
+  -webkit-text-fill-color: initial;
 }
 
 .highlight {
-    display: block;
-    margin-top: 6px;
-    background: var(--bm-gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  display: block;
+  margin-top: 6px;
+  background: var(--bm-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .heroSubtitle {
-    max-width: 560px;
-    margin: 0 auto 32px;
-    font-size: 15px;
-    color: var(--bm-subtext-light);
-    line-height: 1.75;
+  max-width: 560px;
+  margin: 0 auto 32px;
+  font-size: 15px;
+  color: var(--bm-subtext-light);
+  line-height: 1.75;
 }
 
 .heroSubtitle strong {
-    color: var(--bm-text-light);
+  color: var(--bm-text-light);
 }
 
 .heroButtons {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 48px;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btnPrimary,
 .btnSecondary {
-    min-width: 0;
-    padding: 13px 28px;
-    font-weight: 500;
-    font-size: 14px;
-    border-radius: 10px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    position: relative;
-    overflow: hidden;
+  min-width: 0;
+  padding: 13px 28px;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
 .btnPrimary {
-    background: var(--bm-btn-primary-bg);
-    color: var(--bm-btn-primary-text);
-    box-shadow: none;
+  background: var(--bm-btn-primary-bg);
+  color: var(--bm-btn-primary-text);
 }
 
 .btnPrimary::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--bm-gradient-accent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bm-gradient-accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.btnPrimary:hover::before {
-    opacity: 1;
-}
-
-.btnPrimary:hover {
-    transform: translateY(-2px);
-}
+.btnPrimary:hover::before { opacity: 1; }
+.btnPrimary:hover         { transform: translateY(-2px); }
 
 .btnSecondary {
-    background: var(--bm-btn-secondary-bg);
-    border: 1px solid var(--bm-btn-secondary-border);
-    color: var(--bm-btn-secondary-text);
-    backdrop-filter: blur(12px);
+  background: var(--bm-btn-secondary-bg);
+  border: 1px solid var(--bm-btn-secondary-border);
+  color: var(--bm-btn-secondary-text);
+  backdrop-filter: blur(12px);
 }
 
 .btnSecondary:hover {
-    background: var(--bm-surface-hover);
-    border-color: var(--bm-primary);
-    transform: translateY(-2px);
+  background: var(--bm-surface-hover);
+  border-color: var(--bm-primary);
+  transform: translateY(-2px);
 }
 
 .btnIcon {
-    width: 18px;
-    height: 18px;
-    position: relative;
-    z-index: 1;
-    transition: transform 0.3s ease;
+  width: 18px;
+  height: 18px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
 }
 
-.btnPrimary:hover .btnIcon {
-    transform: translateX(4px);
-}
+.btnPrimary:hover .btnIcon { transform: translateX(4px); }
 
 .heroStats {
-    display: flex;
-    gap: 28px;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.statItem {
-    min-width: 0;
-}
+.statItem   { min-width: 0; }
 
 .statNumber {
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 1;
-    margin-bottom: 4px;
-    background: var(--bm-gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 4px;
+  background: var(--bm-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .statLabel {
-    color: var(--bm-subtext-light);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  color: var(--bm-subtext-light);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .statDivider {
-    width: 1px;
-    height: 36px;
-    background: var(--bm-border);
-}
-
-.heroVisual {
-    position: relative;
-    max-width: 900px;
-    min-height: 0;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    animation: fadeScale 1.2s ease forwards 0.2s;
-    opacity: 0;
-}
-
-.heroIllustration {
-    width: 100%;
-    max-width: 980px;
-    max-height: 420px;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    border-radius: 25px;
-}
-
-.visualGlow,
-.visualGlowSecondary {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.visualGlow {
-    width: 520px;
-    height: 520px;
-    right: -12%;
-    top: -20%;
-    background: radial-gradient(circle, var(--bm-orb-primary), transparent 72%);
-    opacity: 0.55;
-}
-
-.visualGlowSecondary {
-    width: 260px;
-    height: 260px;
-    left: -8%;
-    bottom: -18%;
-    background: radial-gradient(circle, var(--bm-orb-accent), transparent 72%);
-    opacity: 0.32;
+  width: 1px;
+  height: 36px;
+  background: var(--bm-border);
 }
 
 @keyframes fadeSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(36px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeScale {
-    from {
-        opacity: 0;
-        transform: scale(0.97);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+/* ════════════════════════════════════════════════════════════
+   CINTAS DE FILM — decoración lateral del hero
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Anchura de la cinta ── */
+:root {
+  --film-width: 88px;
+  --film-perf-size: 10px;
+  --film-gap: 6px;
 }
+
+.filmStrip {
+  /* Posición fija a los extremos del hero */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--film-width);
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  /* Opacidad baja para que sea complemento, no protagonista */
+  opacity: 0.28;
+}
+
+.filmStrip:first-of-type {
+  left: 0;
+}
+
+.filmStrip:last-of-type {
+  right: 0;
+}
+
+/* Degradados superior e inferior para que la cinta se difumine */
+.filmFadeTop,
+.filmFadeBottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* 30% del viewport cubre generosamente el punto de reinicio */
+  height: 30vh;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.filmFadeTop {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--bm-dark) 0%,
+    var(--bm-dark) 20%,
+    transparent 100%
+  );
+}
+
+.filmFadeBottom {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    var(--bm-dark) 0%,
+    var(--bm-dark) 20%,
+    transparent 100%
+  );
+}
+
+/* Track animado — contiene los frames duplicados */
+.filmTrack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--film-gap);
+  will-change: transform;
+}
+
+/* Animación hacia arriba */
+.filmUp .filmTrack {
+  animation: scrollUp 28s linear infinite;
+}
+
+/* Animación hacia abajo */
+.filmDown .filmTrack {
+  animation: scrollDown 28s linear infinite;
+}
+
+/*
+  La clave del loop seamless:
+  - El array de imágenes está duplicado en el TSX (8 frames en total = 4 originales + 4 copia)
+  - Traducimos exactamente -50% → llegamos al inicio del duplicado, que es idéntico al origen
+  - En ese instante CSS resetea a 0 sin que se note ningún salto
+*/
+@keyframes scrollUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+
+@keyframes scrollDown {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
+
+/* ── Frame individual ── */
+.filmFrame {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: var(--film-width);
+  flex-shrink: 0;
+  background: var(--bm-dark-3);
+}
+
+/* ── Columna de perforaciones ── */
+.filmPerfs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 14px;
+  padding: 6px 0;
+  background: var(--bm-dark-2);
+  gap: 4px;
+}
+
+/* Perforación individual */
+.perf {
+  width: var(--film-perf-size);
+  height: var(--film-perf-size);
+  border-radius: 2px;
+  background: var(--bm-dark);
+  border: 1px solid var(--bm-border);
+  flex-shrink: 0;
+}
+
+/* ── Zona de imagen ── */
+.filmImage {
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--bm-dark-3);
+}
+
+.frameImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.95) saturate(0.8);
+  transition: filter 0.3s ease;
+}
+
+.framePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    160deg,
+    var(--bm-dark-2) 0%,
+    var(--bm-dark-3) 50%,
+    var(--bm-dark-2) 100%
+  );
+  background-size: 200% 200%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════════════ */
 
 @media (max-width: 1240px) {
-    .heroContainer {
-        max-width: 920px;
-    }
+  .heroContainer { max-width: 920px; }
+  .heroTitle     { font-size: clamp(2.7rem, 4vw, 42px); }
 
-    .heroTitle {
-        font-size: clamp(2.7rem, 4vw, 42px);
-    }
-
-    .heroVisual {
-        max-width: 600px;
-    }
+  :root { --film-width: 72px; }
 }
 
+/* Las cintas se ocultan en tablet/mobile para no saturar */
 @media (max-width: 1024px) {
-    .hero {
-        --hero-bottom-space: 44px;
-    }
+  .filmStrip { display: none; }
 
-    .heroContainer {
-        min-height: auto;
-        padding: 36px 24px 28px;
-    }
+  .hero { --hero-bottom-space: 44px; }
 
-    .heroContent {
-        max-width: 100%;
-    }
+  .heroContainer {
+    min-height: auto;
+    padding: 36px 24px 28px;
+  }
 
-    .heroButtons {
-        margin-bottom: 48px;
-    }
-
-    .heroVisual {
-        min-height: auto;
-        justify-content: center;
-        margin-left: 0;
-        max-width: 100%;
-    }
-
-    .heroIllustration {
-        width: min(100%, 640px);
-        max-width: 640px;
-    }
+  .heroContent   { max-width: 100%; }
+  .heroButtons   { margin-bottom: 48px; }
 }
 
 @media (max-width: 640px) {
-    .hero {
-        --hero-nav-offset: 82px;
-        --hero-bottom-space: 28px;
-    }
+  .hero {
+    --hero-nav-offset: 82px;
+    --hero-bottom-space: 28px;
+  }
 
-    .gridOverlay {
-        background-size: 46px 46px;
-    }
+  .gridOverlay { background-size: 46px 46px; }
 
-    .heroBadge {
-        font-size: 11px;
-        padding: 10px 16px;
-        margin-bottom: 24px;
-    }
+  .heroBadge {
+    font-size: 11px;
+    padding: 10px 16px;
+    margin-bottom: 24px;
+  }
 
-    .heroTitle {
-        max-width: none;
-        font-size: clamp(2.35rem, 10vw, 3.2rem);
-        margin-bottom: 22px;
-    }
+  .heroTitle {
+    max-width: none;
+    font-size: clamp(2.35rem, 10vw, 3.2rem);
+    margin-bottom: 22px;
+  }
 
-    .heroContainer {
-        padding: 24px 20px 24px;
-    }
+  .heroContainer { padding: 24px 20px 24px; }
 
-    .heroSubtitle {
-        font-size: 14px;
-        margin-bottom: 32px;
-    }
+  .heroSubtitle {
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
 
-    .heroButtons {
-        gap: 14px;
-        margin-bottom: 36px;
-    }
+  .heroButtons {
+    gap: 14px;
+    margin-bottom: 36px;
+  }
 
-    .btnPrimary,
-    .btnSecondary {
-        width: 100%;
-        min-width: 0;
-        padding: 13px 20px;
-        font-size: 14px;
-    }
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    min-width: 0;
+    padding: 13px 20px;
+    font-size: 14px;
+  }
 
-    .heroStats {
-        gap: 18px;
-        justify-content: center;
-    }
-
-    .statItem {
-        min-width: 94px;
-    }
-
-    .statNumber {
-        font-size: 20px;
-    }
-
-    .statLabel {
-        font-size: 10px;
-        letter-spacing: 0.08em;
-    }
-
-    .statDivider {
-        height: 32px;
-    }
-
-    .heroIllustration {
-        max-width: 100%;
-    }
+  .heroStats      { gap: 18px; justify-content: center; }
+  .statItem       { min-width: 94px; }
+  .statNumber     { font-size: 20px; }
+  .statLabel      { font-size: 10px; letter-spacing: 0.08em; }
+  .statDivider    { height: 32px; }
 }
