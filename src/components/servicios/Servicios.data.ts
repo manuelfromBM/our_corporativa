@@ -14,108 +14,108 @@ export interface Servicio {
 const SERVICIOS: Servicio[] = [
   {
     num: "01",
-    icon: "💡",
-    accentColor: "#a78bfa",
+    icon: "IA",
+    accentColor: "#00c896",
     tec: {
-      titulo: "Consultoría Técnica",
-      desc: "Auditoría de infraestructura, arquitectura de sistemas distribuidos y roadmap tecnológico alineado a tu stack actual.",
+      titulo: "Consultoria tecnica",
+      desc: "Auditoria de infraestructura, arquitectura de sistemas y definicion de roadmap tecnologico alineado a tu stack actual.",
     },
     cas: {
       titulo: "Te ayudamos a decidir",
-      desc: "Te explicamos qué tecnología necesitas, cuánto cuesta y por qué, sin complicaciones técnicas.",
+      desc: "Te explicamos que tecnologia necesitas, cuanto cuesta y por que, sin complicaciones tecnicas.",
     },
   },
   {
     num: "02",
     icon: "</>",
-    accentColor: "#818cf8",
+    accentColor: "#aaff00",
     tec: {
-      titulo: "Desarrollo Web",
-      desc: "Arquitecturas JAMstack, SSR con Next.js, APIs REST/GraphQL y pipelines CI/CD sobre Vercel o AWS.",
+      titulo: "Desarrollo web",
+      desc: "Construimos plataformas con Next.js, APIs modernas, integraciones y despliegues optimizados para velocidad y escalabilidad.",
     },
     cas: {
-      titulo: "Tu página o tienda online",
-      desc: "Creamos tu sitio web desde cero: moderno, rápido y fácil de actualizar, sin que tengas que saber de código.",
+      titulo: "Tu pagina o tienda online",
+      desc: "Creamos tu sitio web desde cero: moderno, rapido y facil de actualizar, sin que tengas que saber de codigo.",
     },
   },
   {
     num: "03",
-    icon: "📱",
-    accentColor: "#34d399",
+    icon: "APP",
+    accentColor: "#007a50",
     tec: {
-      titulo: "Aplicaciones Móviles",
-      desc: "Apps nativas y cross-platform con React Native, integración con APIs REST, push notifications y App Store deployment.",
+      titulo: "Aplicaciones moviles",
+      desc: "Apps nativas y cross-platform con React Native, integracion con APIs, notificaciones y publicacion en tiendas.",
     },
     cas: {
-      titulo: "Tu app para iOS y Android",
-      desc: "Lanzamos tu aplicación en ambas tiendas. Tus clientes la descargan y la usan, sin complicaciones.",
+      titulo: "Tu app para iOS & Android",
+      desc: "Lanzamos tu aplicacion en ambas tiendas para que tus clientes la descarguen y la usen sin fricciones.",
     },
   },
   {
     num: "04",
     icon: "AI",
-    accentColor: "#f472b6",
+    accentColor: "#7acc00",
     tec: {
-      titulo: "Integración de IA",
-      desc: "Pipelines RAG con LLMs (OpenAI, Anthropic), vector search con Pinecone o pgvector, y fine-tuning sobre datos propios.",
+      titulo: "Integracion de IA",
+      desc: "Automatizaciones, asistentes, busqueda inteligente y flujos con LLMs conectados a datos y procesos reales.",
     },
     cas: {
-      titulo: "Automatización inteligente",
-      desc: "Tu negocio trabaja solo: responde clientes, clasifica documentos o genera reportes sin esfuerzo humano.",
+      titulo: "Automatizacion inteligente",
+      desc: "Tu negocio puede responder clientes, clasificar documentos o generar reportes sin esfuerzo manual repetitivo.",
     },
   },
   {
     num: "05",
-    icon: "🛡",
-    accentColor: "#60a5fa",
+    icon: "SEC",
+    accentColor: "#00d6a0",
     tec: {
-      titulo: "Seguridad y MDM",
-      desc: "Gestión de flotas con Microsoft Intune/Jamf, políticas de compliance, Zero Trust y auditorías BYOD.",
+      titulo: "Seguridad & gestion",
+      desc: "Control de acceso, politicas de seguridad, gestion de dispositivos y buenas practicas para proteger tus datos.",
     },
     cas: {
       titulo: "Protege tu empresa",
-      desc: "Controlamos quién accede a qué en tu empresa, desde cualquier dispositivo, y mantenemos tus datos seguros.",
+      desc: "Controlamos quien accede a que en tu empresa y mantenemos tus datos y dispositivos mas seguros.",
     },
   },
   {
     num: "06",
     icon: "UI",
-    accentColor: "#fb923c",
+    accentColor: "#8cff4f",
     tec: {
-      titulo: "UX/UI",
-      desc: "Diseñamos sistemas en Figma, componentes con Storybook, para conseguir interfaces intuitivas centradas en el usuario.",
+      titulo: "UX & UI",
+      desc: "Disenamos experiencias digitales claras, sistemas visuales consistentes y flujos centrados en el usuario.",
     },
     cas: {
-      titulo: "Diseño que enamora",
-      desc: "Creamos interfaces bonitas e intuitivas para que tus usuarios disfruten cada pantalla de tu producto.",
+      titulo: "Diseno que convence",
+      desc: "Creamos interfaces bonitas e intuitivas para que tus usuarios disfruten cada parte de tu producto.",
     },
   },
   {
     num: "07",
-    icon: "☁",
-    accentColor: "#2dd4bf",
+    icon: "DEV",
+    accentColor: "#11b886",
     tec: {
-      titulo: "DevOps & Hosting",
-      desc: "Diseño, provisioning y operación de infraestructura a escala: orquestación de contenedores, pipelines CI/CD, IaC, observabilidad full-stack y estrategias de alta disponibilidad con SLA garantizado.",
+      titulo: "DevOps & hosting",
+      desc: "Infraestructura, CI/CD, observabilidad, automatizacion de despliegues y entornos listos para crecer sin dolor.",
     },
     cas: {
       titulo: "Tu web siempre disponible",
-      desc: "Nos encargamos de que tu sitio nunca caiga, cargue rápido y escale solo cuando tengas mucho tráfico.",
+      desc: "Nos encargamos de que tu sitio cargue rapido, no se caiga y escale cuando tu negocio crezca.",
     },
   },
   {
     num: "08",
-    icon: "⚙",
-    accentColor: "#94a3b8",
+    icon: "OPS",
+    accentColor: "#3a6048",
     tec: {
-      titulo: "Soporte & Mantenimiento",
-      desc: "Monitoreo proactivo, gestión de incidentes con respuesta on-call 24/7, parches de seguridad y actualizaciones continuas.",
+      titulo: "Soporte & mantenimiento",
+      desc: "Monitoreo, mejoras continuas, parches, correccion de incidentes y acompanamiento tecnico despues del lanzamiento.",
     },
     cas: {
       titulo: "Siempre estamos contigo",
-      desc: "Te acompañamos después del lanzamiento: arreglamos problemas, mejoramos y actualizamos tu producto.",
+      desc: "Te acompanamos despues de publicar: arreglamos problemas, mejoramos y actualizamos tu producto.",
     },
   },
 ];
 
-export default SERVICIOS
+export default SERVICIOS;

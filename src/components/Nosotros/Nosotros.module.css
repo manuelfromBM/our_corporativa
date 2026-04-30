@@ -1,200 +1,195 @@
 .section {
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #000000 0%, #232323 100%);
   position: relative;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bm-dark) 0%, var(--bm-dark-2) 100%);
   overflow: hidden;
 }
 
-.section::before {
-  content: '';
+.section::before,
+.section::after {
+  content: "";
   position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%);
-  top: -200px;
-  right: -200px;
   border-radius: 50%;
+  pointer-events: none;
+}
+
+.section::before {
+  width: 36rem;
+  height: 36rem;
+  top: -14rem;
+  right: -14rem;
+  background: radial-gradient(circle, var(--bm-orb-primary), transparent 70%);
   animation: float 10s ease-in-out infinite;
 }
 
 .section::after {
-  content: '';
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(118, 75, 162, 0.06) 0%, transparent 70%);
-  bottom: -150px;
-  left: -150px;
-  border-radius: 50%;
+  width: 30rem;
+  height: 30rem;
+  bottom: -12rem;
+  left: -12rem;
+  background: radial-gradient(circle, var(--bm-orb-secondary), transparent 70%);
   animation: float 12s ease-in-out infinite reverse;
 }
 
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 5rem;
-  padding: 6rem 3rem;
-  max-width: 1400px;
-  margin: 0 auto;
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 4.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 3rem;
 }
 
 .textBox {
-  flex: 1;
-  animation: slideInLeft 1s ease-out;
+  animation: slideInLeft 0.9s ease-out;
 }
 
 .badge {
   display: inline-block;
-  padding: 0.5rem 1.25rem;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  border: 1px solid rgba(102, 126, 234, 0.2);
-  border-radius: 50px;
-  color: #667eea;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
   margin-bottom: 1.5rem;
-  animation: fadeIn 0.8s ease-out 0.3s backwards;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: var(--bm-badge-bg);
+  border: 1px solid var(--bm-badge-border);
+  color: var(--bm-badge-text);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .title {
-  font-size: 3.5rem;
+  margin-bottom: 1.75rem;
+  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+  line-height: 1.08;
   font-weight: 800;
-  line-height: 1.2;
-  color: #ffffff;
-  margin-bottom: 2rem;
-  letter-spacing: -1px;
-  animation: fadeInUp 0.8s ease-out 0.5s backwards;
+  color: var(--bm-text-light);
+  letter-spacing: -0.045em;
 }
 
 .highlight {
-  background: linear-gradient(135deg, #00ffae 0%, #00f7ff 100%);
+  display: inline-block;
+  background: var(--bm-gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline-block;
 }
 
 .description {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
-  animation: fadeInUp 0.8s ease-out backwards;
-}
-
-.description:nth-of-type(1) {
-  animation-delay: 0.7s;
-}
-
-.description:nth-of-type(2) {
-  animation-delay: 0.9s;
+  margin-bottom: 1.25rem;
+  max-width: 42rem;
+  color: var(--bm-subtext);
+  font-size: 1.06rem;
+  line-height: 1.85;
 }
 
 .stats {
   display: flex;
-  gap: 3rem;
-  margin-top: 3rem;
-  animation: fadeInUp 0.8s ease-out 1.1s backwards;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.5rem;
 }
 
 .stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  min-width: 150px;
+  padding: 1.1rem 1.2rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, var(--bm-surface) 0%, rgba(7, 18, 9, 0.88) 100%);
+  border: 1px solid var(--bm-border);
+  backdrop-filter: blur(8px);
 }
 
 .statNumber {
-  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 2.1rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #002fff 0%, #764ba2 100%);
+  line-height: 1;
+  background: var(--bm-gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1;
 }
 
 .statLabel {
-  font-size: 0.875rem;
-  color: #c5c5c5;
-  font-weight: 500;
+  color: var(--bm-subtext);
+  font-size: 0.82rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
 }
 
 .images {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  animation: slideInRight 1s ease-out;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  animation: slideInRight 0.9s ease-out;
 }
 
 .imageWrapper {
   position: relative;
-  width: 100%;
   height: 320px;
-  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.12),
-    0 0 0 1px rgba(0, 0, 0, 0.05);
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
+  border-radius: 26px;
+  border: 1px solid var(--bm-border);
+  background: var(--bm-dark-3);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  transition: transform 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
 }
 
 .imageWrapper:nth-child(1) {
-  animation: scaleIn 0.8s ease-out 0.4s backwards;
+  animation: scaleIn 0.8s ease-out 0.35s backwards;
 }
 
 .imageWrapper:nth-child(2) {
-  animation: scaleIn 0.8s ease-out 0.6s backwards;
+  animation: scaleIn 0.8s ease-out 0.5s backwards;
 }
 
 .imageGlow {
   position: absolute;
-  inset: -20px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  opacity: 0;
-  filter: blur(30px);
-  transition: opacity 0.5s ease;
+  inset: -1rem;
   z-index: -1;
-}
-
-.imageWrapper:hover .imageGlow {
-  opacity: 0.4;
+  background: var(--bm-gradient-accent);
+  opacity: 0;
+  filter: blur(28px);
+  transition: opacity 0.4s ease;
 }
 
 .imageWrapper:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 
-    0 30px 70px rgba(3, 49, 255, 0.25),
-    0 0 0 1px rgba(102, 126, 234, 0.1);
+  transform: translateY(-8px);
+  border-color: var(--bm-border-hover);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.38),
+    0 0 46px var(--bm-orb-primary);
+}
+
+.imageWrapper:hover .imageGlow {
+  opacity: 0.28;
 }
 
 .image {
   object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.6s ease;
   will-change: transform;
 }
 
 .imageWrapper:hover .image {
-  transform: scale(1.1);
+  transform: scale(1.07);
 }
 
 .imageOverlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  inset: auto 0 0 0;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(6, 16, 10, 0.9), transparent);
+  transform: translateY(12px);
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.4s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .imageWrapper:hover .imageOverlay {
@@ -203,18 +198,17 @@
 }
 
 .imageLabel {
-  color: #ffffff;
-  font-size: 1.25rem;
+  color: var(--bm-text-light);
+  font-size: 1rem;
   font-weight: 700;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Animaciones */
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-60px);
+    transform: translateX(-48px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -224,39 +218,21 @@
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(60px);
+    transform: translateX(48px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.9) translateY(20px);
+    transform: scale(0.94) translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -264,26 +240,27 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0);
   }
+
   50% {
-    transform: translate(-30px, -30px);
+    transform: translate(-24px, -24px);
   }
 }
 
-/* Responsive */
 @media (max-width: 1200px) {
   .container {
-    gap: 4rem;
+    gap: 3.5rem;
   }
 
   .title {
-    font-size: 3rem;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
   }
 
   .statNumber {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -292,60 +269,43 @@
     padding: 5rem 2rem;
   }
 
-  .title {
-    font-size: 2.5rem;
-  }
-
   .imageWrapper {
-    height: 280px;
+    height: 290px;
   }
 }
 
 @media (max-width: 900px) {
   .container {
-    flex-direction: column;
-    gap: 4rem;
-    padding: 4rem 2rem;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    padding: 4.5rem 2rem;
   }
 
   .textBox {
     text-align: center;
   }
 
-  .badge {
-    display: inline-block;
+  .description {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .stats {
     justify-content: center;
-    gap: 2.5rem;
   }
 
   .images {
-    flex-direction: row;
-    width: 100%;
-  }
-
-  .imageWrapper {
-    height: 300px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 768px) {
   .title {
-    font-size: 2.25rem;
+    font-size: 2.2rem;
   }
 
   .description {
     font-size: 1rem;
-  }
-
-  .stats {
-    gap: 2rem;
-  }
-
-  .statNumber {
-    font-size: 1.75rem;
   }
 
   .imageWrapper {
@@ -355,51 +315,140 @@
 
 @media (max-width: 600px) {
   .container {
-    padding: 3rem 1.5rem;
-  }
-
-  .title {
-    font-size: 2rem;
+    padding: 3.5rem 1.5rem;
   }
 
   .images {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .imageWrapper {
     height: 220px;
   }
 
-  .stats {
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-
   .stat {
-    min-width: 100px;
+    min-width: 128px;
   }
 }
 
 @media (max-width: 480px) {
   .title {
-    font-size: 1.75rem;
+    font-size: 1.9rem;
   }
 
   .badge {
-    font-size: 0.75rem;
-    padding: 0.4rem 1rem;
+    font-size: 0.74rem;
   }
 
   .imageWrapper {
     height: 200px;
-    border-radius: 20px;
+    border-radius: 22px;
   }
 
   .statNumber {
-    font-size: 1.5rem;
+    font-size: 1.55rem;
   }
 
   .statLabel {
-    font-size: 0.75rem;
+    font-size: 0.74rem;
+  }
+}
+
+/* ── Team Grid ── */
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  animation: slideInRight 0.9s ease-out;
+}
+
+.teamCard {
+  position: relative;
+  border-radius: 22px;
+  border: 1px solid var(--bm-border);
+  background: linear-gradient(180deg, var(--bm-surface) 0%, rgba(7, 18, 9, 0.88) 100%);
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  cursor: default;
+}
+
+.teamCard:hover {
+  transform: translateY(-7px);
+  border-color: var(--bm-border-hover);
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.35),
+    0 0 40px var(--bm-orb-primary);
+}
+
+.teamCard:hover .imageGlow {
+  opacity: 0.28;
+}
+
+.teamCard:nth-child(1) { animation: scaleIn 0.8s ease-out 0.25s backwards; }
+.teamCard:nth-child(2) { animation: scaleIn 0.8s ease-out 0.35s backwards; }
+.teamCard:nth-child(3) { animation: scaleIn 0.8s ease-out 0.45s backwards; }
+.teamCard:nth-child(4) { animation: scaleIn 0.8s ease-out 0.55s backwards; }
+
+.cardImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.cardInfo {
+  padding: 1rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.memberName {
+  color: var(--bm-text-light);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.memberRole {
+  color: var(--bm-subtext);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* Responsive overrides para teamGrid */
+@media (max-width: 900px) {
+  .teamGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    animation: slideInLeft 0.9s ease-out; /* ya no entra desde la derecha */
+  }
+
+  .cardImageWrapper {
+    height: 180px;
+  }
+}
+
+@media (max-width: 700px) {
+  .teamGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .teamGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .cardImageWrapper {
+    height: 155px;
+  }
+
+  .memberName {
+    font-size: 0.88rem;
   }
 }
