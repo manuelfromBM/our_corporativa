@@ -2,7 +2,7 @@ export const team = [
   {
     name: "Manuel Diaz",
     role: "Fundador- Full Stack Developer",
-    img: "/BM-imagenes/BM_Team/Manuel.jfif",
+    img: "/BM-imagenes/BM_Team/Manuel.jpg",
     alt: "Foto de Socio 1",
   },
   {
