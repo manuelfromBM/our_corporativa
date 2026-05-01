@@ -9,7 +9,6 @@
   min-height: 100vh;
   background: var(--bm-bg);
   color: var(--bm-text);
-  overflow-x: hidden;
 }
 
 /* ── FONDO ── */
@@ -150,11 +149,12 @@
 /* ── SIDEBAR ── */
 .sidebar {
   position: sticky;
-  top: 100px; /* compensa el navbar */
+  top: 100px;
   max-height: calc(100vh - 120px);
   overflow-y: auto;
   scrollbar-width: none;
   padding-bottom: 24px;
+  align-self: start;
 }
 
 .sidebar::-webkit-scrollbar {

@@ -6,7 +6,7 @@ const teamImages = [
   {
     src: "/BM-imagenes/img_krona_1.jpg",
     alt: "Equipo de desarrollo",
-    label: "Nuestro equipo",
+    label: "Nuestro trabajo",
   },
   {
     src: "/KronaLogo.jpg",
@@ -16,7 +16,7 @@ const teamImages = [
   {
     src: "/BM-imagenes/fotogrupal.png",
     alt: "Experiencia de usuario",
-    label: "Experiencia",
+    label: "Nuestro equipo",
   },
 ];
 
