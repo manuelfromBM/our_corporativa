@@ -1,0 +1,124 @@
+.bmcodelab-theme {
+  /* ========================
+     COLORES BASE
+  ======================== */
+  --bm-bg: #05070a;
+  --bm-dark: #05070a;
+  --bm-dark-2: #0b0f14;
+  --bm-dark-3: #0f141a;
+
+  /* ========================
+     TEXTO
+  ======================== */
+  --bm-text: #e6edf3;
+  --bm-subtext: #9fb0c0;
+
+  --bm-text-light: #ffffff;
+  --bm-subtext-light: #cbd5e1;
+
+  /* ========================
+     IDENTIDAD
+  ======================== */
+  --bm-primary: #00c896;     /* verde base */
+  --bm-accent: #0ea47a;      /* verde más profundo */
+
+  /* ========================
+     CONTRASTE (PROTAGONISTA)
+  ======================== */
+  --bm-secondary: #3b82f6;   /* azul moderno */
+
+  /* ========================
+     GRADIENTES
+  ======================== */
+  --bm-gradient-primary: linear-gradient(135deg, #00c896, #3b82f6);
+  --bm-gradient-accent: linear-gradient(135deg, #0ea47a, #3b82f6);
+  --bm-gradient-hero: linear-gradient(135deg, #00c896 0%, #3b82f6 100%);
+
+  /* ========================
+     NAVBAR
+  ======================== */
+  --navbar-bg: rgba(5, 7, 10, 0.75);
+  --navbar-bg-scrolled: rgba(5, 7, 10, 0.95);
+
+  --navbar-shadow: none;
+  --navbar-shadow-scrolled: 0 4px 30px rgba(0, 0, 0, 0.3);
+
+  --navbar-logo-border: #00c896;
+  --navbar-logo-shadow: 0 0 20px rgba(0, 200, 150, 0.25);
+
+  --navbar-logo-border-hover: #3b82f6;
+  --navbar-logo-shadow-hover: 0 0 25px rgba(59, 130, 246, 0.35);
+
+  --navbar-brand-color: #e6edf3;
+  --navbar-brand-gradient: linear-gradient(135deg, #e6edf3 0%, #00c896 100%);
+  --navbar-brand-gradient-hover: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
+  --navbar-brand-hover-shadow: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
+
+  --navbar-link-color: #7f8c98;
+  --navbar-link-hover: #ffffff;
+
+  --navbar-link-overlay: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.12),
+    rgba(0, 200, 150, 0.08)
+  );
+
+  --navbar-link-underline: linear-gradient(90deg, #3b82f6, #00c896);
+  --navbar-link-underline-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+
+  /* ========================
+     SUPERFICIES
+  ======================== */
+  --bm-surface: rgba(255, 255, 255, 0.04);
+  --bm-surface-hover: rgba(255, 255, 255, 0.08);
+
+  --bm-border: rgba(255, 255, 255, 0.08);
+  --bm-border-hover: rgba(59, 130, 246, 0.25);
+
+  /* ========================
+     EFECTOS / ORBS
+  ======================== */
+  --bm-orb-primary: rgba(0, 200, 150, 0.18);
+  --bm-orb-secondary: rgba(59, 130, 246, 0.18);
+  --bm-orb-accent: rgba(255, 255, 255, 0.04);
+
+  /* ========================
+     GRID
+  ======================== */
+  --bm-grid-color: rgba(255, 255, 255, 0.03);
+
+  /* ========================
+     BADGES / PILLS
+  ======================== */
+  --bm-badge-bg: rgba(59, 130, 246, 0.08);
+  --bm-badge-border: rgba(59, 130, 246, 0.25);
+  --bm-badge-text: #3b82f6;
+
+  --bm-badge-lime-bg: rgba(0, 200, 150, 0.08);
+  --bm-badge-lime-border: rgba(0, 200, 150, 0.25);
+  --bm-badge-lime-text: #00c896;
+
+  /* ========================
+     BOTONES
+  ======================== */
+  --bm-btn-primary-bg: linear-gradient(135deg, #00c896, #3b82f6);
+  --bm-btn-primary-text: #ffffff;
+
+  --bm-btn-secondary-bg: rgba(59, 130, 246, 0.1);
+  --bm-btn-secondary-text: #3b82f6;
+  --bm-btn-secondary-border: rgba(59, 130, 246, 0.25);
+
+  /* ========================
+     STATS BAND
+  ======================== */
+  --bm-band-bg: linear-gradient(135deg, #00c896, #3b82f6);
+  --bm-band-text: #ffffff;
+  --bm-band-subtext: rgba(255, 255, 255, 0.7);
+
+  /* ========================
+     FLOATING CARDS
+  ======================== */
+  --bm-float-bg: rgba(11, 15, 20, 0.85);
+  --bm-float-border: rgba(255, 255, 255, 0.08);
+  --bm-float-dot: #3b82f6;
+}

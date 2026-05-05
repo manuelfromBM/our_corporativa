@@ -1,0 +1,427 @@
+/* ============================================================
+   Servicios.module.css — rediseño tarjetas imagen + título
+   Paleta: variables --bm-* del tema bmcodelab-theme
+   ============================================================ */
+
+/* ── Todo lo anterior se mantiene intacto ── */
+
+.section {
+  position: relative;
+  min-height: 100vh;
+  padding: 7rem 2rem;
+  background: linear-gradient(180deg, var(--bm-dark-2) 0%, var(--bm-dark) 100%);
+  overflow: hidden;
+}
+
+.section::before,
+.section::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.section::before {
+  width: 48rem;
+  height: 48rem;
+  top: -24rem;
+  left: -22rem;
+  background: radial-gradient(circle, var(--bm-orb-primary), transparent 70%);
+  animation: pulseGlow 10s ease-in-out infinite;
+}
+
+.section::after {
+  width: 36rem;
+  height: 36rem;
+  right: -18rem;
+  bottom: -18rem;
+  background: radial-gradient(circle, var(--bm-orb-secondary), transparent 70%);
+  animation: pulseGlow 8s ease-in-out infinite reverse;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.headerSection {
+  margin-bottom: 3.75rem;
+  text-align: center;
+  animation: fadeInDown 0.9s ease-out;
+}
+
+.badge {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: var(--bm-badge-lime-bg);
+  border: 1px solid var(--bm-badge-lime-border);
+  color: var(--bm-badge-lime-text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-bottom: 0.9rem;
+  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--bm-text-light);
+}
+
+.subtitle {
+  max-width: 42rem;
+  margin: 0 auto 1.8rem;
+  color: var(--bm-subtext);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.toggleWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.togglePill {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--bm-border);
+  backdrop-filter: blur(10px);
+}
+
+.toggleBtn {
+  padding: 0.7rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--bm-subtext);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.toggleBtn:hover:not(.toggleBtnActive) {
+  color: var(--bm-text-light);
+}
+
+.toggleBtnActive {
+  background: var(--bm-surface-hover);
+  color: var(--bm-primary);
+  border-color: var(--bm-border-hover);
+}
+
+.toggleSubtitle {
+  min-height: 20px;
+  margin: 0.45rem 0 0;
+  color: var(--bm-subtext);
+  font-size: 0.85rem;
+  transition: opacity 0.25s ease;
+}
+
+.toggleSubtitleFading {
+  opacity: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.4rem;
+  animation: fadeInUp 1s ease-out 0.25s backwards;
+}
+
+/* ════════════════════════════════════════════════
+   TARJETA — nuevo diseño imagen (90%) + título (10%)
+   ════════════════════════════════════════════════ */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bm-surface);
+  border: 1px solid var(--bm-border);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.card:nth-child(1) { animation: slideInCard 0.8s ease-out 0.1s  backwards; }
+.card:nth-child(2) { animation: slideInCard 0.8s ease-out 0.18s backwards; }
+.card:nth-child(3) { animation: slideInCard 0.8s ease-out 0.26s backwards; }
+.card:nth-child(4) { animation: slideInCard 0.8s ease-out 0.34s backwards; }
+.card:nth-child(5) { animation: slideInCard 0.8s ease-out 0.42s backwards; }
+.card:nth-child(6) { animation: slideInCard 0.8s ease-out 0.5s  backwards; }
+.card:nth-child(7) { animation: slideInCard 0.8s ease-out 0.58s backwards; }
+.card:nth-child(8) { animation: slideInCard 0.8s ease-out 0.66s backwards; }
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--card-color) 45%, transparent);
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.4),
+    0 0 0 1px color-mix(in srgb, var(--card-color) 22%, transparent) inset;
+}
+
+/* Glow de fondo */
+.cardGlow {
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--card-color), transparent 65%);
+  opacity: 0;
+  filter: blur(24px);
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.card:hover .cardGlow {
+  opacity: 0.18;
+}
+
+/* ── ZONA IMAGEN — 90% de la altura de la tarjeta ── */
+.imagenWrap {
+  position: relative;
+  width: 100%;
+  /* Relación de aspecto generosa para que la imagen domine visualmente */
+  aspect-ratio: 4 / 3;
+  background: var(--bm-dark-3);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease, opacity 0.3s ease;
+  /* Mientras no haya src, el elemento queda invisible sin romper layout */
+  opacity: 0;
+}
+
+/* Cuando se cargue la imagen, la mostramos */
+.imagen[src]:not([src=""]) {
+  opacity: 1;
+}
+
+.card:hover .imagen {
+  transform: scale(1.05);
+}
+
+/* Overlay: degradado oscuro en la parte inferior para que el título contraste */
+.imagenOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 30%,
+    rgba(5, 7, 10, 0.55) 75%,
+    rgba(5, 7, 10, 0.75) 100%
+  );
+  transition: opacity 0.35s ease;
+}
+
+.card:hover .imagenOverlay {
+  opacity: 0.85;
+}
+
+/* Número decorativo — esquina superior derecha de la imagen */
+.cardNumber {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.12);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  transition: color 0.3s ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+.card:hover .cardNumber {
+  color: color-mix(in srgb, var(--card-color) 30%, rgba(255, 255, 255, 0.12));
+}
+
+/* Línea de acento superior que aparece al hover */
+.imagenWrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 3;
+  background: linear-gradient(90deg, var(--card-color), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.card:hover .imagenWrap::before {
+  transform: scaleX(1);
+}
+
+/* ── ZONA TÍTULO — franja inferior compacta ── */
+.cardFooter {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 18px;
+  background: var(--bm-dark-2);
+  border-top: 1px solid var(--bm-border);
+  transition: background 0.3s ease, border-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.card:hover .cardFooter {
+  background: var(--bm-dark-3);
+  border-color: color-mix(in srgb, var(--card-color) 28%, transparent);
+}
+
+.cardFooterFading {
+  opacity: 0;
+  transition: opacity 0.22s ease !important;
+}
+
+.cardTitle {
+  margin: 0;
+  color: var(--bm-text);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  transition: color 0.25s ease;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card:hover .cardTitle {
+  color: var(--card-color);
+}
+
+.arrow {
+  flex-shrink: 0;
+  color: var(--bm-subtext);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.card:hover .arrow {
+  color: var(--card-color);
+  transform: translateX(3px);
+}
+
+/* ── PARTÍCULAS (sin cambios) ── */
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--bm-primary);
+  opacity: 0.22;
+  animation: particleFloat 15s infinite ease-in-out;
+}
+
+.particle:nth-child(1)  { left: 10%; animation-delay: 0s;    }
+.particle:nth-child(2)  { left: 20%; animation-delay: 2s;    }
+.particle:nth-child(3)  { left: 30%; animation-delay: 4s;    }
+.particle:nth-child(4)  { left: 40%; animation-delay: 1s;    }
+.particle:nth-child(5)  { left: 50%; animation-delay: 3s;    }
+.particle:nth-child(6)  { left: 60%; animation-delay: 5s;    }
+.particle:nth-child(7)  { left: 70%; animation-delay: 2.5s;  }
+.particle:nth-child(8)  { left: 80%; animation-delay: 4.5s;  }
+.particle:nth-child(9)  { left: 90%; animation-delay: 1.5s;  }
+.particle:nth-child(10) { left: 15%; animation-delay: 3.5s;  }
+.particle:nth-child(11) { left: 25%; animation-delay: 0.5s;  }
+.particle:nth-child(12) { left: 35%; animation-delay: 2.8s;  }
+.particle:nth-child(13) { left: 45%; animation-delay: 4.2s;  }
+.particle:nth-child(14) { left: 55%; animation-delay: 1.8s;  }
+.particle:nth-child(15) { left: 65%; animation-delay: 3.2s;  }
+.particle:nth-child(16) { left: 75%; animation-delay: 0.8s;  }
+.particle:nth-child(17) { left: 85%; animation-delay: 2.2s;  }
+.particle:nth-child(18) { left: 95%; animation-delay: 4.8s;  }
+.particle:nth-child(19) { left: 12%; animation-delay: 1.2s;  }
+.particle:nth-child(20) { left: 88%; animation-delay: 3.8s;  }
+
+/* ── KEYFRAMES ── */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInCard {
+  from { opacity: 0; transform: translateY(34px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1);    opacity: 0.32; }
+  50%       { transform: scale(1.12); opacity: 0.55; }
+}
+
+@keyframes particleFloat {
+  0%, 100% { transform: translateY(0)      translateX(0);   opacity: 0.18; }
+  50%       { transform: translateY(-100vh) translateX(18px); opacity: 0.42; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .section { padding: 6rem 1.5rem; }
+  .grid    { gap: 1.2rem; }
+}
+
+@media (max-width: 768px) {
+  .section  { padding: 5rem 1.25rem; }
+  .title    { font-size: 2.3rem; }
+  .subtitle { font-size: 1rem; }
+  .toggleBtn { padding: 0.7rem 1rem; font-size: 0.84rem; }
+  .grid     { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .section        { padding: 4rem 1rem; }
+  .title          { font-size: 2rem; }
+  .headerSection  { margin-bottom: 3rem; }
+  .badge          { font-size: 0.72rem; }
+  .togglePill     { width: 100%; justify-content: center; }
+  .toggleBtn      { flex: 1; }
+  .grid           { grid-template-columns: 1fr; }
+  .cardTitle      { font-size: 0.88rem; }
+}

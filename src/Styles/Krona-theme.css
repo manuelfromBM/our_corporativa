@@ -29,6 +29,28 @@
   --krona-text-light: #FFFFFF;
   --krona-subtext-light: #CBD5E1;
 
+  --krona-gradient-primary: linear-gradient(135deg, #174A7E, #6A4BC4);
+  --krona-gradient-accent: linear-gradient(135deg, #1BB68C, #6A4BC4);
+
+  --navbar-bg: linear-gradient(135deg, rgba(23, 74, 126, 0.96) 0%, rgba(12, 12, 20, 0.96) 100%);
+  --navbar-bg-scrolled: rgba(15, 23, 42, 0.96);
+  --navbar-shadow: 0 4px 20px rgba(27, 182, 140, 0.2);
+  --navbar-shadow-scrolled: 0 4px 30px rgba(106, 75, 196, 0.25);
+  --navbar-logo-border: #1BB68C;
+  --navbar-logo-shadow: 0 0 20px rgba(27, 182, 140, 0.35);
+  --navbar-logo-border-hover: #6A4BC4;
+  --navbar-logo-shadow-hover: 0 0 30px rgba(106, 75, 196, 0.45);
+  --navbar-brand-color: #FFFFFF;
+  --navbar-brand-gradient: linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 100%);
+  --navbar-brand-gradient-hover: linear-gradient(135deg, #FFFFFF 0%, #1BB68C 100%);
+  --navbar-brand-hover-shadow: drop-shadow(0 0 10px rgba(27, 182, 140, 0.35));
+  --navbar-link-color: #E2E8F0;
+  --navbar-link-hover: #FFFFFF;
+  --navbar-link-overlay: linear-gradient(135deg, rgba(27, 182, 140, 0.18) 0%, rgba(106, 75, 196, 0.16) 100%);
+  --navbar-link-underline: linear-gradient(90deg, #1BB68C 0%, #6A4BC4 100%);
+  --navbar-link-underline-shadow: 0 0 12px rgba(27, 182, 140, 0.35);
+}
+
   /* Bordes */
   --krona-border: rgba(15, 23, 42, 0.08);
   --krona-border-strong: rgba(15, 23, 42, 0.14);

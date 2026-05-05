@@ -1,0 +1,300 @@
+/* ============================================================
+   NuestroProceso.module.css
+   Paleta: variables --bm-* del tema bmcodelab-theme
+   ============================================================ */
+
+/* ── SECCIÓN ── */
+.section {
+  position: relative;
+  padding: 100px 0 96px;
+  background: var(--bm-dark-2);
+  overflow: hidden;
+}
+
+/* ── FONDO ── */
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--bm-grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bm-grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+.bgOrb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, var(--bm-orb-secondary) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* ── CONTENEDOR ── */
+.container {
+  position: relative;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── ANIMACIONES ── */
+.section .header,
+.section .timeline {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.visible .header   { opacity: 1; transform: none; transition-delay: 0s; }
+.visible .timeline { opacity: 1; transform: none; transition-delay: 0.18s; }
+
+/* ── ENCABEZADO ── */
+.header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 64px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 100px;
+  background: var(--bm-badge-bg);
+  border: 1px solid var(--bm-badge-border);
+  color: var(--bm-badge-text);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.titulo {
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 700;
+  color: var(--bm-text);
+  line-height: 1.2;
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+}
+
+.gradientText {
+  background: var(--bm-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitulo {
+  font-size: 15px;
+  color: var(--bm-subtext);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .timeline {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* ── PASO ── */
+.paso {
+  position: relative;
+  padding: 32px 24px 36px;
+  border: 1px solid var(--bm-border);
+  border-right: none;
+  background: var(--bm-surface);
+  overflow: hidden;
+  cursor: default;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  animation: fadeUp 0.55s ease both;
+  animation-delay: var(--delay, 0s);
+}
+
+.paso:first-child {
+  border-radius: 16px 0 0 16px;
+}
+
+.paso:last-child {
+  border-right: 1px solid var(--bm-border);
+  border-radius: 0 16px 16px 0;
+}
+
+@media (max-width: 900px) {
+  .paso {
+    border-right: 1px solid var(--bm-border) !important;
+    border-bottom: none;
+    border-radius: 0 !important;
+  }
+
+  .paso:first-child { border-radius: 16px 16px 0 0 !important; }
+  .paso:last-child  {
+    border-bottom: 1px solid var(--bm-border) !important;
+    border-radius: 0 0 16px 16px !important;
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pasoActivo {
+  background: var(--bm-surface-hover);
+  border-color: var(--bm-border-hover);
+  z-index: 1;
+}
+
+.pasoActivo + .paso {
+  border-left-color: var(--bm-border-hover);
+}
+
+/* Glow interior en hover */
+.pasoGlow {
+  position: absolute;
+  inset: 0;
+  background: var(--bm-gradient-primary);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.pasoActivo .pasoGlow {
+  opacity: 0.04;
+}
+
+/* ── CONECTOR (línea entre pasos en desktop) ── */
+.conector {
+  display: none;
+}
+
+/* ── HEAD ── */
+.pasoHead {
+  margin-bottom: 20px;
+}
+
+.pasoIconWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pasoNumero {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--bm-primary);
+  font-feature-settings: "tnum";
+}
+
+.pasoIcono {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--bm-surface);
+  border: 1px solid var(--bm-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bm-subtext);
+  transition: color 0.3s, background 0.3s, border-color 0.3s;
+}
+
+.pasoIcono svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pasoActivo .pasoIcono {
+  color: var(--bm-primary);
+  background: rgba(0, 200, 150, 0.1);
+  border-color: rgba(0, 200, 150, 0.3);
+}
+
+/* ── BODY ── */
+.pasoBody {
+  position: relative;
+  z-index: 1;
+}
+
+.pasoBajada {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--bm-secondary);
+  margin: 0 0 8px;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+.pasoActivo .pasoBajada {
+  opacity: 1;
+}
+
+.pasoTitulo {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--bm-text);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.pasoDescripcion {
+  font-size: 13px;
+  color: var(--bm-subtext);
+  line-height: 1.65;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.pasoActivo .pasoDescripcion {
+  color: var(--bm-subtext-light);
+}
+
+/* ── ACENTO INFERIOR (barra de progreso visual) ── */
+.paso::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--bm-gradient-primary);
+  transition: width 0.4s ease;
+}
+
+.pasoActivo::after {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .paso::after {
+    width: 0;
+    height: 0;
+    left: 0;
+    bottom: auto;
+    top: 0;
+  }
+
+  .pasoActivo::after {
+    width: 3px;
+    height: 100%;
+  }
+}

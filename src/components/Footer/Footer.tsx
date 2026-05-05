@@ -14,10 +14,10 @@ const FooterContainer = () => {
     ];
 
     const quickLinks = [
-        { href: "#Inicio", label: "Inicio" },
-        { href: "#Krona", label: "Krona" },
-        { href: "#Servicios", label: "Servicios" },
-        { href: "#Nosotros", label: "Nosotros" },
+        { href: "/#inicio", label: "Inicio" },
+        { href: "/krona", label: "Krona" },
+        { href: "/#servicios", label: "Servicios" },
+        { href: "/#nosotros", label: "Nosotros" },
     ];
 
     return (
@@ -27,18 +27,19 @@ const FooterContainer = () => {
                     {/* Columna 1: Información de la empresa */}
                     <Col lg={4} md={6} className={styles.FooterCol}>
                         <div className={styles.BrandSection}>
-                            <h5 className={styles.FooterTitle}>
+                            {/* <h5 className={styles.FooterTitle}>
                                 <span className={styles.BrandGradient}>BM CODE LAB</span>
-                            </h5>
+                            </h5> */}
+                            <img src="/BM-imagenes/logodefinitivofooter2.png" className={styles.imgFooter} />
                             <p className={styles.FooterDescription}>
-                                Transformando ideas en soluciones digitales innovadoras. 
+                                Transformando ideas en soluciones digitales innovadoras.
                                 Desarrollo web y software a medida.
                             </p>
                             <div className={styles.SocialLinks}>
                                 {socialLinks.map((social) => (
-                                    <a 
+                                    <a
                                         key={social.label}
-                                        href={social.href} 
+                                        href={social.href}
                                         className={styles.SocialLink}
                                         aria-label={social.label}
                                         target="_blank"
