@@ -4,6 +4,7 @@ import styles from "./ProblemasKrona.module.css"
 import { useState } from "react";
 
 
+
 type SolutionId = "sol1" | "sol2" | "sol3" | "sol4";
 interface Problem {
   id: SolutionId;
