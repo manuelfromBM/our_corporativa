@@ -1,4 +1,3 @@
-import NavKrona from "@/components/Krona-components/NavBarKrona/NavKrona";
 import BeneficiosKrona from "@/components/Krona-components/Beneficios/BeneficiosKrona";
 import ComoFunciona from "@/components/Krona-components/Como_Funciona/ComoFunciona";
 import CTAKrona from "@/components/Krona-components/CTA/CtaKrona";
@@ -13,7 +12,6 @@ import ReseñasKrona from "@/components/Krona-components/Reseñas/ReseñasKrona"
 export default function Kronapage() {
   return (
     <div className="krona-theme">
-      <NavKrona />
       <section id="inicio">
         <SectionHero />
       </section>
@@ -48,7 +46,7 @@ export default function Kronapage() {
 
       <section id="beta">
         <CTAKrona />
-      </section> 
+      </section>
     </div>
   );
 }
