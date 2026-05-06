@@ -1,3 +1,4 @@
+import { Briefcase, Store, BarChart2, MapPin } from 'lucide-react'
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';

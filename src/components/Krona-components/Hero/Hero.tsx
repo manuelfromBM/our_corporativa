@@ -1,3 +1,4 @@
+import Image from "next/image"
 import styles from "./Hero.module.css"
 
 export default function SectionHero() {
@@ -19,9 +20,12 @@ export default function SectionHero() {
         </div>
 
         <div className={styles.heroMockup}>
-          <img 
-            src="./DashboardKrona.png" 
-            alt="App Krona"/>
+          <Image
+            src="/Krona-imagenes/Cliente-usando-krona.png"
+            alt="usando krona"
+            width={2000}
+            height={110}
+          />
         </div>
 
       </div>
