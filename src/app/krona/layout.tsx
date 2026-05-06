@@ -10,7 +10,6 @@ export default function KronaLayout({
 }) {
     return (
         <div className="krona-theme">
-            <NavbarPrincipal />
             <NavKronaSection />
             <main>{children}</main>
             <WhatsAppButton />
