@@ -22,7 +22,7 @@ const teamImages = [
 
 export default function AppPromo() {
   return (
-    <section id="proyectos" className={styles.container}>
+    <section id="krona" className={styles.container}>
       <div className={styles.content}>
         <span className={styles.badge}>Producto propio</span>
 

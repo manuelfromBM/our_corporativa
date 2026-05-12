@@ -18,7 +18,6 @@
     box-shadow: var(--navbar-shadow-scrolled);
 }
 
-/* Cuando el menú móvil está abierto, forzar fondo sólido en la barra */
 .NavBar.MenuOpenBar {
     background: var(--navbar-bg-scrolled);
     backdrop-filter: blur(12px);
@@ -36,14 +35,13 @@
     position: relative;
 }
 
-/* ── Brand (izquierda) ── */
+/* ── Brand ── */
 .BrandContainer {
     display: flex;
     align-items: center;
     gap: 0.6rem;
     flex: 0 0 auto;
 }
-
 
 .imgLogo {
     width: auto;
@@ -124,7 +122,7 @@
     width: 65%;
 }
 
-/* ── Derecha: CTA + Hamburger ── */
+/* ── Derecha ── */
 .RightSection {
     margin-left: auto;
     flex: 0 0 auto;
@@ -133,7 +131,6 @@
     gap: 0.75rem;
 }
 
-/* ── CTA (derecha) ── */
 .CTAButton {
     background: var(--bm-btn-primary-bg);
     color: var(--bm-btn-primary-text) !important;
@@ -157,7 +154,7 @@
     transform: translateY(0);
 }
 
-/* ── Hamburger Button ── */
+/* ── Hamburger ── */
 .HamburgerBtn {
     display: none;
     flex-direction: column;
@@ -190,7 +187,6 @@
     transform-origin: center;
 }
 
-/* Animación X al abrir */
 .HamburgerOpen .HamburgerLine:nth-child(1) {
     transform: translateY(6.5px) rotate(45deg);
 }
@@ -202,11 +198,11 @@
     transform: translateY(-6.5px) rotate(-45deg);
 }
 
-/* ── Mobile Menu (dropdown) ── */
+/* ── Mobile Menu ── */
 .MobileMenu {
     display: none;
     position: fixed;
-    top: 57px; /* altura del navbar */
+    top: 57px;
     left: 0;
     right: 0;
     z-index: 799;
@@ -281,7 +277,6 @@
     transform: translateY(-1px);
 }
 
-/* Backdrop semitransparente */
 .MobileBackdrop {
     display: none;
     position: fixed;
@@ -307,7 +302,10 @@
     }
 }
 
-/* ── Responsive ── */
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — pantallas pequeñas (sin cambios)
+   ════════════════════════════════════════════════════════════ */
+
 @media (max-width: 900px) {
     .NavLinks {
         position: static;
@@ -324,7 +322,7 @@
         display: none;
     }
     .CTAButton {
-        display: none; /* Se muestra dentro del menú móvil */
+        display: none;
     }
     .HamburgerBtn {
         display: flex;
@@ -334,5 +332,63 @@
     }
     .MobileBackdrop {
         display: block;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — pantallas grandes
+   ════════════════════════════════════════════════════════════ */
+
+/* 1440px — ampliar el contenedor y ajustar proporciones */
+@media (min-width: 1440px) {
+    .NavInner {
+        max-width: 1360px;
+        padding: 0.6rem 2rem;
+    }
+
+    .imgLogo {
+        height: 54px;
+    }
+
+    .NavLink {
+        font-size: 0.92rem;
+        padding: 0.45rem 1rem !important;
+    }
+
+    .CTAButton {
+        font-size: 0.92rem;
+        padding: 0.5rem 1.4rem;
+    }
+}
+
+/* 1920px — contenedor más ancho, tipografía y espaciado mayores */
+@media (min-width: 1920px) {
+    .NavInner {
+        max-width: 1760px;
+        padding: 0.75rem 2.5rem;
+    }
+
+    .imgLogo {
+        height: 58px;
+    }
+
+    .NavLink {
+        font-size: 0.96rem;
+        padding: 0.5rem 1.1rem !important;
+        gap: 0.15rem;
+    }
+
+    .NavLinks {
+        gap: 0.2rem;
+    }
+
+    .CTAButton {
+        font-size: 0.95rem;
+        padding: 0.55rem 1.6rem;
+        border-radius: 9px;
+    }
+
+    .RightSection {
+        gap: 1rem;
     }
 }
