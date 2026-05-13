@@ -290,10 +290,9 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   CINTAS DE FILM — decoración lateral del hero
+   CINTAS DE FILM
    ════════════════════════════════════════════════════════════ */
 
-/* ── Anchura de la cinta ── */
 :root {
   --film-width: 88px;
   --film-perf-size: 10px;
@@ -301,7 +300,6 @@
 }
 
 .filmStrip {
-  /* Posición fija a los extremos del hero */
   position: absolute;
   top: 0;
   bottom: 0;
@@ -309,26 +307,17 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-
-  /* Opacidad baja para que sea complemento, no protagonista */
   opacity: 0.28;
 }
 
-.filmStrip:first-of-type {
-  left: 0;
-}
+.filmStrip:first-of-type { left: 0; }
+.filmStrip:last-of-type  { right: 0; }
 
-.filmStrip:last-of-type {
-  right: 0;
-}
-
-/* Degradados superior e inferior para que la cinta se difumine */
 .filmFadeTop,
 .filmFadeBottom {
   position: absolute;
   left: 0;
   right: 0;
-  /* 30% del viewport cubre generosamente el punto de reinicio */
   height: 30vh;
   z-index: 2;
   pointer-events: none;
@@ -354,7 +343,6 @@
   );
 }
 
-/* Track animado — contiene los frames duplicados */
 .filmTrack {
   display: flex;
   flex-direction: column;
@@ -362,22 +350,9 @@
   will-change: transform;
 }
 
-/* Animación hacia arriba */
-.filmUp .filmTrack {
-  animation: scrollUp 28s linear infinite;
-}
+.filmUp .filmTrack   { animation: scrollUp 28s linear infinite; }
+.filmDown .filmTrack { animation: scrollDown 28s linear infinite; }
 
-/* Animación hacia abajo */
-.filmDown .filmTrack {
-  animation: scrollDown 28s linear infinite;
-}
-
-/*
-  La clave del loop seamless:
-  - El array de imágenes está duplicado en el TSX (8 frames en total = 4 originales + 4 copia)
-  - Traducimos exactamente -50% → llegamos al inicio del duplicado, que es idéntico al origen
-  - En ese instante CSS resetea a 0 sin que se note ningún salto
-*/
 @keyframes scrollUp {
   from { transform: translateY(0); }
   to   { transform: translateY(-50%); }
@@ -388,7 +363,6 @@
   to   { transform: translateY(0); }
 }
 
-/* ── Frame individual ── */
 .filmFrame {
   display: flex;
   flex-direction: row;
@@ -398,7 +372,6 @@
   background: var(--bm-dark-3);
 }
 
-/* ── Columna de perforaciones ── */
 .filmPerfs {
   display: flex;
   flex-direction: column;
@@ -410,7 +383,6 @@
   gap: 4px;
 }
 
-/* Perforación individual */
 .perf {
   width: var(--film-perf-size);
   height: var(--film-perf-size);
@@ -420,7 +392,6 @@
   flex-shrink: 0;
 }
 
-/* ── Zona de imagen ── */
 .filmImage {
   flex: 1;
   min-width: 0;
@@ -458,29 +429,24 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — pantallas pequeñas (sin cambios)
    ════════════════════════════════════════════════════════════ */
 
 @media (max-width: 1240px) {
   .heroContainer { max-width: 920px; }
   .heroTitle     { font-size: clamp(2.7rem, 4vw, 42px); }
-
   :root { --film-width: 72px; }
 }
 
-/* Las cintas se ocultan en tablet/mobile para no saturar */
 @media (max-width: 1024px) {
   .filmStrip { display: none; }
-
   .hero { --hero-bottom-space: 44px; }
-
   .heroContainer {
     min-height: auto;
     padding: 36px 24px 28px;
   }
-
-  .heroContent   { max-width: 100%; }
-  .heroButtons   { margin-bottom: 48px; }
+  .heroContent { max-width: 100%; }
+  .heroButtons { margin-bottom: 48px; }
 }
 
 @media (max-width: 640px) {
@@ -488,33 +454,26 @@
     --hero-nav-offset: 82px;
     --hero-bottom-space: 28px;
   }
-
   .gridOverlay { background-size: 46px 46px; }
-
   .heroBadge {
     font-size: 11px;
     padding: 10px 16px;
     margin-bottom: 24px;
   }
-
   .heroTitle {
     max-width: none;
     font-size: clamp(2.35rem, 10vw, 3.2rem);
     margin-bottom: 22px;
   }
-
   .heroContainer { padding: 24px 20px 24px; }
-
   .heroSubtitle {
     font-size: 14px;
     margin-bottom: 32px;
   }
-
   .heroButtons {
     gap: 14px;
     margin-bottom: 36px;
   }
-
   .btnPrimary,
   .btnSecondary {
     width: 100%;
@@ -522,10 +481,115 @@
     padding: 13px 20px;
     font-size: 14px;
   }
+  .heroStats    { gap: 18px; justify-content: center; }
+  .statItem     { min-width: 94px; }
+  .statNumber   { font-size: 20px; }
+  .statLabel    { font-size: 10px; letter-spacing: 0.08em; }
+  .statDivider  { height: 32px; }
+}
 
-  .heroStats      { gap: 18px; justify-content: center; }
-  .statItem       { min-width: 94px; }
-  .statNumber     { font-size: 20px; }
-  .statLabel      { font-size: 10px; letter-spacing: 0.08em; }
-  .statDivider    { height: 32px; }
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — pantallas grandes
+   ════════════════════════════════════════════════════════════ */
+
+/* 1440px */
+@media (min-width: 1440px) {
+  .heroContainer {
+    max-width: 1100px;
+    padding: 32px 64px 40px;
+  }
+
+  .heroContent {
+    max-width: 660px;
+  }
+
+  .heroTitle {
+    max-width: 660px;
+    font-size: clamp(3.2rem, 3.8vw, 52px);
+  }
+
+  .heroSubtitle {
+    max-width: 620px;
+    font-size: 16px;
+  }
+
+  .heroBadge {
+    font-size: 13px;
+    padding: 8px 20px;
+    margin-bottom: 32px;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    padding: 14px 32px;
+    font-size: 15px;
+  }
+
+  .heroButtons {
+    gap: 14px;
+    margin-bottom: 52px;
+  }
+
+  .statNumber { font-size: 26px; }
+  .statLabel  { font-size: 12px; }
+  .heroStats  { gap: 32px; }
+
+  :root { --film-width: 100px; }
+}
+
+/* 1920px */
+@media (min-width: 1920px) {
+  .heroContainer {
+    max-width: 1320px;
+    padding: 40px 80px 48px;
+  }
+
+  .heroContent {
+    max-width: 760px;
+  }
+
+  .heroTitle {
+    max-width: 760px;
+    font-size: clamp(3.6rem, 3.4vw, 62px);
+    letter-spacing: -2px;
+  }
+
+  .heroSubtitle {
+    max-width: 700px;
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 36px;
+  }
+
+  .heroBadge {
+    font-size: 13.5px;
+    padding: 9px 22px;
+    margin-bottom: 36px;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    padding: 15px 36px;
+    font-size: 15.5px;
+    border-radius: 12px;
+  }
+
+  .heroButtons {
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+
+  .statNumber   { font-size: 28px; }
+  .statLabel    { font-size: 12px; letter-spacing: 0.1em; }
+  .statDivider  { height: 40px; }
+  .heroStats    { gap: 36px; }
+
+  :root {
+    --film-width: 120px;
+    --film-perf-size: 12px;
+  }
+
+  .orb1 { width: 700px; height: 700px; }
+  .orb2 { width: 500px; height: 500px; }
+  .orb3 { width: 340px; height: 340px; }
 }

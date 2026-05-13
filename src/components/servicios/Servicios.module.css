@@ -3,8 +3,6 @@
    Paleta: variables --bm-* del tema bmcodelab-theme
    ============================================================ */
 
-/* ── Todo lo anterior se mantiene intacto ── */
-
 .section {
   position: relative;
   min-height: 100vh;
@@ -111,9 +109,7 @@
   transition: all 0.25s ease;
 }
 
-.toggleBtn:hover:not(.toggleBtnActive) {
-  color: var(--bm-text-light);
-}
+.toggleBtn:hover:not(.toggleBtnActive) { color: var(--bm-text-light); }
 
 .toggleBtnActive {
   background: var(--bm-surface-hover);
@@ -129,9 +125,7 @@
   transition: opacity 0.25s ease;
 }
 
-.toggleSubtitleFading {
-  opacity: 0;
-}
+.toggleSubtitleFading { opacity: 0; }
 
 .grid {
   display: grid;
@@ -141,7 +135,7 @@
 }
 
 /* ════════════════════════════════════════════════
-   TARJETA — nuevo diseño imagen (90%) + título (10%)
+   TARJETA
    ════════════════════════════════════════════════ */
 
 .card {
@@ -154,10 +148,7 @@
   border: 1px solid var(--bm-border);
   text-decoration: none;
   cursor: pointer;
-  transition:
-    transform 0.35s ease,
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .card:nth-child(1) { animation: slideInCard 0.8s ease-out 0.1s  backwards; }
@@ -177,7 +168,6 @@
     0 0 0 1px color-mix(in srgb, var(--card-color) 22%, transparent) inset;
 }
 
-/* Glow de fondo */
 .cardGlow {
   position: absolute;
   inset: -2px;
@@ -190,15 +180,11 @@
   transition: opacity 0.35s ease;
 }
 
-.card:hover .cardGlow {
-  opacity: 0.18;
-}
+.card:hover .cardGlow { opacity: 0.18; }
 
-/* ── ZONA IMAGEN — 90% de la altura de la tarjeta ── */
 .imagenWrap {
   position: relative;
   width: 100%;
-  /* Relación de aspecto generosa para que la imagen domine visualmente */
   aspect-ratio: 4 / 3;
   background: var(--bm-dark-3);
   overflow: hidden;
@@ -211,20 +197,12 @@
   object-fit: cover;
   display: block;
   transition: transform 0.45s ease, opacity 0.3s ease;
-  /* Mientras no haya src, el elemento queda invisible sin romper layout */
   opacity: 0;
 }
 
-/* Cuando se cargue la imagen, la mostramos */
-.imagen[src]:not([src=""]) {
-  opacity: 1;
-}
+.imagen[src]:not([src=""]) { opacity: 1; }
+.card:hover .imagen         { transform: scale(1.05); }
 
-.card:hover .imagen {
-  transform: scale(1.05);
-}
-
-/* Overlay: degradado oscuro en la parte inferior para que el título contraste */
 .imagenOverlay {
   position: absolute;
   inset: 0;
@@ -237,11 +215,8 @@
   transition: opacity 0.35s ease;
 }
 
-.card:hover .imagenOverlay {
-  opacity: 0.85;
-}
+.card:hover .imagenOverlay { opacity: 0.85; }
 
-/* Número decorativo — esquina superior derecha de la imagen */
 .cardNumber {
   position: absolute;
   top: 12px;
@@ -261,13 +236,10 @@
   color: color-mix(in srgb, var(--card-color) 30%, rgba(255, 255, 255, 0.12));
 }
 
-/* Línea de acento superior que aparece al hover */
 .imagenWrap::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 3px;
   z-index: 3;
   background: linear-gradient(90deg, var(--card-color), transparent);
@@ -276,11 +248,8 @@
   transition: transform 0.35s ease;
 }
 
-.card:hover .imagenWrap::before {
-  transform: scaleX(1);
-}
+.card:hover .imagenWrap::before { transform: scaleX(1); }
 
-/* ── ZONA TÍTULO — franja inferior compacta ── */
 .cardFooter {
   position: relative;
   z-index: 1;
@@ -320,9 +289,7 @@
   text-overflow: ellipsis;
 }
 
-.card:hover .cardTitle {
-  color: var(--card-color);
-}
+.card:hover .cardTitle { color: var(--card-color); }
 
 .arrow {
   flex-shrink: 0;
@@ -335,7 +302,7 @@
   transform: translateX(3px);
 }
 
-/* ── PARTÍCULAS (sin cambios) ── */
+/* ── PARTÍCULAS ── */
 .particles {
   position: absolute;
   inset: 0;
@@ -388,7 +355,7 @@
 
 @keyframes slideInCard {
   from { opacity: 0; transform: translateY(34px) scale(0.96); }
-  to   { opacity: 1; transform: translateY(0)    scale(1); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes pulseGlow {
@@ -397,31 +364,116 @@
 }
 
 @keyframes particleFloat {
-  0%, 100% { transform: translateY(0)      translateX(0);   opacity: 0.18; }
+  0%, 100% { transform: translateY(0) translateX(0);       opacity: 0.18; }
   50%       { transform: translateY(-100vh) translateX(18px); opacity: 0.42; }
 }
 
-/* ── RESPONSIVE ── */
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — pantallas pequeñas (sin cambios)
+   ════════════════════════════════════════════════════════════ */
+
 @media (max-width: 1024px) {
   .section { padding: 6rem 1.5rem; }
   .grid    { gap: 1.2rem; }
 }
 
 @media (max-width: 768px) {
-  .section  { padding: 5rem 1.25rem; }
-  .title    { font-size: 2.3rem; }
-  .subtitle { font-size: 1rem; }
+  .section   { padding: 5rem 1.25rem; }
+  .title     { font-size: 2.3rem; }
+  .subtitle  { font-size: 1rem; }
   .toggleBtn { padding: 0.7rem 1rem; font-size: 0.84rem; }
-  .grid     { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .grid      { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 }
 
 @media (max-width: 480px) {
-  .section        { padding: 4rem 1rem; }
-  .title          { font-size: 2rem; }
-  .headerSection  { margin-bottom: 3rem; }
-  .badge          { font-size: 0.72rem; }
-  .togglePill     { width: 100%; justify-content: center; }
-  .toggleBtn      { flex: 1; }
-  .grid           { grid-template-columns: 1fr; }
-  .cardTitle      { font-size: 0.88rem; }
+  .section       { padding: 4rem 1rem; }
+  .title         { font-size: 2rem; }
+  .headerSection { margin-bottom: 3rem; }
+  .badge         { font-size: 0.72rem; }
+  .togglePill    { width: 100%; justify-content: center; }
+  .toggleBtn     { flex: 1; }
+  .grid          { grid-template-columns: 1fr; }
+  .cardTitle     { font-size: 0.88rem; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — pantallas grandes
+   ════════════════════════════════════════════════════════════ */
+
+/* 1440px */
+@media (min-width: 1440px) {
+  .section {
+    padding: 8rem 2.5rem;
+  }
+
+  .container {
+    max-width: 1480px;
+  }
+
+  .title {
+    font-size: clamp(3rem, 4vw, 4.8rem);
+  }
+
+  .subtitle {
+    max-width: 48rem;
+    font-size: 1.12rem;
+  }
+
+  .headerSection {
+    margin-bottom: 4.5rem;
+  }
+
+  /* 4 columnas fijas para aprovechar el ancho */
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.6rem;
+  }
+
+  .cardFooter  { padding: 16px 20px; }
+  .cardTitle   { font-size: 0.95rem; }
+  .toggleBtn   { padding: 0.75rem 1.8rem; font-size: 0.92rem; }
+}
+
+/* 1920px */
+@media (min-width: 1920px) {
+  .section {
+    padding: 9rem 3rem;
+  }
+
+  .container {
+    max-width: 1760px;
+  }
+
+  .title {
+    font-size: clamp(3.4rem, 3.6vw, 5.2rem);
+  }
+
+  .subtitle {
+    max-width: 54rem;
+    font-size: 1.18rem;
+    line-height: 1.8;
+  }
+
+  .badge {
+    font-size: 0.85rem;
+    padding: 0.55rem 1.4rem;
+  }
+
+  .headerSection {
+    margin-bottom: 5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .cardFooter  { padding: 18px 22px; }
+  .cardTitle   { font-size: 1rem; }
+  .cardNumber  { font-size: 2.4rem; }
+  .toggleBtn   { padding: 0.8rem 2rem; font-size: 0.95rem; }
+  .toggleSubtitle { font-size: 0.9rem; }
+
+  .section::before { width: 64rem; height: 64rem; }
+  .section::after  { width: 48rem; height: 48rem; }
 }
