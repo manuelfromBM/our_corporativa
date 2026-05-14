@@ -106,6 +106,10 @@
   position: relative;
   overflow: hidden;
   user-select: none;
+    width: 100%;
+  background: transparent;
+  font: inherit;
+  text-align: left;
 }
 
 /* Indicador lateral izquierdo */
@@ -184,18 +188,18 @@
   display: block;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #d0d0e8;
+  color: var(--krona-primary-dark);
   margin-bottom: 2px;
   transition: color 0.3s;
 }
 
 .psItem.active .psItemText strong {
-  color: white;
+  color: var(--krona-primary);
 }
 
 .psItemText span {
   font-size: 0.82rem;
-  color: #6b6b90;
+  color:var(--krona-subtext);
   font-weight: 300;
 }
 
@@ -211,10 +215,15 @@
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  cursor: zoom-in;
 
   opacity: 0;
   transform: translateY(18px) scale(0.98);
   animation: imageReveal 0.45s ease forwards; /* ✅ CAMBIO: animación al cambiar */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0;
+  appearance: none;
 }
 
 .solutionImage {
@@ -389,6 +398,132 @@
   animation: blink 2s ease infinite;
 }
 
+.solutionImageBox {
+  position: relative;
+  cursor: zoom-in;
+}
+
+.zoomHint {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 4;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(12, 12, 20, 0.72);
+  border: 1px solid rgba(0, 253, 186, 0.22);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.solutionImageBox:hover .zoomHint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.imageModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background: rgba(5, 8, 18, 0.82);
+  backdrop-filter: blur(14px);
+  animation: modalFadeIn 0.22s ease forwards;
+}
+
+.modalImage {
+  width: min(92vw, 1180px);
+  max-height: 86vh;
+  object-fit: contain;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.45);
+  cursor: default;
+  animation: modalImageIn 0.26s ease forwards;
+}
+
+.modalImageWrap {
+  width: min(94vw, 1180px);
+  max-height: 88vh;
+  display: grid;
+  gap: 14px;
+}
+
+.modalCaption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.modalCaption strong {
+  font-size: 1rem;
+}
+
+.modalCaption span {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+.closeModal {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  z-index: 10000;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 999px;
+  background: var(--krona-dark-2);
+  color: #ffffff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.closeModal:hover {
+  background: rgba(0, 253, 186, 0.22);
+  transform: scale(1.05);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalImageIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.4; }
@@ -454,5 +589,379 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+/* =============================================
+   RESPONSIVE — PROBLEM / SOLUTION KRONA
+   ============================================= */
+
+/* Tablet / notebook pequeño */
+@media (max-width: 1024px) {
+  .problemSolution {
+    min-height: auto;
+    padding: 96px 6%;
+    align-items: flex-start;
+  }
+
+  .psContainer {
+    gap: 48px;
+  }
+
+  .psTitle {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    margin-bottom: 36px;
+  }
+
+  .psItem {
+    padding: 15px 18px;
+    gap: 14px;
+  }
+
+  .psRight {
+    min-height: 520px;
+  }
+
+  .solution {
+    max-width: 460px;
+  }
+
+  .solutionCard {
+    min-height: 540px;
+    padding: 28px;
+  }
+
+  .solutionImageBox {
+    max-height: 380px;
+  }
+}
+
+/* Tablet vertical / mobile grande */
+@media (max-width: 900px) {
+  .problemSolution {
+    padding: 88px 18px;
+  }
+
+  .psContainer {
+    flex-direction: column;
+    gap: 40px;
+    align-items: stretch;
+  }
+
+  .psLeft,
+  .psRight {
+    width: 100%;
+    flex: none;
+  }
+
+  .psLeft {
+    text-align: center;
+  }
+
+  .psEyebrow {
+    justify-content: center;
+  }
+
+  .psTitle {
+    max-width: 680px;
+    margin: 0 auto 34px;
+    text-align: center;
+  }
+
+  .psItems {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .psItem {
+    text-align: left;
+  }
+
+  .psRight {
+    min-height: auto;
+    display: block;
+  }
+
+  .psRight::before {
+    width: 420px;
+    height: 420px;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+  }
+
+  .solution {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    display: none;
+    opacity: 1;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    pointer-events: auto;
+  }
+
+  .solution.active {
+    display: block;
+    transform: none;
+    opacity: 1;
+  }
+
+  .solutionCard {
+    min-height: auto;
+    max-width: 100%;
+    padding: 28px;
+  }
+
+  .solutionImageBox {
+    max-height: none;
+  }
+
+  .solutionImage {
+    max-height: 360px;
+    object-fit: contain;
+  }
+}
+
+/* Celular */
+@media (max-width: 560px) {
+  .problemSolution {
+    padding: 76px 16px;
+    overflow: hidden;
+  }
+
+  .problemSolution::after {
+    width: 360px;
+    height: 360px;
+    left: -180px;
+    opacity: 0.7;
+  }
+
+  .psContainer {
+    gap: 32px;
+  }
+
+  .psEyebrow {
+    font-size: 0.68rem;
+    margin-bottom: 16px;
+  }
+
+  .psEyebrow::before {
+    width: 18px;
+  }
+
+  .psTitle {
+    font-size: 2.05rem;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+    margin-bottom: 28px;
+  }
+
+  .psItems {
+    gap: 10px;
+  }
+
+  .psItem {
+    padding: 14px;
+    gap: 12px;
+    border-radius: 16px;
+    background: rgba(106, 75, 196, 0.04);
+    border-color: rgba(106, 75, 196, 0.08);
+  }
+
+  .psItem.active {
+    transform: none;
+    background: rgba(106, 75, 196, 0.1);
+    border-color: rgba(106, 75, 196, 0.2);
+  }
+
+  .psItemIcon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 13px;
+  }
+
+  .psItemText strong {
+    font-size: 0.9rem;
+    color: var(--krona-primary-dark, #0f172a);
+  }
+
+  .psItem.active .psItemText strong {
+    color: var(--krona-primary, #174a7e);
+  }
+
+  .psItemText span {
+    font-size: 0.78rem;
+    color: var(--krona-subtext, #64748b);
+    line-height: 1.4;
+  }
+
+  .psItemNum {
+    display: none;
+  }
+
+  .solutionCard {
+    padding: 22px;
+    border-radius: 24px;
+    min-height: auto;
+  }
+
+  .solutionHeader {
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .psIconRight {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 15px;
+  }
+
+  .solutionStatus {
+    font-size: 0.64rem;
+  }
+
+  .solutionCard h3 {
+    font-size: 1.2rem;
+    line-height: 1.18;
+  }
+
+  .solutionDivider {
+    margin: 18px 0;
+  }
+
+  .solutionCard > p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .solutionFeatures {
+    gap: 8px;
+  }
+
+  .sFeat {
+    font-size: 0.72rem;
+    padding: 5px 11px;
+  }
+
+  .solutionImageBox {
+    margin-top: 22px;
+    border-radius: 18px;
+  }
+
+  .solutionImage {
+    max-height: 280px;
+    transform: none;
+  }
+
+  .solutionCard:hover .solutionImage {
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .imageModal {
+    padding: 18px;
+  }
+
+  .modalImage {
+    width: 94vw;
+    max-height: 78vh;
+    border-radius: 20px;
+  }
+
+  .closeModal {
+    top: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.8rem;
+  }
+
+.zoomHint {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(12, 12, 20, 0.72);
+  border: 1px solid rgba(0, 253, 186, 0.22);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+}
+
+/* Celulares pequeños */
+@media (max-width: 390px) {
+  .problemSolution {
+    padding: 68px 14px;
+  }
+
+  .psTitle {
+    font-size: 1.82rem;
+  }
+
+  .psItem {
+    padding: 13px;
+  }
+
+  .psItemIcon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+  }
+
+  .psItemText strong {
+    font-size: 0.84rem;
+  }
+
+  .psItemText span {
+    font-size: 0.74rem;
+  }
+
+  .solutionCard {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .solutionCard h3 {
+    font-size: 1.1rem;
+  }
+
+  .solutionImage {
+    max-height: 240px;
+  }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .psItem,
+  .solution,
+  .solutionImage,
+  .solutionImageBox,
+  .solutionStatus::before {
+    animation: none;
+    transition: none;
+  }
+
+  .psItem.active {
+    transform: none;
   }
 }
