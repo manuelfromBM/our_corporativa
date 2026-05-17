@@ -25,7 +25,7 @@ export default function Kronapage() {
       </section>
 
       <section id="dashboard">
-        <DashboardKronaSection />
+          <DashboardKronaSection />
       </section>
 
       <section id="como-funciona">
