@@ -104,14 +104,14 @@ export default function Hero() {
                     </div>
 
                     <h1 className={styles.heroTitle}>
-                        Impulsamos tu Negocio con
-                        <span className={styles.highlight}> soluciones digitales modernas</span>
+                        Tu negocio, funcionando
+                        <span className={styles.highlight}>sin que todo dependa de ti</span>
                     </h1>
 
                     <p className={styles.heroSubtitle}>
-                        En <strong>BM Code Lab</strong> ayudamos a PYMES y profesionales
-                        independientes a crecer mediante desarrollo web, apps móviles,
-                        integración de IA, DevOps, seguridad y soporte continuo.
+                        En <strong>BM Code Lab</strong>  te devolvemos tiempo, visibilidad y control.
+                        Construimos tecnología que trabaja por tu empresa las 24 horas —
+                        mientras tú te enfocas en lo que realmente importa.
                     </p>
 
                     <div className={styles.heroButtons}>
