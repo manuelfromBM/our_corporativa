@@ -97,14 +97,14 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "06",
-    slug: "ux-ui",
-    icon: "UI",
+    slug: "Automatización",
+    icon: "AUTO",
     accentColor: "#8cff4f",
-    imageSrc: "/BM-imagenes/imgservicios/img6.webp",
+    imageSrc: "/BM-imagenes/imgservicios/img6.png",
     imageAlt: "Diseño UX y UI BM Code Lab",
     tec: {
-      titulo: "UX & UI",
-      desc: "Disenamos experiencias digitales claras, sistemas visuales consistentes y flujos centrados en el usuario.",
+      titulo: "Automatizacion",
+      desc: "Disenamos soluciones que optimicen tu negocio y tiempo, ayudandote en tu productividad.",
     },
     cas: {
       titulo: "Diseno que convence",

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import styles from "./ServiciosPage.module.css";
-import SERVICIOS from "../Servicios.data";
+import styles from "./Detalle.module.css";
+import SERVICIOS from "@/components/servicios/Servicios.data";
 import Link from "next/link";
 
 const DETALLE: Record<
@@ -110,7 +110,7 @@ const DETALLE: Record<
             "Tranquilidad ante cualquier eventualidad",
         ],
     },
-    "ux-ui": {
+    "Automatización": {
         tagline: "Interfaces que enamoran y convierten",
         descTec:
             "Diseñamos sistemas de diseño completos con componentes reutilizables, tokens de diseño y documentación. Realizamos investigación de usuarios, wireframing, prototipado en Figma y pruebas de usabilidad. Entregamos assets listos para desarrollo con especificaciones técnicas detalladas.",

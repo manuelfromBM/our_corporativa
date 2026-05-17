@@ -1,0 +1,319 @@
+/* ─────────────────────────────────────────
+   Ejemplos.module.css
+   Sección de ejemplos con mockups de páginas
+   Dark premium · BM Code Lab
+───────────────────────────────────────── */
+
+/* ── SECCIÓN CONTENEDOR ── */
+.seccion {
+  padding: 7rem 5%;
+  background: #080d1a;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+/* ── CONTENEDOR INTERNO ── */
+.contenedor {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* ── ENCABEZADO CENTRADO ── */
+.encabezado {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Línea divisora de color bajo el título */
+.etiquetaContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: first baseline;
+  gap: 12px;
+  margin-bottom: -0.5rem;
+}
+
+.linea {
+  width: 78px;
+  height: 1.2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #22d3ee,
+    transparent
+  );
+
+  opacity: 0.7;
+}
+
+
+/* Etiqueta pequeña sobre el título */
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #22d3ee;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+/* Línea decorativa antes de la etiqueta */
+.etiqueta::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: #22d3ee;
+}
+
+/* Título principal */
+.titulo {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+  color: #f0f4ff;
+  margin-bottom: 1rem;
+}
+
+/* Línea de color bajo el título */
+.divisor {
+  width: 472px;
+  height: 2px;
+  background: linear-gradient(90deg, #22d3ee, #4f8fff);
+  border-radius: 999px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Subtítulo */
+.subtitulo {
+  color: rgba(240, 244, 255, 0.55);
+  font-size: 1.03rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+/* ── GRILLA DE CARDS ── */
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+/* ── CARD PRINCIPAL ── */
+.card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #111b35;
+
+  /* Proporción 3:4 para que parezca pantalla de móvil/web */
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+
+  /* Animación de entrada escalonada */
+  animation: subirCard 0.6s ease both;
+
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-7px) scale(1.015);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+/* ── MOCKUP: CONTENEDOR GENERAL ── */
+.mockup {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── MOCKUP: BARRA SUPERIOR (los 3 puntitos) ── */
+.mockBarra {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 5px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Colores de la barra por tema */
+.mockBarra_barb { background: rgba(167, 139, 250, 0.05); }
+.mockBarra_rest { background: rgba(251, 146, 60,  0.05); }
+.mockBarra_tech { background: rgba(79,  143, 255, 0.05); }
+.mockBarra_shop { background: rgba(52,  211, 153, 0.05); }
+
+/* ── PUNTOS DE LA BARRA ── */
+.mockPunto {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+/* Colores del punto 1 (primario) por tema */
+.punto1_barb { background: #a78bfa; }
+.punto1_rest { background: #fb923c; }
+.punto1_tech { background: #4f8fff; }
+.punto1_shop { background: #34d399; }
+
+/* Colores del punto 2 (semitransparente) por tema */
+.punto2_barb { background: rgba(167, 139, 250, 0.4); }
+.punto2_rest { background: rgba(251, 146,  60, 0.4); }
+.punto2_tech { background: rgba(79,  143, 255, 0.4); }
+.punto2_shop { background: rgba(52,  211, 153, 0.4); }
+
+/* Colores del punto 3 (más tenue) por tema */
+.punto3_barb { background: rgba(167, 139, 250, 0.2); }
+.punto3_rest { background: rgba(251, 146,  60, 0.2); }
+.punto3_tech { background: rgba(79,  143, 255, 0.2); }
+.punto3_shop { background: rgba(52,  211, 153, 0.2); }
+
+/* ── MOCKUP: ÁREA DE CONTENIDO ── */
+.mockContenido {
+  flex: 1;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+/* ── MOCKUP: HERO DEL SITIO SIMULADO ── */
+.mockHero {
+  height: 58px;
+  border-radius: 7px;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+/* Color de fondo del hero simulado por tema */
+.mockHero_barb { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+.mockHero_rest { background: linear-gradient(135deg, #1a0a00, #2d1200); }
+.mockHero_tech { background: linear-gradient(135deg, #0a0f2e, #0d1b4d); }
+.mockHero_shop { background: linear-gradient(135deg, #0d1a1a, #0a2020); }
+
+/* ── MOCKUP: LÍNEAS DE TEXTO SIMULADAS ── */
+.mockLinea {
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.mockLineaCorta {
+  width: 55%;
+}
+
+/* ── MOCKUP: MINI CARDS SIMULADAS ── */
+.mockCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* Card mini base */
+.mockMini {
+  height: 36px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Colores de la primera mini card por tema */
+.mockMini1_barb { background: rgba(167, 139, 250, 0.1); border-color: rgba(167, 139, 250, 0.15); }
+.mockMini1_rest { background: rgba(251, 146,  60, 0.1); border-color: rgba(251, 146,  60, 0.15); }
+.mockMini1_tech { background: rgba(79,  143, 255, 0.1); border-color: rgba(79,  143, 255, 0.18); }
+.mockMini1_shop { background: rgba(52,  211, 153, 0.1); border-color: rgba(52,  211, 153, 0.15); }
+
+/* Colores de la segunda mini card (más tenue) por tema */
+.mockMini2_barb { background: rgba(167, 139, 250, 0.06); }
+.mockMini2_rest { background: rgba(251, 146,  60, 0.06); }
+.mockMini2_tech { background: rgba(79,  143, 255, 0.06); }
+.mockMini2_shop { background: rgba(52,  211, 153, 0.06); }
+
+/* ── OVERLAY: CAPA DE DEGRADADO CON TEXTO ── */
+/* Cubre la parte inferior de la card con un fade oscuro */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 13, 26, 0.96) 0%,
+    rgba(8, 13, 26, 0.25) 48%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+}
+
+/* Tipo de negocio (pequeño, arriba del nombre) */
+.overlayTipo {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+/* Color del tipo por tema */
+.tipo_barb { color: #a78bfa; }
+.tipo_rest { color: #fb923c; }
+.tipo_tech { color: #4f8fff; }
+.tipo_shop { color: #34d399; }
+
+/* Nombre del ejemplo */
+.overlayNombre {
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #f0f4ff;
+}
+
+/* ── ANIMACIÓN DE ENTRADA ── */
+@keyframes subirCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── RESPONSIVE ── */
+
+/* Tablet: 2 columnas */
+@media (max-width: 900px) {
+  .grilla {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 columna */
+@media (max-width: 500px) {
+  .seccion {
+    padding: 5rem 5%;
+  }
+
+  .grilla {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}

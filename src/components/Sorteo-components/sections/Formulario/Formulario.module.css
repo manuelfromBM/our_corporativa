@@ -1,0 +1,445 @@
+/* ─────────────────────────────────────────
+   Formulario.module.css
+   Sección del formulario de participación
+   Dark premium · BM Code Lab
+───────────────────────────────────────── */
+
+/* ── SECCIÓN CONTENEDOR ── */
+.seccion {
+  position: relative;
+  padding: 7rem 5%;
+  background: #080d1a;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+/* ── RESPLANDOR DE FONDO (azul centrado arriba) ── */
+.resplandor {
+  position: absolute;
+  width: 700px;
+  height: 500px;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(79, 143, 255, 0.07) 0%,
+    transparent 65%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* ── CONTENEDOR INTERNO CENTRADO ── */
+.contenedor {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── ENCABEZADO CENTRADO ── */
+.encabezado {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Etiqueta pequeña sobre el título */
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #22d3ee;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+
+/* Línea divisora de color bajo el título */
+.etiquetaContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: -0.5rem;
+}
+
+.linea {
+  width: 78px;
+  height: 1.2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #22d3ee,
+    transparent
+  );
+
+  opacity: 0.7;
+}
+
+/* Título principal */
+.titulo {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+  color: #f0f4ff;
+  margin-bottom: 1rem;
+}
+
+/* Línea de color bajo el título */
+.divisor {
+  width: 352px;
+  height: 2px;
+  background: linear-gradient(90deg, #22d3ee, #4f8fff);
+  border-radius: 999px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Subtítulo */
+.subtitulo {
+  color: rgba(240, 244, 255, 0.55);
+  font-size: 1.03rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+/* ── CARD QUE ENVUELVE EL FORMULARIO ── */
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 32px;
+  padding: 2.5rem;
+  animation: aparecerCard 0.6s ease both;
+}
+
+@keyframes aparecerCard {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── FILA DE DOS COLUMNAS (nombre + apellido) ── */
+.fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ── GRUPO DE CAMPO (label + input + error) ── */
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ── ETIQUETA DEL CAMPO ── */
+.label {
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: rgba(240, 244, 255, 0.6);
+  letter-spacing: 0.02em;
+}
+
+/* Asterisco rojo para campos obligatorios */
+.requerido {
+  color: #f87171;
+  margin-left: 2px;
+}
+
+/* ── INPUT DE TEXTO ── */
+.input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: #f0f4ff;
+  padding: 0.75rem 1rem;
+  font-size: 0.93rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.input::placeholder {
+  color: rgba(240, 244, 255, 0.25);
+}
+
+.input:focus {
+  border-color: rgba(79, 143, 255, 0.5);
+  background: rgba(79, 143, 255, 0.05);
+}
+
+/* ── SELECT DE TIPO DE NEGOCIO ── */
+.select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: #f0f4ff;
+  padding: 0.75rem 1rem;
+  font-size: 0.93rem;
+  font-family: inherit;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+
+  /* Flecha personalizada con SVG inline */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23556080' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.select:focus {
+  border-color: rgba(79, 143, 255, 0.5);
+  background-color: rgba(79, 143, 255, 0.05);
+}
+
+/* Las opciones del select heredan el fondo oscuro */
+.select option {
+  background: #0d1427;
+  color: #f0f4ff;
+}
+
+/* ── ESTADO DE ERROR EN INPUTS Y SELECT ── */
+.inputError {
+  border-color: rgba(248, 113, 113, 0.5) !important;
+  background: rgba(248, 113, 113, 0.04) !important;
+}
+
+/* ── MENSAJE DE ERROR ── */
+.error {
+  font-size: 0.8rem;
+  color: #f87171;
+  padding-left: 0.2rem;
+}
+
+/* ── SECCIÓN DE CHECKBOXES ── */
+.checksSeccion {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Título de la sección de checks */
+.checksTitulo {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240, 244, 255, 0.3);
+  margin-bottom: 0.1rem;
+}
+
+/* ── ITEM DE CHECKBOX ── */
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+/* ── CAJA VISUAL DEL CHECKBOX ── */
+.checkBox {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  color: #ffffff;
+}
+
+/* Estado activo del checkbox */
+.checkBoxActivo {
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  border-color: transparent;
+}
+
+/* ── TEXTO DE LA ETIQUETA DEL CHECK ── */
+.checkEtiqueta {
+  font-size: 0.88rem;
+  color: rgba(240, 244, 255, 0.55);
+  font-weight: 300;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+/* ── BOTÓN DE ENVÍO ── */
+.boton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+
+  box-shadow: 0 0 30px rgba(79, 143, 255, 0.28);
+  position: relative;
+  overflow: hidden;
+
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto de barrido de luz al hover */
+.boton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
+}
+
+.boton:hover::before {
+  transform: translateX(100%);
+}
+
+.boton:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 0 45px rgba(79, 143, 255, 0.45);
+}
+
+.boton:active {
+  transform: translateY(0);
+}
+
+/* ── CARD DE ÉXITO (tras envío) ── */
+.cardExito {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3.5rem 2rem;
+  gap: 1rem;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 32px;
+
+  animation: aparecerCard 0.5s ease both;
+}
+
+/* Ícono grande de éxito */
+.exitoIcono {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 1.5rem;
+
+  border-radius: 50%;
+
+  background: rgba(59, 130, 246, 0.12);
+
+  color: #60a5fa;
+
+  border: 1px solid rgba(96, 165, 250, 0.25);
+
+  box-shadow:
+    0 0 25px rgba(96, 165, 250, 0.15);
+}
+
+@keyframes rebotar {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1);   }
+}
+
+/* Título de éxito */
+.exitoTitulo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f0f4ff;
+}
+
+/* Texto descriptivo de éxito */
+.exitoTexto {
+  color: rgba(240, 244, 255, 0.55);
+  font-size: 0.98rem;
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 400px;
+}
+
+/* Botón de Instagram en la vista de éxito */
+.exitoBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  box-shadow: 0 0 24px rgba(79, 143, 255, 0.3);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.exitoBtn:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+
+/* ── RESPONSIVE ── */
+
+/* Tablet: fila de nombre/apellido en columna */
+@media (max-width: 560px) {
+  .fila {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .cardExito {
+    padding: 1.75rem 1.25rem;
+    border-radius: 22px;
+  }
+
+  .seccion {
+    padding: 5rem 5%;
+  }
+}

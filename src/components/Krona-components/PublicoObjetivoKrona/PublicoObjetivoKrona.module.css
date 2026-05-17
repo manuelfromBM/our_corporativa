@@ -4,8 +4,8 @@
 
 .target {
   padding: 110px 8%;
-  background: #0B0F1A;
-  color: var(--krona-text-light);
+  background: var(--krona-bg);
+  color: var(--krona-text);
   position: relative;
   overflow-x: hidden;
   overflow-y: visible;
@@ -23,14 +23,14 @@
   background: radial-gradient(
     ellipse at center,
     rgba(106, 75, 196, 0.18) 0%,
-    transparent 65%
+    transparent 15%
   );
   pointer-events: none;
   z-index: 0;
 }
 
 /* Fade-out derecha */
-.target::after {
+/* .target::after {
   content: "";
   position: absolute;
   top: 0;
@@ -40,7 +40,7 @@
   pointer-events: none;
   background: linear-gradient(to left, #070710 10%, transparent);
   z-index: 2;
-}
+} */
 
 /* ---- Contenedor ---- */
 .targetContainer {
@@ -61,7 +61,7 @@
 /* Subtítulo opcional bajo el h2 */
 .targetContainer p.targetSubtitle {
   text-align: center;
-  color: #7a7a98;
+  color: var(--krona-text-light);
   font-size: 1rem;
   margin-bottom: 52px;
   font-weight: 300;
@@ -71,6 +71,8 @@
 .targetSlider {
   display: flex;
   gap: 18px;
+  align-items: stretch;
+  width: 100%;
   overflow-x: auto;
   overflow-y: visible;
   scroll-snap-type: x mandatory;
@@ -79,6 +81,19 @@
   cursor: grab;
   scrollbar-width: thin;
   scrollbar-color: rgba(106, 75, 196, 0.45) transparent;
+}
+
+.targetSlider:hover .targetCard {
+  flex: 0.75;
+  opacity: 0.85;
+}
+
+.targetSlider .targetCard:hover {
+  flex: 1.8;
+  opacity: 1;
+  transform: translateY(-8px);
+  z-index: 5;
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.22);
 }
 
 .targetSlider:active { cursor: grabbing; }
@@ -94,19 +109,86 @@
 
 /* ---- Cards ---- */
 .targetCard {
+  position: relative;
   flex: 0 0 270px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--krona-dark-2);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 22px;
   padding: 32px 28px;
   scroll-snap-align: start;
-  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease,
-              box-shadow 0.38s ease,
-              background 0.3s ease;
-  position: relative;
   overflow: hidden;
-  will-change: transform;
+  cursor: pointer;
+  height: 230px; /* altura base en reposo */
+  transition: flex 0.45s ease, transform 0.45s ease, box-shadow 0.45s ease;
+  transform-origin: left; /* CLAVE */
+}
+
+.targetCard:hover {
+  height: 500px; /* altura expandida — ajusta a tu gusto */
+  border-color:var(--krona-dark-2 );
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45),
+  inset 0 0 0 1px rgba(106, 75, 196, 0.1);
+  transform: translateY(-10px) scale(1.015);
+  background: var(--krona-dark-2);
+  transform: scaleX(1.15); /* crece hacia la derecha */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* imagen de fondo oculta por defecto */
+.cardBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.42s ease;
+  z-index: 0;
+}
+
+/* capa oscura para que el texto sea legible */
+.cardBg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.75) 60%
+  );
+}
+
+/* imagen visible solo en hover */
+.targetCard:hover .cardBg {
+  opacity: 1;
+  }
+
+/* contenido siempre al fondo de la tarjeta */
+.cardContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.targetCard:hover .cardContent h2{
+  font-size: 40px;
+}
+
+.targetCard:hover .cardContent p{
+  color: var(--krona-text-light);
+  font-size: 25px;
+}
+
+.icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+  transition: transform 0.38s ease;
+}
+
+.targetCard:hover .icon {
+  transform: translateY(-4px);
 }
 
 /* Línea superior de acento (invisible por defecto) */
@@ -132,26 +214,16 @@
 /* Brillo interno en hover */
 .targetCard::after {
   content: "";
-  position: absolute;
+  position: relative;
   top: -60px;
-  right: -60px;
-  width: 160px;
-  height: 160px;
+  right: -100px;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(124, 77, 255, 0.18), transparent 70%);
   opacity: 0;
   transition: opacity 0.45s ease;
   pointer-events: none;
-}
-
-.targetCard:hover {
-  transform: translateY(-10px) scale(1.015);
-  background: rgba(255, 255, 255, 0.065);
-  border-color: rgba(106, 75, 196, 0.45);
-  box-shadow:
-  0 24px 50px rgba(106, 75, 196, 0.18),
-  0 8px 16px rgba(0, 0, 0, 0.3),
-  inset 0 0 0 1px rgba(106, 75, 196, 0.1);
 }
 
 .targetCard:hover::before { opacity: 1; }
@@ -166,15 +238,15 @@
   justify-content: center;
   width: 54px;
   height: 54px;
-  background: rgba(106, 75, 196, 0.12);
+  background:var(--krona-card);
   border: 1px solid rgba(106, 75, 196, 0.25);
   border-radius: 14px;
   transition: background 0.3s, border-color 0.3s, transform 0.3s;
 }
 
 .targetCard:hover .icon {
-  background: rgba(124, 77, 255, 0.18);
-  border-color: rgba(124, 77, 255, 0.4);
+  background: var(--krona-card);
+  border-color: var(--krona-secondary);
   transform: scale(1.08);
 }
 
@@ -185,18 +257,18 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 10px;
-  color: #f0f0fa;
+  color: var(--krona-primary);
 }
 
 .targetCard p {
   font-size: 0.9rem;
-  color: #8080a0;
+  color: var(--krona-text-light);
   line-height: 1.6;
   font-weight: 300;
   transition: color 0.3s;
 }
 
-.targetCard:hover p { color: #a5a5c5; }
+.targetCard:hover p { color: var(--krona-dark); }
 
 /* ---- Tag / Pill opcional ---- */
 .targetCard .targetTag {

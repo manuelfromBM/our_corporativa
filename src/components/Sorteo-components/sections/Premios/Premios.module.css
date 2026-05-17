@@ -1,0 +1,313 @@
+/* ─────────────────────────────────────────
+   Premios.module.css
+   Sección de premios del sorteo
+   Dark premium · BM Code Lab
+───────────────────────────────────────── */
+
+/* ── SECCIÓN CONTENEDOR ── */
+.seccion {
+  position: relative;
+  padding: 7rem 5%;
+  background: #080d1a;
+
+  /* Separador visual sutil entre secciones */
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* ── ENCABEZADO CENTRADO ── */
+.encabezado {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Etiqueta pequeña sobre el título (ej: "Premios") */
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  color: #22d3ee;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+
+/* Título principal de la sección */
+.titulo {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+  color: #f0f4ff;
+  margin-bottom: 1rem;
+}
+
+/* Línea divisora de color bajo el título */
+.etiquetaContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: -0.5rem;
+}
+
+.linea {
+  width: 78px;
+  height: 1.2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #22d3ee,
+    transparent
+  );
+
+  opacity: 0.7;
+}
+
+.divisor {
+  width: 520px;
+  height: 2px;
+  background: linear-gradient(90deg, #22d3ee, #4f8fff);
+  border-radius: 999px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Subtítulo descriptivo */
+.subtitulo {
+  color: rgba(240, 244, 255, 0.55);
+  font-size: 1.03rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+/* ── GRILLA DE CARDS ── */
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* ── CARD BASE ── */
+.card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 2rem 1.75rem;
+  overflow: hidden;
+
+  /* Entrada animada al cargar */
+  animation: subirCard 0.6s ease both;
+
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Resplandor interno sutil en la parte superior */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(79, 143, 255, 0.05) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ── CARD DESTACADA (primer premio) ── */
+.destacada {
+  border-color: rgba(79, 143, 255, 0.4);
+  background: rgba(79, 143, 255, 0.06);
+
+  /* Escala levemente para que sobresalga */
+  transform: scale(1.04);
+  box-shadow: 0 0 60px rgba(79, 143, 255, 0.14);
+}
+
+/* Resplandor más intenso en la card destacada */
+.destacada::before {
+  background: radial-gradient(
+    ellipse at top,
+    rgba(79, 143, 255, 0.12) 0%,
+    transparent 60%
+  );
+}
+
+.destacada:hover {
+  transform: scale(1.04) translateY(-5px);
+}
+
+/* ── BADGE "PRIMER PREMIO" ── */
+.badgePremio {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+}
+
+/* ── CONTENIDO DE LA CARD ── */
+
+/* Emoji del trofeo */
+.icono {
+  font-size: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+}
+
+/* Icono del primer premio este brillante */
+.iconoDestacado {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.5));
+}
+
+/* Texto de lugar (ej: "Segundo Premio") */
+.lugar {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240, 244, 255, 0.35);
+  margin-bottom: 0.35rem;
+}
+
+/* Título de la card (ej: "Sitio Web Completo") */
+.cardTitulo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f0f4ff;
+  margin-bottom: 0.55rem;
+}
+
+/* Descripción breve */
+.descripcion {
+  color: rgba(240, 244, 255, 0.5);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* ── LISTA DE BENEFICIOS ── */
+.beneficios {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.beneficio {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.88rem;
+  color: rgba(240, 244, 255, 0.6);
+}
+
+/* Punto de color antes de cada beneficio */
+.punto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22d3ee;
+  flex-shrink: 0;
+}
+
+/* El punto de la card destacada usa azul */
+.destacada .punto {
+  background: #4f8fff;
+}
+
+/* ── ANIMACIÓN DE ENTRADA ── */
+@keyframes subirCard {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* La card destacada mantiene su escala en la animación */
+.destacada {
+  animation: subirCardDestacada 0.6s 0.1s ease both;
+}
+
+@keyframes subirCardDestacada {
+  from {
+    opacity: 0;
+    transform: scale(1.04) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.04) translateY(0);
+  }
+}
+
+/* ── RESPONSIVE ── */
+
+/* Tablet: columna única con ancho máximo */
+@media (max-width: 900px) {
+  .grilla {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+  }
+
+  /* En mobile la card destacada no se escala */
+  .destacada,
+  .destacada:hover {
+    transform: translateY(-5px);
+  }
+
+  @keyframes subirCardDestacada {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+}
+
+@media (max-width: 480px) {
+  .seccion {
+    padding: 5rem 5%;
+  }
+
+  .linea {
+    width: 60px;
+    height: 1.2px;
+  }
+
+  .divisor{
+    width: 272px;
+  }
+
+  .card {
+    padding: 1.75rem 1.5rem;
+  }
+}

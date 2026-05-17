@@ -28,9 +28,10 @@ const NavbarPrincipal: React.FC = () => {
 
     const navItems = [
         { href: "/#inicio", label: "Inicio" },
-        { href: "/#proyectos", label: "Proyectos" },
-        { href: "/#nosotros", label: "Nosotros" },
         { href: "/#servicios", label: "Servicios" },
+        { href: "/#asesoramiento", label: "Asesoramiento" },
+        { href: "/#nosotros", label: "Nosotros" },
+        { href: "/#krona", label: "Krona" },
     ];
 
     const handleNavClick = () => setMenuOpen(false);

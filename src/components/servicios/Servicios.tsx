@@ -99,14 +99,14 @@ export default function ServiciosSection() {
                   }`}
                 onClick={() => handleToggle("cas")}
               >
-                Para empresas
+                Vista General
               </button>
               <button
                 className={`${styles.toggleBtn} ${modo === "tec" ? styles.toggleBtnActive : ""
                   }`}
                 onClick={() => handleToggle("tec")}
               >
-                Para técnicos
+                Vista Técnica
               </button>
             </div>
           </div>

@@ -2,22 +2,23 @@
 
 import { Container, Row, Col } from 'react-bootstrap'
 import styles from './Footer.module.css'
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope, FaPhone, FaMapMarkerAlt, FaInstagram } from 'react-icons/fa'
 
 const FooterContainer = () => {
     const currentYear = new Date().getFullYear();
 
     const socialLinks = [
-        { icon: FaGithub, href: "#", label: "GitHub" },
+        { icon: FaFacebook, href: "https://www.facebook.com/profile.php?id=61581507736516&locale=es_LA", label: "Facebook" },
         { icon: FaLinkedin, href: "#", label: "LinkedIn" },
-        { icon: FaTwitter, href: "#", label: "Twitter" },
+        { icon: FaInstagram, href: "https://www.instagram.com/bm_code_lab/", label: "Instagram" },
     ];
 
     const quickLinks = [
         { href: "/#inicio", label: "Inicio" },
-        { href: "/krona", label: "Krona" },
         { href: "/#servicios", label: "Servicios" },
+        { href: "/#asesoramiento", label: "asesoramiento" },
         { href: "/#nosotros", label: "Nosotros" },
+        { href: "/#krona", label: "krona" },
     ];
 
     return (
@@ -87,7 +88,7 @@ const FooterContainer = () => {
                             </a>
                             <a href="tel:+56912345678" className={styles.ContactItem}>
                                 <FaPhone className={styles.ContactIcon} />
-                                <span>+56 9 2381 2190</span>
+                                <span>+56 9 9487 2535</span>
                             </a>
                             <div className={styles.ContactItem}>
                                 <FaMapMarkerAlt className={styles.ContactIcon} />

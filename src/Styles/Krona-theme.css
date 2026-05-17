@@ -1,15 +1,31 @@
 .krona-theme {
-  --krona-primary: #174A7E;
-  --krona-secondary: #00fdba;
-  --krona-accent: #6A4BC4;
+  /* Base */
+  --krona-primary: #1d6fd8;
+  --krona-primary-soft: #E8F2FF;
+  --krona-primary-dark: #124E9E;
 
+  --krona-secondary: #00fdba;
+  --krona-secondary-soft: #DFFFF6;
+  --krona-secondary-dark: #00B889;
+
+  --krona-accent: #6A4BC4;
+  --krona-accent-soft: #EEE9FF;
+  --krona-accent-dark: #4A3294;
+
+  /* Textos */
   --krona-text: #0F172A;
   --krona-subtext: #64748B;
-  --krona-bg: #F8FAFC;
+  --krona-muted: #94A3B8;
 
+  /* Fondos */
+  --krona-bg: rgba(248, 250, 252, 0.88);
+  --krona-bg-solid: #F8FAFC;
+  --krona-white: #FFFFFF;
+  --krona-card: rgba(255, 255, 255, 0.82);
+
+  /* Dark */
   --krona-dark: #0c0c14;
   --krona-dark-2: #1f1f3a;
-
   --krona-text-light: #FFFFFF;
   --krona-subtext-light: #CBD5E1;
 
