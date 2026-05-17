@@ -47,12 +47,12 @@
   border-radius: 8px;
 }
 
-/* HOVER TEXTO (SUAVE Y PRO) */
+/* HOVER TEXTO (SUAVE Y PRO)
 .hero p:hover {
-  background: linear-gradient(135deg, #1d6fd8, #6A4BC4); /* AZUL → MORADO */
+  background: linear-gradient(135deg, #1d6fd8, #6A4BC4);
   color: white;
   transform: translateY(-2px);
-}
+} 
 
 /* BOTONES */
 .heroButtons {
@@ -85,13 +85,13 @@
   color: var(--krona-text);
   text-decoration: none;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--krona-secondary);
   backdrop-filter: blur(10px);
 }
 
 .btnSecondary:hover {
   border-color: var(--krona-primary);
-  color: var(--krona-primary);
+  color: var(--krona-accent);
   transform: translateY(-2px);
 }
 
