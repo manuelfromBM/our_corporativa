@@ -1,6 +1,6 @@
 // app/(main)/asesoria/page.tsx
 import { Suspense } from "react";
-import AsesoriaDetalle from "@/components/Asesoramiento/DetalleAsesoramiento/DetalleAsesoramiento";
+import AsesoriaDetalle from "@/components/BM-components/Asesoramiento/DetalleAsesoramiento/DetalleAsesoramiento";
 
 export const metadata = {
     title: "Asesoramiento | BM Code Lab",

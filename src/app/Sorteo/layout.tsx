@@ -1,5 +1,5 @@
-import WhatsAppButton from "@/components/BtnWasap/BtnWasap";
-import  Navbar  from "@/components/Sorteo-components/layout/Navbar";
+import WhatsAppButton from "@/components/BM-components/BtnWasap/BtnWasap";
+import Navbar from "@/components/Sorteo-components/layout/Navbar";
 import "@/Styles/Krona-theme.css";
 
 export default function SorteoLayout({

@@ -1,6 +1,5 @@
-import WhatsAppButton from "@/components/BtnWasap/BtnWasap";
+import WhatsAppButton from "@/components/BM-components/BtnWasap/BtnWasap";
 import NavKronaSection from "@/components/Krona-components/NavBarKrona/NavKrona";
-import NavbarPrincipal from "@/components/Navbar/Navbar";
 import "@/Styles/Krona-theme.css";
 
 export default function KronaLayout({
@@ -10,7 +9,6 @@ export default function KronaLayout({
 }) {
     return (
         <div className="krona-theme">
-            {/* <NavbarPrincipal /> */}
             <NavKronaSection />
             <main>{children}</main>
             <WhatsAppButton />

@@ -1,10 +1,10 @@
 
-import SeccionContacto from "@/components/Contacto/Contacto";
-import Servicios from "@/components/servicios/Servicios";
-import HeroBranch from '@/components/HeroSection/Hero'
-import AppPromo from '@/components/PromocionK/PromocionK'
-import NosotrosSection from '@/components/Nosotros/Nosotros'
-import SeccionAsesoramiento from "@/components/Asesoramiento/Asesoramiento";
+import SeccionContacto from "@/components/BM-components/Contacto/Contacto";
+import Servicios from "@/components/BM-components/servicios/Servicios";
+import HeroBranch from '@/components/BM-components/HeroSection/Hero'
+import AppPromo from '@/components/BM-components/PromocionK/PromocionK'
+import NosotrosSection from '@/components/BM-components/Nosotros/Nosotros'
+import SeccionAsesoramiento from "@/components/BM-components/Asesoramiento/Asesoramiento";
 // import SeccionNuestroProceso from "@/components/NuestroProceso/NuestroProceso";
 import type { Metadata } from "next";
 
