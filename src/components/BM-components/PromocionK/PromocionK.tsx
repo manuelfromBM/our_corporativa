@@ -59,29 +59,6 @@ export default function AppPromo() {
             </div>
           ))}
         </div>
-
-        {/* <div className={styles.ctaSection}>
-          <p className={styles.ctaText}>Quieres ver lo que estamos creando?</p>
-          <Link href="/krona" className={styles.notifyButton}>
-            <span>Ir a Krona</span>
-            <svg
-              className={styles.buttonIcon}
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M7.5 15L12.5 10L7.5 5"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
-        </div> */}
       </div>
     </section>
   );
