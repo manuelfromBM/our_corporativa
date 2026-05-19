@@ -60,7 +60,7 @@ export default function AppPromo() {
           ))}
         </div>
 
-        <div className={styles.ctaSection}>
+        {/* <div className={styles.ctaSection}>
           <p className={styles.ctaText}>Quieres ver lo que estamos creando?</p>
           <Link href="/krona" className={styles.notifyButton}>
             <span>Ir a Krona</span>
@@ -81,7 +81,7 @@ export default function AppPromo() {
               />
             </svg>
           </Link>
-        </div>
+        </div> */}
       </div>
     </section>
   );
