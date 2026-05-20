@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import styles from "./Detalle.module.css";
-import SERVICIOS from "@/components/servicios/Servicios.data";
+import SERVICIOS from "@/components/BM-components/servicios/Servicios.data";
 import Link from "next/link";
 
 const DETALLE: Record<

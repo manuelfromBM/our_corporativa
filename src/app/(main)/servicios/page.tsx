@@ -1,4 +1,4 @@
-import Detalle from "@/components/servicios/Detalle/Detalle";
+import Detalle from "@/components/BM-components/servicios/Detalle/Detalle";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
