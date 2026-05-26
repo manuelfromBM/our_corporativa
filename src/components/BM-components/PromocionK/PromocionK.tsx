@@ -140,13 +140,6 @@ export default function AppPromo() {
               agenda inteligente, perfil profesional propio y herramientas de marketing — en un solo lugar,
               sin malabarismos entre apps.
             </p>
-
-            <Link href="https://krona.cl" target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>
-              Conoce más sobre Krona
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
           </div>
         </div>
 
