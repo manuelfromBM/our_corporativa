@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: 'https://www.bmcodelab.cl/servicios/aplicaciones-moviles', priority: 0.9, changeFrequency: 'monthly' },
     { url: 'https://www.bmcodelab.cl/servicios/integracion-ia', priority: 0.9, changeFrequency: 'monthly' },
     { url: 'https://www.bmcodelab.cl/servicios/seguridad-gestion', priority: 0.9, changeFrequency: 'monthly' },
-    { url: 'https://www.bmcodelab.cl/servicios/Automatizacion', priority: 0.9, changeFrequency: 'monthly' },
+    { url: 'https://www.bmcodelab.cl/servicios/automatizacion', priority: 0.9, changeFrequency: 'monthly' },
     { url: 'https://www.bmcodelab.cl/servicios/devops-hosting', priority: 0.9, changeFrequency: 'monthly' },  
     { url: 'https://www.bmcodelab.cl/servicios/soporte-mantenimiento', priority: 0.9, changeFrequency: 'monthly' },
   ];
