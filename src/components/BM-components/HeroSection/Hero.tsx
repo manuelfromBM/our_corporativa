@@ -1,6 +1,7 @@
 import React from "react";
 import Link from 'next/link'
 import styles from "./Hero.module.css";
+import Image from "next/image";
 
 interface FilmSlot {
     src: string;
@@ -61,9 +62,8 @@ function FilmStrip({
                         {/* Imagen */}
                         <div className={styles.filmImage}>
                             {slot.src ? (
-                                <img src={slot.src} alt={slot.alt} className={styles.frameImg} />
+                                <Image src={slot.src} alt={slot.alt} className={styles.frameImg} />
                             ) : (
-                                /* Placeholder hasta que haya imagen real */
                                 <div className={styles.framePlaceholder} />
                             )}
                         </div>

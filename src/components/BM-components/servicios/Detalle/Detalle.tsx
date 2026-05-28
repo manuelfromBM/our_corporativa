@@ -1,204 +1,185 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import styles from "./Detalle.module.css";
 import SERVICIOS from "@/components/BM-components/servicios/Servicios.data";
-import Link from "next/link";
 import { DETALLE } from "./textos";
+import Image from "next/image";
 
-/* ── Componente de bloque de servicio ─────────────────────── */
-function ServicioBloque({
-    servicio,
-    modo,
-    index,
-}: {
-    servicio: (typeof SERVICIOS)[0];
-    modo: "tec" | "cas";
-    index: number;
-}) {
-    const detalle = DETALLE[servicio.slug];
-    const desc = modo === "tec" ? detalle.descTec : detalle.descCas;
-    const features = modo === "tec" ? detalle.featuresTec : detalle.featuresCas;
-    const titulo = modo === "tec" ? servicio.tec.titulo : servicio.cas.titulo;
-    const esImpar = index % 2 === 0;
-
-    const ref = useRef<HTMLDivElement>(null);
-    const [visible, setVisible] = useState(false);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-            { threshold: 0.1 }
-        );
-        if (ref.current) observer.observe(ref.current);
-        return () => observer.disconnect();
-    }, []);
-
+/* ── TARJETA DE SERVICIO RELACIONADO ── */
+function ServicioRelacionado({ servicio }: { servicio: (typeof SERVICIOS)[0] }) {
     return (
-        <div
-            id={servicio.slug}
-            ref={ref}
-            className={`${styles.bloque} ${visible ? styles.bloqueVisible : ""} ${esImpar ? styles.bloqueImpar : styles.bloquePar}`}
-            style={{ "--accent": servicio.accentColor } as React.CSSProperties}
+        <Link
+            href={`/servicios/${servicio.slug}`}
+            className={styles.relCard}
+            style={{ "--card-color": servicio.accentColor } as React.CSSProperties}
         >
-            {/* Imagen */}
-            <div className={styles.bloqueImagen}>
-                <div className={styles.imagenMarco}>
-                    <img
-                        src={servicio.imageSrc}
-                        alt={servicio.imageAlt}
-                        className={styles.imagen}
-                    />
-                    <div className={styles.imagenOverlay} />
-                    {/* Número grande decorativo */}
-                    <span className={styles.numDecorativo}>{servicio.num}</span>
-                </div>
+            <div className={styles.relCardGlow} />
+
+            <div className={styles.relImagenWrap}>
+                <Image
+                    src={servicio.imageSrc}
+                    alt={servicio.imageAlt}
+                    className={styles.relImagen}
+                />
+                <div className={styles.relImagenOverlay} />
+                <span className={styles.relNum}>{servicio.num}</span>
+                <div className={styles.relImagenAccent} />
             </div>
 
-            {/* Contenido */}
-            <div className={styles.bloqueContenido}>
-                <div className={styles.bloqueHeader}>
-                    <span className={styles.tagline}>{detalle.tagline}</span>
-                    <h2 className={styles.bloqueTitulo}>{titulo}</h2>
-                </div>
-
-                <p className={styles.bloqueDesc}>{desc}</p>
-
-                <ul className={styles.featuresList}>
-                    {features.map((f, i) => (
-                        <li key={i} className={styles.featureItem}>
-                            <span className={styles.featureDot} aria-hidden="true" />
-                            {f}
-                        </li>
-                    ))}
-                </ul>
-
-                <Link href="/#contacto" className={styles.bloqueCta}>
-                    Hablemos de este servicio
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </Link>
+            <div className={styles.relFooter}>
+                <h3 className={styles.relTitulo}>{servicio.tec.titulo}</h3>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className={styles.relArrow} aria-hidden="true">
+                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
             </div>
-        </div>
+        </Link>
     );
 }
 
-/* ── Página principal ─────────────────────────────────────── */
-export default function ServiciosPage() {
-    const [modo, setModo] = useState<"tec" | "cas">("cas");
-    const [isTransitioning, setIsTransitioning] = useState(false);
-    const [activoSlug, setActivoSlug] = useState(SERVICIOS[0].slug);
+/* ── PÁGINA DE DETALLE ── */
+export default function DetalleServicio() {
+    const params = useParams();
+    const slug = params?.slug as string;
 
-    const handleToggle = (nuevoModo: "tec" | "cas") => {
-        if (nuevoModo === modo) return;
-        setIsTransitioning(true);
-        setTimeout(() => {
-            setModo(nuevoModo);
-            setIsTransitioning(false);
-        }, 220);
-    };
+    const servicio = SERVICIOS.find((s) => s.slug === slug);
+    const detalle = slug ? DETALLE[slug] : null;
 
-    // Detectar qué sección está en vista para el sidebar
+    const heroRef = useRef<HTMLDivElement>(null);
+    const contenidoRef = useRef<HTMLDivElement>(null);
+    const relacionadosRef = useRef<HTMLDivElement>(null);
+
+    const [heroVisible, setHeroVisible] = useState(false);
+    const [contenidoVisible, setContenidoVisible] = useState(false);
+    const [relacionadosVisible, setRelacionadosVisible] = useState(false);
+
     useEffect(() => {
-        const observers: IntersectionObserver[] = [];
+        const observe = (ref: React.RefObject<HTMLDivElement | null>,
+            setVisible: React.Dispatch<React.SetStateAction<boolean>>) => {
+            if (!ref.current) return;
 
-        SERVICIOS.forEach((s) => {
-            const el = document.getElementById(s.slug);
-            if (!el) return;
-            const obs = new IntersectionObserver(
-                ([entry]) => { if (entry.isIntersecting) setActivoSlug(s.slug); },
-                { threshold: 0.4 }
-            );
-            obs.observe(el);
-            observers.push(obs);
-        });
+            const observer = new IntersectionObserver(([entry]) => {
+                if (entry.isIntersecting) {
+                    setVisible(true);
+                }
+            });
 
-        return () => observers.forEach((o) => o.disconnect());
+            observer.observe(ref.current);
+
+            return observer;
+        };
+
+        const o1 = observe(heroRef, setHeroVisible);
+        const o2 = observe(contenidoRef, setContenidoVisible);
+        const o3 = observe(relacionadosRef, setRelacionadosVisible);
+
+        return () => { o1?.disconnect(); o2?.disconnect(); o3?.disconnect(); };
     }, []);
 
-    const scrollTo = (slug: string) => {
-        const el = document.getElementById(slug);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
+    // Servicios relacionados — todos menos el actual
+    const relacionados = SERVICIOS.filter((s) => s.slug !== slug);
+
+    // Fallback si el slug no existe
+    if (!servicio || !detalle) {
+        return (
+            <div className={styles.notFound}>
+                <p>Servicio no encontrado.</p>
+                <Link href="/servicios" className={styles.backLink}>← Volver a servicios</Link>
+            </div>
+        );
+    }
 
     return (
-        <div className={styles.pagina}>
+        <div className={styles.pagina} style={{ "--accent": servicio.accentColor } as React.CSSProperties}>
             {/* Fondo */}
             <div className={styles.bgGrid} aria-hidden="true" />
             <div className={styles.bgOrb1} aria-hidden="true" />
             <div className={styles.bgOrb2} aria-hidden="true" />
 
-            {/* ── HERO compacto ── */}
-            <header className={styles.heroCompacto}>
-                <span className={styles.heroPill}>Lo que hacemos</span>
-                <h1 className={styles.heroTitulo}>
-                    Nuestros <span className={styles.gradientText}>servicios</span>
-                </h1>
-                <p className={styles.heroSub}>
-                    Cada solución está pensada para el momento en que se encuentra tu negocio.
-                    Explorá en detalle lo que podemos construir juntos.
-                </p>
+            {/* Breadcrumb */}
+            <nav className={styles.breadcrumb} aria-label="Navegación">
+                <Link href="/#servicios" className={styles.breadcrumbLink}>Servicios</Link>
+                <span className={styles.breadcrumbSep} aria-hidden="true">/</span>
+                <span className={styles.breadcrumbActual}>{servicio.tec.titulo}</span>
+            </nav>
 
-                {/* Toggle */}
-                <div className={styles.toggleWrap}>
-                    <div className={styles.togglePill}>
-                        <button
-                            className={`${styles.toggleBtn} ${modo === "cas" ? styles.toggleActive : ""}`}
-                            onClick={() => handleToggle("cas")}
-                        >
-                            Para empresas
-                        </button>
-                        <button
-                            className={`${styles.toggleBtn} ${modo === "tec" ? styles.toggleActive : ""}`}
-                            onClick={() => handleToggle("tec")}
-                        >
-                            Para técnicos
-                        </button>
+            {/* ── HERO DEL SERVICIO ── */}
+            <div
+                ref={heroRef}
+                className={`${styles.hero} ${heroVisible ? styles.heroVisible : ""}`}
+            >
+                {/* Imagen */}
+                <div className={styles.heroImagen}>
+                    <div className={styles.imagenMarco}>
+                        <Image
+                            src={servicio.imageSrc}
+                            alt={servicio.imageAlt}
+                            className={styles.imagen}
+                        />
+                        <div className={styles.imagenOverlay} />
+                        <span className={styles.numDecorativo}>{servicio.num}</span>
                     </div>
                 </div>
-            </header>
 
-            {/* ── LAYOUT PRINCIPAL ── */}
-            <div className={styles.layout}>
+                {/* Info principal */}
+                <div className={styles.heroInfo}>
+                    <span className={styles.heroPill}>{detalle.tagline}</span>
+                    <h1 className={styles.heroTitulo}>{servicio.tec.titulo}</h1>
+                    <p className={styles.heroDesc}>{detalle.descCas}</p>
 
-                {/* Sidebar sticky */}
-                <aside className={styles.sidebar}>
-                    <p className={styles.sidebarLabel}>Servicios</p>
-                    <nav className={styles.sidebarNav}>
-                        {SERVICIOS.map((s) => {
-                            const titulo = modo === "tec" ? s.tec.titulo : s.cas.titulo;
-                            const esActivo = activoSlug === s.slug;
-                            return (
-                                <button
-                                    key={s.slug}
-                                    className={`${styles.sidebarItem} ${esActivo ? styles.sidebarItemActivo : ""}`}
-                                    style={{ "--accent": s.accentColor } as React.CSSProperties}
-                                    onClick={() => scrollTo(s.slug)}
-                                >
-                                    <span className={styles.sidebarNum}>{s.num}</span>
-                                    <span className={styles.sidebarTitulo}>{titulo}</span>
-                                    {esActivo && <span className={styles.sidebarIndicador} aria-hidden="true" />}
-                                </button>
-                            );
-                        })}
-                    </nav>
-                </aside>
+                    <Link href="/#contacto" className={styles.heroCta}>
+                        Hablemos de este servicio
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </Link>
+                </div>
+            </div>
 
-                {/* Bloques de contenido */}
-                <main
-                    className={`${styles.contenido} ${isTransitioning ? styles.contenidoFading : ""}`}
-                >
-                    {SERVICIOS.map((s, i) => (
-                        <ServicioBloque
-                            key={s.slug}
-                            servicio={s}
-                            modo={modo}
-                            index={i}
-                        />
+            {/* ── FEATURES ── */}
+            <div
+                ref={contenidoRef}
+                className={`${styles.contenido} ${contenidoVisible ? styles.contenidoVisible : ""}`}
+            >
+                <div className={styles.contenidoInner}>
+                    <h2 className={styles.featuresTitle}>¿Qué incluye?</h2>
+                    <ul className={styles.featuresList}>
+                        {detalle.featuresCas.map((f, i) => (
+                            <li
+                                key={i}
+                                className={styles.featureItem}
+                                style={{ "--delay": `${i * 0.08}s` } as React.CSSProperties}
+                            >
+                                <span className={styles.featureDot} aria-hidden="true" />
+                                {f}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+
+            {/* ── SERVICIOS RELACIONADOS ── */}
+            <div
+                ref={relacionadosRef}
+                className={`${styles.relacionados} ${relacionadosVisible ? styles.relacionadosVisible : ""}`}
+            >
+                <div className={styles.relacionadosHeader}>
+                    <h2 className={styles.relacionadosTitulo}>Otros servicios</h2>
+                    <Link href="/#servicios" className={styles.relacionadosVerTodos}>
+                        Ver todos
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                            <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </Link>
+                </div>
+
+                <div className={styles.relacionadosGrid}>
+                    {relacionados.map((s) => (
+                        <ServicioRelacionado key={s.slug} servicio={s} />
                     ))}
-                </main>
-
+                </div>
             </div>
         </div>
     );

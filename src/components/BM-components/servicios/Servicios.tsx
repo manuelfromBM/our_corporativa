@@ -1,17 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import styles from "./Servicios.module.css";
 import SERVICIOS, { type Servicio } from "./Servicios.data";
+import Image from "next/image";
 
-function ServiceCard({ servicio, modo, isTransitioning, }: {
-  servicio: Servicio;
-  modo: "tec" | "cas";
-  isTransitioning: boolean;
-}) {
-  const contenido = modo === "tec" ? servicio.tec : servicio.cas;
-  const SERVICE_DETAIL_BASE_URL = "/servicios";
-  const href = `${SERVICE_DETAIL_BASE_URL}#${servicio.slug}`;
+function ServiceCard({ servicio }: { servicio: Servicio }) {
+  const href = `/servicios/${servicio.slug}`;
 
   return (
     <a
@@ -22,20 +16,17 @@ function ServiceCard({ servicio, modo, isTransitioning, }: {
       <div className={styles.cardGlow} />
 
       <div className={styles.imagenWrap}>
-        <img
+        <Image
           className={styles.imagen}
           src={servicio.imageSrc}
           alt={servicio.imageAlt}
-          aria-hidden="true"
         />
         <div className={styles.imagenOverlay} />
         <span className={styles.cardNumber}>{servicio.num}</span>
       </div>
-      <div
-        className={`${styles.cardFooter} ${isTransitioning ? styles.cardFooterFading : ""
-          }`}
-      >
-        <h3 className={styles.cardTitle}>{contenido.titulo}</h3>
+
+      <div className={styles.cardFooter}>
+        <h3 className={styles.cardTitle}>{servicio.tec.titulo}</h3>
         <svg
           className={styles.arrow}
           width="14"
@@ -58,23 +49,6 @@ function ServiceCard({ servicio, modo, isTransitioning, }: {
 }
 
 export default function ServiciosSection() {
-  const [modo, setModo] = useState<"tec" | "cas">("tec");
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  const handleToggle = (nuevoModo: "tec" | "cas") => {
-    if (nuevoModo === modo) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setModo(nuevoModo);
-      setIsTransitioning(false);
-    }, 220);
-  };
-
-  const subtitulo =
-    modo === "tec"
-      ? "Stack tecnológico y enfoque técnico"
-      : "Beneficios claros para tu negocio";
-
   return (
     <section id="servicios" className={styles.section}>
       <div className={styles.particles}>
@@ -91,42 +65,11 @@ export default function ServiciosSection() {
             Transformamos ideas en soluciones digitales modernas con foco en
             rendimiento, claridad y crecimiento real.
           </p>
-
-          <div className={styles.toggleWrap}>
-            <div className={styles.togglePill}>
-              <button
-                className={`${styles.toggleBtn} ${modo === "cas" ? styles.toggleBtnActive : ""
-                  }`}
-                onClick={() => handleToggle("cas")}
-              >
-                Vista General
-              </button>
-              <button
-                className={`${styles.toggleBtn} ${modo === "tec" ? styles.toggleBtnActive : ""
-                  }`}
-                onClick={() => handleToggle("tec")}
-              >
-                Vista Técnica
-              </button>
-            </div>
-          </div>
-
-          <p
-            className={`${styles.toggleSubtitle} ${isTransitioning ? styles.toggleSubtitleFading : ""
-              }`}
-          >
-            {subtitulo}
-          </p>
         </div>
 
         <div className={styles.grid}>
           {SERVICIOS.map((s) => (
-            <ServiceCard
-              key={s.num}
-              servicio={s}
-              modo={modo}
-              isTransitioning={isTransitioning}
-            />
+            <ServiceCard key={s.num} servicio={s} />
           ))}
         </div>
       </div>

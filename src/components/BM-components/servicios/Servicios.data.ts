@@ -97,7 +97,7 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "06",
-    slug: "Automatización",
+    slug: "Automatizacion",
     icon: "AUTO",
     accentColor: "#8cff4f",
     imageSrc: "/BM-imagenes/imgservicios/img6.png",

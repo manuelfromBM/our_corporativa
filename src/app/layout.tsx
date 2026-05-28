@@ -1,4 +1,3 @@
-import { Briefcase, Store, BarChart2, MapPin } from 'lucide-react'
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,6 +22,12 @@ export const metadata: Metadata = {
     keywords: ['desarrollo web', 'consultoría tecnológica', 'aplicaciones móviles', 'inteligencia artificial', 'Next.js', 'Chile'],
     authors: [{ name: 'BM Code Lab' }],
     creator: 'BM Code Lab',
+    alternates: {
+        canonical: "https://www.bmcodelab.cl",
+    },
+    verification: {
+        google: "SA9rT9y12MHP8MJuzmfnmvYfSfygZqPWMTMY56z7osE",
+    },
     openGraph: {
         title: 'BM Code Lab — Desarrollo web y consultoría tecnológica',
         description: 'Desarrollamos soluciones digitales a medida para empresas en Chile.',
@@ -41,6 +46,13 @@ export const metadata: Metadata = {
     robots: {
         index: true,
         follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+        },
     },
 };
 

@@ -3,6 +3,7 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import styles from './Footer.module.css'
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
+import Image from 'next/image';
 
 const FooterContainer = () => {
     const currentYear = new Date().getFullYear();
@@ -30,7 +31,7 @@ const FooterContainer = () => {
                             {/* <h5 className={styles.FooterTitle}>
                                 <span className={styles.BrandGradient}>BM CODE LAB</span>
                             </h5> */}
-                            <img src="/BM-imagenes/logodefinitivofooter2.png" className={styles.imgFooter} />
+                            <Image src="/BM-imagenes/logodefinitivofooter2.png" className={styles.imgFooter} alt='logoBMfooter' />
                             <p className={styles.FooterDescription}>
                                 Transformando ideas en soluciones digitales innovadoras.
                                 Desarrollo web y software a medida.

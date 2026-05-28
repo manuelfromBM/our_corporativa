@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import React, { useState, useEffect } from "react";
 import styles from './Navbar.module.css';
 import Link from 'next/link'
+import Image from "next/image";
 
 const NavbarPrincipal: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -42,7 +43,7 @@ const NavbarPrincipal: React.FC = () => {
                 <div className={styles.NavInner}>
                     {/* Izquierda: Brand */}
                     <div className={styles.BrandContainer}>
-                        <img src="/BM-imagenes/logodefinitivonav.jpeg" alt="BM Code Lab" className={styles.imgLogo} />
+                        <Image src="/BM-imagenes/logodefinitivonav.jpeg" alt="BM Code Lab" className={styles.imgLogo} />
 
                     </div>
 
