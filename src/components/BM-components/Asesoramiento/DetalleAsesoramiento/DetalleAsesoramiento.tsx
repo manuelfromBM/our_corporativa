@@ -88,6 +88,7 @@ function PanelTema({ tema }: { tema: (typeof TEMAS)[0] }) {
                             src={tema.imageSrc}
                             alt={tema.imageAlt}
                             className={styles.imagen}
+                            fill
                         />
                         <div className={styles.imagenOverlay} />
                         <span className={styles.numDecorativo}>{tema.num}</span>

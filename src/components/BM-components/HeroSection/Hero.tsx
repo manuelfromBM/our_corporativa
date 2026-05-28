@@ -8,22 +8,23 @@ interface FilmSlot {
     alt: string;
 }
 const SLOTS_IZQUIERDA: FilmSlot[] = [
-    { src: "BM-imagenes/imghero/img1.webp", alt: "" },
-    { src: "BM-imagenes/imghero/img2.webp", alt: "" },
-    { src: "BM-imagenes/imghero/img3.jpg", alt: "" },
-    { src: "BM-imagenes/imghero/img4.jpg", alt: "" },
-    { src: "BM-imagenes/imghero/img5.jpg", alt: "" },
-    { src: "BM-imagenes/imghero/img5.jpg", alt: "" },
+    { src: "/BM-imagenes/imghero/img1.webp", alt: "Muestra de proyecto 1" },
+    { src: "/BM-imagenes/imghero/img2.webp", alt: "Muestra de proyecto 2" },
+    { src: "/BM-imagenes/imghero/img3.jpg", alt: "Muestra de proyecto 3" },
+    { src: "/BM-imagenes/imghero/img4.jpg", alt: "Muestra de proyecto 4" },
+    { src: "/BM-imagenes/imghero/img5.jpg", alt: "Muestra de proyecto 5" },
+    { src: "/BM-imagenes/imghero/img5.jpg", alt: "Muestra de proyecto 5 duplicada" },
 ];
 
 const SLOTS_DERECHA: FilmSlot[] = [
-    { src: "BM-imagenes/imghero/img1.webp", alt: "" },
-    { src: "BM-imagenes/imghero/img2.webp", alt: "" },
-    { src: "BM-imagenes/imghero/img3.jpg", alt: "" },
-    { src: "BM-imagenes/imghero/img4.jpg", alt: "" },
-    { src: "BM-imagenes/imghero/img5.jpg", alt: "" },
-    { src: "BM-imagenes/imghero/img5.jpg", alt: "" },
+    { src: "/BM-imagenes/imghero/img1.webp", alt: "Muestra de proyecto 1" },
+    { src: "/BM-imagenes/imghero/img2.webp", alt: "Muestra de proyecto 2" },
+    { src: "/BM-imagenes/imghero/img3.jpg", alt: "Muestra de proyecto 3" },
+    { src: "/BM-imagenes/imghero/img4.jpg", alt: "Muestra de proyecto 4" },
+    { src: "/BM-imagenes/imghero/img5.jpg", alt: "Muestra de proyecto 5" },
+    { src: "/BM-imagenes/imghero/img5.jpg", alt: "Muestra de proyecto 5 duplicada" },
 ];
+
 
 function Perforacion() {
     return <div className={styles.perf} aria-hidden="true" />;
@@ -62,7 +63,7 @@ function FilmStrip({
                         {/* Imagen */}
                         <div className={styles.filmImage}>
                             {slot.src ? (
-                                <Image src={slot.src} alt={slot.alt} className={styles.frameImg} />
+                                <Image src={slot.src} alt={slot.alt} className={styles.frameImg} fill />
                             ) : (
                                 <div className={styles.framePlaceholder} />
                             )}

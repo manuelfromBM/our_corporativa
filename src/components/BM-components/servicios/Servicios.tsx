@@ -20,6 +20,7 @@ function ServiceCard({ servicio }: { servicio: Servicio }) {
           className={styles.imagen}
           src={servicio.imageSrc}
           alt={servicio.imageAlt}
+          fill
         />
         <div className={styles.imagenOverlay} />
         <span className={styles.cardNumber}>{servicio.num}</span>

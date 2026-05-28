@@ -71,6 +71,7 @@ function Tarjeta({ data, index }: TarjetaProps) {
             alt={data.imageAlt}
             className={styles.imagen}
             onError={() => setImgError(true)}
+            fill
           />
         ) : (
           <div

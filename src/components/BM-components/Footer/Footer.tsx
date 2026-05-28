@@ -32,7 +32,7 @@ const FooterContainer = () => {
                             {/* <h5 className={styles.FooterTitle}>
                                 <span className={styles.BrandGradient}>BM CODE LAB</span>
                             </h5> */}
-                            <Image src="/BM-imagenes/logodefinitivofooter2.png" className={styles.imgFooter} alt='LogoBMFooter' />
+                            <Image src="/BM-imagenes/logodefinitivofooter2.png" className={styles.imgFooter} alt='LogoBMFooter' width={150} height={50} />
                             <p className={styles.FooterDescription}>
                                 Transformando ideas en soluciones digitales innovadoras.
                                 Desarrollo web y software a medida.
