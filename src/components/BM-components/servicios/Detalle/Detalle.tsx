@@ -23,6 +23,7 @@ function ServicioRelacionado({ servicio }: { servicio: (typeof SERVICIOS)[0] }) 
                     src={servicio.imageSrc}
                     alt={servicio.imageAlt}
                     className={styles.relImagen}
+                    fill
                 />
                 <div className={styles.relImagenOverlay} />
                 <span className={styles.relNum}>{servicio.num}</span>
@@ -117,6 +118,7 @@ export default function DetalleServicio() {
                             src={servicio.imageSrc}
                             alt={servicio.imageAlt}
                             className={styles.imagen}
+                            fill
                         />
                         <div className={styles.imagenOverlay} />
                         <span className={styles.numDecorativo}>{servicio.num}</span>

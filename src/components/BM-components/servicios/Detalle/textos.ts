@@ -65,7 +65,7 @@ export const DETALLE: Record<
             "Asesoría clara, sin tecnicismos, sobre el estado de tu seguridad"
         ],
     },
-    "Automatizacion": {
+    "automatizacion": {
         tagline: "Lo que haces a mano hoy, puede hacerse solo mañana",
         descCas:
             "Mensajes, pedidos, recordatorios, planillas, citas… muchas tareas repetitivas pueden automatizarse. No necesitas un gran sistema ni un equipo técnico para empezar.Analizamos cómo funciona tu negocio, detectamos qué te quita tiempo y creamos soluciones adaptadas a lo que ya usas: WhatsApp, correos, Excel, sistemas propios o incluso procesos manuales.Podemos automatizar tu negocio mediante páginas web, apps móviles o integraciones personalizadas, siempre buscando la solución más óptima para tu contexto.",
