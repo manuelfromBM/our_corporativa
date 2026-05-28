@@ -5,7 +5,6 @@ import HeroBranch from '@/components/BM-components/HeroSection/Hero'
 import AppPromo from '@/components/BM-components/PromocionK/PromocionK'
 import NosotrosSection from '@/components/BM-components/Nosotros/Nosotros'
 import SeccionAsesoramiento from "@/components/BM-components/Asesoramiento/Asesoramiento";
-// import SeccionNuestroProceso from "@/components/NuestroProceso/NuestroProceso";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,7 +18,6 @@ export default function Home() {
       <HeroBranch />
       <Servicios />
       <SeccionAsesoramiento />
-      {/* <SeccionNuestroProceso /> */}
       <NosotrosSection />
       <AppPromo />
       <SeccionContacto />
