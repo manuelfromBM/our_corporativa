@@ -2,7 +2,7 @@
 import Hero from "@/components/Sorteo-components/sections/Hero/Hero";
 import Premios from "@/components/Sorteo-components/sections/Premios/Premios";
 import Pasos from "@/components/Sorteo-components/sections/Pasos/Pasos";
-import Ejemplos from "@/components/Sorteo-components/sections/Ejemplos/Ejemplos";
+import Beneficios from "@/components/Sorteo-components/sections/Beneficios/Beneficios";
 import Reglas from "@/components/Sorteo-components/sections/Reglas/Reglas";
 import Formulario from "@/components/Sorteo-components/sections/Formulario/Formulario";
 import Footer from "@/components/Sorteo-components/sections/Footer/Footer";
@@ -20,8 +20,8 @@ export default function SorteoPage() {
             <section id="pasos">
               <Pasos ></Pasos>
             </section>
-            <section id="ejemplos">
-              <Ejemplos ></Ejemplos>
+            <section id="beneficios">
+              <Beneficios ></Beneficios>
             </section>
             <section id="reglas">
               <Reglas ></Reglas>
