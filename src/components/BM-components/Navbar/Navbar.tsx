@@ -43,7 +43,7 @@ const NavbarPrincipal: React.FC = () => {
                     {/* Izquierda: Brand */}
                     <div className={styles.BrandContainer}>
                         <Link href="/">
-                            <Image src="/BM-imagenes/logodefinitivonav.jpeg" alt="BM Code Lab" className={styles.imgLogo} width={150} height={50} />
+                            <Image src="/BM-imagenes/logodefinitivonav (1).png" alt="BM Code Lab" className={styles.imgLogo} width={150} height={50} />
                         </Link>
                     </div>
 

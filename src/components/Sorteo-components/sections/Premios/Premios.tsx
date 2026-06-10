@@ -1,67 +1,53 @@
 "use client";
 
+import Image from "next/image";
 import styles from "./Premios.module.css";
 
-import { FaCrown, FaMedal, FaStar } from "react-icons/fa";
-import { GiRibbonMedal } from "react-icons/gi";
-
-// ── Definición de los premios ──
 const premios = [
   {
-    lugar: "Segundo Premio",
-    icono: <FaMedal style={{ color: '#c0c0c0'}} />,
-    titulo: "Landing Premium",
+    imagen: "/Sorteo-imagenes/paginaweb.png",
+    etiqueta: "Diseño",
+    titulo: "Tu Sitio Web",
+    tagline: "Hecho a medida para tu negocio",
     descripcion:
-      "Una página de aterrizaje de alta conversión, optimizada para captar clientes y mostrar tu negocio.",
-    beneficios: [
-      "Diseño personalizado",
-      "3 meses de hosting",
-      "Dominio .com incluido",
-      "100% responsive",
-      "Soporte 30 días",
-    ],
-    destacado: false,
-  },
-  {
-    lugar: "Gran Premio",
-    icono: <FaCrown style={{ color: '#ffd700'}}/>,
-    titulo: "Sitio Web Completo",
-    descripcion:
-      "Tu sitio web profesional completo, con múltiples secciones, galería y formularios de contacto.",
+      "Tu página web corporativa diseñada desde cero, pensada para tu rubro, tu estilo y lo que quieres comunicar.",
     beneficios: [
       "Diseño 100% personalizado",
-      "6 meses de hosting",
-      "Dominio .com incluido",
-      "Totalmente responsive",
-      "SEO básico optimizado",
-      "Soporte 60 días",
+      "Se ve bien en celular, tablet y computador",
+      "Secciones para mostrar tu negocio",
+      "Formulario de contacto incluido",
+      "Tu página web corporativa completa",
     ],
-
-    destacado: true,
-    etiqueta: (
-      <>
-        <FaStar style={{ marginRight: "6px", 
-          color: '#ffd700',
-          filter: "drop-shadow(0 0 6px rgba(225, 215, 0, 0.5))",
-          }} />
-        Primer Premio
-      </>
-    ),
   },
   {
-    lugar: "Tercer Premio",
-    icono: <GiRibbonMedal style={{ color: '#cd7f32'}}/>,
-    titulo: "Carta Digital",
+    imagen: "/Sorteo-imagenes/hosting.jpg",
+    etiqueta: "Publicación",
+    titulo: "Lista para publicar",
+    tagline: "En internet desde el primer día",
     descripcion:
-      "Una carta o menú digital elegante, perfecta para negocios gastronómicos o de servicios.",
+      "Nos encargamos de que tu web esté visible con tu propio nombre de dominio, sin que tengas que preocuparte por nada técnico.",
     beneficios: [
-      "Diseño personalizado",
-      "1 mes de hosting",
-      "Dominio incluido",
-      "Responsive",
-      "Soporte 15 días",
+      "Dominio .com incluido (primer año)",
+      "Publicación y puesta en marcha incluida",
+      "Tu negocio en internet con URL propia",
+      "Sin costos ocultos al inicio",
+      "Renovación anual del dominio a cargo del ganador",
     ],
-    destacado: false,
+  },
+  {
+    imagen: "/Sorteo-imagenes/asesoramiento.webp",
+    etiqueta: "Acompañamiento",
+    titulo: "Te acompañamos",
+    tagline: "De principio a fin, sin dejarte solo",
+    descripcion:
+      "Trabajamos contigo en cada etapa: te escuchamos, ajustamos y entregamos un resultado que realmente te represente.",
+    beneficios: [
+      "Reunión inicial para conocer tu negocio",
+      "Revisiones y ajustes durante el proceso",
+      "Asesoría en diseño, imágenes y contenido",
+      "Entrega formal con reunión de cierre",
+      "Soporte post-entrega para dudas o arreglos",
+    ],
   },
 ];
 
@@ -69,83 +55,64 @@ const Premios = () => {
   return (
     <section className={styles.seccion} id="premios">
 
-      {/* ── Encabezado de la sección ── */}
       <div className={styles.encabezado}>
-
         <div className={styles.etiquetaContainer}>
-          <span className={styles.linea}></span>
-
+          <span className={styles.linea} />
           <span className={styles.etiqueta}>Premios</span>
-
-          <span className={styles.linea}></span>
+          <span className={styles.linea} />
         </div>
-        
 
-        <h2 className={styles.titulo}>
-          Lo que puedes ganar
-        </h2>
+        <h2 className={styles.titulo}>Lo que puedes ganar</h2>
 
         <div className={styles.divisor} />
 
         <p className={styles.subtitulo}>
-          Tres ganadores recibirán una página web profesional
-          diseñada a medida, ideal para destacar su negocio y comenzar a crecer
-          en el mundo digital.
+          Tres emprendedores ganarán una <strong>página web corporativa completa</strong>:
+          diseño personalizado, publicación en internet y acompañamiento de principio a fin.
           <br />
-          ¡Participa y haz que tu emprendimiento brille con una presencia online de primera!
+          Todo lo que necesitas para que tu negocio tenga presencia digital profesional desde el día uno.
         </p>
       </div>
 
-      {/* ── Grilla de cards ── */}
       <div className={styles.grilla}>
         {premios.map((premio) => (
-          <div
-            key={premio.titulo}
-            className={`${styles.card} ${
-              premio.destacado ? styles.destacada : ""
-            }`}
-          >
+          <div key={premio.titulo} className={styles.card}>
 
-            {/* Etiqueta de primer premio */}
-            {premio.etiqueta && (
-              <span className={styles.badgePremio}>
-                {premio.etiqueta}
-              </span>
-            )}
+            {/* Imagen */}
+            <div className={styles.imagenWrap}>
+              <Image
+                src={premio.imagen}
+                alt={premio.titulo}
+                className={styles.imagen}
+                fill
+              />
+              <span className={styles.etiquetaImagen}>{premio.etiqueta}</span>
+            </div>
 
-            {/* Ícono */}
-            <span
-              className={`${styles.icono} ${
-                premio.destacado ? styles.iconoDestacado : ""
-              }`}
-            >
-              {premio.icono}
-            </span>
+            <div className={styles.cardContenido}>
+              <h3 className={styles.cardTitulo}>{premio.titulo}</h3>
+              <p className={styles.tagline}>{premio.tagline}</p>
+              <p className={styles.descripcion}>{premio.descripcion}</p>
 
-            {/* Lugar */}
-            <p className={styles.lugar}>{premio.lugar}</p>
+              <div className={styles.separador} />
 
-            {/* Título */}
-            <h3 className={styles.cardTitulo}>{premio.titulo}</h3>
-
-            {/* Descripción */}
-            <p className={styles.descripcion}>
-              {premio.descripcion}
-            </p>
-
-            {/* Beneficios */}
-            <ul className={styles.beneficios}>
-              {premio.beneficios.map((b) => (
-                <li key={b} className={styles.beneficio}>
-                  <span className={styles.punto} />
-                  {b}
-                </li>
-              ))}
-            </ul>
+              <ul className={styles.beneficios}>
+                {premio.beneficios.map((b) => (
+                  <li key={b} className={styles.beneficio}>
+                    <span className={styles.punto} />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
           </div>
         ))}
       </div>
+
+      <p className={styles.hint}>
+        Cada premio incluye los tres componentes — diseño, publicación y acompañamiento.
+      </p>
 
     </section>
   );
