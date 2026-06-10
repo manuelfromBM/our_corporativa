@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Beneficios.module.css";
 
 type Benefit = {
@@ -70,17 +70,40 @@ const benefits: Benefit[] = [
 ];
 
 export default function Beneficios() {
-  const [activeBenefit, setActiveBenefit] = useState<Benefit | null>(benefits[0]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [poppingBubble, setPoppingBubble] = useState<number | null>(null);
+  const bubbleRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const handleBubbleClick = (benefit: Benefit) => {
-    setPoppingBubble(benefit.id);
+  const activeBenefit = benefits[activeIndex];
+
+  const handleBubbleClick = (index: number) => {
+    setPoppingBubble(benefits[index].id);
 
     setTimeout(() => {
-      setActiveBenefit(benefit);
+      setActiveIndex(index);
       setPoppingBubble(null);
-    }, 280);
+    }, 180);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % benefits.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const activeBubble = bubbleRefs.current[activeIndex];
+
+    if (activeBubble && window.innerWidth <= 768) {
+      activeBubble.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [activeIndex]);
 
   return (
     <section className={styles.benefitsBubblesSection} id="beneficios">
@@ -95,23 +118,45 @@ export default function Beneficios() {
           </h2>
 
           <p className={styles.benefitsBubblesSubtitle}>
-            Toca una burbuja y conoce cómo una página web puede ayudarte a verte
-            más profesional, vender mejor y depender menos de las redes sociales.
+            Tu página web no solo se ve bien: también te ayuda a vender mejor,
+            ordenar tu negocio y generar más confianza.
           </p>
         </div>
 
         <div className={styles.benefitsBubblesStage}>
+          <article className={styles.benefitBubbleCard} aria-live="polite">
+            <span className={styles.benefitBubbleCardNumber}>
+              Beneficio {String(activeBenefit.id).padStart(2, "0")}
+            </span>
+
+            <h3 className={styles.benefitBubbleCardTitle}>
+              {activeBenefit.title}
+            </h3>
+
+            <p className={styles.benefitBubbleCardDescription}>
+              {activeBenefit.description}
+            </p>
+
+            <div className={styles.benefitBubbleCardFooter}>
+              <span>Las redes atraen miradas.</span>
+              <strong>Tu web las convierte en clientes.</strong>
+            </div>
+          </article>
+
           <div
             className={styles.benefitsBubblesList}
             aria-label="Lista de beneficios"
           >
-            {benefits.map((benefit) => {
-              const isActive = activeBenefit?.id === benefit.id;
+            {benefits.map((benefit, index) => {
+              const isActive = activeIndex === index;
               const isPopping = poppingBubble === benefit.id;
 
               return (
                 <button
                   key={benefit.id}
+                  ref={(el) => {
+                    bubbleRefs.current[index] = el;
+                  }}
                   type="button"
                   className={[
                     styles.benefitBubble,
@@ -121,7 +166,7 @@ export default function Beneficios() {
                   ]
                     .filter(Boolean)
                     .join(" ")}
-                  onClick={() => handleBubbleClick(benefit)}
+                  onClick={() => handleBubbleClick(index)}
                   aria-pressed={isActive}
                   aria-label={`Ver beneficio: ${benefit.title}`}
                 >
@@ -136,44 +181,6 @@ export default function Beneficios() {
               );
             })}
           </div>
-
-          <article className={styles.benefitBubbleCard} aria-live="polite">
-            {activeBenefit ? (
-              <>
-                <span className={styles.benefitBubbleCardNumber}>
-                  Beneficio {String(activeBenefit.id).padStart(2, "0")}
-                </span>
-
-                <h3 className={styles.benefitBubbleCardTitle}>
-                  {activeBenefit.title}
-                </h3>
-
-                <p className={styles.benefitBubbleCardDescription}>
-                  {activeBenefit.description}
-                </p>
-
-                <div className={styles.benefitBubbleCardFooter}>
-                  <span>Las redes atraen miradas.</span>
-                  <strong>Tu web las convierte en clientes.</strong>
-                </div>
-              </>
-            ) : (
-              <>
-                <span className={styles.benefitBubbleCardNumber}>
-                  Explora los beneficios
-                </span>
-
-                <h3 className={styles.benefitBubbleCardTitle}>
-                  Haz clic en una burbuja
-                </h3>
-
-                <p className={styles.benefitBubbleCardDescription}>
-                  Cada burbuja revela una razón por la que tu negocio puede
-                  crecer con una página web profesional.
-                </p>
-              </>
-            )}
-          </article>
         </div>
       </div>
     </section>
