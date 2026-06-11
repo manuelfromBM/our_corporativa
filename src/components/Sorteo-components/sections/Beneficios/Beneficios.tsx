@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Beneficios.module.css";
 
 type Benefit = {
@@ -8,6 +8,7 @@ type Benefit = {
   shortTitle: string;
   title: string;
   description: string;
+  image: string;
 };
 
 const benefits: Benefit[] = [
@@ -17,6 +18,7 @@ const benefits: Benefit[] = [
     title: "Tu negocio se ve más profesional",
     description:
       "Una página web transmite confianza, orden y seriedad, ayudando a que tu marca destaque frente a otros negocios que solo dependen de redes sociales.",
+    image: "/Sorteo-imagenes/Profesional.png",
   },
   {
     id: 2,
@@ -24,6 +26,7 @@ const benefits: Benefit[] = [
     title: "Toda tu información en un solo lugar",
     description:
       "Servicios, productos, precios aproximados, galería, ubicación, preguntas frecuentes y contacto directo, todo claro para que el cliente entienda rápido qué ofreces.",
+    image: "/Sorteo-imagenes/Mas-ordenado.png",
   },
   {
     id: 3,
@@ -31,6 +34,7 @@ const benefits: Benefit[] = [
     title: "Convierte tus redes en ventas reales",
     description:
       "Tus publicaciones, historias o anuncios pueden llevar a las personas a una web clara, diseñada para que terminen escribiéndote, cotizando o comprando.",
+    image: "/Sorteo-imagenes/Mas-ventas.png",
   },
   {
     id: 4,
@@ -38,6 +42,7 @@ const benefits: Benefit[] = [
     title: "Puedes aparecer en Google",
     description:
       "Cuando alguien busca un servicio como el tuyo, tu página puede ayudarte a ser encontrado más fácilmente y atraer clientes que ya están interesados.",
+    image: "/Sorteo-imagenes/Google.png",
   },
   {
     id: 5,
@@ -45,6 +50,7 @@ const benefits: Benefit[] = [
     title: "Funciona como tu catálogo digital",
     description:
       "Muestra tus mejores trabajos, productos, categorías y formas de pedido en una vitrina profesional disponible para cualquier persona.",
+    image: "/Sorteo-imagenes/Catalogo-digital.png",
   },
   {
     id: 6,
@@ -52,6 +58,7 @@ const benefits: Benefit[] = [
     title: "Trabaja por ti las 24 horas",
     description:
       "Tu web sigue mostrando tu negocio aunque estés ocupado, descansando o fuera de horario. El cliente puede conocerte y contactarte en cualquier momento.",
+    image: "/Sorteo-imagenes/24-7.png",
   },
   {
     id: 7,
@@ -59,6 +66,7 @@ const benefits: Benefit[] = [
     title: "Ahorra tiempo respondiendo lo mismo",
     description:
       "Una página bien hecha responde dudas frecuentes antes de que el cliente te escriba, ayudando a que llegue más informado y con mayor intención de compra.",
+    image: "/Sorteo-imagenes/Ahorra-tiempo.png",
   },
   {
     id: 8,
@@ -66,21 +74,37 @@ const benefits: Benefit[] = [
     title: "Tu espacio propio, no del algoritmo",
     description:
       "Las redes sociales cambian, bajan el alcance o pueden fallar. Tu web es un activo propio que puede crecer con el tiempo y fortalecer tu marca.",
+    image: "/Sorteo-imagenes/Espacio-propio.png",
   },
 ];
 
 export default function Beneficios() {
-  const [activeBenefit, setActiveBenefit] = useState<Benefit | null>(benefits[0]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [poppingBubble, setPoppingBubble] = useState<number | null>(null);
+  const bubbleRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const handleBubbleClick = (benefit: Benefit) => {
-    setPoppingBubble(benefit.id);
+  const activeBenefit = benefits[activeIndex];
+
+  const handleBubbleClick = (index: number) => {
+    setPoppingBubble(benefits[index].id);
 
     setTimeout(() => {
-      setActiveBenefit(benefit);
+      setActiveIndex(index);
       setPoppingBubble(null);
-    }, 280);
+    }, 180);
   };
+
+  useEffect(() => {
+    const activeBubble = bubbleRefs.current[activeIndex];
+
+    if (activeBubble && window.innerWidth <= 768) {
+      activeBubble.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [activeIndex]);
 
   return (
     <section className={styles.benefitsBubblesSection} id="beneficios">
@@ -95,23 +119,54 @@ export default function Beneficios() {
           </h2>
 
           <p className={styles.benefitsBubblesSubtitle}>
-            Toca una burbuja y conoce cómo una página web puede ayudarte a verte
-            más profesional, vender mejor y depender menos de las redes sociales.
+            Tu página web no solo se ve bien: también te ayuda a vender mejor,
+            ordenar tu negocio y generar más confianza.
           </p>
         </div>
 
         <div className={styles.benefitsBubblesStage}>
+          <article className={styles.benefitBubbleCard} aria-live="polite">
+            <div className={styles.benefitBubbleCardImageWrap} aria-hidden="true">
+              <img
+                src={activeBenefit.image}
+                alt=""
+                className={styles.benefitBubbleCardImage}
+              />
+            </div>
+
+            <div className={styles.benefitBubbleCardGlow} aria-hidden="true" />
+            <span className={styles.benefitBubbleCardNumber}>
+              Beneficio {String(activeBenefit.id).padStart(2, "0")}
+            </span>
+
+            <h3 className={styles.benefitBubbleCardTitle}>
+              {activeBenefit.title}
+            </h3>
+
+            <p className={styles.benefitBubbleCardDescription}>
+              {activeBenefit.description}
+            </p>
+
+            <div className={styles.benefitBubbleCardFooter}>
+              <span>Las redes atraen miradas.</span>
+              <strong>Tu web las convierte en clientes.</strong>
+            </div>
+          </article>
+
           <div
             className={styles.benefitsBubblesList}
             aria-label="Lista de beneficios"
           >
-            {benefits.map((benefit) => {
-              const isActive = activeBenefit?.id === benefit.id;
+            {benefits.map((benefit, index) => {
+              const isActive = activeIndex === index;
               const isPopping = poppingBubble === benefit.id;
 
               return (
                 <button
                   key={benefit.id}
+                  ref={(el) => {
+                    bubbleRefs.current[index] = el;
+                  }}
                   type="button"
                   className={[
                     styles.benefitBubble,
@@ -121,7 +176,7 @@ export default function Beneficios() {
                   ]
                     .filter(Boolean)
                     .join(" ")}
-                  onClick={() => handleBubbleClick(benefit)}
+                  onClick={() => handleBubbleClick(index)}
                   aria-pressed={isActive}
                   aria-label={`Ver beneficio: ${benefit.title}`}
                 >
@@ -136,44 +191,6 @@ export default function Beneficios() {
               );
             })}
           </div>
-
-          <article className={styles.benefitBubbleCard} aria-live="polite">
-            {activeBenefit ? (
-              <>
-                <span className={styles.benefitBubbleCardNumber}>
-                  Beneficio {String(activeBenefit.id).padStart(2, "0")}
-                </span>
-
-                <h3 className={styles.benefitBubbleCardTitle}>
-                  {activeBenefit.title}
-                </h3>
-
-                <p className={styles.benefitBubbleCardDescription}>
-                  {activeBenefit.description}
-                </p>
-
-                <div className={styles.benefitBubbleCardFooter}>
-                  <span>Las redes atraen miradas.</span>
-                  <strong>Tu web las convierte en clientes.</strong>
-                </div>
-              </>
-            ) : (
-              <>
-                <span className={styles.benefitBubbleCardNumber}>
-                  Explora los beneficios
-                </span>
-
-                <h3 className={styles.benefitBubbleCardTitle}>
-                  Haz clic en una burbuja
-                </h3>
-
-                <p className={styles.benefitBubbleCardDescription}>
-                  Cada burbuja revela una razón por la que tu negocio puede
-                  crecer con una página web profesional.
-                </p>
-              </>
-            )}
-          </article>
         </div>
       </div>
     </section>

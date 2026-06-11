@@ -15,24 +15,10 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 54px 54px;
-  mask-image: radial-gradient(circle at center, black, transparent 78%);
-  pointer-events: none;
-}
-
-.benefitsBubblesSection::after {
-  content: "";
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  left: 50%;
-  top: 52%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 253, 186, 0.08);
-  filter: blur(90px);
-  border-radius: 999px;
+  mask-image: radial-gradient(circle at center, black, transparent 82%);
   pointer-events: none;
 }
 
@@ -45,7 +31,7 @@
 
 .benefitsBubblesHeader {
   max-width: 760px;
-  margin: 0 auto 60px;
+  margin: 0 auto 50px;
   text-align: center;
 }
 
@@ -82,180 +68,23 @@
 }
 
 .benefitsBubblesStage {
-  position: relative;
-  min-height: 620px;
-  display: grid;
-  place-items: center;
-}
-
-.benefitsBubblesList {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.benefitBubble {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.75), transparent 11%),
-    radial-gradient(circle at 70% 75%, rgba(0, 253, 186, 0.18), transparent 34%),
-    linear-gradient(135deg, rgba(29, 111, 216, 0.28), rgba(106, 75, 196, 0.3));
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow:
-    0 24px 55px rgba(0, 0, 0, 0.32),
-    inset 0 1px 18px rgba(255, 255, 255, 0.2),
-    0 0 28px rgba(0, 253, 186, 0.12);
-  color: #ffffff;
-  cursor: pointer;
-  pointer-events: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-align: center;
-  padding: 20px;
-  transform: translate(-50%, -50%);
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease,
-    border-color 0.35s ease,
-    background 0.35s ease,
-    opacity 0.35s ease;
-  animation: bubbleFloat 5.6s ease-in-out infinite;
-}
-
-.benefitBubble::before {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border-radius: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  pointer-events: none;
-}
-
-.benefitBubble::after {
-  content: "";
-  position: absolute;
-  inset: -12px;
-  border-radius: inherit;
-  background: radial-gradient(circle, rgba(0, 253, 186, 0.22), transparent 68%);
-  opacity: 0;
-  transform: scale(0.72);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.benefitBubble:hover {
-  transform: translate(-50%, -50%) scale(1.08);
-  border-color: rgba(0, 253, 186, 0.62);
-  box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.42),
-    inset 0 1px 20px rgba(255, 255, 255, 0.24),
-    0 0 42px rgba(0, 253, 186, 0.26);
-}
-
-.benefitBubble:hover::after,
-.benefitBubble.isActive::after {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.benefitBubble.isActive {
-  border-color: rgba(0, 253, 186, 0.85);
-  background:
-    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.85), transparent 11%),
-    radial-gradient(circle at 70% 75%, rgba(0, 253, 186, 0.26), transparent 36%),
-    linear-gradient(135deg, rgba(0, 253, 186, 0.25), rgba(106, 75, 196, 0.42));
-  box-shadow:
-    0 30px 75px rgba(0, 0, 0, 0.48),
-    inset 0 1px 20px rgba(255, 255, 255, 0.28),
-    0 0 50px rgba(0, 253, 186, 0.34);
-}
-
-.benefitBubble.isPopping {
-  animation: bubblePop 0.28s ease forwards;
-}
-
-.benefitBubbleNumber {
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: #00fdba;
-  letter-spacing: 0.12em;
-}
-
-.benefitBubbleText {
-  max-width: 105px;
-  font-size: 0.98rem;
-  font-weight: 800;
-  line-height: 1.15;
-}
-
-.benefitBubble1 {
-  left: 19%;
-  top: 22%;
-  animation-delay: 0s;
-}
-
-.benefitBubble2 {
-  left: 41%;
-  top: 12%;
-  animation-delay: -1.2s;
-}
-
-.benefitBubble3 {
-  left: 68%;
-  top: 17%;
-  animation-delay: -2.1s;
-}
-
-.benefitBubble4 {
-  left: 84%;
-  top: 42%;
-  animation-delay: -0.7s;
-}
-
-.benefitBubble5 {
-  left: 74%;
-  top: 76%;
-  animation-delay: -1.7s;
-}
-
-.benefitBubble6 {
-  left: 48%;
-  top: 88%;
-  animation-delay: -2.8s;
-}
-
-.benefitBubble7 {
-  left: 22%;
-  top: 78%;
-  animation-delay: -0.4s;
-}
-
-.benefitBubble8 {
-  left: 10%;
-  top: 48%;
-  animation-delay: -2.4s;
+  gap: 36px;
 }
 
 .benefitBubbleCard {
   position: relative;
   z-index: 3;
-  width: min(440px, 100%);
+  width: min(560px, 100%);
   min-height: 300px;
-  padding: 36px;
+  padding: 38px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 34px;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06)),
-    rgba(7, 7, 18, 0.68);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05)),
+    rgba(7, 7, 18, 0.7);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   box-shadow:
@@ -274,21 +103,6 @@
   border-radius: 999px;
   background: rgba(0, 253, 186, 0.16);
   filter: blur(22px);
-}
-
-.benefitBubbleCard::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.08),
-    transparent
-  );
-  transform: translateX(-100%);
-  animation: cardShine 5.5s ease-in-out infinite;
-  pointer-events: none;
 }
 
 .benefitBubbleCardNumber {
@@ -310,7 +124,7 @@
   position: relative;
   z-index: 2;
   margin: 0;
-  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
   line-height: 1.08;
   letter-spacing: -0.04em;
   font-weight: 900;
@@ -343,14 +157,246 @@
   font-weight: 900;
 }
 
+.benefitBubbleCard {
+  isolation: isolate;
+}
+
+.benefitBubbleCardImageWrap {
+  position: absolute;
+  top: -30px;
+  right: -70px;
+  width: 62%;
+  max-width: 360px;
+  height: 82%;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+.benefitBubbleCardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top right;
+  opacity: 0.2;
+  transform: rotate(-3deg) scale(1.08);
+  filter: saturate(1.15) contrast(1.08);
+}
+
+.benefitBubbleCardGlow {
+  position: absolute;
+  top: -80px;
+  right: -90px;
+  width: 320px;
+  height: 320px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(0, 253, 186, 0.22), transparent 68%),
+    radial-gradient(circle, rgba(106, 75, 196, 0.18), transparent 72%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.benefitBubbleCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 7, 18, 0.88) 0%,
+      rgba(7, 7, 18, 0.7) 42%,
+      rgba(7, 7, 18, 0.2) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(7, 7, 18, 0.15) 0%,
+      rgba(7, 7, 18, 0.82) 100%
+    );
+  pointer-events: none;
+}
+
+.benefitBubbleCardNumber,
+.benefitBubbleCardTitle,
+.benefitBubbleCardDescription,
+.benefitBubbleCardFooter {
+  position: relative;
+  z-index: 2;
+}
+
+.benefitBubbleCardTitle,
+.benefitBubbleCardDescription,
+.benefitBubbleCardFooter {
+  max-width: 72%;
+}
+
+.benefitsBubblesList {
+  position: relative;
+  width: min(980px, 100%);
+  height: 260px;
+  margin: 0 auto;
+}
+
+.benefitBubble {
+  position: absolute;
+  width: 138px;
+  height: 138px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.75), transparent 11%),
+    radial-gradient(circle at 70% 75%, rgba(0, 253, 186, 0.18), transparent 34%),
+    linear-gradient(135deg, rgba(29, 111, 216, 0.28), rgba(106, 75, 196, 0.3));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 24px 55px rgba(0, 0, 0, 0.32),
+    inset 0 1px 18px rgba(255, 255, 255, 0.2),
+    0 0 28px rgba(0, 253, 186, 0.12);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  padding: 18px;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    opacity 0.3s ease;
+  animation: bubbleFloat 5.5s ease-in-out infinite;
+}
+
+.benefitBubble::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.benefitBubble::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(0, 253, 186, 0.24), transparent 68%);
+  opacity: 0;
+  transform: scale(0.78);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: -1;
+}
+
+.benefitBubble:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  border-color: rgba(0, 253, 186, 0.62);
+}
+
+.benefitBubble.isActive {
+  border-color: rgba(0, 253, 186, 0.85);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.42),
+    inset 0 1px 20px rgba(255, 255, 255, 0.24),
+    0 0 42px rgba(0, 253, 186, 0.3);
+}
+
+.benefitBubble.isActive::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.benefitBubble.isPopping {
+  animation: bubblePop 0.18s ease forwards;
+}
+
+.benefitBubbleNumber {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #00fdba;
+  letter-spacing: 0.12em;
+}
+
+.benefitBubbleText {
+  max-width: 100px;
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+/* DISTRIBUCIÓN EN CURVA HACIA ARRIBA (SONRISA / U SUAVE) */
+.benefitsBubblesList {
+  position: relative;
+  width: min(1100px, 100%);
+  height: 300px;
+  margin: 0 auto;
+}
+
+.benefitBubble {
+  width: 124px;
+  height: 124px;
+}
+
+.benefitBubble1 {
+  left: 8%;
+  top: 18%;
+  animation-delay: 0s;
+}
+
+.benefitBubble2 {
+  left: 20%;
+  top: 32%;
+  animation-delay: -0.5s;
+}
+
+.benefitBubble3 {
+  left: 32%;
+  top: 48%;
+  animation-delay: -1s;
+}
+
+.benefitBubble4 {
+  left: 44%;
+  top: 60%;
+  animation-delay: -1.5s;
+}
+
+.benefitBubble5 {
+  left: 56%;
+  top: 60%;
+  animation-delay: -2s;
+}
+
+.benefitBubble6 {
+  left: 68%;
+  top: 48%;
+  animation-delay: -2.5s;
+}
+
+.benefitBubble7 {
+  left: 80%;
+  top: 32%;
+  animation-delay: -3s;
+}
+
+.benefitBubble8 {
+  left: 92%;
+  top: 18%;
+  animation-delay: -3.5s;
+}
+
 @keyframes bubbleFloat {
   0%,
   100% {
     translate: 0 0;
   }
-
   50% {
-    translate: 0 -16px;
+    translate: 0 -10px;
   }
 }
 
@@ -359,134 +405,37 @@
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
-
-  55% {
-    transform: translate(-50%, -50%) scale(1.18);
+  100% {
+    transform: translate(-50%, -50%) scale(0.92);
     opacity: 0.75;
   }
-
-  100% {
-    transform: translate(-50%, -50%) scale(0.82);
-    opacity: 0.45;
-  }
 }
 
-@keyframes cardShine {
-  0% {
-    transform: translateX(-120%);
-  }
-
-  38%,
-  100% {
-    transform: translateX(120%);
-  }
-}
-
+/* TABLET */
 @media (max-width: 1024px) {
-  .benefitsBubblesStage {
-    min-height: 760px;
+  .benefitsBubblesList {
+    width: 100%;
+    height: 240px;
   }
 
   .benefitBubble {
-    width: 132px;
-    height: 132px;
-  }
-
-  .benefitBubble1 {
-    left: 17%;
-    top: 18%;
-  }
-
-  .benefitBubble2 {
-    left: 50%;
-    top: 10%;
-  }
-
-  .benefitBubble3 {
-    left: 82%;
-    top: 20%;
-  }
-
-  .benefitBubble4 {
-    left: 88%;
-    top: 50%;
-  }
-
-  .benefitBubble5 {
-    left: 78%;
-    top: 82%;
-  }
-
-  .benefitBubble6 {
-    left: 50%;
-    top: 92%;
-  }
-
-  .benefitBubble7 {
-    left: 20%;
-    top: 82%;
-  }
-
-  .benefitBubble8 {
-    left: 10%;
-    top: 50%;
+    width: 124px;
+    height: 124px;
   }
 }
 
+/* MOBILE */
 @media (max-width: 768px) {
   .benefitsBubblesSection {
     padding: 80px 16px;
   }
 
   .benefitsBubblesHeader {
-    margin-bottom: 38px;
+    margin-bottom: 36px;
   }
 
   .benefitsBubblesStage {
-    min-height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
-  }
-
-  .benefitsBubblesList {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-    pointer-events: auto;
-  }
-
-  .benefitBubble {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 100%;
-    height: 112px;
-    transform: none;
-    border-radius: 28px;
-    animation: none;
-    padding: 18px 14px;
-  }
-
-  .benefitBubble:hover {
-    transform: translateY(-4px);
-  }
-
-  .benefitBubble.isPopping {
-    animation: mobileBubblePop 0.28s ease forwards;
-  }
-
-  .benefitBubble::before {
-    inset: 7px;
-    border-radius: 22px;
-  }
-
-  .benefitBubbleText {
-    max-width: 100%;
-    font-size: 0.95rem;
+    gap: 24px;
   }
 
   .benefitBubbleCard {
@@ -495,39 +444,140 @@
     padding: 28px 22px;
     border-radius: 28px;
   }
+
+  .benefitsBubblesList {
+    position: relative;
+    height: auto;
+    width: 100%;
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 8px 6px 10px;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .benefitsBubblesList::-webkit-scrollbar {
+    display: none;
+  }
+
+  .benefitBubble {
+    position: relative;
+    flex: 0 0 120px;
+    width: 120px;
+    height: 120px;
+    left: auto;
+    top: auto;
+    transform: none;
+    animation: none;
+    scroll-snap-align: center;
+  }
+
+  .benefitBubble:hover {
+    transform: scale(1.04);
+  }
+
+  .benefitBubble.isPopping {
+    animation: mobileBubblePop 0.18s ease forwards;
+  }
+
+  .benefitBubbleText {
+    max-width: 88px;
+    font-size: 0.9rem;
+  }
+
+    .benefitBubbleCardImageWrap {
+    top: -18px;
+    right: -56px;
+    width: 72%;
+    max-width: 290px;
+    height: 72%;
+  }
+
+  .benefitBubbleCardImage {
+    opacity: 0.16;
+    transform: rotate(-4deg) scale(1.05);
+  }
+
+  .benefitBubbleCardGlow {
+    top: -70px;
+    right: -90px;
+    width: 260px;
+    height: 260px;
+  }
+
+  .benefitBubbleCard::after {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(7, 7, 18, 0.92) 0%,
+        rgba(7, 7, 18, 0.78) 54%,
+        rgba(7, 7, 18, 0.28) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(7, 7, 18, 0.18) 0%,
+        rgba(7, 7, 18, 0.88) 100%
+      );
+  }
+
+  .benefitBubbleCardTitle,
+  .benefitBubbleCardDescription,
+  .benefitBubbleCardFooter {
+    max-width: 100%;
+  }
 }
+
 
 @media (max-width: 480px) {
   .benefitsBubblesTitle {
-    font-size: 2.25rem;
+    font-size: 2.2rem;
   }
 
   .benefitsBubblesSubtitle {
     font-size: 0.98rem;
   }
 
-  .benefitsBubblesList {
-    grid-template-columns: 1fr;
-  }
-
-  .benefitBubble {
-    height: 94px;
-    flex-direction: row;
-    justify-content: flex-start;
-    text-align: left;
-    border-radius: 24px;
-  }
-
-  .benefitBubbleNumber {
-    min-width: 38px;
-  }
-
   .benefitBubbleCardTitle {
-    font-size: 1.65rem;
+    font-size: 1.8rem;
   }
 
   .benefitBubbleCardDescription {
     font-size: 0.96rem;
+    line-height: 1.7;
+  }
+
+  .benefitBubble {
+    flex: 0 0 108px;
+    width: 108px;
+    height: 108px;
+  }
+
+  .benefitBubbleNumber {
+    font-size: 0.72rem;
+  }
+
+  .benefitBubbleText {
+    font-size: 0.84rem;
+  }
+   .benefitBubbleCardImageWrap {
+    top: -10px;
+    right: -82px;
+    width: 86%;
+    height: 58%;
+  }
+
+  .benefitBubbleCardImage {
+    opacity: 0.12;
+    transform: rotate(-5deg) scale(1.08);
+  }
+
+  .benefitBubbleCardGlow {
+    width: 220px;
+    height: 220px;
+    right: -90px;
   }
 }
 
@@ -536,14 +586,8 @@
     transform: scale(1);
     opacity: 1;
   }
-
-  55% {
-    transform: scale(1.04);
-    opacity: 0.8;
-  }
-
   100% {
-    transform: scale(0.98);
-    opacity: 0.55;
+    transform: scale(0.96);
+    opacity: 0.8;
   }
 }
