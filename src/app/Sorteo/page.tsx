@@ -8,28 +8,28 @@ import Formulario from "@/components/Sorteo-components/sections/Formulario/Formu
 import Footer from "@/components/Sorteo-components/sections/Footer/Footer";
 
 export default function SorteoPage() {
-    return (
+  return (
 
-        <div className="sorteo-theme">
-            <section id="inicio">
-              <Hero ></Hero>
-            </section>
-            <section id="premios">
-              <Premios ></Premios>
-            </section>
-            <section id="pasos">
-              <Pasos ></Pasos>
-            </section>
-            <section id="beneficios">
-              <Beneficios ></Beneficios>
-            </section>
-            <section id="reglas">
-              <Reglas ></Reglas>
-            </section>
-            <section id="formulario">
-              <Formulario ></Formulario>
-            </section>
-            <Footer ></Footer>
-        </div>
-    );
+    <div className="sorteo-theme">
+      <section id="inicio">
+        <Hero ></Hero>
+      </section>
+      <section id="premios">
+        <Premios ></Premios>
+      </section>
+      <section id="pasos">
+        <Pasos ></Pasos>
+      </section>
+      <section id="beneficios">
+        <Beneficios ></Beneficios>
+      </section>
+      <section id="reglas">
+        <Reglas ></Reglas>
+      </section>
+      <section id="formulario">
+        <Formulario ></Formulario>
+      </section>
+      <Footer ></Footer>
+    </div>
+  );
 }

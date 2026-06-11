@@ -1,121 +1,89 @@
-"use client";
-
-import { FaInstagram, FaShareAlt, FaUsers, FaLightbulb } from "react-icons/fa";
+import { Instagram, Share2, Users } from "lucide-react";
 import styles from "./Pasos.module.css";
+import Image from "next/image";
 
-// ── Datos de cada paso ──
-const pasos = [
+const steps = [
   {
-    numero: "01",
-    icono: (
-      <FaInstagram style={{ color: '#22d3ee'}} />
-    ),
-    titulo: "Seguir la cuenta",
-    descripcion:
-      "Seguí nuestra cuenta de Instagram para estar al tanto del sorteo y el anuncio de los ganadores.",
+    number: "01",
+    title: "Seguir la cuenta",
+    description:
+      "Sigue nuestra cuenta de Instagram para estar al tanto del sorteo y el anuncio de los ganadores.",
+    image: "/Sorteo-imagenes/telefono4.jpeg",
+    icon: Instagram,
   },
   {
-    numero: "02",
-    icono: (
-      <FaShareAlt style={{ color: "#22d3ee" }} />
-    ),
-    titulo: "Compartir en historias",
-    descripcion:
-      "Compartí la publicación del sorteo en tus historias de Instagram para que más personas se enteren.",
+    number: "02",
+    title: "Compartir en historias",
+    description:
+      "Comparte la publicación del sorteo en tus historias de Instagram para que más personas conozcan esta oportunidad.",
+    image: "/Sorteo-imagenes/telefono2.jpeg",
+    icon: Share2,
   },
   {
-    numero: "03",
-    icono: (
-      <FaUsers style={{ color: "#22d3ee" }} />
-    ),
-    titulo: "Etiquetar amigos",
-    descripcion:
-      "Etiquetá a 2 amigos en los comentarios de la publicación. Cada etiqueta suma más chances de ganar.",
+    number: "03",
+    title: "Etiquetar amigos",
+    description:
+      "Etiqueta a tus amigos emprendedores en los comentarios de la publicación. Cada etiqueta suma más oportunidades de ganar.",
+    image: "/Sorteo-imagenes/telefono3.jpeg",
+    icon: Users,
   },
 ];
 
-const Pasos = () => {
+export default function HowToParticipate() {
   return (
-    <section className={styles.seccion} id="pasos">
+    <section className={styles.howToSection}>
+      <div className={styles.inner}>
 
-      {/* ── Resplandor de fondo centrado ── */}
-      <div className={styles.resplandor} />
-
-      <div className={styles.contenedor}>
-
-        {/* ── Encabezado de la sección ── */}
-        <div className={styles.encabezado}>
-
-          <div className={styles.etiquetaContainer}>
-            <span className={styles.linea}></span>
-
-            <span className={styles.etiqueta}>Cómo participar</span>
-
-            <span className={styles.linea}></span>
-          </div>
-
-          <h2 className={styles.titulo}>3 pasos simples</h2>
-          
-          <div className={styles.divisor} />
-
-         <p className={styles.subtitulo}>
+        {/* Sidebar izquierdo */}
+        <div className={styles.sidebar}>
+          <span>CÓMO PARTICIPAR</span>
+          <h2>3 pasos simples</h2>
+          <p>
             Participar es totalmente gratis y solo te tomará unos minutos.
-            <br />
-            Sigue los pasos y podrías ser uno de los ganadores para llevar
-            tu emprendimiento al siguiente nivel con una página web profesional
-            diseñada a medida.
-            <br />
-            ¡No pierdas esta oportunidad de hacer crecer tu negocio en el mundo digital!
+            No necesitas experiencia previa ni cumplir ningún requisito especial,
+            cualquier persona puede unirse. Mientras más activo seas en la
+            comunidad, más chances tendrás de llevarte el premio. Sigue los
+            pasos, comparte con tus amigos y déjate sorprender.
           </p>
-
+          <hr className={styles.divider} />
+          <div className={styles.sidebarNote}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <p>
+              El ganador se anuncia en por publicacion de Instagram al finalizar
+              el periodo del sorteo. ¡Activa las notificaciones para no perderte nada!
+            </p>
+          </div>
         </div>
 
-        {/* ── Grilla de pasos ── */}
-        <div className={styles.grilla}>
-          {pasos.map((paso, index) => (
-            <div
-              key={paso.numero}
-              className={styles.card}
-              style={{ animationDelay: `${index * 0.12}s` }}
-            >
-              {/* Número grande de fondo decorativo */}
-              <span className={styles.numeroDecorativo}>{paso.numero}</span>
-
-              {/* Ícono en caja con borde */}
-              <div className={styles.iconoBox}>
-                <span className={styles.icono}>{paso.icono}</span>
-              </div>
-
-              {/* Título del paso */}
-              <h3 className={styles.cardTitulo}>{paso.titulo}</h3>
-
-              {/* Descripción */}
-              <p className={styles.descripcion}>{paso.descripcion}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* ── Nota importante al pie ── */}
-        <div className={styles.nota}>
-
-          <span className={styles.notaIcono}>
-            <FaLightbulb />
-          </span>
-
-          <p className={styles.notaTexto}>
-            <strong>Tip importante:</strong> Mientras más comentarios,
-            etiquetas y participaciones realices, más oportunidades tendrás
-            de ganar.
-            <br />
-            ¡Invita a tus amigos y aumenta tus posibilidades de llevarte uno
-            de los premios!
-          </p>
-
+        {/* Columna derecha: tarjetas */}
+        <div className={styles.stepsWrapper}>
+          {steps.map((step) => {
+            const Icon = step.icon;
+            return (
+              <article key={step.number} className={styles.stepCard}>
+                <div className={styles.imageSide}>
+                  <Image src={step.image} alt={step.title} fill />
+                </div>
+                <div className={styles.contentSide}>
+                  <div className={styles.stepMeta}>
+                    <span className={styles.stepNumber}>PASO {step.number}</span>
+                    <div className={styles.iconBox}>
+                      <Icon size={14} />
+                    </div>
+                  </div>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
       </div>
     </section>
   );
-};
-
-export default Pasos;
+}
