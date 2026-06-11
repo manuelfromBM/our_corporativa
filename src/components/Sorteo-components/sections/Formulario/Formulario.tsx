@@ -162,10 +162,10 @@ const Formulario = () => {
                         <span className={styles.etiqueta}>Registrate</span>
                         <span className={styles.linea}></span>
                     </div>
-                    <h2 className={styles.titulo}>Participá Ahora</h2>
+                    <h2 className={styles.titulo}>Participa Ahora</h2>
                     <div className={styles.divisor} />
                     <p className={styles.subtitulo}>
-                        Completá el formulario y confirmá que realizaste los pasos
+                        Completa el formulario y confirma que realizaste los pasos
                         para registrar tu participación.
                     </p>
                 </div>
