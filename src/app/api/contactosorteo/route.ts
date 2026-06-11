@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { emailHtml } from "./correo";
+import { emailHtmlAdmin } from "./notificacion";
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -55,8 +56,7 @@ export async function POST(req: Request) {
 
     const { error } = await resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: process.env.EMAIL_CONTANCTO!,
-      replyTo: body.correo,         
+      to: body.correo,        
       subject: `[${body.tipo_negocio}] Consulta de ${body.nombre}`,
       html: emailHtml(body),
     })
@@ -65,6 +65,13 @@ export async function POST(req: Request) {
       console.error('Resend error:', error)
       return NextResponse.json({ error: 'Error al enviar el correo.' }, { status: 500 })
     }
+
+    await resend.emails.send({
+    from: 'onboarding@resend.dev',
+    to: process.env.EMAIL_CONTANCTO!,
+    subject: `[Sorteo] Nueva participación de ${body.nombre} ${body.apellido}`,
+    html: emailHtmlAdmin(body),        
+    })
 
     return NextResponse.json({ ok: true }, { status: 200 })
 
