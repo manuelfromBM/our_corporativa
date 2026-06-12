@@ -29,9 +29,6 @@ const FooterContainer = () => {
                     {/* Columna 1: Información de la empresa */}
                     <Col lg={4} md={6} className={styles.FooterCol}>
                         <div className={styles.BrandSection}>
-                            {/* <h5 className={styles.FooterTitle}>
-                                <span className={styles.BrandGradient}>BM CODE LAB</span>
-                            </h5> */}
                             <Image src="/BM-imagenes/logodefinitivofooter2.png" className={styles.imgFooter} alt='LogoBMFooter' width={150} height={50} />
                             <p className={styles.FooterDescription}>
                                 Transformando ideas en soluciones digitales innovadoras.
