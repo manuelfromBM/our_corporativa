@@ -54,24 +54,24 @@ export async function POST(req: Request) {
       )
     }
 
-    const { error } = await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: body.correo,        
-      subject: `[${body.tipo_negocio}] Consulta de ${body.nombre}`,
-      html: emailHtml(body),
-    })
+  const { error } = await resend.emails.send({
+    from: 'noreply@bmcodelab.cl',                        
+    to: body.correo,
+    subject: `¡Tu participación en el sorteo fue registrada!`,  
+    html: emailHtml(body),
+  })
 
     if (error) {
       console.error('Resend error:', error)
       return NextResponse.json({ error: 'Error al enviar el correo.' }, { status: 500 })
     }
 
-    await resend.emails.send({
-    from: 'onboarding@resend.dev',
+  await resend.emails.send({
+    from: 'noreply@bmcodelab.cl',
     to: process.env.EMAIL_CONTANCTO!,
-    subject: `[Sorteo] Nueva participación de ${body.nombre} ${body.apellido}`,
-    html: emailHtmlAdmin(body),        
-    })
+    subject: `[Sorteo] ${body.nombre} ${body.apellido} — ${body.tipo_negocio}`,
+    html: emailHtmlAdmin(body),
+  })
 
     return NextResponse.json({ ok: true }, { status: 200 })
 
