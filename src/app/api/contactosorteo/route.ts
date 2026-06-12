@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { emailHtml } from "./correo";
 import { emailHtmlAdmin } from "./notificacion";
+import { prisma } from '@/lib/prisma'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -40,11 +41,13 @@ function validarDatos(data:unknown): data is DatosFormSorteo{
 
 }
 
+
 export async function POST(req: Request) {
   try {
+
     const body = await req.json()
-    console.log("📨 Body recibido:", body)       
-    console.log("✅ Validación:", validarDatos(body))
+    console.log("Body recibido:", body)       
+    console.log("Validación:", validarDatos(body))
 
     if (!validarDatos(body)) {
       console.log("Falló la validación")
@@ -53,7 +56,26 @@ export async function POST(req: Request) {
         { status: 400 }
       )
     }
+    const yaExiste = await prisma.participante.findUnique({
+        where: { correo: body.correo }
+      })
 
+      if (yaExiste) {
+        return NextResponse.json(
+          { error: 'Este correo ya está registrado.' },
+          { status: 409 }
+        )
+      }
+
+  await prisma.participante.create({
+    data: {
+      nombre: body.nombre,
+      apellido: body.apellido,
+      correo: body.correo,
+      usuario_instagram: body.usuario_instagram,
+      tipo_negocio: body.tipo_negocio,
+    }
+  })
   const { error } = await resend.emails.send({
     from: 'noreply@bmcodelab.cl',                        
     to: body.correo,

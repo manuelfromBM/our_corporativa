@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Participante {
+  id                Int      @id @default(autoincrement())
+  nombre            String
+  apellido          String
+  correo            String   @unique
+  usuario_instagram String
+  tipo_negocio      String
+  creado_en         DateTime @default(now())
+}
