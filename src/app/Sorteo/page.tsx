@@ -9,7 +9,6 @@ import Footer from "@/components/Sorteo-components/sections/Footer/Footer";
 
 export default function SorteoPage() {
   return (
-
     <div className="sorteo-theme">
       <section id="inicio">
         <Hero ></Hero>
