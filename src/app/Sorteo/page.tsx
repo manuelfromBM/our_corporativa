@@ -6,6 +6,8 @@ import Beneficios from "@/components/Sorteo-components/sections/Beneficios/Benef
 import Reglas from "@/components/Sorteo-components/sections/Reglas/Reglas";
 import Formulario from "@/components/Sorteo-components/sections/Formulario/Formulario";
 import Footer from "@/components/Sorteo-components/sections/Footer/Footer";
+import Preguntas from "@/components/Sorteo-components/sections/FAQ/Preguntas";
+import Fecha from "@/components/Sorteo-components/sections/Fecha/Fecha";
 
 export default function SorteoPage() {
     return (
@@ -13,6 +15,9 @@ export default function SorteoPage() {
         <div className="sorteo-theme">
             <section id="inicio">
               <Hero ></Hero>
+            </section>
+            <section id="fecha">
+              <Fecha ></Fecha>
             </section>
             <section id="premios">
               <Premios ></Premios>
@@ -25,6 +30,9 @@ export default function SorteoPage() {
             </section>
             <section id="reglas">
               <Reglas ></Reglas>
+            </section>
+            <section id="preguntas">
+              <Preguntas ></Preguntas>
             </section>
             <section id="formulario">
               <Formulario ></Formulario>

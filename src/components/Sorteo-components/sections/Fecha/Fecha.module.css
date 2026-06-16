@@ -1,0 +1,188 @@
+.dateStripsSection {
+  width: 100%;
+  position: relative;
+  z-index: 5;
+  padding: 1.2rem 1rem;
+  background: #08080c;
+  overflow: hidden;
+}
+
+.dateStripsSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #080d1a;
+  pointer-events: none;
+}
+
+.dateStripsContainer {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem;
+  position: relative;
+  z-index: 2;
+}
+
+.dateStrip {
+  background: linear-gradient(135deg, #ff1f1f 0%, #ff4a4a 45%, #ff1f1f 100%);
+  border: 2px solid rgba(0, 0, 0, 0.75);
+  border-radius: 18px;
+  color: #050505;
+  box-shadow:#080d1a;
+  overflow: hidden;
+  position: relative;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.dateStrip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.28) 42%,
+      transparent 58%
+    );
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+}
+
+.dateStrip:hover {
+  transform: translateY(-3px);
+  box-shadow: black;}
+
+.dateStrip:hover::before {
+  transform: translateX(120%);
+}
+
+.dateStripContent {
+  min-height: 118px;
+  padding: 1rem 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.dateStripText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dateStripLabel {
+  width: fit-content;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.88);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dateStripTitle {
+  margin: 0;
+  color: #050505;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  font-weight: 950;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.dateStripDescription {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.78);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.dateStripInfo {
+  flex: 0 0 auto;
+  min-width: 155px;
+  padding: 0.75rem 0.85rem;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  backdrop-filter: blur(8px);
+}
+
+.dateStripDate {
+  color: #050505;
+  font-size: 0.9rem;
+  font-weight: 950;
+  line-height: 1.1;
+  text-align: right;
+}
+
+.dateStripDays {
+  color: #050505;
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-weight: 1000;
+  line-height: 1;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 820px) {
+  .dateStripsSection {
+    padding: 1rem 0.85rem;
+  }
+
+  .dateStripsContainer {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .dateStripContent {
+    min-height: auto;
+    padding: 0.95rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .dateStrip {
+    border-radius: 16px;
+  }
+
+  .dateStripContent {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+
+  .dateStripInfo {
+    width: 100%;
+    min-width: unset;
+    align-items: flex-start;
+  }
+
+  .dateStripDate,
+  .dateStripDays {
+    text-align: left;
+  }
+
+  .dateStripLabel {
+    font-size: 0.62rem;
+  }
+
+  .dateStripDescription {
+    font-size: 0.82rem;
+  }
+}
