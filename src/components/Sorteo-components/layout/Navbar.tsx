@@ -14,14 +14,12 @@ const NavbarPrincipal: React.FC = () => {
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 80);
-            // Cierra el menú al hacer scroll
             if (menuOpen) setMenuOpen(false);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [menuOpen]);
 
-    // Bloquea el scroll del body cuando el menú está abierto
     useEffect(() => {
         document.body.style.overflow = menuOpen ? 'hidden' : '';
         return () => { document.body.style.overflow = ''; };

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import styles from "./Beneficios.module.css";
+import Image from "next/image";
 
 type Benefit = {
   id: number;
@@ -127,10 +128,11 @@ export default function Beneficios() {
         <div className={styles.benefitsBubblesStage}>
           <article className={styles.benefitBubbleCard} aria-live="polite">
             <div className={styles.benefitBubbleCardImageWrap} aria-hidden="true">
-              <img
+              <Image
                 src={activeBenefit.image}
                 alt=""
                 className={styles.benefitBubbleCardImage}
+                fill
               />
             </div>
 

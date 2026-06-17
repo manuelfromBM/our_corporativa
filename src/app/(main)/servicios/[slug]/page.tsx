@@ -5,14 +5,15 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 interface Props {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
     return SERVICIOS.map((s) => ({ slug: s.slug }));
 }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const servicio = SERVICIOS.find((s) => s.slug === params.slug);
+    const { slug } = await params;
+    const servicio = SERVICIOS.find((s) => s.slug === slug);
 
     if (!servicio) return {
         title: "Servicio no encontrado",
@@ -33,8 +34,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
-export default function Page({ params }: Props) {
-    const existe = SERVICIOS.some((s) => s.slug === params.slug);
+export default async function Page({ params }: Props) {
+    const { slug } = await params;                        // ← await
+    const existe = SERVICIOS.some((s) => s.slug === slug);
     if (!existe) notFound();
 
     return <DetalleServicio />;

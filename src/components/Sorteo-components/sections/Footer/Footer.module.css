@@ -1,22 +1,3 @@
-:root {
-  --bm-dark: #0b0f19;
-  --bm-text-light: #ffffff;
-  --bm-subtext: #9ca3af;
-  --bm-primary: #60a5fa;
-  --bm-secondary: #38bdf8;
-  --bm-surface: #111827;
-  --bm-border: rgba(255,255,255,0.08);
-  --bm-border-hover: rgba(255,255,255,0.15);
-
-  --bm-gradient-primary: linear-gradient(
-    135deg,
-    #60a5fa,
-    #38bdf8
-  );
-
-  --navbar-logo-shadow: 0 0 20px rgba(96,165,250,.35);
-}
-
 .FooterContainer {
     background-color: var(--bm-dark);
     color: var(--bm-text-light);

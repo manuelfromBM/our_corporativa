@@ -293,7 +293,7 @@
    CINTAS DE FILM
    ════════════════════════════════════════════════════════════ */
 
-:root {
+.hero {                          
   --film-width: 88px;
   --film-perf-size: 10px;
   --film-gap: 6px;
@@ -433,7 +433,7 @@
 @media (max-width: 1240px) {
   .heroContainer { max-width: 920px; }
   .heroTitle     { font-size: clamp(2.7rem, 4vw, 42px); }
-  :root { --film-width: 72px; }
+  .hero { --film-width: 72px; }
 }
 
 @media (max-width: 1024px) {
@@ -532,7 +532,7 @@
   .statLabel  { font-size: 12px; }
   .heroStats  { gap: 32px; }
 
-  :root { --film-width: 100px; }
+  .hero { --film-width: 100px; }
 }
 
 /* 1920px */
@@ -582,7 +582,7 @@
   .statDivider  { height: 40px; }
   .heroStats    { gap: 36px; }
 
-  :root {
+  .hero {
     --film-width: 120px;
     --film-perf-size: 12px;
   }
