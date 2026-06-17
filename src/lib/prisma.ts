@@ -10,6 +10,7 @@ function createPrismaClient() {
     const adapter = new PrismaLibSql({
       url: process.env.TURSO_DATABASE_URL!,
       authToken: process.env.TURSO_AUTH_TOKEN,
+      fetch: globalThis.fetch,
     })
     return new PrismaClient({ adapter })
   }
