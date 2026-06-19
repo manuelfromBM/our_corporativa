@@ -17,12 +17,12 @@ const faqs: FAQItem[] = [
   {
     question: "¿Qué incluye el premio?",
     answer:
-      "El premio incluye el diseño y desarrollo de una página web corporativa, publicación en internet, dominio .com por el primer año, hosting por 3 meses y acompañamiento durante el proceso.",
+      "El premio incluye el diseño y desarrollo de una página web corporativa, publicación en internet, dominio .cl por el primer año, hosting por 12 meses y acompañamiento durante el proceso.",
   },
   {
     question: "¿Qué no incluye el premio?",
     answer:
-      "El premio no incluye tienda online, sistemas personalizados, integraciones avanzadas, pasarelas de pago, mantención mensual posterior ni renovación del dominio después del primer año.",
+      "El premio no incluye carrito de compras, sin servidor dedicado a base de datos, integraciones avanzadas, pasarelas de pago, mantención mensual posterior ni renovación del dominio después del primer año.",
   },
   {
     question: "¿Puedo participar si aún no tengo empresa formalizada?",
@@ -37,7 +37,7 @@ const faqs: FAQItem[] = [
   {
     question: "¿Qué ocurre después de ganar?",
     answer:
-      "Coordinaremos una reunión inicial para conocer tu negocio, solicitar la información necesaria y comenzar el proceso de diseño y desarrollo de tu página web.",
+      "Coordinaremos una reunión inicial para conocer tu negocio, solicitar la información necesaria y comenzar el proceso de planificación, diseño y desarrollo de tu página web.",
   },
   {
     question: "¿Puedo solicitar modificaciones?",
