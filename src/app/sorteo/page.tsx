@@ -6,29 +6,38 @@ import Beneficios from "@/components/Sorteo-components/sections/Beneficios/Benef
 import Reglas from "@/components/Sorteo-components/sections/Reglas/Reglas";
 import Formulario from "@/components/Sorteo-components/sections/Formulario/Formulario";
 import Footer from "@/components/Sorteo-components/sections/Footer/Footer";
+import Preguntas from "@/components/Sorteo-components/sections/FAQ/Preguntas";
+import Fecha from "@/components/Sorteo-components/sections/Fecha/Fecha";
 
 export default function SorteoPage() {
-  return (
-    <div className="sorteo-theme">
-      <section id="inicio">
-        <Hero ></Hero>
-      </section>
-      <section id="premios">
-        <Premios ></Premios>
-      </section>
-      <section id="pasos">
-        <Pasos ></Pasos>
-      </section>
-      <section id="beneficios">
-        <Beneficios ></Beneficios>
-      </section>
-      <section id="reglas">
-        <Reglas ></Reglas>
-      </section>
-      <section id="formulario">
-        <Formulario ></Formulario>
-      </section>
-      <Footer ></Footer>
-    </div>
-  );
+    return (
+
+        <div className="sorteo-theme">
+            <section id="inicio">
+              <Hero ></Hero>
+            </section>
+            <section id="fecha">
+              <Fecha ></Fecha>
+            </section>
+            <section id="premios">
+              <Premios ></Premios>
+            </section>
+            <section id="pasos">
+              <Pasos ></Pasos>
+            </section>
+            <section id="beneficios">
+              <Beneficios ></Beneficios>
+            </section>
+            <section id="reglas">
+              <Reglas ></Reglas>
+            </section>
+            <section id="preguntas">
+              <Preguntas ></Preguntas>
+            </section>
+            <section id="formulario">
+              <Formulario ></Formulario>
+            </section>
+            <Footer ></Footer>
+        </div>
+    );
 }

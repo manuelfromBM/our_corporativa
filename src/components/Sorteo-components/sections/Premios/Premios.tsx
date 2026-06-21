@@ -110,6 +110,59 @@ const Premios = () => {
         ))}
       </div>
 
+       <div className={styles.consolacionCard}>
+        <div className={styles.consolacionHeader}>
+          <span className={styles.consolacionEtiqueta}>
+            Premio de consolación
+          </span>
+
+          <h3 className={styles.consolacionTitulo}>
+            Solo por participar también puedes ganar una oportunidad
+          </h3>
+
+          <p className={styles.consolacionTexto}>
+            Queremos que este sorteo sea una ayuda real para más emprendedores,
+            incluso para quienes no resulten ganadores principales. Por eso, las
+            primeras 10 personas inscritas en nuestra página podrán escoger uno
+            de estos beneficios especiales.
+          </p>
+        </div>
+
+        <div className={styles.consolacionOpciones}>
+          <article className={styles.consolacionOpcion}>
+            <span className={styles.opcionNumero}>01</span>
+
+            <div>
+              <h4>20% de descuento</h4>
+              <p>
+                Obtén un 20% de descuento en el desarrollo de una página web
+                corporativa para tu negocio, ideal para dar el primer paso con
+                una presencia digital profesional.
+              </p>
+            </div>
+          </article>
+
+          <article className={styles.consolacionOpcion}>
+            <span className={styles.opcionNumero}>02</span>
+
+            <div>
+              <h4>Asesoría inicial sin costo</h4>
+              <p>
+                Agenda una reunión inicial con nuestro equipo para revisar tu
+                negocio, entender tus objetivos y orientarte sobre qué tipo de
+                página web necesitas, qué secciones debería tener y cómo podrías
+                mejorar tu presencia digital.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <p className={styles.consolacionNota}>
+          Beneficio válido para las primeras 10 personas inscritas correctamente.
+          Cada participante podrá escoger solo una de las dos opciones.
+        </p>
+      </div>
+
       <p className={styles.hint}>
         Cada premio incluye los tres componentes — diseño, publicación y acompañamiento.
       </p>

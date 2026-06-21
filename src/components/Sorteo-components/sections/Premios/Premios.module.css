@@ -254,6 +254,179 @@
   letter-spacing: 0.02em;
 }
 
+/* ─────────────────────────────────────────
+   CARD PREMIO DE CONSOLACIÓN
+───────────────────────────────────────── */
+
+.consolacionCard {
+  position: relative;
+  max-width: 1140px;
+  margin: 2rem auto 0;
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+  border-radius: 26px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(34, 211, 238, 0.12), transparent 34%),
+    radial-gradient(circle at 88% 80%, rgba(79, 143, 255, 0.13), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+  border: 1px solid rgba(34, 211, 238, 0.18);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.consolacionCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(34, 211, 238, 0.08) 45%,
+      transparent 70%
+    );
+  transform: translateX(-120%);
+  transition: transform 0.8s ease;
+  pointer-events: none;
+}
+
+.consolacionCard:hover::before {
+  transform: translateX(120%);
+}
+
+.consolacionCard::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  right: 2rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 211, 238, 0.75),
+    rgba(79, 143, 255, 0.65),
+    transparent
+  );
+}
+
+.consolacionHeader {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin-bottom: 1.5rem;
+}
+
+.consolacionEtiqueta {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.35rem 0.8rem;
+  margin-bottom: 0.9rem;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.32);
+  color: #22d3ee;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.consolacionTitulo {
+  margin: 0 0 0.8rem;
+  color: #f0f4ff;
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.consolacionTexto {
+  margin: 0;
+  color: rgba(240, 244, 255, 0.68);
+  font-size: 0.98rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.consolacionOpciones {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.consolacionOpcion {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  padding: 1.2rem;
+  border-radius: 20px;
+  background: rgba(8, 13, 26, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.consolacionOpcion:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 211, 238, 0.32);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.36),
+    0 0 24px rgba(34, 211, 238, 0.08);
+}
+
+.opcionNumero {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #1d6fd8, #22d3ee);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 900;
+  box-shadow:
+    0 12px 28px rgba(34, 211, 238, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.consolacionOpcion h4 {
+  margin: 0 0 0.45rem;
+  color: #f0f4ff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.consolacionOpcion p {
+  margin: 0;
+  color: rgba(240, 244, 255, 0.64);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.consolacionNota {
+  position: relative;
+  z-index: 1;
+  margin: 1.2rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  color: rgba(240, 244, 255, 0.55);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
 /* ── ANIMACIÓN DE ENTRADA ── */
 @keyframes subirCard {
   from {
@@ -279,6 +452,22 @@
   }
 }
 
+@media (max-width: 760px) {
+  .consolacionCard {
+    margin-top: 1.5rem;
+    border-radius: 22px;
+  }
+
+  .consolacionOpciones {
+    grid-template-columns: 1fr;
+  }
+
+  .consolacionOpcion {
+    padding: 1rem;
+  }
+}
+
+
 @media (max-width: 480px) {
   .seccion {
     padding: 5rem 5%;
@@ -290,5 +479,20 @@
 
   .divisor {
     width: 272px;
+  }
+
+  .consolacionCard {
+    padding: 1.2rem;
+  }
+
+  .consolacionOpcion {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .opcionNumero {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
   }
 }
