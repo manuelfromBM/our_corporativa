@@ -27,6 +27,10 @@ export interface DatosFormSorteo{
     correo: string
     usuario_instagram: string
     tipo_negocio: NegocioTipo
+    nombre_negocio: string
+    comuna: string
+    tiene_sitio_web: boolean
+    url_sitio_web: string | null
 }
 
 function validarDatos(data:unknown): data is DatosFormSorteo{
@@ -37,7 +41,11 @@ function validarDatos(data:unknown): data is DatosFormSorteo{
         typeof d.apellido === 'string' && d.apellido.trim().length > 0 &&
         typeof d.correo === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.correo) &&
         typeof d.usuario_instagram === 'string' && 
-        typeof d.tipo_negocio === 'string' && opcionesNegocio.includes(d.tipo_negocio as NegocioTipo)
+        typeof d.tipo_negocio === 'string' && opcionesNegocio.includes(d.tipo_negocio as NegocioTipo) &&
+        typeof d.nombre_negocio === 'string' && d.nombre_negocio.trim().length > 0 &&
+        typeof d.comuna === 'string' && d.comuna.trim().length > 0 &&
+        typeof d.tiene_sitio_web === 'boolean' &&
+        (d.tiene_sitio_web === false || (typeof d.url_sitio_web === 'string' && d.url_sitio_web.trim().length > 0))
     )
 
 }
@@ -75,6 +83,10 @@ export async function POST(req: Request) {
       correo: body.correo,
       usuario_instagram: body.usuario_instagram,
       tipo_negocio: body.tipo_negocio,
+      nombre_negocio: body.nombre_negocio,
+      comuna: body.comuna,
+      tiene_sitio_web: body.tiene_sitio_web,
+      url_sitio_web: body.url_sitio_web,
     }
   })
   const { error } = await resend.emails.send({

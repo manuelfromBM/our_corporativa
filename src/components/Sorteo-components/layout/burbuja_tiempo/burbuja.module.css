@@ -1,0 +1,108 @@
+.countdown {
+  position: fixed;
+  bottom: 92px;
+  right: 20px;
+
+  width: 64px;
+  height: 86px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 20px;
+
+  background: linear-gradient(135deg, #ff8a3d, #ff5e62);
+  color: #ffffff;
+
+  box-shadow: 0 4px 14px rgba(255, 94, 98, 0.4);
+
+  z-index: 9999;
+
+  user-select: none;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.4s ease;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.countdown:hover {
+  transform: translateY(-4px);
+  animation-play-state: paused;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 14px rgba(255, 94, 98, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(255, 94, 98, 0.65);
+  }
+}
+
+.warning {
+  background: linear-gradient(135deg, #ffd23d, #ffaa3d);
+  box-shadow: 0 4px 14px rgba(255, 170, 61, 0.45);
+  animation: pulseWarning 2.4s ease-in-out infinite;
+}
+
+@keyframes pulseWarning {
+  0%, 100% {
+    box-shadow: 0 4px 14px rgba(255, 170, 61, 0.45);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(255, 170, 61, 0.7);
+  }
+}
+
+.urgent {
+  background: linear-gradient(135deg, #ff3d3d, #c81e1e);
+  box-shadow: 0 4px 14px rgba(255, 61, 61, 0.5);
+  animation: pulseUrgent 1.4s ease-in-out infinite;
+}
+
+@keyframes pulseUrgent {
+  0%, 100% {
+    box-shadow: 0 4px 14px rgba(255, 61, 61, 0.5);
+  }
+  50% {
+    box-shadow: 0 4px 24px rgba(255, 61, 61, 0.8);
+  }
+}
+
+.expired {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  box-shadow: 0 4px 14px rgba(107, 114, 128, 0.4);
+  animation: none;
+}
+
+.title {
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.days {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.time {
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1;
+  margin-top: 1px;
+  text-transform: uppercase;
+}
+
+.clock {
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1;
+  margin-top: 4px;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}

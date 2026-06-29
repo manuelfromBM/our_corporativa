@@ -86,17 +86,35 @@ export function emailHtml(data: DatosFormSorteo): string {
                   <tr>
                     <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
                       <p style="margin:0 0 2px;color:rgba(255,255,255,0.35);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Instagram</p>
-                      <p style="margin:0;color:#ffffff;font-size:14px;">@${data.usuario_instagram}</p>
+                      <p style="margin:0;color:#ffffff;font-size:14px;">${data.usuario_instagram}</p>
                     </td>
                   </tr>
                   <tr>
-                    <td style="padding:10px 0;">
+                    <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
                       <p style="margin:0 0 2px;color:rgba(255,255,255,0.35);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Tipo de negocio</p>
                       <p style="margin:0;font-size:14px;">
                         <span style="display:inline-block;background:rgba(0,229,255,0.08);color:#00e5ff;font-size:12px;font-weight:600;letter-spacing:1px;padding:4px 12px;border-radius:20px;border:1px solid rgba(0,229,255,0.2);">
                           ${data.tipo_negocio}
                         </span>
                       </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+                      <p style="margin:0 0 2px;color:rgba(255,255,255,0.35);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Nombre del negocio</p>
+                      <p style="margin:0;color:#ffffff;font-size:14px;">${data.nombre_negocio}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+                      <p style="margin:0 0 2px;color:rgba(255,255,255,0.35);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Comuna</p>
+                      <p style="margin:0;color:#ffffff;font-size:14px;">${data.comuna}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+                      <p style="margin:0 0 2px;color:rgba(255,255,255,0.35);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Tiene sitio web</p>
+                      <p style="margin:0;color:#ffffff;font-size:14px;">${data.tiene_sitio_web ? 'Sí' : 'No'}${data.url_sitio_web ? ' · ' + data.url_sitio_web : ''}</p>
                     </td>
                   </tr>
                 </table>
