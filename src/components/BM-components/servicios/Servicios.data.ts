@@ -36,7 +36,7 @@ const SERVICIOS: Servicio[] = [
     slug: "desarrollo-web",
     icon: "</>",
     accentColor: "#aaff00",
-    imageSrc: "/BM-imagenes/imgservicios/img2.jfif",
+    imageSrc: "/BM-imagenes/imgservicios/img2.jpg",
     imageAlt: "Desarrollo web BM Code Lab",
     tec: {
       titulo: "Desarrollo web",
@@ -97,7 +97,7 @@ const SERVICIOS: Servicio[] = [
   },
   {
     num: "06",
-    slug: "Automatización",
+    slug: "automatizacion",
     icon: "AUTO",
     accentColor: "#8cff4f",
     imageSrc: "/BM-imagenes/imgservicios/img6.png",

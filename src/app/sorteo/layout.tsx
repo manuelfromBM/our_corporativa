@@ -1,7 +1,6 @@
 import WhatsAppButton from "@/components/BM-components/BtnWasap/BtnWasap";
-// import Navbar from "@/components/Sorteo-components/layout/Navbar";
+import Navbar from "@/components/BM-components/Navbar/Navbar";
 import "@/Styles/BM-theme.css";
-import NavbarPrincipal from "@/components/BM-components/Navbar/Navbar";
 
 export default function SorteoLayout({
 
@@ -11,8 +10,7 @@ export default function SorteoLayout({
 }) {
     return (
         <div className="bmcodelab-theme">
-            <NavbarPrincipal/>
-            
+            <Navbar />
             <main>{children}</main>
             <WhatsAppButton />
         </div>

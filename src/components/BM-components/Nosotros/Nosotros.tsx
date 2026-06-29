@@ -29,21 +29,6 @@ export default function NosotrosSection() {
             modernos que impulsen el crecimiento de cada negocio con el que
             trabajamos.
           </p>
-
-          {/* <div className={styles.stats}>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>50+</span>
-              <span className={styles.statLabel}>Proyectos</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>30+</span>
-              <span className={styles.statLabel}>Clientes</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>5+</span>
-              <span className={styles.statLabel}>Años</span>
-            </div>
-          </div> */}
         </div>
 
         {/* Grilla de tarjetas del equipo */}

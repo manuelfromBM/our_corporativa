@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import React, { useState, useEffect } from "react";
 import styles from './Navbar.module.css';
 import Link from 'next/link'
+import Image from "next/image";
 
 const NavbarPrincipal: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -13,14 +14,12 @@ const NavbarPrincipal: React.FC = () => {
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 80);
-            // Cierra el menú al hacer scroll
             if (menuOpen) setMenuOpen(false);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [menuOpen]);
 
-    // Bloquea el scroll del body cuando el menú está abierto
     useEffect(() => {
         document.body.style.overflow = menuOpen ? 'hidden' : '';
         return () => { document.body.style.overflow = ''; };
@@ -42,7 +41,7 @@ const NavbarPrincipal: React.FC = () => {
                 <div className={styles.NavInner}>
                     {/* Izquierda: Brand */}
                     <div className={styles.BrandContainer}>
-                        <img src="/BM-imagenes/logodefinitivonav.jpeg" alt="BM Code Lab" className={styles.imgLogo} />
+                        <Image src="/BM-imagenes/logodefinitivonav (1).png" alt="BM Code Lab" className={styles.imgLogo} width={150} height={50} />
 
                     </div>
 

@@ -2,7 +2,8 @@
 
 import { Container, Row, Col } from 'react-bootstrap'
 import styles from './Footer.module.css'
-import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope, FaPhone, FaMapMarkerAlt, FaInstagram } from 'react-icons/fa'
+import { FaLinkedin, FaFacebook, FaEnvelope, FaPhone, FaMapMarkerAlt, FaInstagram } from 'react-icons/fa'
+import Image from 'next/image';
 
 const FooterContainer = () => {
     const currentYear = new Date().getFullYear();
@@ -28,10 +29,7 @@ const FooterContainer = () => {
                     {/* Columna 1: Información de la empresa */}
                     <Col lg={4} md={6} className={styles.FooterCol}>
                         <div className={styles.BrandSection}>
-                            {/* <h5 className={styles.FooterTitle}>
-                                <span className={styles.BrandGradient}>BM CODE LAB</span>
-                            </h5> */}
-                            <img src="/BM-imagenes/logodefinitivofooter2.png" className={styles.imgFooter} />
+                            <Image src="/BM-imagenes/logodefinitivofooter2.png" className={styles.imgFooter} alt='LogoBMFooter' width={150} height={50} />
                             <p className={styles.FooterDescription}>
                                 Transformando ideas en soluciones digitales innovadoras.
                                 Desarrollo web y software a medida.

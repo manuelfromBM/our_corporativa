@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Asesoramiento.module.css";
+import Image from "next/image";
 
 const tarjetas = [
   {
@@ -65,11 +66,12 @@ function Tarjeta({ data, index }: TarjetaProps) {
       {/* Imagen */}
       <div className={styles.imagenWrap}>
         {!imgError ? (
-          <img
+          <Image
             src={data.imageSrc}
             alt={data.imageAlt}
             className={styles.imagen}
             onError={() => setImgError(true)}
+            fill
           />
         ) : (
           <div
