@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "./burbuja.module.css";
 
 export default function BurbujaTiempoRestante() {
-    const targetDate = new Date("2026-07-03T23:59:59-04:00");
+    const targetDate = new Date("2026-07-15T23:59:59-04:00");
 
     const calculateTimeLeft = () => {
         const difference = targetDate.getTime() - new Date().getTime();
@@ -33,7 +33,7 @@ export default function BurbujaTiempoRestante() {
     useEffect(() => {
         const interval = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
-        }, 1000); // ahora sí cada segundo, porque mostramos segundos
+        }, 1000);
 
         return () => clearInterval(interval);
     }, []);
