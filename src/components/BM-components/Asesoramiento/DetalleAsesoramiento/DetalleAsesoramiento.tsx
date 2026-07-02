@@ -133,22 +133,27 @@ function PanelTema({ tema }: { tema: (typeof TEMAS)[0] }) {
 
 /* ── PÁGINA PRINCIPAL ───────────────────────────────────────── */
 export default function AsesoriaDetalle() {
+
     const searchParams = useSearchParams();
     const [activoSlug, setActivoSlug] = useState(TEMAS[0].slug);
 
     // Scroll al tema correcto cuando llega con ?tema= o #hash
+
     useEffect(() => {
+        if (!searchParams) return;
+
         const tema = searchParams.get("tema");
+
         if (tema) {
             const el = document.getElementById(tema);
             if (el) {
-                setTimeout(() => {
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                }, 300);
+                el.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
             }
         }
     }, [searchParams]);
-
     // Detectar qué panel está en vista
     useEffect(() => {
         const observers: IntersectionObserver[] = [];

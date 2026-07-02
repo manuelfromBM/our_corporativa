@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./Nosotros.module.css";
 import { team } from './Nosotros.team'
-import Link from "next/link"
+//import Link from "next/link"
 
 export default function NosotrosSection() {
   return (

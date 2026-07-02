@@ -37,7 +37,7 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
 
                 <div className={styles.cuerpo}>
                     <p className={styles.fecha}>
-                        "Gana una Página Web Profesional" · BM Code Lab · Vigencia: hasta el 15 de julio de 2026 · Versión 2.0
+                        &quot;Gana una Página Web Profesional&quot; · BM Code Lab · Vigencia: hasta el 15 de julio de 2026 · Versión 2.0
                     </p>
 
                     <h3 className={styles.seccionTitulo}>Artículo 1. Organizador</h3>
