@@ -5,7 +5,8 @@ import { ArrowRight, CircleCheckBig } from "lucide-react";
 import styles from "./Formulario.module.css";
 import { CamposFormulario } from "./campos";
 import { ErroresFormulario } from "./campos";
-import { opcionesNegocio } from "./campos";
+import { opcionesNegocio } from "./campos";       // ya lo tenés
+import ModalTerminos from "./Modal/ModalCondiciones"; // ← nuevo
 
 const Formulario = () => {
     const [campos, setCampos] = useState<CamposFormulario>({
@@ -18,12 +19,17 @@ const Formulario = () => {
         comuna: "",
         tieneSitio: "",
         urlSitio: "",
+        terminos: "",
     });
 
     const [errores, setErrores] = useState<ErroresFormulario>({});
     const [enviado, setEnviado] = useState(false);
     const [cargando, setCargando] = useState(false);
-
+/*__________________________________________________________*/
+    const [modalAbierto, setModalAbierto] = useState(false);
+    const [aceptaTerminos, setAceptaTerminos] = useState(false);
+    const [terminosVistos, setTerminosVistos] = useState(false);
+/*__________________________________________________________*/
     const actualizarCampo = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
@@ -47,6 +53,7 @@ const Formulario = () => {
         if (!campos.tieneSitio) nuevosErrores.tieneSitio = "Indica si tenés sitio web.";
         if (campos.tieneSitio === "si" && !campos.urlSitio.trim()) { nuevosErrores.urlSitio = "Ingresa la URL de tu sitio web."; }
         if (!campos.nombreNegocio) nuevosErrores.nombreNegocio = "Indica el nombre de tu negocio"
+        if (!aceptaTerminos) nuevosErrores.terminos = "Debes aceptar los términos para participar.";
         return nuevosErrores;
     };
 
@@ -152,7 +159,6 @@ const Formulario = () => {
                         para registrar tu participación.
                     </p>
                 </div>
-
                 <div className={styles.card}>
                     <form onSubmit={manejarEnvio} noValidate>
 
@@ -337,7 +343,44 @@ const Formulario = () => {
                                 {errores.envio}
                             </p>
                         )}
+{/*__________________________________________________________________________________*/}
+                        <ModalTerminos
+                            abierto={modalAbierto}
+                            onCerrar={() => setModalAbierto(false)}
+                        />
 
+                        <div className={styles.grupo}>
+                            <label className={`${styles.checkLabel} ${!terminosVistos ? styles.checkLabelDeshabilitado : ""}`}>
+                                <input
+                                    type="checkbox"
+                                    checked={aceptaTerminos}
+                                    disabled={!terminosVistos}
+                                    onChange={(e) => {
+                                        setAceptaTerminos(e.target.checked);
+                                        if (errores.terminos) setErrores((prev) => ({ ...prev, terminos: undefined }));
+                                    }}
+                                    className={styles.checkbox}
+                                />
+                                <span>
+                                    He leído y acepto los{" "}
+                                    <button
+                                        type="button"
+                                        className={styles.linkTerminos}
+                                        onClick={() => {
+                                            setModalAbierto(true);
+                                            setTerminosVistos(true);  // ← se habilita el checkbox al abrir
+                                        }}
+                                    >
+                                        términos y condiciones
+                                    </button>
+                                </span>
+                            </label>
+                            {!terminosVistos && (
+                                <span className={styles.ayuda}>Debes leer los términos antes de aceptar.</span>
+                            )}
+                            {errores.terminos && <span className={styles.error}>{errores.terminos}</span>}
+                        </div>
+{/*__________________________________________________________________________________*/}
                         <button type="submit" className={styles.boton} disabled={cargando}>
                             <span>{cargando ? "Enviando..." : "✦ Registrar Participación"}</span>
                             {!cargando && <ArrowRight size={16} />}

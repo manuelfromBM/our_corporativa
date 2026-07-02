@@ -8,6 +8,7 @@ export interface CamposFormulario {
     comuna: string;
     tieneSitio: "si" | "no" | "";
     urlSitio: string;
+    terminos: string;
 }
 
 export interface ErroresFormulario {
@@ -21,6 +22,7 @@ export interface ErroresFormulario {
     envio?: string;
     tieneSitio?: string;
     urlSitio?: string;
+    terminos?: string;
 }
 
 export const opcionesNegocio = [

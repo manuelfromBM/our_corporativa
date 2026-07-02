@@ -467,3 +467,55 @@
     padding: 5rem 5%;
   }
 }
+
+/*________________________________________________________________*/
+.checkLabel {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    color: #aaa;
+    font-size: 0.875rem;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.checkbox {
+    margin-top: 2px;
+    accent-color: #e11d48;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.linkTerminos {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #e11d48;
+    font-size: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+}
+
+.linkTerminos:hover {
+    color: #fb7185;
+}
+
+.checkLabelDeshabilitado {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.checkLabelDeshabilitado .checkbox {
+    cursor: not-allowed;
+}
+
+.ayuda {
+    font-size: 0.78rem;
+    color: #666;
+    margin-top: 0.3rem;
+    display: block;
+}
