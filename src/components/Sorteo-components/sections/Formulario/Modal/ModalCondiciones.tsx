@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { X } from "lucide-react";
-import { createPortal } from "react-dom"; 
+import { createPortal } from "react-dom";
 import styles from "./ModalCondiciones.module.css";
 
 interface Props {
@@ -22,7 +22,7 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
 
     if (!abierto) return null;
 
-    return createPortal (
+    return createPortal(
         <div className={styles.overlay} onClick={onCerrar} role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
             <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
 
@@ -57,7 +57,7 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
                     <ul className={styles.lista}>
                         <li><strong>Apertura:</strong> desde la publicación oficial en Instagram de BM Code Lab.</li>
                         <li><strong>Cierre:</strong> 15 de julio de 2026, a las 23:59 hrs (hora de Chile continental, UTC-4).</li>
-                        <li><strong>Anuncio de ganadores:</strong> 6 de julio de 2026, mediante publicación en Instagram.</li>
+                        <li><strong>Anuncio de ganadores:</strong> 17 de julio de 2026, mediante publicación en Instagram.</li>
                     </ul>
                     <p>BM Code Lab se reserva el derecho de modificar estas fechas por causas justificadas, notificando el cambio con anticipación en su cuenta de Instagram.</p>
 
@@ -83,9 +83,9 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
                     <h3 className={styles.seccionTitulo}>Artículo 6. Descripción y alcance del premio</h3>
                     <p>El premio consiste en el diseño, desarrollo y publicación inicial de una página web corporativa informativa, principalmente frontend. Cada premio incluye:</p>
                     <ul className={styles.lista}>
-                        <li><strong>Diseño personalizado:</strong> sitio diseñado desde cero, responsive (móvil, tablet, escritorio) y hasta 5 secciones informativas.</li>
+                        <li><strong>Diseño personalizado:</strong> sitio diseñado desde cero, responsive (móvil, tablet, escritorio).</li>
                         <li><strong>Formulario de contacto:</strong> formulario básico incluido para que los visitantes puedan comunicarse con el negocio.</li>
-                        <li><strong>Dominio .com:</strong> registro del dominio elegido por el primer año, sujeto a disponibilidad y valor estándar de mercado.</li>
+                        <li><strong>Dominio .cl:</strong> registro del dominio elegido por el primer año, sujeto a disponibilidad y valor estándar de mercado.</li>
                         <li><strong>Publicación inicial:</strong> despliegue del sitio en una plataforma seleccionada por BM Code Lab (Vercel, Netlify u otra equivalente).</li>
                         <li><strong>Acompañamiento:</strong> reunión inicial, hasta 2 rondas de revisión, asesoría en contenido e imágenes, reunión de cierre y soporte post-entrega por 7 días corridos.</li>
                     </ul>
@@ -98,8 +98,7 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
                         <li>Sistema de reservas complejo, panel administrativo avanzado, sistema de usuarios o login.</li>
                         <li>CRM, ERP, inventario, automatizaciones avanzadas ni integración con sistemas externos complejos.</li>
                         <li>Aplicaciones móviles ni desarrollo multiplataforma.</li>
-                        <li>Campañas publicitarias ni posicionamiento SEO avanzado.</li>
-                        <li>Mantenimiento mensual permanente ni soporte continuo.</li>
+                        <li>Campañas publicitarias</li>
                         <li>Fotografía profesional, branding completo, redacción avanzada ni diseño de identidad corporativa.</li>
                         <li>Modificaciones estructurales o nuevas funcionalidades una vez aprobado el diseño final.</li>
                     </ul>
@@ -127,7 +126,7 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
 
                     <h3 className={styles.seccionTitulo}>Artículo 11. Notificación y aceptación del premio</h3>
                     <ul className={styles.lista}>
-                        <li>Los ganadores serán anunciados el <strong>6 de julio de 2026</strong> mediante publicación en Instagram y contactados por mensaje directo desde la cuenta oficial.</li>
+                        <li>Los ganadores serán anunciados el <strong>17 de julio de 2026</strong> mediante publicación en Instagram y contactados por mensaje directo desde la cuenta oficial.</li>
                         <li>El ganador dispone de <strong>7 días corridos</strong> desde el anuncio para responder.</li>
                         <li>Si un ganador no responde en el plazo, el premio será cedido al primer suplente.</li>
                         <li>El premio es personal e intransferible. No es canjeable por dinero ni por otros servicios.</li>
@@ -166,7 +165,7 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
 
                     <h3 className={styles.seccionTitulo}>Artículo 16. Autorización de uso de imagen</h3>
                     <p>
-                        Al participar y/o ganar el sorteo, el participante autoriza a BM Code Lab a mencionar su nombre de usuario y negocio en publicaciones relacionadas con el sorteo, con fines exclusivamente promocionales y sin contraprestación económica.
+                        Al participar y/o ganar el sorteo, el participante autoriza a BM Code Lab a mencionar su nombre de usuario y negocio en publicaciones relacionadas con el sorteo, con fines exclusivamente promocionales y sin contraprestación económica. Asimismo, en caso de resultar ganador, el participante autoriza a que el sitio web o página desarrollada para su negocio sea exhibido dentro del portafolio de trabajos publicado en el sitio oficial de BM Code Lab (bmcodelab.cl), como muestra de los servicios realizados
                     </p>
 
                     <h3 className={styles.seccionTitulo}>Artículo 17. Legislación aplicable</h3>
@@ -187,7 +186,7 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
 
             </div>
         </div>,
-        document.body 
+        document.body
     );
 };
 
