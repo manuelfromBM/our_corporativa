@@ -16,14 +16,14 @@ const dateStrips: DateStrip[] = [
     label: "CIERRE DEL SORTEO",
     title: "Último día para participar",
     dateText: "15 de julio de 2026",
-    targetDate: "2026-07-15T23:59:59-04:00",
+    targetDate: "2026-07-17T23:59:59-04:00",
     description: "Participa antes del cierre oficial.",
   },
   {
     label: "ANUNCIO DE GANADORES",
     title: "Publicación oficial en Instagram",
     dateText: "17 de julio de 2026",
-    targetDate: "2026-07-17T20:00:00",
+    targetDate: "2026-07-22T20:00:00",
     description: "Conoce a los ganadores en nuestra cuenta.",
   },
 ];
@@ -54,7 +54,7 @@ export default function GiveawayDateStrips() {
 
     const interval = setInterval(() => {
       updateDays();
-    }, 1000 * 60 ); // actualiza cada 1 minuto
+    }, 1000 * 60); // actualiza cada 1 minuto
 
     return () => clearInterval(interval);
   }, []);

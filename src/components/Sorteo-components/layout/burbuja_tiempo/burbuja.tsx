@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "./burbuja.module.css";
 
 export default function BurbujaTiempoRestante() {
-    const targetDate = new Date("2026-07-17T23:59:59-04:00");
+    const targetDate = new Date("2026-07-19T23:59:59-04:00");
 
     const calculateTimeLeft = () => {
         const difference = targetDate.getTime() - new Date().getTime();
