@@ -15,15 +15,15 @@ const dateStrips: DateStrip[] = [
   {
     label: "CIERRE DEL SORTEO",
     title: "Último día para participar",
-    dateText: "03 de julio de 2026",
-    targetDate: "2026-07-03T23:59:00",
+    dateText: "17 de julio de 2026",
+    targetDate: "2026-07-19T23:59:00",
     description: "Participa antes del cierre oficial.",
   },
   {
     label: "ANUNCIO DE GANADORES",
     title: "Publicación oficial en Instagram",
-    dateText: "06 de julio de 2026",
-    targetDate: "2026-07-06T20:00:00",
+    dateText: "20 de julio de 2026",
+    targetDate: "2026-07-22T20:00:00",
     description: "Conoce a los ganadores en nuestra cuenta.",
   },
 ];
