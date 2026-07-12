@@ -122,8 +122,7 @@ const Premios = () => {
 
           <p className={styles.consolacionTexto}>
             Queremos que este sorteo sea una ayuda real para más emprendedores,
-            incluso para quienes no resulten ganadores principales. Por eso, las
-            primeras 10 personas inscritas en nuestra página podrán escoger uno
+            incluso para quienes no resulten ganadores principales. Por eso, las personas inscritas en nuestra página podrán escoger uno
             de estos beneficios especiales.
           </p>
         </div>
@@ -133,9 +132,9 @@ const Premios = () => {
             <span className={styles.opcionNumero}>01</span>
 
             <div>
-              <h4>20% de descuento</h4>
+              <h4>15% de descuento</h4>
               <p>
-                Obtén un 20% de descuento en el desarrollo de una página web
+                Obtén un 15% de descuento en el desarrollo de una página web
                 corporativa para tu negocio, ideal para dar el primer paso con
                 una presencia digital profesional.
               </p>
@@ -158,7 +157,7 @@ const Premios = () => {
         </div>
 
         <p className={styles.consolacionNota}>
-          Beneficio válido para las primeras 10 personas inscritas correctamente.
+          Beneficio válido para todas las personas inscritas correctamente.
           Cada participante podrá escoger solo una de las dos opciones.
         </p>
       </div>
