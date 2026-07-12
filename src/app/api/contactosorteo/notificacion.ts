@@ -49,7 +49,7 @@ export function emailHtmlAdmin(data: DatosFormSorteo): string {
                   </tr>
 
                   <tr>
-                    <td style="padding:10px 0;">
+                    <td style="padding:10px 0;border-bottom:1px solid #21262d;">
                       <p style="margin:0 0 2px;color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:1px;">Tipo de negocio</p>
                       <p style="margin:0;font-size:15px;">
                         <span style="display:inline-block;background:rgba(0,229,255,0.08);color:#00e5ff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid rgba(0,229,255,0.2);">
@@ -58,7 +58,28 @@ export function emailHtmlAdmin(data: DatosFormSorteo): string {
                       </p>
                     </td>
                   </tr>
-
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid #21262d;">
+                      <p style="margin:0 0 2px;color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:1px;">Nombre del negocio</p>
+                      <p style="margin:0;color:#e6edf3;font-size:15px;font-weight:600;">${data.nombre_negocio}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px 0;border-bottom:1px solid #21262d;">
+                      <p style="margin:0 0 2px;color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:1px;">Comuna</p>
+                      <p style="margin:0;color:#e6edf3;font-size:15px;">${data.comuna}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px 0;">
+                      <p style="margin:0 0 2px;color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:1px;">Sitio web</p>
+                      <p style="margin:0;font-size:15px;">
+                        ${data.tiene_sitio_web
+                          ? `<a href="${data.url_sitio_web}" target="_blank" style="color:#00e5ff;text-decoration:none;">${data.url_sitio_web}</a>`
+                          : '<span style="color:#8b949e;">No tiene</span>'}
+                      </p>
+                    </td>
+                  </tr>
                 </table>
               </td>
             </tr>

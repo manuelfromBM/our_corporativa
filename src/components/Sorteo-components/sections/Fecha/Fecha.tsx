@@ -36,7 +36,7 @@ function getDaysLeft(targetDate: string) {
 
   if (difference <= 0) return 0;
 
-  return Math.ceil(difference / (1000 * 60 * 60 * 24));
+  return Math.floor(difference / (1000 * 60 * 60 * 24));
 }
 
 export default function GiveawayDateStrips() {

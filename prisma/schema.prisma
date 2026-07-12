@@ -14,5 +14,9 @@ model Participante {
   correo            String   @unique
   usuario_instagram String
   tipo_negocio      String
+  nombre_negocio    String
+  comuna            String
+  tiene_sitio_web   Boolean  @default(false)
+  url_sitio_web     String?
   creado_en         DateTime @default(now())
 }

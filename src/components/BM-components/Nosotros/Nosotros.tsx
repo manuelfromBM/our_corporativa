@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./Nosotros.module.css";
 import { team } from './Nosotros.team'
+//import Link from "next/link"
 
 export default function NosotrosSection() {
   return (
@@ -31,6 +32,27 @@ export default function NosotrosSection() {
         </div>
 
         {/* Grilla de tarjetas del equipo */}
+        {/* <div className={styles.teamGrid}>
+          {team.map((member, i) => (
+            <Link key={i} href={`/equipo/${member.slug}`} className={styles.teamCard}>
+              <div className={styles.imageGlow}></div>
+              <div className={styles.cardImageWrapper}>
+                <Image
+                  src={member.img}
+                  alt={member.alt}
+                  fill
+                  className={styles.image}
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                />
+              </div>
+              <div className={styles.cardInfo}>
+                <span className={styles.memberName}>{member.name}</span>
+                <span className={styles.memberRole}>{member.role}</span>
+              </div>
+            </Link>
+          ))}
+        </div> */}
+
         <div className={styles.teamGrid}>
           {team.map((member, i) => (
             <div key={i} className={styles.teamCard}>

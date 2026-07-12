@@ -379,6 +379,30 @@
     0 0 25px rgba(96, 165, 250, 0.15);
 }
 
+/* Checbox */
+.radioGroup {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--color-text, #e2e8f0);
+}
+
+.radioLabel input[type="radio"] {
+    accent-color: var(--color-primary, #22c55e);
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+
 @keyframes rebotar {
   from { opacity: 0; transform: scale(0.4); }
   to   { opacity: 1; transform: scale(1);   }
@@ -442,4 +466,56 @@
   .seccion {
     padding: 5rem 5%;
   }
+}
+
+/*________________________________________________________________*/
+.checkLabel {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    color: #aaa;
+    font-size: 0.875rem;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.checkbox {
+    margin-top: 2px;
+    accent-color: #e11d48;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.linkTerminos {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #e11d48;
+    font-size: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+}
+
+.linkTerminos:hover {
+    color: #fb7185;
+}
+
+.checkLabelDeshabilitado {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.checkLabelDeshabilitado .checkbox {
+    cursor: not-allowed;
+}
+
+.ayuda {
+    font-size: 0.78rem;
+    color: #666;
+    margin-top: 0.3rem;
+    display: block;
 }
