@@ -73,6 +73,7 @@ export default function ServiciosSection() {
             <ServiceCard key={s.num} servicio={s} />
           ))}
         </div>
+        <p className={styles.swipeHint}>Desliza para ver más servicios →</p>
       </div>
     </section>
   );

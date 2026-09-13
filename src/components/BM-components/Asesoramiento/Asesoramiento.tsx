@@ -168,6 +168,7 @@ export default function SeccionAsesoramiento() {
             <Tarjeta key={t.tema} data={t} index={i} />
           ))}
         </div>
+        <p className={styles.swipeHint}>Desliza para ver más →</p>
       </div>
     </section>
   );
