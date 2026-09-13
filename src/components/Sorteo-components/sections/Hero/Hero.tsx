@@ -2,15 +2,18 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, Trophy, Server, Gift, CheckCircle, Shield, Star } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Gift, CheckCircle } from "lucide-react";
 import styles from "./Hero.module.css";
-import React from "react";
 
-const stats = [
-    { icon: Trophy, value: "3", label: "Ganadores" },
-    { icon: Server, value: "3", label: "Meses hosting" },
-    { icon: Gift, value: "100%", label: "Gratuito" },
-];
+const trustPoints = ["Sin costo", "3 ganadores", "Dominio incluido"];
+
+const promoImages = [
+    { src: "/Sorteo-imagenes/promo1barber.png", alt: "Ejemplo de página web ganadora para una barbería", wallClass: "wallItem1" },
+    { src: "/Sorteo-imagenes/promo2pasteleria.png", alt: "Ejemplo de página web ganadora para una pastelería", wallClass: "wallItem2" },
+    { src: "/Sorteo-imagenes/promo3taller.png", alt: "Ejemplo de página web ganadora para un taller", wallClass: "wallItem3" },
+    { src: "/Sorteo-imagenes/promo4salon.png", alt: "Ejemplo de página web ganadora para un salón", wallClass: "wallItem4" },
+] as const;
 
 const Hero = () => {
     const glowRef = useRef<HTMLDivElement>(null);
@@ -47,56 +50,69 @@ const Hero = () => {
             {/* ── Content ── */}
             <div className={styles.content}>
 
-                {/* Badge */}
-                <div className={styles.badge}>
-                    <span className={styles.badgeDot} />
-                    <Gift size={16} /> Sorteo Gratuito .
-                    <CheckCircle size={16} /> Sin costo ·
-                    <Shield size={16} /> Sin trampa
+                <div className={styles.textCol}>
+                    {/* Eyebrow */}
+                    <div className={styles.badge}>
+                        <span className={styles.badgeDot} />
+                        ✦ Sorteo Gratuito · 3 Ganadores
+                    </div>
+
+                    {/* Heading */}
+                    <h1 className={styles.heading}>
+                        Tu negocio merece<br />
+                        una web profesional.<br />
+                        <span className={styles.gradText}>
+                            Nosotros podríamos<br />crearla gratis.
+                        </span>
+                    </h1>
+
+                    {/* Subheading */}
+                    <p className={styles.sub}>
+                        Participa en el sorteo y gana una página web diseñada
+                        especialmente para tu negocio, con dominio, publicación
+                        y acompañamiento incluidos.
+                    </p>
+
+                    {/* CTA buttons */}
+                    <div className={styles.btns}>
+                        <Link href="#formulario" className={styles.btnPrimary}>
+                            <Gift size={16} /> Quiero participar gratis
+                        </Link>
+                        <Link href="#premios" className={styles.btnSecondary}>
+                            Ver el premio
+                            <ArrowRight size={15} />
+                        </Link>
+                    </div>
+
+                    {/* Trust row */}
+                    <div className={styles.trustRow}>
+                        {trustPoints.map((point) => (
+                            <span key={point} className={styles.trustItem}>
+                                <CheckCircle size={14} /> {point}
+                            </span>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Heading */}
-                <h1 className={styles.heading}>
-                    Gana una{" "}
-
-                    <span className={styles.gradText}>
-                        Página Web<br />Profesional
-                    </span>
-                </h1>
-
-                {/* Subheading */}
-                <p className={styles.sub}>
-                    Sabemos todo el esfuerzo que hay detrás de un emprendimiento
-                    Por eso participa gratis y podrías ganar una página web profesional
-                    para mostrar tu trabajo como corresponde y llegar a más clientes.
-                </p>
-
-                {/* CTA buttons */}
-                <div className={styles.btns}>
-                    <Link href="#formulario" className={styles.btnPrimary}>
-                        <Star size={16} /> Participa Ahora
-                        <ArrowRight size={16} />
-                    </Link>
-                    <Link href="#premios" className={styles.btnSecondary}>
-                        Ver Premios
-                        <ArrowRight size={15} />
-                    </Link>
-                </div>
-
-                {/* Stats */}
-                <div className={styles.stats}>
-                    {stats.map(({ icon: Icon, value, label }, i) => (
-                        <React.Fragment key={label}>
-                            <div className={styles.stat}>
-                                <Icon size={16} className={styles.statIcon} />
-                                <span className={styles.statValue}>{value}</span>
-                                <span className={styles.statLabel}>{label}</span>
+                {/* Visual: pared de fotos con ejemplos de páginas web ganadoras */}
+                <div className={styles.heroVisual}>
+                    <div className={styles.wallGrid}>
+                        {promoImages.map((image, i) => (
+                            <div
+                                key={image.src}
+                                className={`${styles.wallItem} ${styles[image.wallClass]}`}
+                            >
+                                <Image
+                                    src={image.src}
+                                    alt={image.alt}
+                                    fill
+                                    priority={i === 0}
+                                    className={styles.wallImage}
+                                    sizes="(min-width: 900px) 30vw, 45vw"
+                                />
                             </div>
-                            {i < stats.length - 1 && (
-                                <div className={styles.statSep} />
-                            )}
-                        </React.Fragment>
-                    ))}
+                        ))}
+                    </div>
                 </div>
 
             </div>
