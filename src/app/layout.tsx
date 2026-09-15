@@ -56,6 +56,31 @@ export const metadata: Metadata = {
     },
 };
 
+const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "BM Code Lab",
+    url: "https://www.bmcodelab.cl",
+    logo: "https://www.bmcodelab.cl/BM-imagenes/logotransparente.png",
+    description: "Desarrollamos soluciones digitales a medida: desarrollo web, apps móviles, integración de IA, DevOps y consultoría tecnológica para empresas en Chile.",
+    address: {
+        "@type": "PostalAddress",
+        addressLocality: "Melipilla",
+        addressCountry: "CL",
+    },
+    contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        telephone: "+56994872535",
+        email: "infobmdocelab@gmail.com",
+        areaServed: "CL",
+    },
+    sameAs: [
+        "https://www.facebook.com/profile.php?id=61581507736516&locale=es_LA",
+        "https://www.instagram.com/bm_code_lab/",
+    ],
+};
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -64,6 +89,10 @@ export default function RootLayout({
     return (
         <html lang="es">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+                />
                 {children}
             </body>
         </html>

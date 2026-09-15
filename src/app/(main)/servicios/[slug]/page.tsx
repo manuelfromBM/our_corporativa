@@ -36,8 +36,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
     const { slug } = await params;                        // ← await
-    const existe = SERVICIOS.some((s) => s.slug === slug);
-    if (!existe) notFound();
+    const servicio = SERVICIOS.find((s) => s.slug === slug);
+    if (!servicio) notFound();
 
-    return <DetalleServicio />;
+    const serviceJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: servicio.tec.titulo,
+        description: servicio.tec.desc,
+        url: `https://www.bmcodelab.cl/servicios/${servicio.slug}`,
+        areaServed: "CL",
+        provider: {
+            "@type": "Organization",
+            name: "BM Code Lab",
+            url: "https://www.bmcodelab.cl",
+        },
+    };
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+            />
+            <DetalleServicio />
+        </>
+    );
 }

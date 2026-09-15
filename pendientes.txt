@@ -1,0 +1,1 @@
+- Validar sitemap y configurar Search Console (Google Search Console): enviar/revisar https://www.bmcodelab.cl/sitemap.xml y confirmar que las URLs se indexan correctamente.

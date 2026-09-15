@@ -13,10 +13,24 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const member = getMemberBySlug(slug);
-  if (!member) return {};
+  if (!member) {
+    return {
+      title: "Miembro no encontrado",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const url = `https://www.bmcodelab.cl/equipo/${member.slug}`;
+
   return {
     title: `${member.name} — BMCodeLab`,
     description: member.biz.bio,
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${member.name} — BMCodeLab`,
+      description: member.biz.bio,
+      url,
+    },
   };
 }
 

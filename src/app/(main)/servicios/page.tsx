@@ -1,5 +1,5 @@
 // app/(main)/servicios/page.tsx
-import Detalle from "@/components/BM-components/servicios/Detalle/Detalle";
+import ServiciosSection from "@/components/BM-components/servicios/Servicios";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,5 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-    return <Detalle />;
+    return <ServiciosSection />;
 }
