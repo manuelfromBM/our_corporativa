@@ -1,84 +1,74 @@
 import React from "react";
 import Link from 'next/link'
 import styles from "./Hero.module.css";
-import Image from "next/image";
+import HeroTerminal from "./HeroTerminal";
 
-interface FilmSlot {
-    src: string;
-    alt: string;
-}
-const SLOTS_IZQUIERDA: FilmSlot[] = [
-    { src: "/BM-imagenes/imghero/img1.webp", alt: "Muestra de proyecto 1" },
-    { src: "/BM-imagenes/imghero/img2.webp", alt: "Muestra de proyecto 2" },
-    { src: "/BM-imagenes/imghero/img3.jpg", alt: "Muestra de proyecto 3" },
-    { src: "/BM-imagenes/imghero/img4.jpg", alt: "Muestra de proyecto 4" },
-    { src: "/BM-imagenes/imghero/img5.jpg", alt: "Muestra de proyecto 5" },
-    { src: "/BM-imagenes/imghero/img5.jpg", alt: "Muestra de proyecto 5 duplicada" },
+/* Nodos principales del flujo: cliente → automatización → proceso → resultado */
+const NODOS_FLUJO = [
+    { cx: 120, cy: 220 },
+    { cx: 300, cy: 180 },
+    { cx: 470, cy: 220 },
+    { cx: 640, cy: 180 },
 ];
 
-const SLOTS_DERECHA: FilmSlot[] = [
-    { src: "/BM-imagenes/imghero/img1.webp", alt: "Muestra de proyecto 1" },
-    { src: "/BM-imagenes/imghero/img2.webp", alt: "Muestra de proyecto 2" },
-    { src: "/BM-imagenes/imghero/img3.jpg", alt: "Muestra de proyecto 3" },
-    { src: "/BM-imagenes/imghero/img4.jpg", alt: "Muestra de proyecto 4" },
-    { src: "/BM-imagenes/imghero/img5.jpg", alt: "Muestra de proyecto 5" },
-    { src: "/BM-imagenes/imghero/img5.jpg", alt: "Muestra de proyecto 5 duplicada" },
+const NODOS_SECUNDARIOS = [
+    { cx: 330, cy: 80 },
+    { cx: 40, cy: 220 },
+    { cx: 200, cy: 270 },
+    { cx: 400, cy: 240 },
+    { cx: 560, cy: 270 },
+    { cx: 600, cy: 130 },
 ];
 
-
-function Perforacion() {
-    return <div className={styles.perf} aria-hidden="true" />;
-}
-
-function FilmStrip({
-    slots,
-    direction,
-}: {
-    slots: FilmSlot[];
-    direction: "up" | "down";
-}) {
-    // Duplicamos el array para que el loop sea seamless
-    const doubled = [...slots, ...slots];
-
+/* Red técnica decorativa: textura de fondo, no información */
+function RedTecnica() {
     return (
-        <div
-            className={`${styles.filmStrip} ${direction === "up" ? styles.filmUp : styles.filmDown
-                }`}
+        <svg
+            className={styles.network}
+            viewBox="0 0 800 300"
+            preserveAspectRatio="xMinYMax meet"
+            fill="none"
             aria-hidden="true"
         >
-            {/* Degradados en los bordes para que la cinta "desaparezca" */}
-            <div className={styles.filmFadeTop} />
-            <div className={styles.filmFadeBottom} />
+            <defs>
+                <linearGradient id="heroNetGrad" x1="0" y1="0" x2="800" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stopColor="var(--bm-secondary)" />
+                    <stop offset="1" stopColor="var(--bm-primary)" />
+                </linearGradient>
+            </defs>
 
-            <div className={styles.filmTrack}>
-                {doubled.map((slot, i) => (
-                    <div key={i} className={styles.filmFrame}>
-                        {/* Perforaciones laterales */}
-                        <div className={styles.filmPerfs}>
-                            {Array.from({ length: 4 }).map((_, j) => (
-                                <Perforacion key={j} />
-                            ))}
-                        </div>
+            <g stroke="url(#heroNetGrad)" strokeWidth="1" strokeLinejoin="round">
+                {/* Flujo principal, sube hacia la terminal */}
+                <path d="M0 220 H120 L160 180 H300 L340 220 H470 L510 180 H640 L700 120 H800" />
+                {/* Ramas */}
+                <path d="M0 270 H200 L230 240 H400 L430 270 H560" />
+                <path d="M160 180 V110 L190 80 H330" />
+                <path d="M40 300 V220" />
+                <path d="M510 180 L560 130 H600" />
+                <path d="M340 220 V300" />
+            </g>
 
-                        {/* Imagen */}
-                        <div className={styles.filmImage}>
-                            {slot.src ? (
-                                <Image src={slot.src} alt={slot.alt} className={styles.frameImg} fill />
-                            ) : (
-                                <div className={styles.framePlaceholder} />
-                            )}
-                        </div>
+            {/* Pulso de datos recorriendo el flujo principal */}
+            <path
+                className={styles.networkPulse}
+                d="M0 220 H120 L160 180 H300 L340 220 H470 L510 180 H640 L700 120 H800"
+                pathLength={100}
+                stroke="var(--bm-primary)"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+            />
 
-                        {/* Perforaciones lado derecho */}
-                        <div className={styles.filmPerfs}>
-                            {Array.from({ length: 4 }).map((_, j) => (
-                                <Perforacion key={j} />
-                            ))}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
+            {NODOS_SECUNDARIOS.map((n) => (
+                <circle key={`${n.cx}-${n.cy}`} cx={n.cx} cy={n.cy} r="2.5" fill="url(#heroNetGrad)" />
+            ))}
+
+            {NODOS_FLUJO.map((n) => (
+                <g key={`${n.cx}-${n.cy}`}>
+                    <circle cx={n.cx} cy={n.cy} r="9" stroke="url(#heroNetGrad)" strokeWidth="1" opacity="0.6" />
+                    <circle cx={n.cx} cy={n.cy} r="3.5" fill="url(#heroNetGrad)" />
+                </g>
+            ))}
+        </svg>
     );
 }
 
@@ -91,22 +81,16 @@ export default function Hero() {
                 <div className={`${styles.gradientOrb} ${styles.orb1}`} />
                 <div className={`${styles.gradientOrb} ${styles.orb2}`} />
                 <div className={`${styles.gradientOrb} ${styles.orb3}`} />
-                <div className={styles.gridOverlay} />
+                <RedTecnica />
+                <div className={styles.grain} />
             </div>
-
-            {/* Cinta izquierda — sube */}
-            <FilmStrip slots={SLOTS_IZQUIERDA} direction="up" />
 
             <div className={styles.heroContainer}>
                 <div className={styles.heroContent}>
-                    <div className={styles.heroBadge}>
-                        <span className={styles.badgeDot} />
-                        Desarrollo de software - Chile
-                    </div>
-
                     <h1 className={styles.heroTitle}>
-                        Tu negocio, funcionando
-                        <span className={styles.highlight}>sin que todo dependa de ti</span>
+                        <span className={styles.titleLine}>Tu negocio,</span>
+                        <span className={styles.titleLine}>funcionando</span>
+                        <span className={`${styles.titleLine} ${styles.highlight}`}>sin que todo dependa de ti</span>
                     </h1>
 
                     <p className={styles.heroSubtitle}>
@@ -117,7 +101,7 @@ export default function Hero() {
 
                     <div className={styles.heroButtons}>
                         <Link href="/#contacto" className={styles.btnPrimary}>
-                            Nuestros trabajos
+                            Hablemos de tu proyecto
                             <svg className={styles.btnIcon} viewBox="0 0 20 20" fill="currentColor">
                                 <path
                                     fillRule="evenodd"
@@ -126,32 +110,17 @@ export default function Hero() {
                                 />
                             </svg>
                         </Link>
-                        <Link href="/#servicios" className={styles.btnSecondary}>
+                        <Link href="/#servicios" className={styles.linkSecondary}>
                             Ver Servicios
+                            <span className={styles.linkArrow} aria-hidden="true">→</span>
                         </Link>
                     </div>
+                </div>
 
-                    <div className={styles.heroStats}>
-                        <div className={styles.statItem}>
-                            <div className={styles.statNumber}>SaaS</div>
-                            <div className={styles.statLabel}>Proyectos</div>
-                        </div>
-                        <div className={styles.statDivider} />
-                        <div className={styles.statItem}>
-                            <div className={styles.statNumber}>100%</div>
-                            <div className={styles.statLabel}>Compromiso</div>
-                        </div>
-                        <div className={styles.statDivider} />
-                        <div className={styles.statItem}>
-                            <div className={styles.statNumber}>24/7</div>
-                            <div className={styles.statLabel}>Soporte</div>
-                        </div>
-                    </div>
+                <div className={styles.heroVisual}>
+                    <HeroTerminal />
                 </div>
             </div>
-
-            {/* Cinta derecha — baja */}
-            <FilmStrip slots={SLOTS_DERECHA} direction="down" />
         </section>
     );
 }
