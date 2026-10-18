@@ -9,8 +9,10 @@ export type TeamMember = {
   tech: {
     bio: string;
     experience?: { company: string; role: string; period: string; description: string }[];
+    education?: { institution: string; degree: string; period: string }[];
     stats: { value: string; label: string }[];
     skills: string[];
+    libraries?: { category: string; items: string[] }[];
     tools: string[];
   };
   biz: {
@@ -44,6 +46,13 @@ export const teamData: TeamMember[] = [
           description: "Desarrollo de productos propios como Krona y Posteate, liderando la arquitectura, el backend y la integración de IA de ambos proyectos.",
         },
       ],
+      education: [
+        {
+          institution: "Duoc UC",
+          degree: "Ingenieria Informatica Especialización en Ciencia de Datos",
+          period: "2021 - 2025",
+        },
+      ],
       stats: [
         { value: "3+", label: "años experiencia" },
         { value: "3", label: "productos en producción" },
@@ -53,28 +62,47 @@ export const teamData: TeamMember[] = [
         "NestJS", "React", "Next.js", "TypeScript", "Python",
         "FastAPI", "LangChain", "LangGraph", "React Native",
       ],
+      libraries: [
+        {
+          category: "Full Stack (TypeScript)",
+          items: ["Axios", "Zod", "TanStack Query", "Day.js"],
+        },
+        {
+          category: "Ciencia de Datos (Python)",
+          items: ["Pandas", "NumPy", "Matplotlib"],
+        },
+        {
+          category: "IA & Machine Learning",
+          items: ["TensorFlow", "Scikit-learn", "PyTorch"],
+        },
+        {
+          category: "Otros",
+          items: ["GraphQL", "LangChain", "LangGraph", "Socket.IO"],
+        },
+      ],
       tools: [
         "PostgreSQL", "Docker", "Render", "Vercel", "Prisma",
         "TensorFlow", "ChromaDB", "Turborepo", "GitHub Actions",
+        "SQL Server", "PowerShell", "Claude Code", "Codex", "Cursor",
       ],
     },
     biz: {
-      bio: "Manuel lidera el producto desde la visión hasta el deploy. Si necesitas un sistema que funcione de verdad — no solo una demo — él es quien lo hace posible.",
+      bio: "Manuel combina dos mundos: el rigor de la banca y la ejecución ágil de un fundador. En Scotiabank trabaja con datos y procesos donde un error se traduce en riesgo real para el banco y sus clientes; en BMCodeLab aplica esa misma disciplina para lanzar y escalar productos digitales propios. Esa doble mirada — control y velocidad — es la que trae a cada proyecto.",
       cards: [
         {
-          icon: "rocket",
-          title: "Entrega productos completos",
-          desc: "No solo código: diseña la arquitectura, construye el backend, conecta el frontend y deja todo corriendo en producción.",
+          icon: "shield-check",
+          title: "Banca y cumplimiento (Scotiabank)",
+          desc: "En el área MIS AML BRM participa en procesos de onboarding, offboarding, KYC, cash control, FCC y DDM. Trabajar con esa exigencia le dio una vara alta para validar datos, documentar procesos y anticipar riesgos antes de que se conviertan en un problema.",
         },
         {
-          icon: "shield-check",
-          title: "Experiencia en sectores exigentes",
-          desc: "Ha trabajado en entornos bancarios con requerimientos AML, donde los errores cuestan caro. Esa mentalidad de rigor la aplica en cada proyecto.",
+          icon: "rocket",
+          title: "SaaS de punta a punta (Krona y Posteate)",
+          desc: "En BMCodeLab diseñó la arquitectura, lidera el equipo y programa backend y frontend de Krona y Posteate, dos marketplaces de servicios. No delega ninguna etapa: desde la base de datos hasta la pantalla que ve el usuario final pasa por sus manos.",
         },
         {
           icon: "brain",
-          title: "IA integrada, no pegada",
-          desc: "Integra inteligencia artificial de forma funcional dentro del flujo del negocio, no como un feature de marketing.",
+          title: "Visión de negocio, no solo código",
+          desc: "Además de construir el software, define el modelo de negocio de cada producto: cómo se monetiza, quién es el cliente y qué problema resuelve. Esa mezcla de criterio técnico y comercial evita construir features que nadie necesita.",
         },
       ],
     },

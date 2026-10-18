@@ -368,6 +368,14 @@
   50%       { transform: translateY(-100vh) translateX(18px); opacity: 0.42; }
 }
 
+.swipeHint {
+  display: none;
+  margin: 0.9rem 0 0;
+  text-align: center;
+  color: var(--bm-subtext);
+  font-size: 0.82rem;
+}
+
 /* ════════════════════════════════════════════════════════════
    RESPONSIVE — pantallas pequeñas (sin cambios)
    ════════════════════════════════════════════════════════════ */
@@ -378,11 +386,36 @@
 }
 
 @media (max-width: 768px) {
-  .section   { padding: 5rem 1.25rem; }
+  .section   { padding: 5rem 1.25rem; min-height: unset; }
   .title     { font-size: 2.3rem; }
   .subtitle  { font-size: 1rem; }
   .toggleBtn { padding: 0.7rem 1rem; font-size: 0.84rem; }
-  .grid      { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+  /* Carrusel horizontal en vez de lista vertical: evita scroll largo en mobile */
+  .grid {
+    display: flex;
+    grid-template-columns: unset;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1.25rem;
+    gap: 1rem;
+    margin: 0 -1.25rem;
+    padding: 0.25rem 1.25rem 1.25rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .grid::-webkit-scrollbar { display: none; }
+
+  .card {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
+
+  .swipeHint {
+    display: block;
+  }
 }
 
 @media (max-width: 480px) {
@@ -392,8 +425,9 @@
   .badge         { font-size: 0.72rem; }
   .togglePill    { width: 100%; justify-content: center; }
   .toggleBtn     { flex: 1; }
-  .grid          { grid-template-columns: 1fr; }
   .cardTitle     { font-size: 0.88rem; }
+
+  .card { flex-basis: 84%; }
 }
 
 /* ════════════════════════════════════════════════════════════

@@ -263,6 +263,24 @@
   flex-shrink: 0;
 }
 
+/* ── Librerías ── */
+.libraryGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.libraryGroup:last-child {
+  margin-bottom: 0;
+}
+
+.libraryGroupTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--bm-secondary);
+  margin: 0 0 10px;
+}
+
 /* ── Tools ── */
 .toolsGrid {
   display: grid;

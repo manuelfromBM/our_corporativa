@@ -125,6 +125,24 @@ export default function TeamProfileClient({ member }: { member: TeamMember }) {
               </div>
             )}
 
+            {member.tech.education && member.tech.education.length > 0 && (
+              <div className={styles.section}>
+                <p className={styles.sectionLabel}>Educación</p>
+                <div className={styles.timeline}>
+                  {member.tech.education.map((edu) => (
+                    <div key={`${edu.institution}-${edu.degree}`} className={styles.timelineItem}>
+                      <span className={styles.timelineDot} />
+                      <div className={styles.timelineHeader}>
+                        <h3 className={styles.timelineRole}>{edu.degree}</h3>
+                        <span className={styles.timelinePeriod}>{edu.period}</span>
+                      </div>
+                      <p className={styles.timelineCompany}>{edu.institution}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className={styles.statsGrid}>
               {member.tech.stats.map((s) => (
                 <div key={s.label} className={styles.statCard}>
@@ -145,6 +163,27 @@ export default function TeamProfileClient({ member }: { member: TeamMember }) {
                 ))}
               </div>
             </div>
+
+            {member.tech.libraries && member.tech.libraries.length > 0 && (
+              <div className={styles.section}>
+                <p className={styles.sectionLabel}>Librerías</p>
+                <div className={styles.libraryGroups}>
+                  {member.tech.libraries.map((group) => (
+                    <div key={group.category} className={styles.libraryGroup}>
+                      <p className={styles.libraryGroupTitle}>{group.category}</p>
+                      <div className={styles.skillsWrap}>
+                        {group.items.map((item) => (
+                          <span key={item} className={styles.skillPill}>
+                            <span className={styles.skillDot} />
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className={styles.section}>
               <p className={styles.sectionLabel}>Herramientas & Plataformas</p>

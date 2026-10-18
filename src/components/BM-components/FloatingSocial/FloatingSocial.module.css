@@ -1,26 +1,38 @@
-.stack {
+.carousel {
   position: fixed;
-  bottom: 92px;
+  bottom: 20px;
   right: 20px;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  z-index: 9999;
+  align-items: center;
+  gap: 10px;
+}
+
+.track {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .fab {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
+  position: absolute;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease;
+  transform: translateY(calc(var(--offset, 0) * 100%));
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  pointer-events: none;
 }
 
-.fab:hover {
-  transform: scale(1.08);
+.fabActive {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .icon {
@@ -37,14 +49,39 @@
   background-color: #0a66c2;
 }
 
+.whatsapp {
+  background-color: #25d366;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.dotActive {
+  background: #ffffff;
+  transform: scale(1.3);
+}
+
 @media (max-width: 480px) {
-  .stack {
-    bottom: 82px;
+  .carousel {
+    bottom: 16px;
     right: 16px;
-    gap: 10px;
+    gap: 8px;
   }
 
-  .fab {
+  .track {
     width: 46px;
     height: 46px;
   }
