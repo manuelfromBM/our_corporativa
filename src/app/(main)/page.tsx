@@ -4,6 +4,7 @@ import Servicios from "@/components/BM-components/servicios/Servicios";
 import HeroBranch from '@/components/BM-components/HeroSection/Hero'
 import AppPromo from '@/components/BM-components/PromocionK/PromocionK'
 import NosotrosSection from '@/components/BM-components/Nosotros/Nosotros'
+import EquipoSection from '@/components/BM-components/Equipo/Equipo'
 import SeccionAsesoramiento from "@/components/BM-components/Asesoramiento/Asesoramiento";
 import type { Metadata } from "next";
 
@@ -19,6 +20,7 @@ export default function Home() {
       <Servicios />
       <SeccionAsesoramiento />
       <NosotrosSection />
+      <EquipoSection />
       <AppPromo />
       <SeccionContacto />
     </>

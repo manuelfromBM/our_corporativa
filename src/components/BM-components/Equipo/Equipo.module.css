@@ -1,0 +1,145 @@
+.section {
+  position: relative;
+  background: linear-gradient(180deg, var(--bm-dark-2) 0%, var(--bm-dark) 100%);
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 3rem;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: var(--bm-badge-bg);
+  border: 1px solid var(--bm-badge-border);
+  color: var(--bm-badge-text);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-bottom: 3.5rem;
+  font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+  line-height: 1.15;
+  font-weight: 800;
+  color: var(--bm-text-light);
+  letter-spacing: -0.03em;
+}
+
+.highlight {
+  display: inline-block;
+  background: var(--bm-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  width: 100%;
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+  color: inherit;
+  width: 160px;
+}
+
+.avatarWrap {
+  position: relative;
+}
+
+.avatar {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--bm-border);
+  background: var(--bm-dark-3);
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.avatarImg {
+  object-fit: cover;
+}
+
+.member:hover .avatar {
+  transform: translateY(-6px) scale(1.04);
+  border-color: var(--bm-border-hover);
+  box-shadow: 0 0 0 4px var(--bm-badge-bg), 0 0 40px var(--bm-orb-primary);
+}
+
+.memberName {
+  color: var(--bm-text-light);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.memberRole {
+  color: var(--bm-subtext);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding: 4.5rem 2rem;
+  }
+
+  .row {
+    gap: 2.2rem;
+  }
+
+  .avatar {
+    width: 110px;
+    height: 110px;
+  }
+
+  .member {
+    width: 130px;
+  }
+}
+
+@media (max-width: 480px) {
+  .row {
+    gap: 1.8rem;
+  }
+
+  .avatar {
+    width: 92px;
+    height: 92px;
+  }
+
+  .member {
+    width: 108px;
+  }
+
+  .memberName {
+    font-size: 0.9rem;
+  }
+}
