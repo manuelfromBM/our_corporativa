@@ -1,14 +1,14 @@
 export const team = [
   {
     name: "Manuel Diaz",
-    role: "Fundador- Full Stack Developer & IA",
+    role: "Fundador - Lider Tecnico - FullStack & IA",
     img: "/BM-imagenes/BM_Team/manuel_ia.png",
     alt: "Foto de Socio 1",
     slug: "manuel",
   },
   {
     name: "Bastian Madrid",
-    role: "Fundador- Full Stack Developer & IA",
+    role: "Fundador - Full Stack Developer & IA",
     img: "/BM-imagenes/BM_Team/bastian_ai.png",
     alt: "Foto de Socio 2",
     slug: "bastian",
@@ -21,10 +21,10 @@ export const team = [
     slug: "cristian",
   },
   {
-    name: "Matias Palma",
-    role: "Cofundador - UI/UX Designer",
-    img: "/BM-imagenes/BM_Team/mati_ia.png",
+    name: "Byron Santis",
+    role: "Cofundador Tardio - Full Stack Developer",
+    img: "/BM-imagenes/BM_Team/byron_ia.png",
     alt: "Foto de Integrante 4",
-    slug: "matias",
+    slug: "byron",
   },
 ];

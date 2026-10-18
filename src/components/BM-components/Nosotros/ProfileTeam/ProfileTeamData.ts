@@ -198,12 +198,12 @@ export const teamData: TeamMember[] = [
     },
   },
   {
-    slug: "matias",
+    slug: "byron",
     initials: "MP",
-    img: "/BM-imagenes/BM_Team/mati_ia.png",
-    alt: "Foto de Matías Palma",
-    badge: "Cofundador",
-    name: "Matías Palma",
+    img: "/BM-imagenes/BM_Team/byron.jpeg",
+    alt: "Foto de Byron Santis",
+    badge: "Cofundador Tardio",
+    name: "Byron Santis",
     role: "UI/UX Designer",
     tech: {
       bio: "Diseñador UI/UX responsable de la identidad visual de BMCodeLab y Krona. Trabaja con sistemas de diseño, componentes reutilizables y prototipado de alta fidelidad, asegurando consistencia entre diseño y desarrollo.",
