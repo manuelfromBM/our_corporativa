@@ -8,6 +8,7 @@ export type TeamMember = {
   role: string;
   tech: {
     bio: string;
+    experience?: { company: string; role: string; period: string; description: string }[];
     stats: { value: string; label: string }[];
     skills: string[];
     tools: string[];
@@ -29,6 +30,20 @@ export const teamData: TeamMember[] = [
     role: "Full Stack Developer & IA",
     tech: {
       bio: "Arquitecto principal de Krona y líder técnico del equipo. Diseñó la infraestructura del monorepo Turborepo, la API REST en NestJS y la integración de modelos de lenguaje con LangChain y LangGraph. Con experiencia en banca y fintech, construye sistemas confiables, auditables y escalables.",
+      experience: [
+        {
+          company: "Scotiabank",
+          role: "Ingeniero de Datos Senior",
+          period: "Actualidad",
+          description: "Área MIS AML BRM, diseñando y manteniendo procesos de datos para la prevención de lavado de activos y la gestión de riesgo del banco.",
+        },
+        {
+          company: "BMCodeLab",
+          role: "Full Stack Developer & IA · Fundador",
+          period: "Actualidad",
+          description: "Desarrollo de productos propios como Krona y Posteate, liderando la arquitectura, el backend y la integración de IA de ambos proyectos.",
+        },
+      ],
       stats: [
         { value: "3+", label: "años experiencia" },
         { value: "3", label: "productos en producción" },
@@ -67,8 +82,8 @@ export const teamData: TeamMember[] = [
   {
     slug: "bastian",
     initials: "BM",
-    img: "/",
-    alt: "Foto de Manuel Díaz",
+    img: "/BM-imagenes/BM_Team/bastian_ai.png",
+    alt: "Foto de Bastián Madrid",
     badge: "Fundador",
     name: "Bastián Madrid",
     role: "Full Stack Developer & IA",
@@ -112,8 +127,8 @@ export const teamData: TeamMember[] = [
   {
     slug: "cristian",
     initials: "CS",
-    img: "/",
-    alt: "Foto de Manuel Díaz",
+    img: "/BM-imagenes/BM_Team/sanma_ia.png",
+    alt: "Foto de Cristian San Martín",
     badge: "Cofundador",
     name: "Cristian San Martín",
     role: "Full Stack Developer",
@@ -157,8 +172,8 @@ export const teamData: TeamMember[] = [
   {
     slug: "matias",
     initials: "MP",
-    img: "/",
-    alt: "Foto de Manuel Díaz",
+    img: "/BM-imagenes/BM_Team/mati_ia.png",
+    alt: "Foto de Matías Palma",
     badge: "Cofundador",
     name: "Matías Palma",
     role: "UI/UX Designer",

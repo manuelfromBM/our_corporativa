@@ -30,14 +30,13 @@ export default function TeamProfileClient({ member }: { member: TeamMember }) {
 
   return (
     <main className={styles.page}>
-      {/* Navbar — reemplaza con tu Navbar real */}
       <nav className={styles.nav}>
-        {/* <Link href="/" className={styles.navLink}>
+        <Link href="/" className={styles.navLink}>
           ← Volver al inicio
         </Link>
         <Link href="/#nosotros" className={styles.navLinkSecondary}>
           Ver equipo completo
-        </Link> */}
+        </Link>
       </nav>
 
       <div className={styles.container}>
@@ -106,6 +105,25 @@ export default function TeamProfileClient({ member }: { member: TeamMember }) {
               <p className={styles.sectionLabel}>Perfil técnico</p>
               <p className={styles.bioText}>{member.tech.bio}</p>
             </div>
+
+            {member.tech.experience && member.tech.experience.length > 0 && (
+              <div className={styles.section}>
+                <p className={styles.sectionLabel}>Experiencia</p>
+                <div className={styles.timeline}>
+                  {member.tech.experience.map((exp) => (
+                    <div key={`${exp.company}-${exp.role}`} className={styles.timelineItem}>
+                      <span className={styles.timelineDot} />
+                      <div className={styles.timelineHeader}>
+                        <h3 className={styles.timelineRole}>{exp.role}</h3>
+                        <span className={styles.timelinePeriod}>{exp.period}</span>
+                      </div>
+                      <p className={styles.timelineCompany}>{exp.company}</p>
+                      <p className={styles.timelineDesc}>{exp.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className={styles.statsGrid}>
               {member.tech.stats.map((s) => (
