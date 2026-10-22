@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Asesoramiento.module.css";
 import Image from "next/image";
+import CircuitBackground from "../Circuit/CircuitBackground";
 
 const tarjetas = [
   {
@@ -146,9 +147,7 @@ export default function SeccionAsesoramiento() {
       className={`${styles.section} ${visible ? styles.visible : ""}`}
       id="asesoramiento"
     >
-      <div className={styles.bgGrid} aria-hidden="true" />
-      <div className={styles.bgOrb1} aria-hidden="true" />
-      <div className={styles.bgOrb2} aria-hidden="true" />
+      <CircuitBackground variant="section" />
 
       <div className={styles.container}>
         <div className={styles.header}>

@@ -1,124 +1,99 @@
+/* ============================================================
+   BM-theme.css — tema "black circuit" de BM Code Lab
+   Base: diseno_black.html (fondo oscuro, tarjetas tipo nodo,
+   trazas de circuito y degradado verde → azul)
+   ============================================================ */
+
 .bmcodelab-theme {
   /* ========================
-     COLORES BASE
+     PALETA DEL DISEÑO
   ======================== */
-  --bm-bg: #05070a;
-  --bm-dark: #05070a;
-  --bm-dark-2: #0b0f14;
-  --bm-dark-3: #0f141a;
+  --c-green: #16c47f;
+  --c-blue: #2f6fed;
+  --c-gradient: linear-gradient(135deg, #16c47f, #2f6fed);
+
+  --c-bg-hero: #0d0f14;      /* fondo del hero */
+  --c-bg-section: #13161f;   /* fondo de secciones alternas */
+  --c-card: #11151c;         /* tarjetas, navbar, footer */
+  --c-card-top: #161b23;     /* cabecera de terminal / zonas elevadas */
+  --c-badge-bg: #1b212b;
+
+  --c-line: #2a3140;         /* bordes */
+  --c-line-soft: #232834;    /* bordes internos */
+  --c-trace: #262c38;        /* trazas del circuito */
+  --c-joint: #3a4150;        /* nodos apagados */
+
+  --c-text: #f3f5f8;         /* títulos */
+  --c-text-2: #c7cddb;       /* texto de enlaces / listas */
+  --c-muted: #9aa3b2;        /* párrafos */
+  --c-muted-2: #8891a0;      /* texto secundario */
+  --c-dim: #5b6472;          /* etiquetas / copyright */
+
+  --c-shadow-card: 0 20px 50px rgba(0, 0, 0, 0.4);
+  --c-shadow-card-hover: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --c-shadow-float: 0 30px 80px rgba(0, 0, 0, 0.5);
+  --c-radius: 12px;
 
   /* ========================
-     TEXTO
+     VARIABLES HEREDADAS (--bm-*)
+     Mapeadas a la paleta nueva para que los módulos
+     que ya las usan adopten el diseño automáticamente.
   ======================== */
-  --bm-text: #e6edf3;
-  --bm-subtext: #9fb0c0;
+  --bm-bg: var(--c-bg-hero);
+  --bm-dark: var(--c-bg-hero);
+  --bm-dark-2: var(--c-bg-section);
+  --bm-dark-3: var(--c-card);
 
-  --bm-text-light: #ffffff;
-  --bm-subtext-light: #cbd5e1;
+  --bm-text: var(--c-text);
+  --bm-subtext: var(--c-muted);
+  --bm-text-light: var(--c-text);
+  --bm-subtext-light: var(--c-text-2);
 
-  /* ========================
-     IDENTIDAD
-  ======================== */
-  --bm-primary: #00c896;     /* verde base */
-  --bm-accent: #0ea47a;      /* verde más profundo */
+  --bm-primary: var(--c-green);
+  --bm-accent: #12a86c;
+  --bm-secondary: var(--c-blue);
 
-  /* ========================
-     CONTRASTE (PROTAGONISTA)
-  ======================== */
-  --bm-secondary: #3b82f6;   /* azul moderno */
+  --bm-gradient-primary: var(--c-gradient);
+  --bm-gradient-accent: var(--c-gradient);
+  --bm-gradient-hero: var(--c-gradient);
 
-  /* ========================
-     GRADIENTES
-  ======================== */
-  --bm-gradient-primary: linear-gradient(135deg, #00c896, #3b82f6);
-  --bm-gradient-accent: linear-gradient(135deg, #0ea47a, #3b82f6);
-  --bm-gradient-hero: linear-gradient(135deg, #00c896 0%, #3b82f6 100%);
+  --bm-surface: var(--c-card);
+  --bm-surface-hover: var(--c-card-top);
+  --bm-border: var(--c-line);
+  --bm-border-hover: rgba(22, 196, 127, 0.35);
 
-  /* ========================
-     NAVBAR
-  ======================== */
-  --navbar-bg: rgba(5, 7, 10, 0.75);
-  --navbar-bg-scrolled: rgba(5, 7, 10, 0.95);
+  --bm-orb-primary: transparent;
+  --bm-orb-secondary: transparent;
+  --bm-orb-accent: transparent;
+  --bm-grid-color: transparent;
 
-  --navbar-shadow: none;
-  --navbar-shadow-scrolled: 0 4px 30px rgba(0, 0, 0, 0.3);
+  --bm-badge-bg: rgba(47, 111, 237, 0.08);
+  --bm-badge-border: rgba(47, 111, 237, 0.3);
+  --bm-badge-text: var(--c-blue);
 
-  --navbar-logo-border: #00c896;
-  --navbar-logo-shadow: 0 0 20px rgba(0, 200, 150, 0.25);
+  --bm-badge-lime-bg: rgba(22, 196, 127, 0.08);
+  --bm-badge-lime-border: rgba(22, 196, 127, 0.3);
+  --bm-badge-lime-text: var(--c-green);
 
-  --navbar-logo-border-hover: #3b82f6;
-  --navbar-logo-shadow-hover: 0 0 25px rgba(59, 130, 246, 0.35);
-
-  --navbar-brand-color: #e6edf3;
-  --navbar-brand-gradient: linear-gradient(135deg, #e6edf3 0%, #00c896 100%);
-  --navbar-brand-gradient-hover: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
-  --navbar-brand-hover-shadow: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
-
-  --navbar-link-color: #7f8c98;
-  --navbar-link-hover: #ffffff;
-
-  --navbar-link-overlay: linear-gradient(
-    135deg,
-    rgba(59, 130, 246, 0.12),
-    rgba(0, 200, 150, 0.08)
-  );
-
-  --navbar-link-underline: linear-gradient(90deg, #3b82f6, #00c896);
-  --navbar-link-underline-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
-
-  /* ========================
-     SUPERFICIES
-  ======================== */
-  --bm-surface: rgba(255, 255, 255, 0.04);
-  --bm-surface-hover: rgba(255, 255, 255, 0.08);
-
-  --bm-border: rgba(255, 255, 255, 0.08);
-  --bm-border-hover: rgba(59, 130, 246, 0.25);
-
-  /* ========================
-     EFECTOS / ORBS
-  ======================== */
-  --bm-orb-primary: rgba(0, 200, 150, 0.18);
-  --bm-orb-secondary: rgba(59, 130, 246, 0.18);
-  --bm-orb-accent: rgba(255, 255, 255, 0.04);
-
-  /* ========================
-     GRID
-  ======================== */
-  --bm-grid-color: rgba(255, 255, 255, 0.03);
-
-  /* ========================
-     BADGES / PILLS
-  ======================== */
-  --bm-badge-bg: rgba(59, 130, 246, 0.08);
-  --bm-badge-border: rgba(59, 130, 246, 0.25);
-  --bm-badge-text: #3b82f6;
-
-  --bm-badge-lime-bg: rgba(0, 200, 150, 0.08);
-  --bm-badge-lime-border: rgba(0, 200, 150, 0.25);
-  --bm-badge-lime-text: #00c896;
-
-  /* ========================
-     BOTONES
-  ======================== */
-  --bm-btn-primary-bg: linear-gradient(135deg, #00c896, #3b82f6);
+  --bm-btn-primary-bg: var(--c-gradient);
   --bm-btn-primary-text: #ffffff;
+  --bm-btn-secondary-bg: transparent;
+  --bm-btn-secondary-text: var(--c-text);
+  --bm-btn-secondary-border: var(--c-line);
 
-  --bm-btn-secondary-bg: rgba(59, 130, 246, 0.1);
-  --bm-btn-secondary-text: #3b82f6;
-  --bm-btn-secondary-border: rgba(59, 130, 246, 0.25);
-
-  /* ========================
-     STATS BAND
-  ======================== */
-  --bm-band-bg: linear-gradient(135deg, #00c896, #3b82f6);
+  --bm-band-bg: var(--c-gradient);
   --bm-band-text: #ffffff;
   --bm-band-subtext: rgba(255, 255, 255, 0.7);
 
-  /* ========================
-     FLOATING CARDS
-  ======================== */
-  --bm-float-bg: rgba(11, 15, 20, 0.85);
-  --bm-float-border: rgba(255, 255, 255, 0.08);
-  --bm-float-dot: #3b82f6;
+  --bm-float-bg: var(--c-card);
+  --bm-float-border: var(--c-line);
+  --bm-float-dot: var(--c-blue);
+
+  background: var(--c-bg-hero);
+  color: var(--c-text);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.bmcodelab-theme main {
+  background: var(--c-bg-hero);
 }

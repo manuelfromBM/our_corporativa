@@ -9,7 +9,14 @@
     min-height: 100vh;
     background: var(--bm-bg);
     color: var(--bm-text);
+    /* Acento único del diseño black para todos los servicios */
+    --accent: var(--c-green);
+    --card-color: var(--c-green);
 }
+
+.bgGrid,
+.bgOrb1,
+.bgOrb2 { display: none; }
 
 /* ── FONDO ── */
 .bgGrid {
@@ -58,7 +65,7 @@
     gap: 8px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 100px 24px 0;
+    padding: 40px 24px 0;
     font-size: 13px;
 }
 
@@ -529,7 +536,7 @@
 }
 
 @media (max-width: 560px) {
-    .breadcrumb { padding-top: 88px; }
+    .breadcrumb { padding-top: 28px; }
 
     .heroTitulo { font-size: 24px; }
 

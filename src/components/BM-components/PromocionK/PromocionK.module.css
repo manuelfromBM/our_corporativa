@@ -498,3 +498,29 @@
   .pilarTitulo { font-size: 16px; }
   .pilarDesc   { font-size: 13.5px; }
 }
+
+/* ── PALETA PROPIA ──
+   La sección de Krona conserva la paleta anterior del sitio,
+   independiente del rediseño de BM Code Lab (BM-theme.css). */
+.container {
+  --bm-dark: #05070a;
+  --bm-dark-2: #0b0f14;
+  --bm-text: #e6edf3;
+  --bm-subtext: #9fb0c0;
+  --bm-text-light: #ffffff;
+  --bm-primary: #00c896;
+  --bm-secondary: #3b82f6;
+  --bm-gradient-primary: linear-gradient(135deg, #00c896, #3b82f6);
+  --bm-surface: rgba(255, 255, 255, 0.04);
+  --bm-surface-hover: rgba(255, 255, 255, 0.08);
+  --bm-border: rgba(255, 255, 255, 0.08);
+  --bm-border-hover: rgba(59, 130, 246, 0.25);
+  --bm-orb-primary: rgba(0, 200, 150, 0.18);
+  --bm-orb-secondary: rgba(59, 130, 246, 0.18);
+  --bm-grid-color: rgba(255, 255, 255, 0.03);
+  --bm-badge-lime-bg: rgba(0, 200, 150, 0.08);
+  --bm-badge-lime-border: rgba(0, 200, 150, 0.25);
+  --bm-badge-lime-text: #00c896;
+  --bm-btn-primary-bg: linear-gradient(135deg, #00c896, #3b82f6);
+  --bm-btn-primary-text: #ffffff;
+}

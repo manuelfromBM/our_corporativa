@@ -1,118 +1,69 @@
 "use client";
 
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import React, { useState, useEffect } from "react";
-import styles from './Navbar.module.css';
-import Link from 'next/link'
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
+import styles from "./Navbar.module.css";
+
+const NAV_ITEMS = [
+    { href: "/#inicio", label: "Inicio" },
+    { href: "/#servicios", label: "Servicios" },
+    { href: "/#asesoramiento", label: "Asesoramiento" },
+    { href: "/#nosotros", label: "Nosotros" },
+    { href: "/#krona", label: "Krona" },
+];
 
 const NavbarPrincipal: React.FC = () => {
-    const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
+    // Cierra el menú móvil al hacer scroll o al pasar a escritorio
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 80);
-            if (menuOpen) setMenuOpen(false);
+        if (!menuOpen) return;
+        const close = () => setMenuOpen(false);
+        const onResize = () => { if (window.innerWidth > 760) close(); };
+        window.addEventListener("scroll", close, { passive: true });
+        window.addEventListener("resize", onResize);
+        return () => {
+            window.removeEventListener("scroll", close);
+            window.removeEventListener("resize", onResize);
         };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
     }, [menuOpen]);
 
-    // Bloquea el scroll del body cuando el menú está abierto
-    useEffect(() => {
-        document.body.style.overflow = menuOpen ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
-    }, [menuOpen]);
-
-    const navItems = [
-        { href: "/#inicio", label: "Inicio" },
-        { href: "/#servicios", label: "Servicios" },
-        { href: "/#asesoramiento", label: "Asesoramiento" },
-        { href: "/#nosotros", label: "Nosotros" },
-        { href: "/#krona", label: "Krona" },
-    ];
-
-    const handleNavClick = () => setMenuOpen(false);
+    const closeMenu = () => setMenuOpen(false);
 
     return (
-        <>
-            <Navbar className={`${styles.NavBar} ${scrolled ? styles.Scrolled : ''} ${menuOpen ? styles.MenuOpenBar : ''}`}>
-                <div className={styles.NavInner}>
-                    {/* Izquierda: Brand */}
-                    <div className={styles.BrandContainer}>
-                        <Link href="/">
-                            <Image src="/BM-imagenes/logodefinitivonav (1).png" alt="BM Code Lab" className={styles.imgLogo} width={150} height={50} />
-                        </Link>
-                    </div>
+        <nav className={styles.navbar}>
+            <div className={styles.inner}>
+                <Link href="/" className={styles.logo} onClick={closeMenu}>
+                    <span className={styles.logoBadge}>
+                        <Image src="/BM-imagenes/iconoBM2.png" alt="" width={22} height={22} />
+                    </span>
+                    BM <span className={styles.highlight}>Code Lab</span>
+                </Link>
 
-                    {/* Centro: Nav links (desktop) */}
-                    <Nav className={styles.NavLinks}>
-                        {navItems.map((item) => (
-                            <Nav.Link
-                                key={item.href}
-                                href={item.href}
-                                className={styles.NavLink}
-                            >
-                                {item.label}
-                            </Nav.Link>
-                        ))}
-                    </Nav>
+                <button
+                    type="button"
+                    className={`${styles.toggle} ${menuOpen ? styles.open : ""}`}
+                    onClick={() => setMenuOpen((o) => !o)}
+                    aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+                    aria-expanded={menuOpen}
+                    aria-controls="bm-nav-links"
+                >
+                    <span /><span /><span />
+                </button>
 
-                    {/* Derecha: CTA (desktop) + Hamburger (mobile) */}
-                    <div className={styles.RightSection}>
-                        <Link href="/#contacto" className={styles.CTAButton} onClick={handleNavClick}>
-                            Contáctanos
-                        </Link>
-
-                        <button
-                            className={`${styles.HamburgerBtn} ${menuOpen ? styles.HamburgerOpen : ''}`}
-                            onClick={() => setMenuOpen(!menuOpen)}
-                            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-                            aria-expanded={menuOpen}
-                        >
-                            <span className={styles.HamburgerLine} />
-                            <span className={styles.HamburgerLine} />
-                            <span className={styles.HamburgerLine} />
-                        </button>
-                    </div>
-                </div>
-            </Navbar>
-
-            {/* Mobile Dropdown Menu */}
-            <div className={`${styles.MobileMenu} ${menuOpen ? styles.MobileMenuOpen : ''}`}>
-                <div className={styles.MobileMenuInner}>
-                    {navItems.map((item, i) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={styles.MobileNavLink}
-                            style={{ animationDelay: `${i * 0.06}s` }}
-                            onClick={handleNavClick}
-                        >
+                <div id="bm-nav-links" className={`${styles.links} ${menuOpen ? styles.open : ""}`}>
+                    {NAV_ITEMS.map((item) => (
+                        <Link key={item.href} href={item.href} className={styles.link} onClick={closeMenu}>
                             {item.label}
                         </Link>
                     ))}
-                    <Link
-                        href="/#contacto"
-                        className={styles.MobileCTAButton}
-                        style={{ animationDelay: `${navItems.length * 0.06}s` }}
-                        onClick={handleNavClick}
-                    >
+                    <Link href="/#contacto" className={styles.cta} onClick={closeMenu}>
                         Contáctanos
                     </Link>
                 </div>
             </div>
-
-            {/* Backdrop */}
-            {menuOpen && (
-                <div
-                    className={styles.MobileBackdrop}
-                    onClick={() => setMenuOpen(false)}
-                />
-            )}
-        </>
+        </nav>
     );
 };
 

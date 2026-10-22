@@ -1,6 +1,13 @@
+/* ============================================================
+   Equipo.module.css — el equipo como componentes de una placa
+   Un bus de datos con corriente enciende el nodo de cada persona
+   ============================================================ */
+
 .section {
+  --pulse-period: 5s;
   position: relative;
-  background: linear-gradient(180deg, var(--bm-dark-2) 0%, var(--bm-dark) 100%);
+  background: var(--c-bg-hero);
+  color: var(--c-text);
   overflow: hidden;
 }
 
@@ -10,136 +17,296 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1280px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 6rem 3rem;
+  padding: 100px 24px;
   text-align: center;
 }
 
 .badge {
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  padding: 0.5rem 1.2rem;
-  border-radius: 999px;
-  background: var(--bm-badge-bg);
-  border: 1px solid var(--bm-badge-border);
-  color: var(--bm-badge-text);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  color: var(--c-green);
+  background: rgba(22, 196, 127, 0.08);
+  border: 1px solid rgba(22, 196, 127, 0.3);
+  border-radius: 999px;
+}
+
+.badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-green);
+  box-shadow: 0 0 6px var(--c-green);
 }
 
 .title {
-  margin-bottom: 3.5rem;
-  font-size: clamp(2.2rem, 3.6vw, 3.2rem);
-  line-height: 1.15;
-  font-weight: 800;
-  color: var(--bm-text-light);
-  letter-spacing: -0.03em;
+  margin: 16px 0 56px;
+  font-size: clamp(2rem, 4.2vw, 2.6rem);
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--c-text);
 }
 
 .highlight {
-  display: inline-block;
-  background: var(--bm-gradient-primary);
+  background: var(--c-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 3rem;
+/* ── PLACA ── */
+.board {
+  position: relative;
   width: 100%;
 }
 
+/* Bus de datos horizontal */
+.bus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--c-trace);
+  overflow: hidden;
+}
+
+/* Corriente que recorre el bus de izquierda a derecha */
+.busPulse {
+  position: absolute;
+  top: 0;
+  left: -12%;
+  width: 12%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--c-green), var(--c-blue));
+  box-shadow: 0 0 10px var(--c-green);
+  animation: busFlow var(--pulse-period) linear infinite;
+}
+
+@keyframes busFlow {
+  from { left: -12%; }
+  to   { left: 100%; }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(var(--count, 4), minmax(0, 1fr));
+  gap: 24px;
+  padding-top: 56px;
+}
+
+/* ── TARJETA (chip) ── */
 .member {
+  /* Momento en que la corriente pasa por el centro de esta columna */
+  --arrive: calc(var(--pulse-period) * ((var(--i) + 0.5) / var(--count, 4) + 0.06) / 1.12);
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.9rem;
+  padding: 0 18px 20px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+  border-radius: var(--c-radius);
+  box-shadow: var(--c-shadow-card);
   text-decoration: none;
   color: inherit;
-  width: 160px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+.member:hover {
+  color: inherit;
+  transform: translateY(-6px);
+  border-color: rgba(22, 196, 127, 0.35);
+  box-shadow: var(--c-shadow-card-hover);
+}
+
+/* Conexión vertical bus → tarjeta */
+.drop {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 2px;
+  height: 57px;
+  margin-left: -1px;
+  background: var(--c-trace);
+}
+
+.joint {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--c-joint);
+  animation: jointFlash var(--pulse-period) linear infinite;
+  animation-delay: var(--arrive);
+}
+
+@keyframes jointFlash {
+  0%   { background: var(--c-green); box-shadow: 0 0 10px var(--c-green); transform: scale(1.5); }
+  14%  { background: var(--c-joint); box-shadow: none; transform: scale(1); }
+  100% { background: var(--c-joint); box-shadow: none; transform: scale(1); }
+}
+
+/* Cabecera monoespaciada del chip */
+.chipTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  margin: 0 -18px 22px;
+  padding: 10px 14px;
+  background: var(--c-card-top);
+  border-bottom: 1px solid var(--c-line-soft);
+  border-radius: var(--c-radius) var(--c-radius) 0 0;
+  font-family: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+}
+
+.nodeId { color: var(--c-muted-2); }
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.04em;
+  color: var(--c-green);
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-green);
+  box-shadow: 0 0 8px var(--c-green);
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+/* ── AVATAR con anillo que se enciende al llegar la corriente ── */
 .avatarWrap {
   position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 18px;
+}
+
+.ring {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: var(--c-gradient);
+  opacity: 0.35;
+  animation: ringFlash var(--pulse-period) linear infinite;
+  animation-delay: calc(var(--arrive) + 0.12s);
+}
+
+@keyframes ringFlash {
+  0%   { opacity: 1; box-shadow: 0 0 26px rgba(22, 196, 127, 0.6); }
+  22%  { opacity: 0.35; box-shadow: none; }
+  100% { opacity: 0.35; box-shadow: none; }
+}
+
+.member:hover .ring {
+  opacity: 1;
+  animation-play-state: paused;
 }
 
 .avatar {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid var(--bm-border);
-  background: var(--bm-dark-3);
-  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  border: 3px solid var(--c-card);
+  background: var(--c-card-top);
 }
 
 .avatarImg {
   object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
-.member:hover .avatar {
-  transform: translateY(-6px) scale(1.04);
-  border-color: var(--bm-border-hover);
-  box-shadow: 0 0 0 4px var(--bm-badge-bg), 0 0 40px var(--bm-orb-primary);
-}
+.member:hover .avatarImg { transform: scale(1.06); }
 
 .memberName {
-  color: var(--bm-text-light);
-  font-size: 1rem;
+  margin-bottom: 6px;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  color: var(--c-text);
 }
 
 .memberRole {
-  color: var(--bm-subtext);
-  font-size: 0.78rem;
+  flex: 1;
+  margin-bottom: 16px;
+  font-size: 11.5px;
   font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  text-align: center;
+  color: var(--c-muted-2);
 }
 
+.more {
+  align-self: stretch;
+  padding-top: 14px;
+  border-top: 1px solid var(--c-line-soft);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-text-2);
+  transition: color 0.2s ease;
+}
+
+.more span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.member:hover .more { color: var(--c-green); }
+.member:hover .more span { transform: translateX(4px); }
+
+/* ── RESPONSIVE ──
+   En 2 columnas el bus deja de tener sentido: los nodos se
+   encienden en secuencia sin la línea de conexión. */
 @media (max-width: 900px) {
-  .container {
-    padding: 4.5rem 2rem;
-  }
-
+  .container { padding: 72px 20px; }
+  .bus, .drop { display: none; }
   .row {
-    gap: 2.2rem;
-  }
-
-  .avatar {
-    width: 110px;
-    height: 110px;
-  }
-
-  .member {
-    width: 130px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding-top: 0;
   }
 }
 
 @media (max-width: 480px) {
-  .row {
-    gap: 1.8rem;
-  }
+  .container { padding: 64px 16px; }
+  .title { margin-bottom: 40px; }
+  .row { gap: 14px; }
+  .member { padding: 0 12px 16px; }
+  .chipTop { margin: 0 -12px 18px; padding: 8px 10px; font-size: 10px; }
+  .avatarWrap { width: 92px; height: 92px; }
+  .memberName { font-size: 14px; }
+  .memberRole { font-size: 10.5px; }
+}
 
-  .avatar {
-    width: 92px;
-    height: 92px;
-  }
+@media (max-width: 360px) {
+  .status { font-size: 0; gap: 0; }
+}
 
-  .member {
-    width: 108px;
-  }
-
-  .memberName {
-    font-size: 0.9rem;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .busPulse, .joint, .ring, .statusDot { animation: none; }
 }

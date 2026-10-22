@@ -1,0 +1,101 @@
+/* ============================================================
+   NanoForge.module.css — tarjeta construida por nanobots
+   Se combina con la clase propia de la tarjeta (p. ej. .form)
+   ============================================================ */
+
+/* Canvas que cubre la zona de ensamblado (sobresale para no cortar los halos) */
+.canvas {
+  position: absolute;
+  inset: -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* La tarjeta: maquetada pero invisible hasta que los nanobots la "imprimen" */
+.card {
+  --scan: 0%;
+  visibility: hidden;
+  clip-path: inset(0 0 calc(100% - var(--scan)) 0 round var(--c-radius, 12px));
+}
+
+.printing,
+.built { visibility: visible; }
+
+.built { clip-path: none; }
+
+/* Línea de escaneo que recorre la tarjeta mientras se imprime */
+.card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--scan);
+  z-index: 2;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--c-green), var(--c-blue), transparent);
+  box-shadow: 0 0 14px var(--c-green), 0 0 28px rgba(47, 111, 237, 0.6);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.printing::after { opacity: 1; }
+
+/* Rejilla "molecular" visible mientras la tarjeta aún no está sólida */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background-image: radial-gradient(rgba(22, 196, 127, 0.35) 1px, transparent 1.4px);
+  background-size: 12px 12px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.printing::before { opacity: 1; }
+
+/* El contenido aparece en cascada una vez ensamblada */
+.card > * {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.built > * { opacity: 1; transform: none; }
+.built > *:nth-child(1) { transition-delay: 0.05s; }
+.built > *:nth-child(2) { transition-delay: 0.2s; }
+.built > *:nth-child(3) { transition-delay: 0.35s; }
+.built > *:nth-child(4) { transition-delay: 0.45s; }
+
+/* Destello al quedar ensamblada */
+.built { animation: cardFlash 0.9s ease-out; }
+
+@keyframes cardFlash {
+  0% {
+    border-color: var(--c-green);
+    box-shadow: 0 0 0 1px var(--c-green), 0 0 40px rgba(22, 196, 127, 0.55), var(--c-shadow-float);
+  }
+  100% {
+    border-color: var(--c-line);
+    box-shadow: var(--c-shadow-float);
+  }
+}
+
+/* Plano punteado que marca dónde se construirá la tarjeta */
+.blueprint {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border: 1px dashed rgba(22, 196, 127, 0.25);
+  border-radius: var(--c-radius, 12px);
+  background-image: radial-gradient(rgba(22, 196, 127, 0.12) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.blueprintHidden { opacity: 0; }

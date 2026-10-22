@@ -11,6 +11,10 @@
   color: var(--bm-text);
 }
 
+.bgGrid,
+.bgOrb1,
+.bgOrb2 { display: none; }
+
 /* ── FONDO ── */
 .bgGrid {
   position: fixed;
@@ -54,7 +58,7 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 110px 24px 72px;
+  padding: 64px 24px 56px;
   max-width: 680px;
   margin: 0 auto;
 }
@@ -572,7 +576,7 @@
 }
 
 @media (max-width: 560px) {
-  .hero { padding: 88px 20px 56px; }
+  .hero { padding: 48px 20px 40px; }
   .heroTitulo { font-size: 26px; }
   .panel { padding: 40px 0; }
   .panelTitulo { font-size: 20px; }

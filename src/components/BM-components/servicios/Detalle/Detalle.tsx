@@ -14,7 +14,6 @@ function ServicioRelacionado({ servicio }: { servicio: (typeof SERVICIOS)[0] }) 
         <Link
             href={`/servicios/${servicio.slug}`}
             className={styles.relCard}
-            style={{ "--card-color": servicio.accentColor } as React.CSSProperties}
         >
             <div className={styles.relCardGlow} />
 
@@ -93,7 +92,7 @@ export default function DetalleServicio() {
     }
 
     return (
-        <div className={styles.pagina} style={{ "--accent": servicio.accentColor } as React.CSSProperties}>
+        <div className={styles.pagina}>
             {/* Fondo */}
             <div className={styles.bgGrid} aria-hidden="true" />
             <div className={styles.bgOrb1} aria-hidden="true" />

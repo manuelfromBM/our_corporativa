@@ -1,18 +1,12 @@
-"use client";
-
+import Link from "next/link";
+import Image from "next/image";
 import styles from "./Servicios.module.css";
 import SERVICIOS, { type Servicio } from "./Servicios.data";
-import Image from "next/image";
+import CircuitBackground from "../Circuit/CircuitBackground";
 
 function ServiceCard({ servicio }: { servicio: Servicio }) {
-  const href = `/servicios/${servicio.slug}`;
-
   return (
-    <a
-      href={href}
-      className={styles.card}
-      style={{ "--card-color": servicio.accentColor } as React.CSSProperties}
-    >
+    <Link href={`/servicios/${servicio.slug}`} className={styles.card}>
       <div className={styles.cardGlow} />
 
       <div className={styles.imagenWrap}>
@@ -21,6 +15,7 @@ function ServiceCard({ servicio }: { servicio: Servicio }) {
           src={servicio.imageSrc}
           alt={servicio.imageAlt}
           fill
+          sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 25vw"
         />
         <div className={styles.imagenOverlay} />
         <span className={styles.cardNumber}>{servicio.num}</span>
@@ -45,23 +40,22 @@ function ServiceCard({ servicio }: { servicio: Servicio }) {
           />
         </svg>
       </div>
-    </a>
+    </Link>
   );
 }
 
 export default function ServiciosSection() {
   return (
     <section id="servicios" className={styles.section}>
-      <div className={styles.particles}>
-        {Array.from({ length: 20 }).map((_, i) => (
-          <div key={i} className={styles.particle} />
-        ))}
-      </div>
+      <CircuitBackground variant="section" />
 
       <div className={styles.container}>
-        <div className={styles.headerSection}>
+        <div className={styles.header}>
           <span className={styles.badge}>Lo que hacemos</span>
-          <h2 className={styles.title}>Nuestros servicios</h2>
+          <h2 className={styles.title}>
+            Servicios que mantienen{" "}
+            <span className={styles.highlight}>tu negocio en marcha</span>
+          </h2>
           <p className={styles.subtitle}>
             Transformamos ideas en soluciones digitales modernas con foco en
             rendimiento, claridad y crecimiento real.

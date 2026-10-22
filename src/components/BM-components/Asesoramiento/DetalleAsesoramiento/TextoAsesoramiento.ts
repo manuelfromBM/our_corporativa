@@ -2,7 +2,7 @@ export const TEMAS = [
     {
         slug: "publico",
         num: "01",
-        accentColor: "#00c896",
+        accentColor: "#16c47f",
         pill: "¿Esto es para ti?",
         titulo: "Trabajamos con negocios reales en etapas reales",
         descripcion:
@@ -63,7 +63,7 @@ export const TEMAS = [
     {
         slug: "beneficios",
         num: "02",
-        accentColor: "#3b82f6",
+        accentColor: "#2f6fed",
         pill: "¿Qué cambia?",
         titulo: "La tecnología bien aplicada devuelve tiempo, visibilidad y control",
         descripcion:
@@ -124,7 +124,7 @@ export const TEMAS = [
     {
         slug: "soluciones",
         num: "03",
-        accentColor: "#00c896",
+        accentColor: "#16c47f",
         pill: "¿Qué necesitas?",
         titulo: "Cada etapa de tu negocio tiene su herramienta correcta",
         descripcion:

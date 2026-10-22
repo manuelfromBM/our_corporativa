@@ -1,394 +1,183 @@
-.NavBar {
-    background: transparent;  
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 800;
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    border-bottom: 1px solid transparent;
-    transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+/* ============================================================
+   Navbar.module.css — barra sticky translúcida (diseño black)
+   ============================================================ */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 800;
+  background: rgba(17, 21, 28, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--c-line);
 }
 
-.NavBar.Scrolled {
-    background: var(--navbar-bg-scrolled);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--bm-border);
-    box-shadow: var(--navbar-shadow-scrolled);
+.inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
 }
 
-.NavBar.MenuOpenBar {
-    background: var(--navbar-bg-scrolled);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--bm-border);
+/* ── LOGO ── */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+  text-decoration: none;
 }
 
-.NavInner {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0.5rem 1.5rem;
-    position: relative;
+.logo:hover { color: var(--c-text); }
+
+.logoBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--c-badge-bg);
+  border: 1px solid var(--c-line);
+  box-shadow: 0 4px 14px rgba(22, 196, 127, 0.25);
 }
 
-/* ── Brand ── */
-.BrandContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    flex: 0 0 auto;
+.logoBadge img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
 }
 
-.imgLogo {
-    width: auto;
-    height: 50px;
-    object-fit: contain;
+.highlight {
+  background: var(--c-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.LogoBadge {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    background: var(--bm-gradient-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--bm-bg);
-    letter-spacing: 0.5px;
-    flex-shrink: 0;
+/* ── LINKS ── */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
 }
 
-.Brand {
-    font-weight: 700;
-    font-size: 1.05rem;
-    letter-spacing: 0.5px;
-    text-decoration: none;
-    color: var(--bm-text-light);
-    transition: opacity 0.2s ease;
+.link {
+  position: relative;
+  padding: 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-text-2);
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.Brand:hover {
-    opacity: 0.85;
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--c-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
 }
 
-.BrandAccent {
-    color: var(--bm-primary);
+.link:hover { color: var(--c-green); }
+.link:hover::after { transform: scaleX(1); }
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  background: var(--c-gradient);
+  box-shadow: 0 10px 24px rgba(22, 196, 127, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* ── Nav links (centro absoluto) ── */
-.NavLinks {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 0.1rem;
+.cta:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(22, 196, 127, 0.35);
 }
 
-.NavLink {
-    color: rgba(232, 245, 238, 0.55) !important;
-    font-weight: 500;
-    font-size: 0.88rem;
-    padding: 0.4rem 0.85rem !important;
-    position: relative;
-    transition: color 0.2s ease;
-    letter-spacing: 0.2px;
-    white-space: nowrap;
+/* ── HAMBURGUESA ── */
+.toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
-.NavLink::after {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: 50%;
-    width: 0;
-    height: 1.5px;
-    background: var(--navbar-link-underline);
-    transition: width 0.25s ease;
-    transform: translateX(-50%);
+.toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--c-text);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.NavLink:hover {
-    color: var(--navbar-link-hover) !important;
-}
+.toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.toggle.open span:nth-child(2) { opacity: 0; }
+.toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-.NavLink:hover::after {
-    width: 65%;
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .links { gap: 22px; }
 }
-
-/* ── Derecha ── */
-.RightSection {
-    margin-left: auto;
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.CTAButton {
-    background: var(--bm-btn-primary-bg);
-    color: var(--bm-btn-primary-text) !important;
-    font-weight: 700;
-    font-size: 0.88rem;
-    padding: 0.45rem 1.2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    letter-spacing: 0.3px;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-.CTAButton:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-    box-shadow: var(--navbar-shadow);
-}
-
-.CTAButton:active {
-    transform: translateY(0);
-}
-
-/* ── Hamburger ── */
-.HamburgerBtn {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    width: 38px;
-    height: 38px;
-    background: transparent;
-    border: 1px solid rgba(232, 245, 238, 0.15);
-    border-radius: 8px;
-    cursor: pointer;
-    padding: 0;
-    transition: border-color 0.2s ease, background 0.2s ease;
-    flex-shrink: 0;
-}
-
-.HamburgerBtn:hover {
-    border-color: rgba(232, 245, 238, 0.35);
-    background: rgba(232, 245, 238, 0.06);
-}
-
-.HamburgerLine {
-    display: block;
-    width: 18px;
-    height: 1.5px;
-    background: var(--bm-text-light, #e8f5ee);
-    border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
-    transform-origin: center;
-}
-
-.HamburgerOpen .HamburgerLine:nth-child(1) {
-    transform: translateY(6.5px) rotate(45deg);
-}
-.HamburgerOpen .HamburgerLine:nth-child(2) {
-    opacity: 0;
-    width: 0;
-}
-.HamburgerOpen .HamburgerLine:nth-child(3) {
-    transform: translateY(-6.5px) rotate(-45deg);
-}
-
-/* ── Mobile Menu ── */
-.MobileMenu {
-    display: none;
-    position: fixed;
-    top: 57px;
-    left: 0;
-    right: 0;
-    z-index: 799;
-    background: var(--navbar-bg-scrolled);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--bm-border);
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-    opacity: 0;
-}
-
-.MobileMenu.MobileMenuOpen {
-    max-height: 400px;
-    opacity: 1;
-}
-
-.MobileMenuInner {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 1.5rem 1.5rem;
-    gap: 0.25rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.MobileNavLink {
-    color: rgba(232, 245, 238, 0.65);
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.75rem 0.5rem;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(232, 245, 238, 0.07);
-    transition: color 0.2s ease, padding-left 0.2s ease;
-    opacity: 0;
-    animation: none;
-}
-
-.MobileMenuOpen .MobileNavLink {
-    animation: slideInItem 0.3s ease forwards;
-}
-
-.MobileNavLink:hover {
-    color: var(--navbar-link-hover, #e8f5ee);
-    padding-left: 1rem;
-}
-
-.MobileCTAButton {
-    display: block;
-    margin-top: 1rem;
-    background: var(--bm-btn-primary-bg);
-    color: var(--bm-btn-primary-text) !important;
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 0.75rem 1.2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    text-align: center;
-    letter-spacing: 0.3px;
-    transition: filter 0.2s ease, transform 0.2s ease;
-    opacity: 0;
-    animation: none;
-}
-
-.MobileMenuOpen .MobileCTAButton {
-    animation: slideInItem 0.3s ease forwards;
-}
-
-.MobileCTAButton:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-}
-
-.MobileBackdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 798;
-    background: rgba(0, 0, 0, 0.4);
-    animation: fadeInBackdrop 0.25s ease forwards;
-}
-
-@keyframes fadeInBackdrop {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-@keyframes slideInItem {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ════════════════════════════════════════════════════════════
-   RESPONSIVE — pantallas pequeñas (sin cambios)
-   ════════════════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
-    .NavLinks {
-        position: static;
-        transform: none;
-        margin: 0 auto;
-    }
-    .NavInner {
-        gap: 0.5rem;
-    }
-}
+  .toggle { display: flex; }
 
-@media (max-width: 768px) {
-    .NavLinks {
-        display: none;
-    }
-    .CTAButton {
-        display: none;
-    }
-    .HamburgerBtn {
-        display: flex;
-    }
-    .MobileMenu {
-        display: block;
-    }
-    .MobileBackdrop {
-        display: block;
-    }
-}
+  .links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    background: var(--c-card);
+    border-bottom: 1px solid var(--c-line);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.5);
+    transition: max-height 0.3s ease;
+  }
 
-/* ════════════════════════════════════════════════════════════
-   RESPONSIVE — pantallas grandes
-   ════════════════════════════════════════════════════════════ */
+  .links:not(.open) { border-bottom-color: transparent; box-shadow: none; }
+  .links.open { max-height: 440px; }
 
-/* 1440px — ampliar el contenedor y ajustar proporciones */
-@media (min-width: 1440px) {
-    .NavInner {
-        max-width: 1360px;
-        padding: 0.6rem 2rem;
-    }
+  .link {
+    padding: 14px 24px;
+    border-top: 1px solid var(--c-line);
+  }
 
-    .imgLogo {
-        height: 54px;
-    }
+  .link::after { display: none; }
 
-    .NavLink {
-        font-size: 0.92rem;
-        padding: 0.45rem 1rem !important;
-    }
-
-    .CTAButton {
-        font-size: 0.92rem;
-        padding: 0.5rem 1.4rem;
-    }
-}
-
-/* 1920px — contenedor más ancho, tipografía y espaciado mayores */
-@media (min-width: 1920px) {
-    .NavInner {
-        max-width: 1760px;
-        padding: 0.75rem 2.5rem;
-    }
-
-    .imgLogo {
-        height: 58px;
-    }
-
-    .NavLink {
-        font-size: 0.96rem;
-        padding: 0.5rem 1.1rem !important;
-        gap: 0.15rem;
-    }
-
-    .NavLinks {
-        gap: 0.2rem;
-    }
-
-    .CTAButton {
-        font-size: 0.95rem;
-        padding: 0.55rem 1.6rem;
-        border-radius: 9px;
-    }
-
-    .RightSection {
-        gap: 1rem;
-    }
+  .cta {
+    justify-content: center;
+    margin: 14px 24px 18px;
+  }
 }

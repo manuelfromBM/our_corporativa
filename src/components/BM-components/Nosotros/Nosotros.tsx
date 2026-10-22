@@ -2,13 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./Nosotros.module.css";
 import { team } from './Nosotros.team'
+import CircuitBackground from "../Circuit/CircuitBackground";
 
 export default function NosotrosSection() {
   return (
     <section id="nosotros" className={styles.section}>
+      <CircuitBackground variant="section" />
       <div className={styles.container}>
 
-        {/* Bloque de texto — ahora centrado arriba */}
+        {/* Bloque de texto */}
         <div className={styles.textBox}>
           <span className={styles.badge}>Quienes somos</span>
 
@@ -35,7 +37,6 @@ export default function NosotrosSection() {
         <div className={styles.teamGrid}>
           {team.map((member, i) => (
             <Link key={i} href={`/equipo/${member.slug}`} className={styles.teamCard}>
-              <div className={styles.imageGlow}></div>
               <div className={styles.cardImageWrapper}>
                 <Image
                   src={member.img}

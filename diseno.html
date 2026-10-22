@@ -299,6 +299,201 @@
   }
   .port.in  { left: -7px; }
   .port.out { right: -7px; }
+
+  /* ── NANO-FORJA: tarjeta construida por nanobots ─────────── */
+  .forge {
+    position: relative;
+    padding: 80px 24px 96px;
+    background: #0d0f14;
+    color: #f3f5f8;
+    font-family: sans-serif;
+    text-align: center;
+    overflow: hidden;
+  }
+  .forge-title {
+    margin: 16px 0 12px;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700;
+  }
+  .forge-title .highlight {
+    background: linear-gradient(135deg, #16c47f, #2f6fed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .forge-subtitle {
+    max-width: 520px;
+    margin: 0 auto 32px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #9aa3b2;
+  }
+  .forge-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #16c47f;
+    background: rgba(22, 196, 127, 0.08);
+    border: 1px solid rgba(22, 196, 127, 0.3);
+    border-radius: 999px;
+  }
+  .forge-badge::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #16c47f;
+    box-shadow: 0 0 6px #16c47f;
+  }
+  .forge-btn {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 26px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #16c47f, #2f6fed);
+    box-shadow: 0 10px 24px rgba(22, 196, 127, 0.25);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  }
+  .forge-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(22, 196, 127, 0.35); }
+  .forge-btn:disabled { opacity: 0.6; cursor: progress; }
+  .forge-btn .btn-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff;
+  }
+  .forge-btn.busy .btn-dot { animation: blink 0.6s ease-in-out infinite; }
+
+  /* Zona donde se ensambla la tarjeta; el canvas cubre toda la sección */
+  .forge-stage {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 48px;
+    min-height: 380px;
+  }
+  .forge-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* La tarjeta: invisible hasta que los nanobots la "imprimen" */
+  .nano-card {
+    --scan: 0%;
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    box-sizing: border-box;
+    padding: 32px 28px;
+    text-align: left;
+    background: #11151c;
+    border: 1px solid #2a3140;
+    border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    clip-path: inset(0 0 calc(100% - var(--scan)) 0 round 12px);
+  }
+  .nano-card.printing,
+  .nano-card.built { visibility: visible; }
+  .nano-card.built { clip-path: none; }
+
+  /* Línea de escaneo que recorre la tarjeta mientras se imprime */
+  .nano-card::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    top: var(--scan);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #16c47f, #2f6fed, transparent);
+    box-shadow: 0 0 14px #16c47f, 0 0 28px rgba(47, 111, 237, 0.6);
+    opacity: 0;
+  }
+  .nano-card.printing::after { opacity: 1; }
+
+  /* Rejilla "molecular" que se ve mientras la tarjeta aún no está sólida */
+  .nano-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image: radial-gradient(rgba(22, 196, 127, 0.35) 1px, transparent 1.4px);
+    background-size: 12px 12px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+  .nano-card.printing::before { opacity: 1; }
+
+  .nano-card > * {
+    position: relative;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .nano-card.built > * { opacity: 1; transform: none; }
+  .nano-card.built > *:nth-child(1) { transition-delay: 0.05s; }
+  .nano-card.built > *:nth-child(2) { transition-delay: 0.15s; }
+  .nano-card.built > *:nth-child(3) { transition-delay: 0.25s; }
+  .nano-card.built > *:nth-child(4) { transition-delay: 0.35s; }
+
+  .nano-card .service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px; height: 48px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(22, 196, 127, 0.12), rgba(47, 111, 237, 0.12));
+    color: #16c47f;
+  }
+  .nano-card .service-icon svg { width: 24px; height: 24px; }
+  .nano-card h3 { margin: 0 0 10px; font-size: 17px; font-weight: 700; color: #f3f5f8; }
+  .nano-card p { margin: 0 0 16px; font-size: 13.5px; line-height: 1.7; color: #9aa3b2; }
+  .nano-card ul { margin: 0; padding: 0; list-style: none; }
+  .nano-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #c7cddb;
+  }
+  .nano-card li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 6px; height: 6px; margin-top: 6px;
+    border-radius: 50%;
+    background: #16c47f;
+    box-shadow: 0 0 6px #16c47f;
+  }
+
+  /* Destello final cuando la tarjeta queda ensamblada */
+  .nano-card.flash { animation: cardFlash 0.9s ease-out; }
+  @keyframes cardFlash {
+    0%   { box-shadow: 0 0 0 1px #16c47f, 0 0 40px rgba(22, 196, 127, 0.55), 0 30px 80px rgba(0, 0, 0, 0.5); border-color: #16c47f; }
+    100% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); border-color: #2a3140; }
+  }
+
+  @media (max-width: 640px) {
+    .forge { padding: 64px 16px 72px; }
+    .forge-stage { min-height: 400px; margin-top: 36px; }
+  }
 </style>
 </head>
 <body>
@@ -393,6 +588,37 @@
         <span class="active"></span><span></span><span></span>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="forge" id="forge">
+  <canvas class="forge-canvas" id="forgeCanvas" aria-hidden="true"></canvas>
+
+  <span class="forge-badge">Nano-forja</span>
+  <h2 class="forge-title">Construido <span class="highlight">átomo por átomo</span></h2>
+  <p class="forge-subtitle">
+    Pulsa el botón y mira cómo un enjambre de nanobots ensambla la tarjeta,
+    enlace por enlace.
+  </p>
+  <button type="button" class="forge-btn" id="forgeBtn">
+    <span class="btn-dot"></span><span class="btn-label">Construir tarjeta</span>
+  </button>
+
+  <div class="forge-stage">
+    <article class="nano-card" id="nanoCard" aria-live="polite">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+      </div>
+      <h3>Automatización de procesos</h3>
+      <p>Eliminamos tareas manuales repetitivas conectando tus sistemas para que la información fluya sola.</p>
+      <ul>
+        <li>Flujos de trabajo sin intervención manual</li>
+        <li>Reducción de errores humanos</li>
+        <li>Ahorro de horas operativas</li>
+      </ul>
+    </article>
   </div>
 </section>
 
@@ -496,6 +722,305 @@
     }
   }
   typeTick(0);
+</script>
+
+<script>
+  // ── NANO-FORJA ──────────────────────────────────────────────
+  // Un enjambre de nanobots sale del botón, se enlaza como una
+  // molécula y ensambla la tarjeta; después la imprime con un escaneo.
+  (function nanoForge() {
+    const section = document.getElementById('forge');
+    const canvas = document.getElementById('forgeCanvas');
+    const ctx = canvas.getContext('2d');
+    const card = document.getElementById('nanoCard');
+    const btn = document.getElementById('forgeBtn');
+    const btnLabel = btn.querySelector('.btn-label');
+
+    const COLORS = ['#16c47f', '#2f6fed', '#5fe3b0'];
+    const EDGE_STEP = 9;        // separación de nanobots en el borde
+    const GRID_STEP = 24;       // separación de nanobots en el interior
+    const BOND_DIST = 26;       // distancia máxima para dibujar un enlace
+    const SCAN_MS = 900;        // duración de la "impresión"
+    const DISSOLVE_MS = 1300;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let particles = [];
+    let state = 'idle';         // idle | building | printing | built | dissolving
+    let rafId = null;
+    let dpr = 1;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const r = section.getBoundingClientRect();
+      canvas.width = r.width * dpr;
+      canvas.height = r.height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    // Rectángulo de un elemento en coordenadas del canvas (la sección)
+    function localRect(el) {
+      const s = section.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      return { x: r.left - s.left, y: r.top - s.top, w: r.width, h: r.height };
+    }
+
+    // Puntos destino: contorno de la tarjeta + una retícula interior
+    function cardTargets() {
+      const c = localRect(card);
+      const pts = [];
+      for (let x = c.x; x <= c.x + c.w; x += EDGE_STEP) {
+        pts.push({ x, y: c.y, edge: true }, { x, y: c.y + c.h, edge: true });
+      }
+      for (let y = c.y + EDGE_STEP; y < c.y + c.h; y += EDGE_STEP) {
+        pts.push({ x: c.x, y, edge: true }, { x: c.x + c.w, y, edge: true });
+      }
+      for (let x = c.x + GRID_STEP; x < c.x + c.w - GRID_STEP / 2; x += GRID_STEP) {
+        for (let y = c.y + GRID_STEP; y < c.y + c.h - GRID_STEP / 2; y += GRID_STEP) {
+          pts.push({ x: x + (Math.random() - 0.5) * 6, y: y + (Math.random() - 0.5) * 6, edge: false });
+        }
+      }
+      return { rect: c, pts };
+    }
+
+    const easeInOut = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const rand = (a, b) => a + Math.random() * (b - a);
+
+    // ── CONSTRUIR ──
+    function build() {
+      resize();
+      const b = localRect(btn);
+      const origin = { x: b.x + b.w / 2, y: b.y + b.h / 2 };
+      const { rect, pts } = cardTargets();
+
+      particles = pts.map(p => {
+        const angle = Math.random() * Math.PI * 2;
+        const spread = rand(4, 26);
+        return {
+          sx: origin.x + Math.cos(angle) * spread,
+          sy: origin.y + Math.sin(angle) * spread,
+          tx: p.x, ty: p.y,
+          x: origin.x, y: origin.y, px: origin.x, py: origin.y,
+          edge: p.edge,
+          // los del borde llegan primero: dibujan el "esqueleto" de la tarjeta
+          delay: (p.edge ? rand(0, 450) : rand(250, 800)),
+          dur: rand(850, 1250),
+          wobble: rand(-60, 60),
+          r: p.edge ? rand(1.4, 2) : rand(1, 1.6),
+          color: COLORS[(Math.random() * COLORS.length) | 0],
+          alpha: 1,
+          fade: 1,
+        };
+      });
+
+      state = 'building';
+      card.classList.remove('built', 'flash', 'printing');
+      card.style.setProperty('--scan', '0%');
+      setBusy(true, 'Ensamblando…');
+
+      const t0 = performance.now();
+      const flightEnd = Math.max(...particles.map(p => p.delay + p.dur));
+
+      cancelAnimationFrame(rafId);
+      const tick = now => {
+        const t = now - t0;
+        for (const p of particles) {
+          p.px = p.x; p.py = p.y;
+          const k = Math.min(Math.max((t - p.delay) / p.dur, 0), 1);
+          const e = easeInOut(k);
+          // trayectoria curva: desvío perpendicular que se anula al llegar
+          const dx = p.tx - p.sx, dy = p.ty - p.sy;
+          const len = Math.hypot(dx, dy) || 1;
+          const bend = Math.sin(k * Math.PI) * p.wobble;
+          p.x = p.sx + dx * e + (-dy / len) * bend;
+          p.y = p.sy + dy * e + (dx / len) * bend;
+          // pequeño temblor una vez en posición: siguen "trabajando"
+          if (k === 1) {
+            p.x += Math.sin(now / 90 + p.tx) * 0.4;
+            p.y += Math.cos(now / 110 + p.ty) * 0.4;
+          }
+          p.alpha = k === 0 ? 0 : 1;
+        }
+
+        if (t >= flightEnd + 150 && state === 'building') startPrint(rect, now);
+        if (state === 'printing') updatePrint(rect, now);
+
+        draw(state === 'building');
+        if (state === 'building' || state === 'printing') rafId = requestAnimationFrame(tick);
+        else if (state === 'built') fadeOut();
+      };
+      rafId = requestAnimationFrame(tick);
+    }
+
+    // ── IMPRESIÓN: la línea de escaneo solidifica la tarjeta ──
+    let printStart = 0;
+    function startPrint(rect, now) {
+      state = 'printing';
+      printStart = now;
+      card.classList.add('printing');
+    }
+
+    function updatePrint(rect, now) {
+      const k = Math.min((now - printStart) / SCAN_MS, 1);
+      card.style.setProperty('--scan', (k * 100).toFixed(2) + '%');
+      const scanY = rect.y + rect.h * k;
+      // los nanobots por encima del escaneo se "funden" con la tarjeta
+      for (const p of particles) {
+        if (p.ty < scanY - 6) p.fade = Math.max(p.fade - (p.edge ? 0.025 : 0.08), p.edge ? 0.35 : 0);
+      }
+      if (k >= 1) {
+        state = 'built';
+        card.classList.remove('printing');
+        card.classList.add('built', 'flash');
+        setBusy(false, 'Desensamblar');
+      }
+    }
+
+    // Tras construirla, el borde de nanobots se apaga suavemente
+    function fadeOut() {
+      const step = () => {
+        let alive = false;
+        for (const p of particles) {
+          p.fade = Math.max(p.fade - 0.03, 0);
+          if (p.fade > 0) alive = true;
+        }
+        draw(false);
+        if (alive && state === 'built') rafId = requestAnimationFrame(step);
+        else if (state === 'built') { particles = []; draw(false); }
+      };
+      rafId = requestAnimationFrame(step);
+    }
+
+    // ── DESENSAMBLAR: la tarjeta se deshace en nanobots que se dispersan ──
+    function dissolve() {
+      resize();
+      const { pts } = cardTargets();
+      particles = pts.map(p => {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = rand(80, 260);
+        return {
+          x: p.x, y: p.y, px: p.x, py: p.y,
+          sx: p.x, sy: p.y,
+          tx: p.x + Math.cos(angle) * dist,
+          ty: p.y + Math.sin(angle) * dist - rand(0, 80),
+          delay: rand(0, 350),
+          r: rand(1, 1.9),
+          color: COLORS[(Math.random() * COLORS.length) | 0],
+          alpha: 1, fade: 1,
+        };
+      });
+
+      state = 'dissolving';
+      card.classList.remove('built', 'flash');
+      card.style.setProperty('--scan', '0%');
+      setBusy(true, 'Desensamblando…');
+
+      const t0 = performance.now();
+      cancelAnimationFrame(rafId);
+      const tick = now => {
+        const t = now - t0;
+        for (const p of particles) {
+          p.px = p.x; p.py = p.y;
+          const k = Math.min(Math.max((t - p.delay) / (DISSOLVE_MS - 350), 0), 1);
+          const e = 1 - Math.pow(1 - k, 3);
+          p.x = p.sx + (p.tx - p.sx) * e;
+          p.y = p.sy + (p.ty - p.sy) * e;
+          p.fade = 1 - k;
+        }
+        draw(true);
+        if (t < DISSOLVE_MS) rafId = requestAnimationFrame(tick);
+        else {
+          particles = [];
+          draw(false);
+          state = 'idle';
+          setBusy(false, 'Construir tarjeta');
+        }
+      };
+      rafId = requestAnimationFrame(tick);
+    }
+
+    // ── DIBUJO ──
+    function draw(withTrails) {
+      const w = canvas.width / dpr, h = canvas.height / dpr;
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'lighter';
+
+      const live = particles.filter(p => p.alpha * p.fade > 0.02);
+
+      // Enlaces "moleculares": rejilla espacial para no comparar todos con todos
+      const grid = new Map();
+      for (const p of live) {
+        const key = ((p.x / BOND_DIST) | 0) + ',' + ((p.y / BOND_DIST) | 0);
+        if (!grid.has(key)) grid.set(key, []);
+        grid.get(key).push(p);
+      }
+      ctx.lineWidth = 0.7;
+      for (const p of live) {
+        const cx = (p.x / BOND_DIST) | 0, cy = (p.y / BOND_DIST) | 0;
+        for (let i = -1; i <= 1; i++) {
+          for (let j = -1; j <= 1; j++) {
+            const cell = grid.get((cx + i) + ',' + (cy + j));
+            if (!cell) continue;
+            for (const q of cell) {
+              if (q === p || q.x < p.x) continue;
+              const d = Math.hypot(q.x - p.x, q.y - p.y);
+              if (d > BOND_DIST) continue;
+              const a = (1 - d / BOND_DIST) * 0.55 * Math.min(p.alpha * p.fade, q.alpha * q.fade);
+              ctx.strokeStyle = `rgba(95, 227, 176, ${a})`;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      for (const p of live) {
+        const a = p.alpha * p.fade;
+        ctx.globalAlpha = a;
+        // estela corta mientras viajan
+        if (withTrails) {
+          ctx.strokeStyle = p.color;
+          ctx.lineWidth = p.r;
+          ctx.beginPath();
+          ctx.moveTo(p.px, p.py);
+          ctx.lineTo(p.x, p.y);
+          ctx.stroke();
+        }
+        // halo + núcleo
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = a * 0.18;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 3.2, 0, Math.PI * 2); ctx.fill();
+        ctx.globalAlpha = a;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+      }
+
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    function setBusy(busy, label) {
+      btn.disabled = busy;
+      btn.classList.toggle('busy', busy);
+      btnLabel.textContent = label;
+    }
+
+    btn.addEventListener('click', () => {
+      if (reducedMotion) {
+        const built = card.classList.toggle('built');
+        btnLabel.textContent = built ? 'Desensamblar' : 'Construir tarjeta';
+        return;
+      }
+      if (state === 'idle') build();
+      else if (state === 'built') dissolve();
+    });
+
+    window.addEventListener('resize', () => {
+      if (state === 'idle' || state === 'built') resize();
+    });
+    resize();
+  })();
 </script>
 </body>
 </html>
