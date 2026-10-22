@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { margin: 0; background: #1e1e2e; font-family: sans-serif; }
+
+  /* ── NAV ──────────────────────────────────────────────────── */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(17, 21, 28, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #2a3140;
+  }
+  .navbar-inner {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+  }
+  .navbar-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #f3f5f8;
+    text-decoration: none;
+  }
+  .navbar-logo .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    background: #1b212b;
+    border: 1px solid #2a3140;
+    box-shadow: 0 4px 14px rgba(22, 196, 127, 0.25);
+  }
+  .navbar-logo .badge img {
+    width: 22px; height: 22px;
+    object-fit: contain;
+  }
+  .navbar-logo .highlight {
+    background: linear-gradient(135deg, #16c47f, #2f6fed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .navbar-links a:not(.navbar-cta) {
+    position: relative;
+    padding: 4px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #c7cddb;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .navbar-links a:not(.navbar-cta)::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 2px;
+    background: linear-gradient(135deg, #16c47f, #2f6fed);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+  .navbar-links a:not(.navbar-cta):hover { color: #16c47f; }
+  .navbar-links a:not(.navbar-cta):hover::after { transform: scaleX(1); }
+  .navbar-cta.btn-primary { padding: 10px 18px; font-size: 13px; }
+
+  .navbar-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px; height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .navbar-toggle span {
+    width: 22px; height: 2px;
+    background: #f3f5f8;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .navbar-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .navbar-toggle.open span:nth-child(2) { opacity: 0; }
+  .navbar-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 760px) {
+    .navbar-toggle { display: flex; }
+    .navbar-links {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      background: #11151c;
+      border-bottom: 1px solid #2a3140;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.5);
+      transition: max-height 0.3s ease;
+    }
+    .navbar-links.open { max-height: 320px; }
+    .navbar-links a:not(.navbar-cta) {
+      padding: 14px 24px;
+      border-top: 1px solid #2a3140;
+    }
+    .navbar-links a:not(.navbar-cta)::after { display: none; }
+    .navbar-cta.btn-primary {
+      justify-content: center;
+      margin: 14px 24px 18px;
+    }
+  }
+
+  .hero {
+    --flash-a: #16c47f;
+    --flash-b: #2f6fed;
+    position: relative;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    overflow: hidden;
+    background: #0d0f14;
+    color: #f3f5f8;
+    font-family: sans-serif;
+    text-align: center;
+  }
+
+  /* Fondo de circuito: trazas tipo PCB + nodos + corriente que avanza */
+  .hero-circuit {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-circuit .trace { stroke: #262c38; stroke-width: 1.5; fill: none; }
+
+  .hero-circuit .joint circle {
+    fill: #3a4150;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .hero-circuit .joint.flash-a circle { --flash: var(--flash-a); animation: nodeFlash 6s linear infinite; }
+  .hero-circuit .joint.flash-b circle { --flash: var(--flash-b); animation: nodeFlash 7.5s linear infinite; }
+
+  @keyframes nodeFlash {
+    0%   { fill: var(--flash); filter: drop-shadow(0 0 7px var(--flash)); transform: scale(1.8); }
+    14%  { fill: #3a4150; filter: none; transform: scale(1); }
+    100% { fill: #3a4150; filter: none; transform: scale(1); }
+  }
+
+  .hero-circuit .pulse {
+    stroke: var(--flash-a);
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 6 94;
+    filter: drop-shadow(0 0 5px var(--flash-a));
+    animation: pulseFlow 6s linear infinite;
+  }
+  .hero-circuit .pulse.alt {
+    stroke: var(--flash-b);
+    filter: drop-shadow(0 0 5px var(--flash-b));
+    animation-duration: 7.5s;
+    animation-delay: 1.5s;
+  }
+  @keyframes pulseFlow {
+    from { stroke-dashoffset: 6; }
+    to   { stroke-dashoffset: -94; }
+  }
+
+  /* La tarjeta del hero es, a su vez, un "nodo": mismo lenguaje visual que .node */
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+    padding: 48px 56px;
+    background: #11151c;
+    color: #f3f5f8;
+    border: 1px solid #2a3140;
+    border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  }
+  .hero-content .port {
+    width: 14px; height: 14px;
+  }
+  .hero-content .port.in  { top: auto; bottom: -8px; left: -8px; background: #2f6fed; box-shadow: 0 0 10px #2f6fed; }
+  .hero-content .port.out { top: -8px; left: -8px; right: auto; background: #16c47f; box-shadow: 0 0 10px #16c47f; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #16c47f;
+    background: rgba(22, 196, 127, 0.08);
+    border: 1px solid rgba(22, 196, 127, 0.3);
+    border-radius: 999px;
+  }
+  .hero-badge::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #16c47f;
+    box-shadow: 0 0 6px #16c47f;
+  }
+  .hero-title {
+    margin: 0 0 20px;
+    font-size: clamp(2.2rem, 4.6vw, 3rem);
+    line-height: 1.15;
+    font-weight: 700;
+    color: #f3f5f8;
+  }
+  .hero-title .highlight {
+    background: linear-gradient(135deg, #16c47f, #2f6fed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle {
+    max-width: 480px;
+    margin: 0 auto 32px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #9aa3b2;
+  }
+  .hero-subtitle strong { color: #f3f5f8; }
+  .hero-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #16c47f, #2f6fed);
+    box-shadow: 0 10px 24px rgba(22, 196, 127, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(22, 196, 127, 0.35); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #f3f5f8;
+    text-decoration: none;
+    border: 1px solid #2a3140;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .btn-secondary:hover { border-color: #16c47f; color: #16c47f; }
+
+  /* Layout: tarjeta de texto + terminal lado a lado (columnas fijas, no se apilan salvo en móvil) */
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
+    gap: 48px;
+    width: 100%;
+    max-width: 1080px;
+  }
+  .hero-content {
+    text-align: left;
+    max-width: none;
+    padding: 40px 44px;
+  }
+  .hero-subtitle { margin: 0 0 32px; }
+  .hero-buttons { justify-content: flex-start; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+
+  @media (max-width: 1024px) {
+    .hero-grid { gap: 32px; }
+    .hero-content { padding: 36px 36px; }
+  }
+
+  @media (max-width: 860px) {
+    .hero { padding: 64px 20px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .hero-content { text-align: center; max-width: 560px; width: 100%; margin: 0 auto; }
+    .hero-buttons { justify-content: center; }
+    .terminal-wrap { max-width: 480px; width: 100%; margin: 0 auto; }
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 48px 16px; }
+    .hero-content { padding: 28px 24px; border-radius: 10px; }
+    .hero-content .port { display: none; }
+    .hero-title { font-size: clamp(1.9rem, 7vw, 2.4rem); margin-bottom: 16px; }
+    .hero-badge { margin-bottom: 18px; font-size: 11px; }
+    .hero-subtitle { font-size: 14px; margin-bottom: 24px; }
+    .hero-buttons { flex-direction: column; align-items: stretch; gap: 12px; }
+    .btn-primary, .btn-secondary { justify-content: center; width: 100%; }
+    .terminal-stack { min-height: 260px; }
+    .terminal-body { padding: 18px; font-size: 12.5px; min-height: 200px; }
+    .terminal-top { padding: 10px 14px; }
+  }
+
+  @media (max-width: 420px) {
+    .hero-title { font-size: clamp(1.7rem, 8vw, 2.1rem); }
+    .hero-content { padding: 24px 18px; }
+    .terminal-stack { min-height: 240px; }
+    .terminal-body { font-size: 11.5px; padding: 16px; }
+    .terminal-title { display: none; }
+  }
+
+  /* Terminal estilo macOS, en carrusel: varias "slides" apiladas, solo una visible */
+  .terminal-stack {
+    position: relative;
+    min-height: 300px;
+  }
+  .terminal {
+    position: absolute;
+    inset: 0;
+    background: #11151c;
+    border: 1px solid #232834;
+    border-radius: 14px;
+    overflow: hidden;
+    text-align: left;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+  }
+  .terminal.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .carousel-dots span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #3a4150;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .carousel-dots span.active {
+    background: #16c47f;
+    transform: scale(1.3);
+  }
+  .terminal-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #161b23;
+    border-bottom: 1px solid #232834;
+  }
+  .terminal-dots { display: flex; gap: 6px; }
+  .terminal-dots span { width: 10px; height: 10px; border-radius: 50%; display: block; }
+  .terminal-dots span:nth-child(1) { background: #ff5f57; }
+  .terminal-dots span:nth-child(2) { background: #febc2e; }
+  .terminal-dots span:nth-child(3) { background: #28c840; }
+  .terminal-title {
+    margin-left: 4px;
+    font-size: 12px;
+    color: #8891a0;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  .terminal-live {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #16c47f;
+  }
+  .live-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #16c47f;
+    box-shadow: 0 0 8px #16c47f;
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  .terminal-body {
+    padding: 24px;
+    min-height: 230px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: #9fe6c7;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .terminal-cursor {
+    color: #16c47f;
+    animation: blink 1s step-start infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
+  }
+
+  /* ── SECCIÓN SERVICIOS: mismo lenguaje visual que el hero ──── */
+  .services {
+    position: relative;
+    padding: 100px 24px;
+    background: #13161f;
+    color: #f3f5f8;
+    font-family: sans-serif;
+    overflow: hidden;
+  }
+  .services-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .services-header {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 56px;
+  }
+  .services-title {
+    margin: 16px 0 16px;
+    font-size: clamp(2rem, 4.2vw, 2.6rem);
+    line-height: 1.2;
+    font-weight: 700;
+    color: #f3f5f8;
+  }
+  .services-title .highlight {
+    background: linear-gradient(135deg, #16c47f, #2f6fed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .services-subtitle {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #9aa3b2;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
+  }
+  .service-card {
+    position: relative;
+    padding: 36px 28px;
+    background: #11151c;
+    border: 1px solid #2a3140;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(22, 196, 127, 0.35);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  }
+  .service-card .port {
+    width: 12px; height: 12px;
+    z-index: 2;
+  }
+  .service-card .port.in  { top: -6px; left: -6px; background: #2f6fed; box-shadow: 0 0 10px #2f6fed; }
+
+  /* Fondo de circuito de la sección de servicios: mismo lenguaje visual que el hero */
+  .services-circuit {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .services-circuit .trace { stroke: #262c38; stroke-width: 1.5; fill: none; }
+
+  .services-circuit .joint circle {
+    fill: #3a4150;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .services-circuit .joint.flash-a circle { --flash: #16c47f; animation: nodeFlash 6s linear infinite; }
+  .services-circuit .joint.flash-b circle { --flash: #2f6fed; animation: nodeFlash 7.5s linear infinite; }
+
+  .services-circuit .pulse {
+    stroke: #16c47f;
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 6 94;
+    filter: drop-shadow(0 0 5px #16c47f);
+    animation: pulseFlow 6s linear infinite;
+  }
+  .services-circuit .pulse.alt {
+    stroke: #2f6fed;
+    filter: drop-shadow(0 0 5px #2f6fed);
+    animation-duration: 7.5s;
+    animation-delay: 1.5s;
+  }
+  .service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(22, 196, 127, 0.12), rgba(47, 111, 237, 0.12));
+    color: #16c47f;
+  }
+  .service-icon svg { width: 24px; height: 24px; }
+  .service-card h3 {
+    margin: 0 0 10px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #f3f5f8;
+  }
+  .service-card p {
+    margin: 0 0 16px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #9aa3b2;
+  }
+  .service-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .service-card ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #c7cddb;
+  }
+  .service-card ul li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 6px; height: 6px; margin-top: 6px;
+    border-radius: 50%;
+    background: #16c47f;
+    box-shadow: 0 0 6px #16c47f;
+  }
+
+  @media (max-width: 640px) {
+    .services { padding: 64px 16px; }
+    .services-header { margin-bottom: 36px; }
+    .service-card { padding: 28px 22px; }
+  }
+
+  .port {
+    width: 12px; height: 12px; border-radius: 50%; background: #a6e3a1;
+    position: absolute; top: 50%; transform: translateY(-50%);
+  }
+  .port.in  { left: -7px; }
+  .port.out { right: -7px; }
+
+  /* ── FOOTER ───────────────────────────────────────────────── */
+  .site-footer {
+    position: relative;
+    background: #11151c;
+    color: #c7cddb;
+    padding: 64px 24px 32px;
+    overflow: hidden;
+  }
+  .site-footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #16c47f, #2f6fed, transparent);
+  }
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #232834;
+  }
+  .footer-brand { max-width: 360px; }
+  .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .footer-logo .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    background: #1b212b;
+    border: 1px solid #2a3140;
+  }
+  .footer-logo .badge img { width: 22px; height: 22px; object-fit: contain; }
+  .footer-logo .highlight {
+    background: linear-gradient(135deg, #16c47f, #2f6fed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .footer-tagline {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #8891a0;
+  }
+  .footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-nav-title {
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #5b6472;
+  }
+  .footer-nav a {
+    font-size: 14px;
+    color: #c7cddb;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .footer-nav a:hover { color: #16c47f; }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 24px;
+    font-size: 12.5px;
+    color: #5b6472;
+  }
+  .footer-bottom .btn-primary { padding: 10px 18px; font-size: 13px; }
+
+  @media (max-width: 640px) {
+    .site-footer { padding: 48px 20px 28px; text-align: center; }
+    .footer-top { flex-direction: column; align-items: center; gap: 32px; }
+    .footer-brand { max-width: 100%; }
+    .footer-nav { align-items: center; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="#hero" class="navbar-logo">
+      <span class="badge"><img src="public/BM-imagenes/iconoBM2.png" alt="BM Code Lab"></span>
+      BM <span class="highlight">Code Lab</span>
+    </a>
+    <button class="navbar-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navbar-links" id="navLinks">
+      <a href="#hero">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto" class="btn-primary navbar-cta">Contáctanos</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <svg class="hero-circuit" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g class="trace">
+      <path d="M0 140 H180 L220 180 H420 L460 140 H760 L800 180 H1200" />
+      <path d="M0 560 H160 L200 520 H480 L520 560 H860 L900 520 H1200" />
+      <path d="M120 0 V100 L160 140 V260" />
+      <path d="M1040 0 V120 L1000 160 V320" />
+      <path d="M300 700 V600 L340 560 V460" />
+      <path d="M900 700 V580 L860 540 V420" />
+    </g>
+
+    <path class="pulse" pathLength="100" d="M0 140 H180 L220 180 H420 L460 140 H760 L800 180 H1200" />
+    <path class="pulse alt" pathLength="100" d="M0 560 H160 L200 520 H480 L520 560 H860 L900 520 H1200" />
+
+    <!-- Nodos sobre la traza superior (verde): delay = tiempo que tarda la corriente en llegar -->
+    <g class="joint flash-a">
+      <circle cx="0"   cy="140" r="4" style="animation-delay: 0s" />
+      <circle cx="180" cy="140" r="4" style="animation-delay: 0.86s" />
+      <circle cx="220" cy="180" r="4" style="animation-delay: 1.14s" />
+      <circle cx="460" cy="140" r="4" style="animation-delay: 2.37s" />
+      <circle cx="800" cy="180" r="4" style="animation-delay: 4.08s" />
+    </g>
+
+    <!-- Nodos sobre la traza inferior (azul): delay = 1.5s (su propio retraso) + tiempo de recorrido -->
+    <g class="joint flash-b">
+      <circle cx="0"   cy="560" r="4" style="animation-delay: 1.5s" />
+      <circle cx="160" cy="560" r="4" style="animation-delay: 2.46s" />
+      <circle cx="200" cy="520" r="4" style="animation-delay: 2.8s" />
+      <circle cx="520" cy="560" r="4" style="animation-delay: 4.82s" />
+      <circle cx="900" cy="520" r="4" style="animation-delay: 7.2s" />
+    </g>
+
+    <!-- Nodos decorativos sobre las trazas verticales, sin corriente -->
+    <g class="joint">
+      <circle cx="160" cy="140" r="4" />
+      <circle cx="1000" cy="160" r="4" />
+      <circle cx="340" cy="560" r="4" />
+      <circle cx="860" cy="540" r="4" />
+    </g>
+  </svg>
+
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="port in"></div>
+      <span class="hero-badge">BM Code Lab</span>
+      <h1 class="hero-title">
+        Tu negocio, funcionando
+        <span class="highlight">sin que todo dependa de ti</span>
+      </h1>
+      <p class="hero-subtitle">
+        En <strong>BM Code Lab</strong> conectamos cada parte de tu empresa como
+        un circuito bien diseñado: automatización que fluye sola, sin que todo
+        dependa de ti.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contacto" class="btn-primary">Hablemos de tu proyecto →</a>
+        <a href="#servicios" class="btn-secondary">Ver servicios</a>
+      </div>
+      <div class="port out"></div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-stack">
+        <div class="terminal active" data-slide="0">
+          <div class="terminal-top">
+            <div class="terminal-dots"><span></span><span></span><span></span></div>
+            <span class="terminal-title">circuito.sh</span>
+            <span class="terminal-live"><i class="live-dot"></i>en vivo</span>
+          </div>
+          <div class="terminal-body"><span class="term-typed"></span><span class="terminal-cursor">▌</span></div>
+        </div>
+        <div class="terminal" data-slide="1">
+          <div class="terminal-top">
+            <div class="terminal-dots"><span></span><span></span><span></span></div>
+            <span class="terminal-title">deploy.sh</span>
+            <span class="terminal-live"><i class="live-dot"></i>desplegando</span>
+          </div>
+          <div class="terminal-body"><span class="term-typed"></span><span class="terminal-cursor">▌</span></div>
+        </div>
+        <div class="terminal" data-slide="2">
+          <div class="terminal-top">
+            <div class="terminal-dots"><span></span><span></span><span></span></div>
+            <span class="terminal-title">monitor.sh</span>
+            <span class="terminal-live"><i class="live-dot"></i>monitoreando</span>
+          </div>
+          <div class="terminal-body"><span class="term-typed"></span><span class="terminal-cursor">▌</span></div>
+        </div>
+      </div>
+
+      <div class="carousel-dots" id="carouselDots">
+        <span class="active"></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="servicios">
+  <svg class="services-circuit" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g class="trace">
+      <path d="M0 100 H200 L240 140 H480 L520 100 H800 L840 140 H1200" />
+      <path d="M0 400 H180 L220 360 H500 L540 400 H820 L860 360 H1200" />
+      <path d="M140 0 V60 L180 100 V180" />
+      <path d="M1060 0 V80 L1020 120 V220" />
+      <path d="M320 500 V440 L360 400 V320" />
+      <path d="M880 500 V460 L840 420 V340" />
+    </g>
+
+    <path class="pulse" pathLength="100" d="M0 100 H200 L240 140 H480 L520 100 H800 L840 140 H1200" />
+    <path class="pulse alt" pathLength="100" d="M0 400 H180 L220 360 H500 L540 400 H820 L860 360 H1200" />
+
+    <!-- Nodos sobre la traza superior (verde): delay = tiempo que tarda la corriente en llegar -->
+    <g class="joint flash-a">
+      <circle cx="0"   cy="100" r="4" style="animation-delay: 0s" />
+      <circle cx="200" cy="100" r="4" style="animation-delay: 0.9s" />
+      <circle cx="240" cy="140" r="4" style="animation-delay: 1.2s" />
+      <circle cx="520" cy="100" r="4" style="animation-delay: 2.5s" />
+      <circle cx="840" cy="140" r="4" style="animation-delay: 4.1s" />
+    </g>
+
+    <!-- Nodos sobre la traza inferior (azul): delay = 1.5s (su propio retraso) + tiempo de recorrido -->
+    <g class="joint flash-b">
+      <circle cx="0"   cy="400" r="4" style="animation-delay: 1.5s" />
+      <circle cx="180" cy="400" r="4" style="animation-delay: 2.4s" />
+      <circle cx="220" cy="360" r="4" style="animation-delay: 2.7s" />
+      <circle cx="540" cy="400" r="4" style="animation-delay: 4.8s" />
+      <circle cx="860" cy="360" r="4" style="animation-delay: 7.1s" />
+    </g>
+
+    <!-- Nodos decorativos sobre las trazas verticales, sin corriente -->
+    <g class="joint">
+      <circle cx="180" cy="100" r="4" />
+      <circle cx="1020" cy="120" r="4" />
+      <circle cx="360" cy="400" r="4" />
+      <circle cx="840" cy="420" r="4" />
+    </g>
+  </svg>
+  <div class="services-inner">
+    <div class="services-header">
+      <span class="hero-badge">Lo que hacemos</span>
+      <h2 class="services-title">
+        Servicios que mantienen
+        <span class="highlight">tu negocio en marcha</span>
+      </h2>
+      <p class="services-subtitle">
+        Diseñamos, construimos y mantenemos el circuito completo de tu
+        operación: desde la automatización hasta el soporte continuo.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="port in"></div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <h3>Automatización de procesos</h3>
+        <p>Eliminamos tareas manuales repetitivas conectando tus sistemas para que la información fluya sola.</p>
+        <ul>
+          <li>Flujos de trabajo sin intervención manual</li>
+          <li>Reducción de errores humanos</li>
+          <li>Ahorro de horas operativas</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="port in"></div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+        </div>
+        <h3>Desarrollo a medida</h3>
+        <p>Construimos software y sitios web adaptados a la forma en que realmente trabaja tu equipo.</p>
+        <ul>
+          <li>Aplicaciones web y sistemas internos</li>
+          <li>Diseño enfocado en el usuario</li>
+          <li>Escalable a medida que creces</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="port in"></div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6" cy="6" r="3"></circle>
+            <circle cx="18" cy="18" r="3"></circle>
+            <path d="M8.5 8.5 15.5 15.5"></path>
+          </svg>
+        </div>
+        <h3>Integraciones y APIs</h3>
+        <p>Conectamos tus herramientas (CRM, pagos, mensajería) para que funcionen como un solo circuito.</p>
+        <ul>
+          <li>Integración entre plataformas</li>
+          <li>APIs a medida</li>
+          <li>Sincronización de datos en tiempo real</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="port in"></div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </div>
+        <h3>Soporte y mantenimiento</h3>
+        <p>Monitoreamos y mantenemos tus sistemas encendidos, con soporte continuo cuando lo necesites.</p>
+        <ul>
+          <li>Monitoreo proactivo</li>
+          <li>Resolución rápida de incidencias</li>
+          <li>Mejoras continuas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#hero" class="footer-logo">
+          <span class="badge"><img src="public/BM-imagenes/iconoBM2.png" alt="BM Code Lab"></span>
+          BM <span class="highlight">Code Lab</span>
+        </a>
+        <p class="footer-tagline">
+          Conectamos cada parte de tu negocio como un circuito bien diseñado:
+          automatización que fluye sola, sin que todo dependa de ti.
+        </p>
+      </div>
+
+      <nav class="footer-nav">
+        <span class="footer-nav-title">Navegación</span>
+        <a href="#hero">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#nosotros">Nosotros</a>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 BM Code Lab. Todos los derechos reservados.</span>
+      <a href="#contacto" class="btn-primary">Hablemos de tu proyecto →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav: toggle del menú móvil
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Terminal: escribe el mensaje caracter a caracter y reinicia en loop
+  const TERMINAL_LINES = [
+    '$ bmcodelab run --circuito',
+    '',
+    '> detectando cuellos de botella...',
+    '> conectando nodos del proceso...',
+    '> la corriente ya fluye sola',
+    '',
+    '✔ automatización encendida',
+    '✔ 0 tareas manuales pendientes',
+    '',
+    'listo. tu negocio ya enciende solo.',
+  ];
+  const termFullText = TERMINAL_LINES.join('\n');
+  const termEl = document.querySelector('.term-typed');
+  const TYPE_DELAY = 28;
+  const RESTART_DELAY = 2400;
+
+  function typeTick(i) {
+    termEl.textContent = termFullText.slice(0, i);
+    if (i < termFullText.length) {
+      setTimeout(() => typeTick(i + 1), TYPE_DELAY);
+    } else {
+      setTimeout(() => typeTick(0), RESTART_DELAY);
+    }
+  }
+  typeTick(0);
+
+  // Conecta los puertos de la tarjeta del hero con el circuito de fondo,
+  // para que el nodo azul y el verde "reciban" la corriente que pasa detrás.
+  (function connectHeroPorts() {
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.querySelector('.hero-circuit');
+    const card = document.querySelector('.hero-content');
+    if (!svg || !card) return;
+
+    function toSvgPoint(el) {
+      const r = el.getBoundingClientRect();
+      const ctm = svg.getScreenCTM();
+      if (!ctm) return null;
+      const pt = svg.createSVGPoint();
+      pt.x = r.left + r.width / 2;
+      pt.y = r.top + r.height / 2;
+      return pt.matrixTransform(ctm.inverse());
+    }
+
+    function buildLink(anchor, portEl, alt, delay) {
+      const target = toSvgPoint(portEl);
+      if (!target) return null;
+
+      const dx = (target.x - anchor.x) * 0.55;
+      const d = `M ${anchor.x} ${anchor.y} C ${anchor.x + dx} ${anchor.y}, ${target.x - dx} ${target.y}, ${target.x} ${target.y}`;
+      const frag = document.createDocumentFragment();
+
+      const trace = document.createElementNS(svgNS, 'path');
+      trace.setAttribute('class', 'trace hero-port-link');
+      trace.setAttribute('d', d);
+      frag.appendChild(trace);
+
+      const pulse = document.createElementNS(svgNS, 'path');
+      pulse.setAttribute('class', 'pulse hero-port-link' + (alt ? ' alt' : ''));
+      pulse.setAttribute('pathLength', '100');
+      pulse.setAttribute('d', d);
+      frag.appendChild(pulse);
+
+      const jointGroup = document.createElementNS(svgNS, 'g');
+      jointGroup.setAttribute('class', 'joint hero-port-link ' + (alt ? 'flash-b' : 'flash-a'));
+      const joint = document.createElementNS(svgNS, 'circle');
+      joint.setAttribute('cx', target.x);
+      joint.setAttribute('cy', target.y);
+      joint.setAttribute('r', '4');
+      if (delay) joint.style.animationDelay = delay;
+      jointGroup.appendChild(joint);
+      frag.appendChild(jointGroup);
+
+      return frag;
+    }
+
+    function render() {
+      svg.querySelectorAll('.hero-port-link').forEach(el => el.remove());
+
+      const greenPort = card.querySelector('.port.out');
+      const bluePort = card.querySelector('.port.in');
+      if (!greenPort || !bluePort || getComputedStyle(greenPort).display === 'none') return;
+
+      // Puntos de anclaje: joints ya existentes en las trazas de arriba y abajo.
+      const greenLink = buildLink({ x: 180, y: 140 }, greenPort, false, null);
+      const blueLink = buildLink({ x: 160, y: 560 }, bluePort, true, '1.5s');
+      if (greenLink) svg.appendChild(greenLink);
+      if (blueLink) svg.appendChild(blueLink);
+    }
+
+    render();
+    window.addEventListener('resize', render);
+  })();
+</script>
+</body>
+</html>
