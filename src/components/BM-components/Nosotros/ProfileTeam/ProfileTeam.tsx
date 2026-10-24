@@ -20,6 +20,8 @@ const ICON_MAP: Record<string, string> = {
   eye: "👁️",
   "device-mobile": "📱",
   palette: "🎨",
+  code: "💻",
+  target: "🎯",
 };
 
 type View = "tech" | "biz";

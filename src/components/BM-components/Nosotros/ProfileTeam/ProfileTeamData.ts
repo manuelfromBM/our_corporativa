@@ -197,51 +197,179 @@ export const teamData: TeamMember[] = [
       ],
     },
   },
-  {
-    slug: "byron",
-    initials: "MP",
-    img: "/BM-imagenes/BM_Team/byron.jpeg",
-    alt: "Foto de Byron Santis",
-    badge: "Cofundador Tardio",
-    name: "Byron Santis",
-    role: "UI/UX Designer",
-    tech: {
-      bio: "Diseñador UI/UX responsable de la identidad visual de BMCodeLab y Krona. Trabaja con sistemas de diseño, componentes reutilizables y prototipado de alta fidelidad, asegurando consistencia entre diseño y desarrollo.",
-      stats: [
-        { value: "3+", label: "años experiencia" },
-        { value: "UI/UX", label: "especialidad" },
-        { value: "Design", label: "Systems" },
-      ],
-      skills: [
-        "Figma", "Tailwind CSS", "HTML/CSS", "React",
-        "Framer", "Illustrator", "Motion Design",
-      ],
-      tools: [
-        "Figma", "Vercel", "Storybook", "GitHub",
-        "Tailwind", "Adobe CC", "Lottie",
-      ],
-    },
-    biz: {
-      bio: "Matías hace que tu producto se vea profesional desde el primer día. La gente confía en los productos que se ven bien. Él se asegura de que el tuyo genere esa confianza.",
-      cards: [
-        {
-          icon: "eye",
-          title: "Primera impresión que vende",
-          desc: "Un diseño limpio y profesional genera confianza instantánea. Matías diseña interfaces que hacen que los clientes quieran quedarse.",
-        },
-        {
-          icon: "device-mobile",
-          title: "Experiencias para todos los dispositivos",
-          desc: "El diseño funciona en móvil, tablet y desktop — porque tus clientes usan todos ellos.",
-        },
-        {
-          icon: "palette",
-          title: "Identidad visual coherente",
-          desc: "Logo, colores, tipografía y componentes que hablan el mismo idioma. Una marca que se recuerda.",
-        },
-      ],
-    },
+  
+{
+  slug: "byron",
+  initials: "BS",
+  img: "/BM-imagenes/BM_Team/byron_ia.png",
+  alt: "Foto de Byron Santis Salgado",
+  badge: "Desarrollador",
+  name: "Byron Santis Salgado",
+  role: "Full Stack Developer & Soporte TI",
+  tech: {
+    bio: "Ingeniero en Informática apasionado por la tecnología, el aprendizaje continuo y la mejora constante. Me destaco por mi compromiso, responsabilidad y dedicación al trabajo. Disfruto resolver problemas, trabajar en equipo y aportar soluciones que marquen la diferencia. Siempre estoy buscando nuevos desafíos que me permitan crecer personal y profesionalmente.",
+    experience: [
+      {
+        company: "Banco Itaú",
+        role: "Programador Front End (Práctica profesional)",
+        period: "Diciembre 2022 - Febrero 2023",
+        description: "Desarrollé aplicaciones web responsivas aplicando buenas prácticas con HTML5, CSS3, JavaScript, TypeScript y el framework React + Vite.",
+      },
+      {
+        company: "Freelancer",
+        role: "Programador Full Stack",
+        period: "Junio 2023 - 2025",
+        description: "Diseñé y desarrollé soluciones web y móviles para pequeñas empresas, utilizando distintas tecnologías para apoyar su crecimiento y digitalización.",
+      },
+      {
+        company: "Colegio San Manuel",
+        role: "Soporte Técnico",
+        period: "Diciembre 2024 - Marzo 2025",
+        description: "Brindé soporte técnico para equipos: diagnóstico, configuración, instalación de software y mantenimiento general.",
+      },
+      {
+        company: "The Legal Industry",
+        role: "Programador Full Stack",
+        period: "Octubre 2025 - Junio 2026",
+        description: "Desarrollé con mi equipo un buscador con inteligencia artificial utilizando Java, JavaScript, Node.js, React y Vite, orientado al sector legal para la búsqueda y registro de firmas de abogados. Integré OpenAI para funcionalidades inteligentes y AWS para bases de datos y despliegue en la nube.",
+      },
+    ],
+    education: [
+      {
+        institution: "Duoc UC",
+        degree: "Ingeniería en Informática · Certificado en Calidad de Software",
+        period: "Marzo 2019 - Diciembre 2022",
+      },
+    ],
+    stats: [
+      { value: "3+", label: "años experiencia" },
+      { value: "4", label: "experiencias laborales" },
+      { value: "FullStack", label: "especialidad" },
+    ],
+    skills: [
+      "HTML",
+      "JavaScript",
+      "TypeScript",
+      "Python",
+      "Java",
+      "PHP",
+      "Django",
+      "Vite",
+      "Next.js",
+      "Vue",
+      "React",
+      "AWS",
+      "Git",
+      "API REST",
+      "Visual Studio Code",
+      "Antigravity",
+      "Postman",
+      "Jest",
+      "Microsoft Office",
+      "SQL Server",
+      "SQLite",
+      "MongoDB",
+      "MySQL",
+      "Firebase",
+      "Express.js",
+      "Node.js",
+      "Endpoints",
+    ],
+    libraries: [
+      {
+        category: "Lenguajes de programación",
+        items: [
+          "HTML",
+          "JavaScript",
+          "TypeScript",
+          "Python",
+          "Java",
+          "PHP",
+        ],
+      },
+      {
+        category: "Frameworks",
+        items: [
+          "Django",
+          "Vite",
+          "Next.js",
+          "Vue",
+          "React",
+        ],
+      },
+      {
+        category: "Desarrollo y herramientas",
+        items: [
+          "Node.js",
+          "Express.js",
+          "API REST",
+          "Endpoints",
+          "Git",
+          "Visual Studio Code",
+          "Antigravity",
+          "Postman",
+          "Jest",
+        ],
+      },
+      {
+        category: "Bases de datos y servicios",
+        items: [
+          "SQL Server",
+          "SQLite",
+          "MongoDB",
+          "MySQL",
+          "Firebase",
+          "AWS",
+        ],
+      },
+      {
+        category: "Diseño y estilos",
+        items: [
+          "HTML",
+          "CSS",
+        ],
+      },
+    ],
+    tools: [
+      "React",
+      "AWS",
+      "Git",
+      "Visual Studio Code",
+      "Antigravity",
+      "Postman",
+      "Jest",
+      "Microsoft Office",
+      "SQL Server",
+      "SQLite",
+      "MongoDB",
+      "MySQL",
+      "Firebase",
+      "Express.js",
+      "Node.js",
+    ],
   },
+  biz: {
+    bio: "Byron Santis Salgado es Ingeniero en Informática apasionado por la tecnología y el desarrollo web. Su enfoque está en crear páginas web personalizadas, adaptadas a las necesidades, objetivos e identidad de cada proyecto, buscando entregar soluciones funcionales, modernas y con una buena experiencia de usuario.",
+    cards: [
+      {
+        icon: "code",
+        title: "Páginas web personalizadas",
+        desc: "Desarrollo de sitios web a medida, diseñados según las necesidades de cada proyecto, con una identidad visual propia y una estructura pensada para presentar tu negocio, servicio o marca de manera profesional.",
+      },
+      {
+        icon: "rocket",
+        title: "Desarrollo web moderno",
+        desc: "Uso de tecnologías como React, Next.js, JavaScript, TypeScript y CSS para construir experiencias web modernas, responsivas y adaptadas a distintos dispositivos.",
+      },
+      {
+        icon: "target",
+        title: "Soluciones a medida",
+        desc: "Cada proyecto tiene objetivos diferentes. Por eso, el desarrollo se enfoca en crear soluciones personalizadas, cuidando los detalles visuales, la funcionalidad y las necesidades específicas de cada cliente.",
+      },
+    ],
+  },
+},
+
 ];
 
 export const teamSlugs = teamData.map((m) => m.slug);

@@ -5,7 +5,6 @@ import { emailHtml } from "./correo";
 import { emailHtmlAdmin } from "./notificacion";
 import { prisma } from '@/lib/prisma'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 const opcionesNegocio = [
     "Barbería / Peluquería",
@@ -52,6 +51,7 @@ function validarDatos(data:unknown): data is DatosFormSorteo{
 
 
 export async function POST(req: Request) {
+  const resend = new Resend(process.env.RESEND_API_KEY)
   try {
 
     const body = await req.json()
