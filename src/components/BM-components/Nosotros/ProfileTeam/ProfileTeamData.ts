@@ -203,8 +203,8 @@ export const teamData: TeamMember[] = [
   initials: "BS",
   img: "/BM-imagenes/BM_Team/byron_ia.png",
   alt: "Foto de Byron Santis Salgado",
-  badge: "Desarrollador",
-  name: "Byron Santis Salgado",
+  badge: "Cofundandor Tardio",
+  name: "Byron Santis",
   role: "Full Stack Developer & Soporte TI",
   tech: {
     bio: "Ingeniero en Informática apasionado por la tecnología, el aprendizaje continuo y la mejora constante. Me destaco por mi compromiso, responsabilidad y dedicación al trabajo. Disfruto resolver problemas, trabajar en equipo y aportar soluciones que marquen la diferencia. Siempre estoy buscando nuevos desafíos que me permitan crecer personal y profesionalmente.",
