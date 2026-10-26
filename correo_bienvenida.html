@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Correo de bienvenida — BM Code Lab</title>
+<style>
+  /* ============================================================
+     Editor del correo de bienvenida — tema "black circuit"
+     Mismos tokens que src/Styles/BM-theme.css
+     ============================================================ */
+  :root {
+    --c-green: #16c47f;
+    --c-blue: #2f6fed;
+    --c-gradient: linear-gradient(135deg, #16c47f, #2f6fed);
+    --c-bg-hero: #0d0f14;
+    --c-bg-section: #13161f;
+    --c-card: #11151c;
+    --c-card-top: #161b23;
+    --c-line: #2a3140;
+    --c-line-soft: #232834;
+    --c-text: #f3f5f8;
+    --c-text-2: #c7cddb;
+    --c-muted: #9aa3b2;
+    --c-dim: #5b6472;
+    --c-radius: 12px;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--c-bg-hero);
+    color: var(--c-text);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+    gap: 32px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+  @media (max-width: 960px) {
+    .layout { grid-template-columns: 1fr; padding: 24px 16px; }
+  }
+
+  /* ---------- Panel del editor (tarjeta tipo nodo) ---------- */
+  .panel {
+    position: relative;
+    align-self: start;
+    background: var(--c-card);
+    border: 1px solid var(--c-line);
+    border-radius: var(--c-radius);
+    padding: 28px 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  }
+  .panel::before, .panel::after {
+    content: "";
+    position: absolute;
+    top: 36px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+  }
+  .panel::before { left: -7px; background: var(--c-blue); box-shadow: 0 0 10px var(--c-blue); }
+  .panel::after  { right: -7px; background: var(--c-green); box-shadow: 0 0 10px var(--c-green); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-green);
+    background: rgba(22, 196, 127, 0.08);
+    border: 1px solid rgba(22, 196, 127, 0.3);
+    border-radius: 999px;
+  }
+  .badge::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--c-green);
+    box-shadow: 0 0 6px var(--c-green);
+  }
+  .panel h1 { margin: 0 0 8px; font-size: 22px; }
+  .panel h1 .highlight {
+    background: var(--c-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .panel p.hint { margin: 0 0 20px; font-size: 13px; line-height: 1.6; color: var(--c-muted); }
+
+  fieldset {
+    margin: 0 0 18px;
+    padding: 0;
+    border: 0;
+  }
+  legend {
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-dim);
+  }
+  label { display: block; margin-bottom: 10px; font-size: 13px; color: var(--c-text-2); }
+  label input, label textarea, label select {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 9px 11px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--c-text);
+    background: var(--c-bg-section);
+    border: 1px solid var(--c-line-soft);
+    border-radius: 8px;
+    transition: border-color 0.2s ease;
+  }
+  label input:focus, label textarea:focus, label select:focus {
+    outline: none;
+    border-color: var(--c-green);
+  }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .check input { accent-color: var(--c-green); }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .btn-primary, .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .btn-primary {
+    color: #fff;
+    background: var(--c-gradient);
+    border: 0;
+    box-shadow: 0 10px 24px rgba(22, 196, 127, 0.25);
+  }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-secondary {
+    color: var(--c-text);
+    background: transparent;
+    border: 1px solid var(--c-line);
+  }
+  .btn-secondary:hover { border-color: var(--c-green); color: var(--c-green); }
+
+  .toast {
+    min-height: 18px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--c-green);
+  }
+
+  /* ---------- Vista previa ---------- */
+  .preview-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--c-card-top);
+    border: 1px solid var(--c-line-soft);
+    border-bottom: 0;
+    border-radius: var(--c-radius) var(--c-radius) 0 0;
+    font-size: 13px;
+    color: var(--c-muted);
+  }
+  .dots { display: flex; gap: 6px; }
+  .dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--c-line); }
+  .dots span:nth-child(1) { background: #ff5f57; }
+  .dots span:nth-child(2) { background: #febc2e; }
+  .dots span:nth-child(3) { background: #28c840; }
+  .subject { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .subject strong { color: var(--c-text); }
+  #preview {
+    display: block;
+    width: 100%;
+    height: 1500px;
+    border: 1px solid var(--c-line-soft);
+    border-radius: 0 0 var(--c-radius) var(--c-radius);
+    background: #0d0f14;
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- ======================= EDITOR ======================= -->
+  <form class="panel" id="editor" autocomplete="off">
+    <span class="badge">Plantilla · Inicio de proyecto</span>
+    <h1>Correo de <span class="highlight">bienvenida</span></h1>
+    <p class="hint">
+      Completa los datos y la vista previa se actualiza sola. Luego copia el HTML
+      para pegarlo en tu cliente de correo o descarga el archivo.
+    </p>
+
+    <fieldset>
+      <legend>Cliente y proyecto</legend>
+      <label>Nombre del contacto del cliente
+        <input name="clientContact" value="Camila Rojas">
+      </label>
+      <label>Empresa del cliente
+        <input name="clientCompany" value="Empresa Ejemplo SpA">
+      </label>
+      <label>Nombre del proyecto
+        <input name="projectName" value="Sitio web corporativo">
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Reunión de inicio (kick-off)</legend>
+      <div class="row">
+        <label>Fecha
+          <input type="date" name="kickoffDate">
+        </label>
+        <label>Hora
+          <input type="time" name="kickoffTime" value="10:00">
+        </label>
+      </div>
+      <label>Modalidad
+        <select name="kickoffMode">
+          <option>Google Meet</option>
+          <option>Zoom</option>
+          <option>Microsoft Teams</option>
+          <option>Presencial</option>
+        </select>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Equipo asignado</legend>
+      <div id="teamChecks"></div>
+      <label>Líder del proyecto (contacto principal)
+        <select name="lead" id="leadSelect"></select>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Comunicación</legend>
+      <label class="check"><input type="checkbox" name="ch" value="email" checked> Correo electrónico</label>
+      <label class="check"><input type="checkbox" name="ch" value="whatsapp" checked> WhatsApp</label>
+      <label class="check"><input type="checkbox" name="ch" value="meet" checked> Videollamadas</label>
+      <label class="check"><input type="checkbox" name="ch" value="slack"> Slack</label>
+      <div class="row">
+        <label>Horario de atención
+          <input name="hours" value="Lunes a viernes, 9:00 a 18:00">
+        </label>
+        <label>Tiempo de respuesta
+          <input name="responseTime" value="24 horas hábiles">
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Firma</legend>
+      <label>Quién envía
+        <select name="sender" id="senderSelect"></select>
+      </label>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="btn-primary" id="copyHtml">Copiar HTML</button>
+      <button type="button" class="btn-secondary" id="copyText">Copiar texto plano</button>
+      <button type="button" class="btn-secondary" id="download">Descargar .html</button>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+  </form>
+
+  <!-- ======================= VISTA PREVIA ======================= -->
+  <section>
+    <div class="preview-head">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="subject">Asunto: <strong id="subjectLine"></strong></div>
+    </div>
+    <iframe id="preview" title="Vista previa del correo"></iframe>
+  </section>
+</div>
+
+<script>
+  // @@PLANTILLA-INICIO — enviar_bienvenida.py ejecuta este bloque con Node; no usar el DOM aquí
+  /* ============================================================
+     Datos fijos de BM Code Lab
+     ============================================================ */
+  const SITE = "https://www.bmcodelab.cl";
+  const LOGO = SITE + "/BM-imagenes/logotransparente.png";
+  const COMPANY = {
+    email: "infobmdocelab@gmail.com",
+    phone: "+56 9 9487 2535",
+    phoneHref: "+56994872535",
+    city: "Melipilla, Chile",
+    instagram: "https://www.instagram.com/bm_code_lab/",
+    facebook: "https://www.facebook.com/profile.php?id=61581507736516&locale=es_LA",
+  };
+
+  // Completar email/teléfono de cada integrante antes de usar en producción
+  const TEAM = [
+    { id: "manuel",   initials: "MD", name: "Manuel Díaz",         role: "Full Stack Developer & IA",         email: COMPANY.email, phone: COMPANY.phone },
+    { id: "bastian",  initials: "BM", name: "Bastián Madrid",      role: "Full Stack Developer & IA",         email: COMPANY.email, phone: COMPANY.phone },
+    { id: "cristian", initials: "CS", name: "Cristian San Martín", role: "Full Stack Developer",              email: COMPANY.email, phone: COMPANY.phone },
+    { id: "byron",    initials: "BS", name: "Byron Santis",        role: "Full Stack Developer & Soporte TI", email: COMPANY.email, phone: COMPANY.phone },
+  ];
+
+  const CHANNELS = {
+    email:    { label: "Correo electrónico", use: "Acuerdos formales, aprobaciones y envío de documentos." },
+    whatsapp: { label: "WhatsApp",           use: "Consultas rápidas y coordinación del día a día." },
+    meet:     { label: "Videollamadas",      use: "Reuniones de avance y revisión de entregas." },
+    slack:    { label: "Slack",              use: "Conversación continua con el equipo de desarrollo." },
+  };
+
+  /* ============================================================
+     Utilidades
+     ============================================================ */
+  const esc = (str) => String(str ?? "").replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  })[c]);
+
+  function formatDate(iso) {
+    if (!iso) return "por confirmar";
+    const [y, m, d] = iso.split("-").map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString("es-CL", {
+      weekday: "long", day: "numeric", month: "long",
+    });
+  }
+
+  function readForm() {
+    const data = Object.fromEntries(new FormData(form));
+    data.team = TEAM.filter((m) => form.querySelector(`[name="team"][value="${m.id}"]`).checked);
+    data.channels = [...form.querySelectorAll('[name="ch"]:checked')].map((el) => el.value);
+    data.leadMember = TEAM.find((m) => m.id === data.lead) || TEAM[0];
+    data.senderMember = TEAM.find((m) => m.id === data.sender) || TEAM[0];
+    return data;
+  }
+
+  /* ============================================================
+     Plantilla del correo
+     Tablas + estilos en línea: es lo que soportan Gmail/Outlook.
+     El JS solo vive en este editor, el correo final no lleva scripts.
+     ============================================================ */
+  const FONT = "font-family:Segoe UI,Helvetica,Arial,sans-serif;";
+
+  function sectionTitle(text) {
+    return `
+      <tr><td style="padding:32px 40px 12px;${FONT}font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#16c47f;">
+        ${esc(text)}
+      </td></tr>`;
+  }
+
+  function teamRows(team, lead) {
+    return team.map((m) => `
+      <tr><td style="padding:0 40px 10px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#161b23;border:1px solid ${m.id === lead.id ? "#16c47f" : "#232834"};border-radius:10px;">
+          <tr>
+            <td width="56" style="padding:14px 0 14px 16px;" valign="middle">
+              <div style="width:40px;height:40px;line-height:40px;border-radius:8px;background:#2f6fed;background-image:linear-gradient(135deg,#16c47f,#2f6fed);text-align:center;${FONT}font-size:14px;font-weight:700;color:#ffffff;">${esc(m.initials)}</div>
+            </td>
+            <td style="padding:14px 16px 14px 4px;${FONT}" valign="middle">
+              <div style="font-size:15px;font-weight:600;color:#f3f5f8;">${esc(m.name)}${m.id === lead.id ? ' <span style="font-size:11px;font-weight:700;color:#16c47f;">· LÍDER DEL PROYECTO</span>' : ""}</div>
+              <div style="font-size:13px;color:#9aa3b2;padding-top:2px;">${esc(m.role)}</div>
+            </td>
+          </tr>
+        </table>
+      </td></tr>`).join("");
+  }
+
+  function channelRows(channels) {
+    return channels.map((key) => `
+      <tr>
+        <td width="14" valign="top" style="padding:6px 0 0;"><div style="width:8px;height:8px;border-radius:50%;background:#16c47f;"></div></td>
+        <td style="padding:0 0 10px 6px;${FONT}font-size:14px;line-height:1.6;color:#c7cddb;">
+          <strong style="color:#f3f5f8;">${esc(CHANNELS[key].label)}:</strong> ${esc(CHANNELS[key].use)}
+        </td>
+      </tr>`).join("");
+  }
+
+  function stepRow(num, title, desc) {
+    return `
+      <tr>
+        <td width="40" valign="top" style="padding:0 0 16px;">
+          <div style="width:28px;height:28px;line-height:28px;border-radius:50%;border:1px solid #2f6fed;text-align:center;${FONT}font-size:13px;font-weight:700;color:#2f6fed;">${num}</div>
+        </td>
+        <td valign="top" style="padding:3px 0 16px;${FONT}">
+          <div style="font-size:14px;font-weight:600;color:#f3f5f8;">${title}</div>
+          <div style="font-size:13px;line-height:1.6;color:#9aa3b2;padding-top:2px;">${desc}</div>
+        </td>
+      </tr>`;
+  }
+
+  function buildSubject(d) {
+    return `Bienvenidos a BM Code Lab · Inicio del proyecto ${d.projectName || ""}`.trim();
+  }
+
+  function buildEmail(d) {
+    const lead = d.leadMember;
+    const sender = d.senderMember;
+    const team = d.team.length ? d.team : [lead];
+    const kickoff = `${formatDate(d.kickoffDate)}${d.kickoffTime ? ", a las " + esc(d.kickoffTime) + " hrs" : ""} · ${esc(d.kickoffMode)}`;
+    const year = new Date().getFullYear();
+
+    return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="supported-color-schemes" content="dark">
+<title>${esc(buildSubject(d))}</title>
+</head>
+<body style="margin:0;padding:0;background:#0d0f14;">
+<!-- Texto de vista previa en la bandeja de entrada -->
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">
+  Ya somos parte de tu equipo: te presentamos a las personas detrás de ${esc(d.projectName)} y los próximos pasos.
+</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0d0f14;">
+<tr><td align="center" style="padding:32px 12px;">
+
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#11151c;border:1px solid #2a3140;border-radius:12px;overflow:hidden;">
+
+    <!-- Barra degradada -->
+    <tr><td style="height:4px;line-height:4px;font-size:0;background:#16c47f;background-image:linear-gradient(90deg,#16c47f,#2f6fed);">&nbsp;</td></tr>
+
+    <!-- Encabezado -->
+    <tr><td style="padding:28px 40px 0;">
+      <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+        <td valign="middle"><img src="${LOGO}" width="36" height="36" alt="BM Code Lab" style="display:block;border:0;"></td>
+        <td valign="middle" style="padding-left:10px;${FONT}font-size:17px;font-weight:700;color:#f3f5f8;">BM <span style="color:#16c47f;">Code Lab</span></td>
+      </tr></table>
+    </td></tr>
+
+    <!-- Hero -->
+    <tr><td style="padding:32px 40px 0;">
+      <span style="display:inline-block;padding:5px 12px;border:1px solid #1c5a43;border-radius:999px;background:#122a22;${FONT}font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#16c47f;">&#9679;&nbsp; Proyecto iniciado</span>
+    </td></tr>
+    <tr><td style="padding:18px 40px 0;${FONT}font-size:28px;line-height:1.25;font-weight:700;color:#f3f5f8;">
+      ¡Bienvenida/o, ${esc(d.clientContact)}! <span style="color:#16c47f;">Comenzamos.</span>
+    </td></tr>
+    <tr><td style="padding:16px 40px 0;${FONT}font-size:15px;line-height:1.7;color:#9aa3b2;">
+      Gracias por confiar en nosotros para desarrollar <strong style="color:#f3f5f8;">${esc(d.projectName)}</strong>
+      junto a <strong style="color:#f3f5f8;">${esc(d.clientCompany)}</strong>. Desde hoy somos parte de tu equipo,
+      y queremos que sepas exactamente con quién hablar, por dónde y qué viene ahora.
+    </td></tr>
+
+    <!-- Equipo -->
+    ${sectionTitle("Tu equipo")}
+    ${teamRows(team, lead)}
+
+    <!-- Contacto principal -->
+    <tr><td style="padding:6px 40px 0;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-left:3px solid #2f6fed;background:#13161f;border-radius:0 8px 8px 0;">
+        <tr><td style="padding:14px 18px;${FONT}font-size:14px;line-height:1.7;color:#c7cddb;">
+          <strong style="color:#f3f5f8;">Tu contacto principal es ${esc(lead.name)}.</strong><br>
+          <a href="mailto:${esc(lead.email)}" style="color:#16c47f;text-decoration:none;">${esc(lead.email)}</a>
+          &nbsp;·&nbsp; <span style="color:#c7cddb;">${esc(lead.phone)}</span><br>
+          <span style="color:#9aa3b2;">Por nuestra parte, te pedimos definir una persona de ${esc(d.clientCompany)} que centralice decisiones y aprobaciones.</span>
+        </td></tr>
+      </table>
+    </td></tr>
+
+    <!-- Comunicación -->
+    ${d.channels.length ? `
+    ${sectionTitle("Cómo nos comunicamos")}
+    <tr><td style="padding:0 40px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        ${channelRows(d.channels)}
+      </table>
+    </td></tr>` : ""}
+    <tr><td style="padding:6px 40px 0;${FONT}font-size:13px;line-height:1.6;color:#8891a0;">
+      Horario de atención: <strong style="color:#c7cddb;">${esc(d.hours)}</strong>.
+      Respondemos en un plazo máximo de <strong style="color:#c7cddb;">${esc(d.responseTime)}</strong>.
+    </td></tr>
+
+    <!-- Próximos pasos -->
+    ${sectionTitle("Próximos pasos")}
+    <tr><td style="padding:0 40px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        ${stepRow(1, "Reunión de inicio", kickoff + ". Revisaremos objetivos, alcance y prioridades.")}
+        ${stepRow(2, "Documento de alcance", "Te enviaremos el detalle de funcionalidades y criterios de aceptación para tu revisión.")}
+        ${stepRow(3, "Lista de insumos", "Recibirás una lista con los accesos, contenidos y materiales que necesitamos, con fechas sugeridas.")}
+        ${stepRow(4, "Cronograma", "Compartiremos las fechas de cada hito y lo que necesitaremos de tu parte en cada etapa.")}
+      </table>
+    </td></tr>
+
+    <!-- Nota de seguridad -->
+    <tr><td style="padding:4px 40px 0;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#161b23;border:1px solid #232834;border-radius:8px;">
+        <tr><td style="padding:14px 18px;${FONT}font-size:13px;line-height:1.6;color:#9aa3b2;">
+          <strong style="color:#f3f5f8;">&#128274; Sobre contraseñas y accesos:</strong>
+          por favor no las envíes por chat ni por correo. Te indicaremos un canal seguro para compartirlas.
+        </td></tr>
+      </table>
+    </td></tr>
+
+    <!-- CTA -->
+    <tr><td align="center" style="padding:32px 40px 8px;">
+      <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+        <td style="border-radius:8px;background:#16c47f;background-image:linear-gradient(135deg,#16c47f,#2f6fed);">
+          <a href="mailto:${esc(lead.email)}?subject=${encodeURIComponent("Proyecto " + (d.projectName || ""))}" style="display:inline-block;padding:13px 26px;${FONT}font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;">Escribir a mi contacto &rarr;</a>
+        </td>
+      </tr></table>
+    </td></tr>
+
+    <!-- Firma -->
+    <tr><td style="padding:24px 40px 32px;${FONT}font-size:14px;line-height:1.7;color:#9aa3b2;">
+      Estamos muy entusiasmados de empezar. ¡Nos vemos en la reunión de inicio!<br><br>
+      Saludos,<br>
+      <strong style="color:#f3f5f8;">${esc(sender.name)}</strong><br>
+      <span style="font-size:13px;">${esc(sender.role)} · BM Code Lab</span>
+    </td></tr>
+
+    <!-- Footer -->
+    <tr><td style="padding:22px 40px;background:#0d0f14;border-top:1px solid #232834;${FONT}font-size:12px;line-height:1.8;color:#5b6472;">
+      <a href="${SITE}" style="color:#c7cddb;text-decoration:none;font-weight:600;">bmcodelab.cl</a>
+      &nbsp;·&nbsp; <a href="mailto:${COMPANY.email}" style="color:#5b6472;text-decoration:none;">${COMPANY.email}</a>
+      &nbsp;·&nbsp; <a href="tel:${COMPANY.phoneHref}" style="color:#5b6472;text-decoration:none;">${COMPANY.phone}</a><br>
+      ${COMPANY.city} &nbsp;·&nbsp;
+      <a href="${COMPANY.instagram}" style="color:#5b6472;">Instagram</a> &nbsp;·&nbsp;
+      <a href="${COMPANY.facebook}" style="color:#5b6472;">Facebook</a><br>
+      © ${year} BM Code Lab. Este correo es confidencial y está dirigido solo a su destinatario.
+    </td></tr>
+
+  </table>
+
+</td></tr>
+</table>
+</body>
+</html>`;
+  }
+
+  function buildPlainText(d) {
+    const lead = d.leadMember;
+    const team = d.team.length ? d.team : [lead];
+    return [
+      `¡Bienvenida/o, ${d.clientContact}!`,
+      "",
+      `Gracias por confiar en BM Code Lab para desarrollar ${d.projectName} junto a ${d.clientCompany}.`,
+      "",
+      "TU EQUIPO",
+      ...team.map((m) => `- ${m.name}, ${m.role}${m.id === lead.id ? " (líder del proyecto)" : ""}`),
+      "",
+      `Contacto principal: ${lead.name} · ${lead.email} · ${lead.phone}`,
+      "",
+      "CÓMO NOS COMUNICAMOS",
+      ...d.channels.map((k) => `- ${CHANNELS[k].label}: ${CHANNELS[k].use}`),
+      `Horario: ${d.hours}. Respuesta en máximo ${d.responseTime}.`,
+      "",
+      "PRÓXIMOS PASOS",
+      `1. Reunión de inicio: ${formatDate(d.kickoffDate)}${d.kickoffTime ? ", " + d.kickoffTime + " hrs" : ""} (${d.kickoffMode})`,
+      "2. Documento de alcance",
+      "3. Lista de insumos",
+      "4. Cronograma con hitos",
+      "",
+      "Por favor no envíes contraseñas por chat ni correo; te indicaremos un canal seguro.",
+      "",
+      "Saludos,",
+      d.senderMember.name,
+      `${d.senderMember.role} · BM Code Lab`,
+      `${SITE} · ${COMPANY.email} · ${COMPANY.phone}`,
+    ].join("\n");
+  }
+  // @@PLANTILLA-FIN
+
+  /* ============================================================
+     Inicialización y eventos
+     ============================================================ */
+  const form = document.getElementById("editor");
+  const $ = (id) => document.getElementById(id);
+
+  $("teamChecks").innerHTML = TEAM.map((m) => `
+    <label class="check"><input type="checkbox" name="team" value="${m.id}" checked> ${esc(m.name)}</label>
+  `).join("");
+  const options = TEAM.map((m) => `<option value="${m.id}">${esc(m.name)}</option>`).join("");
+  $("leadSelect").innerHTML = options;
+  $("senderSelect").innerHTML = options;
+
+  // Kick-off por defecto: próximo día hábil
+  const next = new Date();
+  do { next.setDate(next.getDate() + 1); } while ([0, 6].includes(next.getDay()));
+  const pad = (n) => String(n).padStart(2, "0");
+  form.kickoffDate.value = `${next.getFullYear()}-${pad(next.getMonth() + 1)}-${pad(next.getDate())}`;
+
+  let currentHtml = "";
+  function render() {
+    const data = readForm();
+    currentHtml = buildEmail(data);
+    $("subjectLine").textContent = buildSubject(data);
+    $("preview").srcdoc = currentHtml;
+  }
+
+  let toastTimer;
+  function toast(msg) {
+    $("toast").textContent = msg;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { $("toast").textContent = ""; }, 2500);
+  }
+
+  $("copyHtml").addEventListener("click", async () => {
+    try {
+      // Copia como HTML enriquecido (para pegar en Gmail) y como texto (código fuente)
+      await navigator.clipboard.write([new ClipboardItem({
+        "text/html": new Blob([currentHtml], { type: "text/html" }),
+        "text/plain": new Blob([currentHtml], { type: "text/plain" }),
+      })]);
+      toast("HTML copiado ✓");
+    } catch {
+      await navigator.clipboard.writeText(currentHtml);
+      toast("Código HTML copiado ✓");
+    }
+  });
+
+  $("copyText").addEventListener("click", async () => {
+    await navigator.clipboard.writeText(buildPlainText(readForm()));
+    toast("Texto plano copiado ✓");
+  });
+
+  $("download").addEventListener("click", () => {
+    const blob = new Blob([currentHtml], { type: "text/html" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "bienvenida-" + (form.projectName.value || "proyecto").toLowerCase().replace(/[^a-z0-9]+/g, "-") + ".html";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  form.addEventListener("input", render);
+  form.addEventListener("change", render);
+  render();
+</script>
+</body>
+</html>

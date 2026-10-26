@@ -11,6 +11,7 @@ const NAV_ITEMS = [
     { href: "/#asesoramiento", label: "Asesoramiento" },
     { href: "/#nosotros", label: "Nosotros" },
     { href: "/#krona", label: "Krona" },
+    { href: "/#posteate", label: "Posteate" },
 ];
 
 const NavbarPrincipal: React.FC = () => {

@@ -3,6 +3,7 @@ import SeccionContacto from "@/components/BM-components/Contacto/Contacto";
 import Servicios from "@/components/BM-components/servicios/Servicios";
 import HeroBranch from '@/components/BM-components/HeroSection/Hero'
 import AppPromo from '@/components/BM-components/PromocionK/PromocionK'
+import PosteateSection from '@/components/BM-components/Posteate/Posteate'
 import NosotrosSection from '@/components/BM-components/Nosotros/Nosotros'
 import EquipoSection from '@/components/BM-components/Equipo/Equipo'
 import SeccionAsesoramiento from "@/components/BM-components/Asesoramiento/Asesoramiento";
@@ -19,9 +20,10 @@ export default function Home() {
       <HeroBranch />
       <Servicios />
       <SeccionAsesoramiento />
-      <NosotrosSection />
+      {/* <NosotrosSection /> */}
       <EquipoSection />
       <AppPromo />
+      {/* <PosteateSection /> */}
       <SeccionContacto />
     </>
   )
