@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { TeamMember, teamData } from "./ProfileTeamData";
+import type { TeamMember } from "./ProfileTeamData";
 import styles from "./ProfileTeam.module.css";
 
 const ICON_MAP: Record<string, string> = {
@@ -26,7 +26,13 @@ const ICON_MAP: Record<string, string> = {
 
 type View = "tech" | "biz";
 
-export default function TeamProfileClient({ member }: { member: TeamMember }) {
+export default function TeamProfileClient({
+  member,
+  team,
+}: {
+  member: TeamMember;
+  team: Pick<TeamMember, "slug" | "name">[];
+}) {
   const [view, setView] = useState<View>("tech");
   const router = useRouter();
 
@@ -45,7 +51,7 @@ export default function TeamProfileClient({ member }: { member: TeamMember }) {
 
         {/* Team switcher */}
         <div className={styles.teamSwitcher}>
-          {teamData.map((m) => (
+          {team.map((m) => (
             <button
               key={m.slug}
               onClick={() => router.push(`/equipo/${m.slug}`)}

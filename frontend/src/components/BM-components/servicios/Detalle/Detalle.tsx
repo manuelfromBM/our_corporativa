@@ -130,8 +130,8 @@ export default function DetalleServicio() {
                     <h1 className={styles.heroTitulo}>{servicio.tec.titulo}</h1>
                     <p className={styles.heroDesc}>{detalle.descCas}</p>
 
-                    <Link href="/#contacto" className={styles.heroCta}>
-                        Hablemos de este servicio
+                    <Link href={`/cotizar?servicio=${servicio.slug}`} className={styles.heroCta}>
+                        Cotizar este servicio
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                             <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>

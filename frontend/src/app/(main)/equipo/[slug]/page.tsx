@@ -1,10 +1,6 @@
-import { getMemberBySlug, teamSlugs } from "@/components/BM-components/Nosotros/ProfileTeam/ProfileTeamData";
+import { getMemberBySlug, getTeam } from "@/lib/teamApi";
 import { notFound } from "next/navigation";
 import TeamProfileClient from "@/components/BM-components/Nosotros/ProfileTeam/ProfileTeam";
-
-export async function generateStaticParams() {
-  return teamSlugs.map((slug) => ({ slug }));
-}
 
 export async function generateMetadata({
   params,
@@ -12,7 +8,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const member = getMemberBySlug(slug);
+  const member = await getMemberBySlug(slug);
   if (!member) {
     return {
       title: "Miembro no encontrado",
@@ -40,7 +36,8 @@ export default async function TeamMemberPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const member = getMemberBySlug(slug);
+  const member = await getMemberBySlug(slug);
   if (!member) notFound();
-  return <TeamProfileClient member={member!} />;
+  const team = (await getTeam()).map(({ slug, name }) => ({ slug, name }));
+  return <TeamProfileClient member={member!} team={team} />;
 }

@@ -31,11 +31,18 @@ export function construirSecciones(pasos: DefinicionPaso[], valores: ValoresForm
         .filter((s) => s.respuestas.length > 0);
 }
 
-export function construirPayload(slug: string, pasos: DefinicionPaso[], valores: ValoresFormulario) {
+// Con opciones.sorteo la solicitud queda marcada en la base (es_sorteo) para separarla de las de /cotizar.
+export function construirPayload(
+    slug: string,
+    pasos: DefinicionPaso[],
+    valores: ValoresFormulario,
+    opciones: { sorteo?: boolean; titulo?: string } = {},
+) {
     const servicio = SERVICIOS.find((s) => s.slug === slug);
     const texto = (id: string) => (typeof valores[id] === "string" ? (valores[id] as string).trim() : "");
     return {
-        servicio: { slug, titulo: servicio?.tec.titulo ?? slug },
+        servicio: { slug, titulo: opciones.titulo ?? servicio?.tec.titulo ?? slug },
+        sorteo: opciones.sorteo ?? false,
         contacto: {
             nombre: texto("nombre"),
             correo: texto("correo").toLowerCase(),
@@ -54,11 +61,16 @@ export interface ResultadoEnvio {
     codigo: string;
 }
 
-// TODO: reemplazar por el endpoint real cuando se conecte el backend.
-// Mock: simula la latencia de red y devuelve un código de seguimiento.
+// Envía al backend (vía /api/requerimientos) y devuelve el código de seguimiento guardado en la base.
 export async function enviarRequerimiento(payload: PayloadRequerimiento): Promise<ResultadoEnvio> {
-    console.log("[cotizar] payload:", payload);
-    await new Promise((r) => setTimeout(r, 900));
-    const codigo = `REQ-${Date.now().toString(36).toUpperCase().slice(-6)}`;
-    return { codigo };
+    const res = await fetch("/api/requerimientos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || typeof data.codigo !== "string") {
+        throw new Error(typeof data.error === "string" ? data.error : "No pudimos enviar tu solicitud. Intenta de nuevo.");
+    }
+    return { codigo: data.codigo };
 }

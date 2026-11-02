@@ -1,0 +1,160 @@
+=====================================================================
+ MIGRACIÓN DE DATOS DEL EQUIPO A SQLITE + GIN
+ Fecha: 26-10-2026
+=====================================================================
+
+OBJETIVO
+--------
+Los datos de los perfiles del equipo (nombre, rol, experiencia,
+educación, tecnologías, librerías, herramientas, stats y tarjetas de
+negocio) estaban escritos a mano en:
+  frontend/src/components/BM-components/Nosotros/ProfileTeam/ProfileTeamData.ts
+
+Ahora viven en una base SQLite y el frontend los pide al backend en Gin.
+
+
+=====================================================================
+ 1. BACKEND (carpeta backend/)
+=====================================================================
+
+Estructura creada:
+
+  main.go               Arranca Gin en el puerto 8080 y usa la base
+                        data/team.db
+  models/team.go        Structs con la misma forma que el tipo
+                        TeamMember del frontend
+  database/database.go  Abre SQLite (modernc.org/sqlite, Go puro, sin
+                        CGO) y crea las tablas
+  seed/team.json        Datos sacados de ProfileTeamData.ts
+  seed/seed.go          Carga team.json en la base si está vacía
+  repository/team.go    Consultas SQL
+  handlers/team.go      Rutas de la API
+  .gitignore            Ignora data/ y *.db (la base no se sube a git)
+
+Tablas (separadas, cada una con columna "position" para mantener el
+orden original):
+
+  members                     datos básicos + tech_bio + biz_bio
+  member_experience           experiencia laboral
+  member_education            educación
+  member_stats                estadísticas (valor / etiqueta)
+  member_skills               skills
+  member_tools                herramientas
+  member_library_categories   categorías de librerías
+  member_library_items        librerías dentro de cada categoría
+  member_biz_cards            tarjetas de la vista de negocio
+
+Rutas disponibles:
+
+  GET /api/team          Todos los miembros con su perfil completo
+  GET /api/team/slugs    Solo los slugs: ["manuel","bastian","cristian","byron"]
+  GET /api/team/:slug    Un miembro, o 404 si no existe
+
+Variables de entorno opcionales:
+
+  PORT      Puerto del servidor (por defecto 8080)
+  DB_PATH   Ruta de la base (por defecto data/team.db)
+
+Dependencias:
+
+  - Se agregó modernc.org/sqlite.
+  - Se ejecutó go mod tidy.
+
+Verificación: la respuesta de GET /api/team es idéntica, carácter por
+carácter, a los datos que tenía ProfileTeamData.ts.
+
+
+=====================================================================
+ 2. FRONTEND
+=====================================================================
+
+  NUEVO  frontend/src/lib/teamApi.ts
+         Funciones getTeam() y getMemberBySlug(slug) que llaman a Gin.
+         Usan la variable BACKEND_URL; si no está definida, usan
+         http://localhost:8080.
+
+  MOD    frontend/src/app/(main)/equipo/[slug]/page.tsx
+         Lee los datos desde la API. Se quitó generateStaticParams
+         porque las páginas ya no se generan al compilar.
+
+  MOD    frontend/src/components/BM-components/Nosotros/ProfileTeam/ProfileTeam.tsx
+         Los botones para cambiar de miembro reciben la lista del
+         equipo como prop desde la página, en vez de importar teamData.
+
+  SIN CAMBIOS  ProfileTeamData.ts
+         Se deja como respaldo. Solo se sigue usando su tipo
+         TeamMember.
+
+Modo de lectura elegido: OPCIÓN B (en cada visita)
+  - Cada vez que alguien abre /equipo/<slug>, Next.js le pide los
+    datos a Gin (fetch con cache: "no-store").
+  - Los cambios en la base se ven al instante, sin recompilar.
+
+Verificado: /equipo/manuel y /equipo/byron responden 200, /equipo/nadie
+responde 404, y un cambio hecho directo en SQLite apareció en la página
+al recargar.
+
+
+=====================================================================
+ 3. SCRIPT levantar.command (raíz del proyecto)
+=====================================================================
+
+Uso: doble clic en Finder, o ./levantar.command en la terminal.
+
+  1. Revisa los puertos 8080 (backend) y 3000 (frontend). Si alguno
+     está ocupado, cierra ese proceso, y si no se cierra, lo fuerza.
+  2. Levanta el backend (go run .) y espera a que responda.
+  3. Levanta el frontend (npm run dev) apuntando al backend.
+  4. Muestra los mensajes de los dos en la misma ventana, con
+     [backend] o [frontend] adelante.
+  5. Ctrl+C o cerrar la ventana detiene ambos y libera los puertos.
+
+Los puertos se cambian al principio del archivo (BACKEND_PORT y
+FRONTEND_PORT).
+
+
+=====================================================================
+ 4. COSAS A TENER EN CUENTA
+=====================================================================
+
+* MongoDB no se pudo quitar del todo del go.mod
+  Gin 1.12 lo usa internamente para leer formato BSON
+  (gin/binding -> mongo-driver/v2/bson). Tu código no lo usa, no se
+  conecta a nada y no necesitas tener MongoDB instalado. Si se borra a
+  mano del go.mod, "go mod tidy" lo vuelve a poner.
+
+* Con la opción B el backend tiene que estar siempre arriba
+  Si Gin está caído, las páginas /equipo/<slug> van a mostrar error.
+  Cada carga es un poco más lenta que con páginas generadas al
+  compilar.
+
+* Volver a la opción A (generar al compilar y actualizar cada cierto
+  tiempo)
+  En frontend/src/lib/teamApi.ts cambiar:
+      { cache: "no-store" }
+  por, por ejemplo (cada 1 hora):
+      { next: { revalidate: 3600 } }
+  y, si se quiere, volver a agregar generateStaticParams en page.tsx
+  usando GET /api/team/slugs.
+  Con esta opción las páginas cargan igual de rápido que antes. Si Gin
+  se cae, se sigue mostrando la última versión, y los cambios se ven
+  dentro del plazo elegido.
+
+* El seed solo se carga cuando la base está vacía
+  Si editas backend/seed/team.json y quieres que se cargue de nuevo,
+  borra backend/data/team.db y vuelve a arrancar el backend.
+  OJO: al borrar la base se pierden los cambios hechos directo en
+  SQLite.
+
+* La base no está en git
+  backend/data/ está en el .gitignore. En otro equipo o en el servidor
+  la base se crea sola desde el seed al arrancar el backend.
+
+* En producción
+  Definir BACKEND_URL en el frontend con la URL real del backend.
+
+* Primera vez que ejecutas levantar.command
+  macOS puede bloquearlo por ser un archivo sin firma. Haz clic
+  derecho, elige "Abrir" y confirma. Después ya abre con doble clic.
+
+* Todavía no se hizo commit de ningún cambio.

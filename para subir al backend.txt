@@ -1,0 +1,100 @@
+Antes de subir
+- El backend no está en git: backend/ tiene 0 archivos versionados, y Render despliega desde el repositorio. Hay que hacer commit primero. credenciales_equipo.txt ya está ignorado y los .db también.
+- backend_go/: parece una copia antigua. Conviene no subirla, o borrarla si confirmas que ya no sirve.
+
+Base de datos
+- Disco persistente: agrega uno, por ejemplo montado en /var/data, y define DB_PATH=/var/data/team.db. Requiere un plan pago; el gratuito además se duerme sin tráfico.
+- Limitaciones del disco: queda atado a una sola instancia, sin escalar a varias. Cada deploy tiene unos segundos de caída.
+- Datos locales: tu base tiene 6 solicitudes y no se copian solas. El equipo y las migraciones sí se cargan al arrancar. Si esas 6 importan, o si editaste el equipo localmente, hay que subir el archivo team.db al disco.
+- Alternativa: Turso u otra base gestionada evitaría el disco, pero implica cambiar el driver. Para este volumen, SQLite con disco alcanza.
+
+Configuración del servicio
+- Root Directory: backend
+- Build: go build -o bin/server ./cmd/server && go build -o bin/crear-equipo ./cmd/crear-equipo
+- Start: ./bin/server
+- Health check: /api/team/slugs, porque no existe una ruta /health.
+- Sin ajustes extra: el driver de SQLite es Go puro, así que no necesitas CGO, y el código ya lee el PORT que asigna Render.
+- Versión de Go: go.mod pide 1.26.0; revisa en el primer build que Render la acepte.
+
+Variables de entorno
+
+┌────────────────┬──────────────────────────┐
+│    Variable    │          Valor           │
+├────────────────┼──────────────────────────┤
+│ APP_ENV        │ production               │
+├────────────────┼──────────────────────────┤
+│ APP_URL        │ https://www.bmcodelab.cl │
+├────────────────┼──────────────────────────┤
+│ RESEND_API_KEY │ tu clave de Resend       │
+├────────────────┼──────────────────────────┤
+│ DB_PATH        │ /var/data/team.db        │
+└────────────────┴──────────────────────────┘
+
+Sin RESEND_API_KEY, o si APP_URL no usa https, el servidor no arranca en producción: es una validación a propósito. Revisa también que el dominio de MAIL_FROM esté verificado en Resend. En el frontend, define BACKEND_URL con la URL de Render.
+
+Después del deploy
+- Crear las cuentas: ejecuta DB_PATH=/var/data/team.db ./bin/crear-equipo /var/data/credenciales.txt desde el Shell de Render. El disco solo está disponible con el servicio corriendo, no durante el build. Copia las contraseñas y borra ese archivo.
+- Probar el login: al ser un dominio distinto al de Render no hay problema con la cookie, porque el navegador solo habla con Next.js y este reenvía la sesión.
+- Respaldos: confirma que los snapshots del disco estén activos, porque ahí vivirán todas las solicitudes.
+
+Riesgos que conviene tener presentes
+- El backend quedará público en una URL de Render, no solo accesible desde Next.js.
+- POST /api/requerimientos no tiene sesión, y en lo que revisé no vi límite de envíos, así que podrían llenarte la base con spam. Se puede restringir con un secreto compartido entre Next.js y el backend.
+
+____________________________________________________________________________________________________________________
+
+
+Crear la base en Neon toma unos minutos, pero no basta con cambiar una URL: el backend estÃ¡ escrito para SQLite y hay que adaptar el cÃ³digo antes de pasar los datos.
+
+1. Crear la base en Neon
+
+1. Crea una cuenta en neon.tech y luego un proyecto, con Postgres en su versiÃ³n mÃ¡s reciente.
+2. Elige una regiÃ³n cercana al backend. Por ejemplo, AWS us-east-1 en Neon con Virginia en Render.
+3. En Connect, copia la cadena de conexiÃ³n. Tiene esta forma:
+postgresql://usuario:clave@ep-xxx.us-east-1.aws.neon.tech/neondb?sslmode=require
+4. GuÃ¡rdala solo en variables de entorno, nunca en el repositorio. Neon tambiÃ©n ofrece una variante con -pooler en el host: Ãºsala para la app y la directa para las migraciones.
+
+2. Adaptar el backend
+
+Hay 8 archivos de Go con SQL, unas 68 lÃ­neas de consultas con ? y las 3 migraciones:
+
+ââââââââââââââââââââââââââââââââââââââââââââ¬ââââââââââââââââââââââââââââââââââââââââââââââ
+â               Hoy (SQLite)               â                 En Postgres                 â
+ââââââââââââââââââââââââââââââââââââââââââââ¼ââââââââââââââââââââââââââââââââââââââââââââââ¤
+â Driver modernc.org/sqlite                â pgx (github.com/jackc/pgx/v5/stdlib)        â
+ââââââââââââââââââââââââââââââââââââââââââââ¼ââââââââââââââââââââââââââââââââââââââââââââââ¤
+â DB_PATH                                  â DATABASE_URL                                â
+ââââââââââââââââââââââââââââââââââââââââââââ¼ââââââââââââââââââââââââââââââââââââââââââââââ¤
+â ParÃ¡metros ?                             â $1, $2, ...                                 â
+ââââââââââââââââââââââââââââââââââââââââââââ¼ââââââââââââââââââââââââââââââââââââââââââââââ¤
+â INTEGER PRIMARY KEY AUTOINCREMENT        â BIGINT GENERATED ALWAYS AS IDENTITY         â
+ââââââââââââââââââââââââââââââââââââââââââââ¼ââââââââââââââââââââââââââââââââââââââââââââââ¤
+â LastIns
+ââââââââââââââââââââââââââââââââââââââââââââ´ââââââââââââââââââââââââââââââââââââââââââââââ
+
+Recomiendo dejar las fechas como TEXT en esta etapa, porque el cÃ³digo las compara como texto. AsÃ­ el cambio es menor, y pasarlas a TIMESTAMPTZ puede ser un paso aparte.
+
+Los tests tambiÃ©n dependen de SQLite, asÃ­ que necesitarÃ¡n un Postgres propio, como una rama de Neon o Docker.
+
+3. Migrar los datos
+
+1. Arranca el backend adaptado contra Neon: las migraciones crean las tablas.
+2. Copia los datos desde backend/data/team.db respetando las claves forÃ¡neas: primero members, users y clients, y al final las tablas que dependen de ellas. sessions, user_tokens y auth_attempts no hace falta copiarlas.
+3. Reajusta los contadores de IDs, o el siguiente insert chocarÃ¡ con un ID existente.
+4. Compara la cantidad de filas por tabla entre ambas bases.
+
+Para esto prefiero un script pequeÃ±o en Go antes que pgloader, porque hay que convertir las banderas a BOOLEAN.
+
+4. Desplegar en Render
+
+- Define DATABASE_URL y quita DB_PATH.
+- Ya no necesitas disco persistente.
+- Las contraseÃ±as actuales seguirÃ¡n funcionando, porque los hashes viajan con users. Ya no harÃ­a falta ejecutar crear-equipo en producciÃ³n.
+
+Cosas a considerar
+- En el plan gratuito de Neon la base se suspende sin uso, y la primera consulta tras la pausa tarda un poco mÃ¡s. Confirma los lÃ­mites vigentes en su web.
+- "Todo" aquÃ­ significa el backend. El sorteo del frontend usa Prisma con Turso y es una base aparte; lo dejarÃ­a ahÃ­ por ahora.
+
+
+
+

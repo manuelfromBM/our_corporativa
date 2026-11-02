@@ -7,6 +7,7 @@ import { CamposFormulario } from "./campos";
 import { ErroresFormulario } from "./campos";
 import { opcionesNegocio } from "./campos";       // ya lo tenés
 import ModalTerminos from "./Modal/ModalCondiciones"; // ← nuevo
+import DetalleProductoSorteo from "@/components/RegistroSorteo-components/DetalleProductoSorteo";
 
 const Formulario = () => {
     const [campos, setCampos] = useState<CamposFormulario>({
@@ -25,6 +26,8 @@ const Formulario = () => {
     const [errores, setErrores] = useState<ErroresFormulario>({});
     const [enviado, setEnviado] = useState(false);
     const [cargando, setCargando] = useState(false);
+    // Tras participar se ofrece detallar el sitio web, con los datos que ya entregó.
+    const [detallando, setDetallando] = useState(false);
 /*__________________________________________________________*/
     const [modalAbierto, setModalAbierto] = useState(false);
     const [aceptaTerminos, setAceptaTerminos] = useState(false);
@@ -110,6 +113,19 @@ const Formulario = () => {
         }
     };
 
+    if (enviado && detallando) {
+        return (
+            <DetalleProductoSorteo
+                valoresIniciales={{
+                    nombre: `${campos.nombre.trim()} ${campos.apellido.trim()}`,
+                    correo: campos.correo.trim(),
+                    empresa: campos.nombreNegocio.trim(),
+                }}
+                onOmitir={() => setDetallando(false)}
+            />
+        );
+    }
+
     if (enviado) {
         return (
             <section className={styles.seccion} id="formulario">
@@ -126,15 +142,23 @@ const Formulario = () => {
                             <br /><br />
                             ¡Buena suerte!
                         </p>
-                        <a
-                            href="https://instagram.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.exitoBtn}
-                        >
-                            Seguir en Instagram
-                            <ArrowRight size={15} />
-                        </a>
+                        <p className={styles.exitoTexto}>
+                            ¿Quieres contarnos cómo sería tu sitio web? Es opcional, pero si ganas partimos con tu proyecto ya entendido.
+                        </p>
+                        <div className={styles.exitoAcciones}>
+                            <button type="button" onClick={() => setDetallando(true)} className={styles.exitoBtn}>
+                                Detallar mi sitio web
+                                <ArrowRight size={15} />
+                            </button>
+                            <a
+                                href="https://instagram.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.exitoBtnSecundario}
+                            >
+                                Seguir en Instagram
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>

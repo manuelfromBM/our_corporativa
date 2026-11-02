@@ -1,0 +1,187 @@
+=====================================================================
+ STACK TECNOLÓGICO — BM Code Lab (our_corporativa)
+ Estado al 31-10-2026 · rama: reestructura-frontend
+=====================================================================
+
+Las versiones del frontend son las instaladas en node_modules. El detalle
+de endpoints y tablas del backend está en "stack backend.txt".
+
+
+=====================================================================
+ 1. VISTA GENERAL
+=====================================================================
+
+  Navegador
+     │
+  Next.js (:3000) ──> Resend (correos)
+     │     └────────> Turso / libSQL (participantes del sorteo)
+     │
+  Backend Go + Gin (:8080)
+     │
+  SQLite (backend/data/team.db: equipo y cotizaciones)
+
+El navegador nunca llama directo al backend: pasa por el servidor de
+Next.js, usando BACKEND_URL. Por eso el backend no tiene CORS.
+
+
+=====================================================================
+ 2. FRONTEND (carpeta frontend/)
+=====================================================================
+
+  Lenguaje        TypeScript 5.9
+  Framework       Next.js 15.5 con App Router y Turbopack en desarrollo
+  Interfaz        React 18.3
+  Estilos         CSS Modules, Tailwind CSS 4, Bootstrap 5.3 y
+                  React-Bootstrap 2.10
+  Temas           src/Styles/BM-theme.css y Krona-theme.css
+  Iconos          lucide-react y react-icons
+  Tipografía      Geist y Geist Mono (next/font/google)
+  ORM             Prisma 7.8 con @prisma/adapter-libsql
+  Correo          Resend
+  Calidad         ESLint 9 con eslint-config-next
+  Paquetes        package-lock.json y pnpm-lock.yaml conviven;
+                  levantar.command usa npm
+
+Estructura principal (frontend/src/):
+
+  app/(main)/       Sitio público con navbar y footer
+  app/krona/        Landing de Krona
+  app/sorteo/       Landing del sorteo
+  app/registro-sorteo/  Registro al sorteo (prototipo)
+  app/admin/        Panel interno
+  app/api/          Route Handlers: contacto, contactosorteo, requerimientos
+  components/       Componentes agrupados por área
+  lib/              prisma.ts, teamApi.ts, requerimientosAdminApi.ts
+  generated/prisma/ Cliente de Prisma generado (no va a git)
+  middleware.ts     HTTP Basic Auth sobre /admin/*
+
+Prisma solo se usa para el modelo Participante (sorteo).
+En desarrollo usa el archivo dev.db; en producción, Turso.
+
+
+=====================================================================
+ 3. BACKEND (carpeta backend/)
+=====================================================================
+
+  Lenguaje        Go 1.26 (módulo "backend")
+  Framework HTTP  Gin 1.12
+  Base de datos   SQLite con modernc.org/sqlite 1.61 (sin CGO)
+  Acceso a datos  database/sql con SQL escrito a mano, sin ORM
+  Migraciones     Archivos SQL embebidos, aplicados al arrancar
+  Contraseñas     argon2id (golang.org/x/crypto)
+  Datos iniciales internal/team/seed/team.json embebido con go:embed
+  Tests           internal/server/router_test.go (integración HTTP)
+
+Estructura: cmd/server (arranque) e internal/, con un paquete por módulo:
+auth, accounts, clients, projects, requests y team. Cada módulo se divide
+en handler -> service -> repository. La infraestructura compartida está en
+internal/platform (database, httpx, mail) y las rutas se conectan en un solo
+lugar: internal/server/router.go.
+
+Endpoints bajo /api:
+
+  Público
+    GET  /team, /team/slugs, /team/:slug
+    POST /requerimientos
+    POST /auth/login, /auth/logout
+    POST /auth/password/forgot, /auth/password/reset
+  Con sesión
+    GET  /auth/me
+  Rol cliente
+    GET  /portal/projects, /portal/projects/:id
+  Rol integrante o admin
+    GET  /admin/requests
+    GET, POST /admin/clients      GET, PUT /admin/clients/:id
+    GET, POST /admin/projects     GET, PUT /admin/projects/:id
+    POST /admin/projects/:id/status
+    POST /admin/projects/:id/milestones
+    PUT, DELETE /admin/projects/:id/milestones/:milestoneId
+    POST /admin/projects/:id/updates
+    PUT, DELETE /admin/projects/:id/updates/:updateId
+  Rol admin
+    GET, POST /admin/users        PATCH /admin/users/:id
+    PUT  /admin/users/:id/clients
+    POST /admin/users/:id/invitation
+
+
+=====================================================================
+ 4. BASES DE DATOS
+=====================================================================
+
+  SQLite  backend/data/team.db    Equipo y cotizaciones. No va a git
+  libSQL  frontend/dev.db         Sorteo en desarrollo. No va a git
+  Turso   (nube)                  Sorteo en producción
+
+
+=====================================================================
+ 5. SERVICIOS EXTERNOS
+=====================================================================
+
+  Resend                Correos de contacto y sorteo
+  Turso                 Base de datos del sorteo en producción
+  Gmail SMTP            Correo de bienvenida (enviar_bienvenida.py)
+  Google Search Console Verificación del sitio y sitemap
+
+
+=====================================================================
+ 6. VARIABLES DE ENTORNO
+=====================================================================
+
+Frontend
+  BACKEND_URL          URL del backend (por defecto http://localhost:8080)
+  RESEND_API_KEY       Clave de Resend
+  EMAIL_CONTANCTO      Correo que recibe avisos (nombre tal como está
+                       escrito en el código)
+  TURSO_DATABASE_URL   URL de Turso
+  TURSO_AUTH_TOKEN     Token de Turso
+
+Backend
+  APP_ENV              development (por defecto) o production. En producción
+                       DEBE definirse: activa la cookie Secure y exige
+                       APP_URL con https y RESEND_API_KEY
+  PORT                 Puerto (por defecto 8080)
+  DB_PATH              Ruta de la base (por defecto data/team.db)
+  APP_URL              URL del frontend para los enlaces de los correos
+                       (por defecto http://localhost:3000)
+  SESSION_TTL          Duración de la sesión (por defecto 168h)
+  RESEND_API_KEY       Sin ella, en desarrollo los correos van al log
+  MAIL_FROM            Remitente (por defecto noreply@bmcodelab.cl)
+  TEAM_EMAILS          Correos separados por comas que reciben el aviso de
+                       cada solicitud nueva. Vacío: no se envía el aviso
+  BOOTSTRAP_ADMIN_EMAIL, BOOTSTRAP_ADMIN_PASSWORD
+                       Crean la primera cuenta admin si no hay usuarios
+
+Script de correo: archivo .env.correo con SMTP_USER y SMTP_PASSWORD
+(además de SMTP_HOST, SMTP_PORT y SMTP_FROM_NAME, opcionales).
+
+
+=====================================================================
+ 7. DESARROLLO LOCAL
+=====================================================================
+
+  Requisitos   Node.js con npm, Go 1.26 y macOS con zsh para el script
+  Arranque     ./levantar.command (o doble clic en Finder)
+  Frontend     http://localhost:3000
+  Backend      http://localhost:8080/api/team
+  Panel        http://localhost:3000/admin/solicitudes
+
+Herramientas adicionales: Python 3 para enviar_bienvenida.py.
+
+
+=====================================================================
+ 8. AUTENTICACIÓN
+=====================================================================
+
+Backend: implementado.
+
+  - Sesión en cookie bm_session (HttpOnly, SameSite=Lax y Secure en
+    producción). En la base solo queda el hash SHA-256 del token.
+  - Roles: cliente, integrante y admin, leídos en cada petición.
+  - Cuentas por invitación; no hay registro público.
+  - Límite de 5 intentos fallidos de login por correo cada 15 minutos.
+  - El portal filtra por usuario en SQL y responde 404 ante proyectos ajenos.
+
+Frontend: el equipo entra por /login-bm-327 y /admin valida la sesión en
+el backend; sin sesión del equipo responde 404. Las cuentas se crean con
+go run ./cmd/crear-equipo. Falta crear /portal/*, /activar-cuenta y
+/restablecer-contrasena.

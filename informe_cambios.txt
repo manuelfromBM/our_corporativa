@@ -1,0 +1,197 @@
+=====================================================================
+ INFORME DE CAMBIOS — BM Code Lab (our_corporativa)
+ Fecha: 31-10-2026 · rama: reestructura-frontend
+=====================================================================
+
+RESUMEN
+-------
+  1. Documentación del proyecto y del stack.
+  2. Backend reestructurado, con login, cuentas, clientes, proyectos y
+     portal de clientes.
+  3. Bases SQLite agregadas a .gitignore.
+  4. Formularios de la portada y del sorteo conectados con los
+     formularios detallados.
+
+Ningún cambio está commiteado. Lo único preparado en el índice de git es
+la salida de frontend/dev.db.
+
+
+=====================================================================
+ 1. DOCUMENTACIÓN
+=====================================================================
+
+  NUEVO  contexto_proyecto.txt
+         Descripción, funcionalidades, estado actual, y objetivo de login
+         y portal de clientes.
+
+  NUEVO  stack_tecnologico.txt
+         Tecnologías, endpoints, bases de datos, variables de entorno y
+         desarrollo local.
+
+  MOD    stack backend.txt
+         Se agregó una nota: describe la estructura anterior del backend.
+
+  NUEVO  informe_cambios.txt
+         Este archivo.
+
+
+=====================================================================
+ 2. BACKEND
+=====================================================================
+
+Estructura nueva:
+
+  backend/cmd/server/         Arranque y apagado controlado
+  backend/internal/config/    Variables de entorno, validadas al arrancar
+  backend/internal/platform/  database, httpx y mail
+  backend/internal/auth/      Login, sesiones y recuperación de contraseña
+  backend/internal/accounts/  Usuarios, invitaciones, roles y clientes
+  backend/internal/clients/   Empresas o personas que contratan
+  backend/internal/projects/  Proyectos, hitos, avances y estados
+  backend/internal/requests/  Solicitudes de /cotizar
+  backend/internal/team/      Integrantes y seed
+  backend/internal/server/    Contenedor de dependencias y rutas
+
+Se eliminó la estructura anterior: main.go, database/, handlers/, models/,
+repository/ y seed/. Su lógica pasó a los paquetes nuevos.
+
+Base de datos:
+
+  - Migraciones SQL embebidas, registradas en schema_migrations.
+  - 0001_init adopta el esquema existente.
+  - 0002_auth agrega users, sessions, user_tokens y auth_attempts.
+  - 0003_clients_projects agrega clients, client_users, projects,
+    project_milestones y project_updates.
+  - SQLite ahora usa WAL y busy_timeout.
+
+Autenticación:
+
+  - Cookie bm_session HttpOnly y SameSite=Lax; Secure en producción.
+  - Solo se guarda el hash SHA-256 de los tokens.
+  - Contraseñas con argon2id.
+  - Máximo 5 intentos fallidos de login por correo cada 15 minutos.
+  - Máximo 3 solicitudes de recuperación por correo cada hora.
+  - Cuentas por invitación; no hay registro público.
+  - Roles: cliente, integrante y admin.
+
+Portal y gestión:
+
+  - El cliente solo ve proyectos de sus clientes asociados. Un proyecto
+    ajeno responde 404, igual que uno inexistente.
+  - Las notas internas y los avances ocultos no llegan al portal.
+  - Los avances nacen ocultos salvo que se marquen visibles.
+  - Los cambios de estado siguen transiciones definidas.
+  - Al entregar un proyecto, el avance queda en 100.
+  - Una solicitud se puede convertir una sola vez en proyecto.
+
+Variables de entorno nuevas:
+
+  APP_ENV, APP_URL, SESSION_TTL, RESEND_API_KEY, MAIL_FROM,
+  BOOTSTRAP_ADMIN_EMAIL, BOOTSTRAP_ADMIN_PASSWORD
+
+Diferencias con el árbol solicitado:
+
+  - team.json quedó en internal/team/seed/, porque go:embed no lee
+    archivos fuera de su paquete.
+  - Se mantuvo GET /api/requerimientos con ADMIN_PASSWORD para no romper
+    /admin/solicitudes.
+  - Se agregaron las variables BOOTSTRAP_* para crear la primera cuenta.
+  - Invitaciones y recuperación comparten user_tokens y el endpoint
+    /api/auth/password/reset.
+  - Se agregó internal/server/router_test.go.
+
+Otros archivos:
+
+  MOD    levantar.command
+         Ahora ejecuta go run ./cmd/server.
+
+  MOD    backend/go.mod y go.sum
+         golang.org/x/crypto pasó a ser dependencia directa.
+
+Verificación:
+
+  - 13 tests de integración aprobados, también con el detector de
+    carreras.
+  - 7 respuestas de la API del equipo y de /api/requerimientos resultaron
+    idénticas byte a byte a las del backend anterior.
+  - Migración probada sobre una copia de team.db: se conservaron los
+    4 integrantes y las 6 solicitudes.
+
+
+=====================================================================
+ 3. GIT
+=====================================================================
+
+  MOD    .gitignore
+         Se agregaron *.db, *.db-shm, *.db-wal, *.db-journal, *.sqlite
+         y *.sqlite3.
+
+  ÍNDICE frontend/dev.db
+         Se sacó del seguimiento con git rm --cached. El archivo sigue en
+         el disco y aparece como eliminado en el área de preparación.
+
+  MOD    stack_tecnologico.txt
+         Ahora indica que dev.db no va a git.
+
+Para revertir la salida de dev.db: git restore --staged frontend/dev.db
+
+
+=====================================================================
+ 4. FORMULARIOS
+=====================================================================
+
+Formulario de contacto (portada):
+
+  MOD    frontend/src/components/BM-components/Contacto/Contacto.tsx
+  MOD    frontend/src/components/BM-components/Contacto/Contacto.module.css
+
+  Se agregó el botón "¿Quieres decirnos tu sistema?", que lleva a
+  /cotizar.
+
+Formulario del sorteo (/sorteo):
+
+  MOD    frontend/src/components/Sorteo-components/sections/Formulario/Formulario.tsx
+  MOD    frontend/src/components/Sorteo-components/sections/Formulario/Formulario.module.css
+
+  - Tras registrar la participación aparece "Detallar mi sitio web".
+  - Se abre DetalleProductoSorteo con nombre, correo y negocio prellenados.
+  - "Ahora no" vuelve a la pantalla de éxito.
+  - "Seguir en Instagram" quedó como enlace secundario.
+
+Decisión: no se enlazó con /registro-sorteo porque vuelve a pedir los datos
+y su envío es simulado, así que lo ingresado se perdería.
+
+Verificación:
+
+  - TypeScript y ESLint sin errores.
+  - Ambos flujos recorridos en un navegador, sin errores de JavaScript.
+  - La prueba usó una copia de la base y simuló /api/contactosorteo, por lo
+    que no entraron datos falsos.
+  - No se probó el envío final de "Enviar detalle" desde /sorteo.
+
+
+=====================================================================
+ 5. PENDIENTES Y RIESGOS
+=====================================================================
+
+  - Frontend del login: faltan /login, /portal/*, /activar-cuenta,
+    /restablecer-contrasena y el reenvío de la cookie con el backend.
+  - Los enlaces de los correos apuntan a páginas que aún no existen.
+  - /admin sigue con contraseña compartida. Al pasarlo al login hay que
+    quitar GET /api/requerimientos.
+  - Falta probar levantar.command con el stack completo.
+  - La team.db real aún no está migrada: se migrará al levantar el backend.
+    Solo agrega tablas.
+  - En producción hay que definir APP_ENV=production; si no, la cookie sale
+    sin Secure.
+  - El límite de login cuenta por correo: alguien podría bloquear a otra
+    persona durante 15 minutos a propósito.
+  - backend/ sigue sin estar en git. Conviene hacer commit pronto, porque
+    el respaldo de la estructura anterior está en una carpeta temporal.
+  - frontend/dev.db sigue en el historial de git. Si tiene datos reales y
+    el repositorio se comparte, ignorarla no los elimina de ahí.
+  - Al hacer pull del commit que saca dev.db, git borrará la copia local de
+    otros clones. Tendrán que recrearla con las migraciones de Prisma.
+  - La burbuja del sorteo muestra "0 — Finalizó". Si sigue activo, hay que
+    actualizar la fecha.
+  - El sitemap lista /Sorteo con mayúscula; la ruta real es /sorteo.

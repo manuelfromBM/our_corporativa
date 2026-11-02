@@ -1,0 +1,301 @@
+NOTA (31-10-2026): este documento describe la estructura ANTERIOR del
+backend (main.go, handlers/, repository/...). La vigente está en
+stack_tecnologico.txt. Siguen vigentes aquí los payloads y las tablas de
+equipo y cotizaciones.
+
+=====================================================================
+ STACK BACKEND — BM Code Lab (our_corporativa)
+ Estado al 27-10-2026 · rama: reestructura-frontend
+ Documento de contexto para otra IA
+=====================================================================
+
+RESUMEN
+-------
+API REST pequeña en Go que sirve dos cosas al sitio corporativo
+(Next.js, carpeta frontend/):
+
+  1. Los perfiles del equipo (antes estaban escritos a mano en el
+     frontend, en ProfileTeamData.ts).
+  2. Las solicitudes de cotización que llegan desde el formulario
+     /cotizar, y su lectura desde un panel interno protegido con
+     contraseña (/admin/solicitudes).
+
+Los datos se guardan en SQLite (un solo archivo). El backend aún no
+está en git: aparece como carpeta sin seguimiento (untracked).
+
+
+=====================================================================
+ 1. STACK
+=====================================================================
+
+  Lenguaje        Go 1.26 (módulo: "backend")
+  Framework HTTP  Gin v1.12.0 (github.com/gin-gonic/gin)
+  Base de datos   SQLite vía modernc.org/sqlite v1.61.0
+                  (driver en Go puro, sin CGO; nombre de driver "sqlite")
+  Acceso a datos  database/sql estándar con SQL escrito a mano
+                  (sin ORM ni query builder)
+  Migraciones     No hay herramienta: el esquema se aplica al arrancar
+                  con CREATE TABLE IF NOT EXISTS
+  Tests           Ninguno (0 archivos *_test.go)
+  Tamaño          9 archivos .go, unas 900 líneas
+
+
+=====================================================================
+ 2. ESTRUCTURA DE CARPETAS
+=====================================================================
+
+backend/
+├── main.go                    Punto de entrada: lee env, abre la base,
+│                              corre el seed, registra rutas y levanta Gin
+├── go.mod / go.sum
+├── .gitignore                 Ignora data/ y *.db
+├── data/
+│   └── team.db                Base SQLite (se crea sola; no va a git)
+├── database/
+│   └── database.go            Open(path): crea la carpeta, abre SQLite con
+│                              foreign_keys(1), MaxOpenConns=1 y aplica
+│                              el esquema completo (constante `schema`)
+├── models/
+│   ├── team.go                TeamMember y subtipos (misma forma que el
+│                              tipo TeamMember del frontend)
+│   └── requerimiento.go       Requerimiento (payload de /cotizar) y
+│                              RequerimientoGuardado (lo que lee el admin)
+├── repository/
+│   ├── team.go                Consultas del equipo + helper genérico
+│                              queryList[T] y ErrNotFound
+│   └── requerimiento.go       Create (transacción) y GetAll; genera el
+│                              código de seguimiento REQ-XXXXXX
+├── handlers/
+│   ├── team.go                Rutas /team + helper internalError
+│   ├── requerimiento.go       POST/GET /requerimientos + validación
+│   └── admin.go               Middleware soloAdmin() (Bearer token)
+└── seed/
+    ├── seed.go                Carga team.json si la tabla members está vacía
+    └── team.json              Datos iniciales del equipo (embebido con
+                               go:embed; se generó desde ProfileTeamData.ts)
+
+
+=====================================================================
+ 3. ARQUITECTURA
+=====================================================================
+
+Capas (de afuera hacia adentro), sin interfaces ni inyección de
+dependencias más allá de los constructores:
+
+  HTTP (Gin)
+     │
+  handlers/     Decodifican JSON, validan, llaman al repositorio,
+     │          responden JSON. Cada handler expone Register(*gin.RouterGroup).
+     │
+  repository/   SQL a mano sobre *sql.DB. Un struct por agregado
+     │          (TeamRepository, RequerimientoRepository).
+     │
+  database/     Abre la conexión y crea el esquema.
+     │
+  SQLite (data/team.db)
+
+  models/ son structs planos con tags json, compartidos por todas las capas.
+  seed/ se ejecuta una vez al arrancar, antes de levantar el servidor.
+
+Cableado en main.go:
+
+  db := database.Open(DB_PATH)
+  seed.Run(db)
+  api := gin.Default().Group("/api")
+  handlers.NewTeamHandler(repository.NewTeamRepository(db)).Register(api)
+  handlers.NewRequerimientoHandler(repository.NewRequerimientoRepository(db)).Register(api)
+
+Cómo se conecta con el frontend (Next.js 15, App Router):
+
+  Navegador ──> Next.js (:3000) ──> Backend Go (:8080)
+
+  - El navegador NUNCA habla directo con el backend. Todo pasa por el
+    servidor de Next, que usa la variable BACKEND_URL
+    (por defecto http://localhost:8080). Por eso el backend no tiene CORS.
+  - Consumidores en el frontend:
+      frontend/src/lib/teamApi.ts
+          getTeam(), getMemberBySlug() -> GET /api/team (sin caché)
+          usado por app/(main)/equipo/[slug]/page.tsx
+      frontend/src/app/api/requerimientos/route.ts
+          Route Handler que reenvía el POST del formulario /cotizar
+          a POST /api/requerimientos
+      frontend/src/components/Requerimientos-components/requerimientosApi.ts
+          construirPayload() arma el JSON; enviarRequerimiento() lo
+          manda a /api/requerimientos (el route handler de Next)
+      frontend/src/lib/requerimientosAdminApi.ts
+          getSolicitudes() -> GET /api/requerimientos con
+          Authorization: Bearer ADMIN_PASSWORD (solo en el servidor)
+          usado por app/admin/solicitudes/page.tsx
+      frontend/src/middleware.ts
+          Pide HTTP Basic Auth en /admin/* (solo se revisa la contraseña,
+          que debe ser igual a ADMIN_PASSWORD)
+
+
+=====================================================================
+ 4. ENDPOINTS
+=====================================================================
+
+Todos bajo el prefijo /api. Errores con forma {"error": "mensaje"}.
+Los errores 500 se registran con log.Printf y responden "error interno".
+
+  GET  /api/team
+       200 -> [TeamMember, ...] ordenados por position
+
+  GET  /api/team/slugs
+       200 -> ["manuel","bastian","cristian","byron"]
+
+  GET  /api/team/:slug
+       200 -> TeamMember | 404 {"error":"miembro no encontrado"}
+
+  POST /api/requerimientos          (público)
+       Body máximo 256 KB. Payload:
+       {
+         "servicio":  { "slug": "automatizacion", "titulo": "Automatizacion" },
+         "contacto":  { "nombre": "...", "correo": "...", "telefono": "...",
+                        "empresa": "...", "medio_preferido": "..." },
+         "secciones": [
+           { "id": "datos", "titulo": "Tus datos",
+             "respuestas": [
+               { "id": "cargo", "pregunta": "Cargo o rol", "respuesta": "Socio" },
+               { "id": "herramientas", "pregunta": "...", "respuesta": ["Gmail","ERP"] },
+               { "id": "acepta", "pregunta": "...", "respuesta": true }
+             ] }
+         ],
+         "enviado_en": "2026-10-27T02:17:56.415Z"
+       }
+       "respuesta" puede ser string, lista de strings o booleano.
+       Validación (handlers/requerimiento.go -> validarRequerimiento):
+         - quita espacios, pasa el correo a minúsculas
+         - exige servicio.slug, nombre, correo válido (regex simple),
+           teléfono y al menos una sección
+         - cada respuesta necesita id y valor
+         - si falta servicio.titulo usa el slug
+       201 -> {"codigo": "REQ-Z63PGG"} | 400 {"error": "..."}
+
+  GET  /api/requerimientos          (solo admin)
+       Header: Authorization: Bearer <ADMIN_PASSWORD>
+       200 -> [RequerimientoGuardado, ...] del más reciente al más antiguo,
+              cada uno con todas sus secciones y respuestas:
+              { "id", "codigo", "creado_en", "servicio", "contacto",
+                "secciones", "enviado_en" }
+       401 si el token no coincide
+       503 si ADMIN_PASSWORD no está definida (cerrado por defecto)
+
+
+=====================================================================
+ 5. BASE DE DATOS (SQLite, data/team.db)
+=====================================================================
+
+Pragmas/conexión: foreign_keys(1), una sola conexión abierta
+(SQLite admite un solo escritor; evita "database is locked").
+Todas las tablas hijas usan ON DELETE CASCADE y una columna
+"position" para conservar el orden original.
+
+-- Equipo ------------------------------------------------------------
+members                    id, slug UNIQUE, initials, img, alt, badge,
+                           name, role, tech_bio, biz_bio, position
+member_experience          member_id -> members, company, role, period,
+                           description, position
+member_education           member_id, institution, degree, period, position
+member_stats               member_id, value, label, position
+member_skills              member_id, name, position
+member_tools               member_id, name, position
+member_library_categories  member_id, category, position
+member_library_items       category_id -> member_library_categories,
+                           name, position
+member_biz_cards           member_id, icon, title, description, position
+
+-- Cotizaciones ------------------------------------------------------
+requerimientos             id, codigo UNIQUE (REQ-XXXXXX), servicio_slug,
+                           servicio_titulo, nombre, correo, telefono,
+                           empresa, medio_preferido, enviado_en (fecha del
+                           navegador), creado_en (DEFAULT now, UTC ISO)
+requerimiento_respuestas   requerimiento_id -> requerimientos, seccion_id,
+                           seccion_titulo, campo_id, pregunta (texto),
+                           respuesta (JSON como TEXT), position
+                           índice: idx_requerimiento_respuestas_req
+
+Modelo de las cotizaciones: cabecera + respuestas en formato
+"una fila por pregunta" (tipo EAV), porque cada servicio tiene un
+formulario distinto. La pregunta se guarda en texto para que se lea
+sin depender del código del frontend. Los datos de contacto quedan en
+la cabecera Y también como respuestas de la sección "Tus datos".
+
+Datos actuales: 4 miembros (manuel, bastian, cristian, byron) y
+2 solicitudes de prueba.
+
+Consulta para ver todo (DB Browser / sqlite3):
+
+  SELECT r.codigo, r.servicio_titulo, r.nombre, r.correo, r.telefono,
+         x.seccion_titulo, x.pregunta,
+         CASE json_type(x.respuesta)
+           WHEN 'array' THEN (SELECT group_concat(value, ', ') FROM json_each(x.respuesta))
+           WHEN 'true'  THEN 'Sí'
+           WHEN 'false' THEN 'No'
+           ELSE json_extract(x.respuesta, '$')
+         END AS respuesta
+  FROM requerimientos r
+  JOIN requerimiento_respuestas x ON x.requerimiento_id = r.id
+  ORDER BY r.id DESC, x.position;
+
+
+=====================================================================
+ 6. CONFIGURACIÓN Y ARRANQUE
+=====================================================================
+
+Variables de entorno del backend:
+  PORT            Puerto (por defecto 8080)
+  DB_PATH         Ruta de la base (por defecto data/team.db, relativa a backend/)
+  ADMIN_PASSWORD  Token para GET /api/requerimientos. Sin ella esa ruta
+                  responde 503.
+
+Variables del frontend relacionadas:
+  BACKEND_URL     URL del backend (por defecto http://localhost:8080)
+  ADMIN_PASSWORD  La misma: la pide /admin y se manda como Bearer al backend
+
+Arranque local: levantar.command (en la raíz del repo, doble clic)
+  - Libera los puertos 8080 y 3000
+  - Exporta ADMIN_PASSWORD (por defecto "bmadmin" si no viene definida)
+  - Corre `go run .` en backend/ y espera a que responda /api/team/slugs
+  - Corre `npm run dev -p 3000` en frontend/ con BACKEND_URL
+  - Ctrl+C detiene los dos
+
+Manual:
+  cd backend && ADMIN_PASSWORD=xxx go run .
+
+
+=====================================================================
+ 7. CONVENCIONES DEL CÓDIGO
+=====================================================================
+
+  - Nombres y comentarios en español (requerimiento, solicitud,
+    seccion...); el código del equipo mezcla nombres en inglés (members,
+    GetAll, GetBySlug) porque replica el tipo del frontend.
+  - Comentarios cortos que explican el porqué, no el qué.
+  - Cada handler: struct con repo + constructor NewXHandler + Register().
+  - Repositorios devuelven slices vacíos (no nil) para que el JSON sea [].
+  - Escrituras de varias tablas dentro de una transacción
+    (defer tx.Rollback(); ... tx.Commit()).
+  - Los models replican los tipos TypeScript del frontend; si cambia uno,
+    hay que cambiar el otro.
+  - gofmt estándar.
+
+
+=====================================================================
+ 8. LIMITACIONES Y PENDIENTES CONOCIDOS
+=====================================================================
+
+  - Sin tests.
+  - Sin sistema de migraciones: cambiar una tabla existente requiere
+    ALTER TABLE manual (CREATE IF NOT EXISTS no modifica tablas ya creadas).
+  - El seed solo corre si members está vacía: editar team.json no
+    actualiza una base ya creada (hay que borrar data/team.db o editar la base).
+  - El equipo no tiene endpoints de escritura (solo lectura).
+  - Las solicitudes no tienen estado (nueva / contactada / cerrada),
+    ni paginación, ni endpoint para borrarlas o verlas de a una.
+  - POST /api/requerimientos no tiene rate limiting ni captcha.
+  - GET /api/team hace varias consultas por miembro (N+1); con 4
+    miembros no importa.
+  - El nombre del archivo (team.db) quedó de la primera etapa, aunque
+    ahora también guarda las cotizaciones.
+  - El backend y sus cambios del frontend aún no están commiteados.

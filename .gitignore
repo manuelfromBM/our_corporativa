@@ -41,3 +41,19 @@ yarn-error.log*
 next-env.d.ts
 
 frontend/src/generated/prisma
+
+# bases de datos sqlite
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sqlite
+*.sqlite3
+*.py
+
+
+# contraseñas generadas por backend/cmd/crear-equipo
+credenciales_equipo.txt
+
+# backend que yo hago a mano
+backend_go/

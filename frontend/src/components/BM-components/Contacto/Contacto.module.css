@@ -230,6 +230,27 @@
   cursor: progress;
 }
 
+.detalleButton {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px 24px;
+  border: 1px solid var(--c-line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.detalleButton:hover {
+  border-color: var(--c-green);
+  color: var(--c-green);
+}
+
 .mensajeOk,
 .mensajeError {
   margin: 16px 0 0;

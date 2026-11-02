@@ -51,7 +51,6 @@ function validarDatos(data:unknown): data is DatosFormSorteo{
 
 
 export async function POST(req: Request) {
-  const resend = new Resend(process.env.RESEND_API_KEY)
   try {
 
     const body = await req.json()
@@ -89,6 +88,15 @@ export async function POST(req: Request) {
       url_sitio_web: body.url_sitio_web,
     }
   })
+  // new Resend() lanza una excepción sin API key. En local se permite registrar sin correos;
+  // en producción la falta de la key sigue siendo un error.
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    if (process.env.NODE_ENV === 'production') throw new Error('Falta RESEND_API_KEY')
+    console.warn('[contactosorteo] Sin RESEND_API_KEY: participante guardado, correos omitidos.')
+    return NextResponse.json({ ok: true }, { status: 200 })
+  }
+  const resend = new Resend(apiKey)
   const { error } = await resend.emails.send({
     from: 'noreply@bmcodelab.cl',                        
     to: body.correo,

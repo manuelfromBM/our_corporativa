@@ -6,41 +6,52 @@ import CircuitBackground from "../Circuit/CircuitBackground";
 
 function ServiceCard({ servicio }: { servicio: Servicio }) {
   return (
-    <Link href={`/servicios/${servicio.slug}`} className={styles.card}>
+    <article className={styles.card}>
       <div className={styles.cardGlow} />
 
-      <div className={styles.imagenWrap}>
-        <Image
-          className={styles.imagen}
-          src={servicio.imageSrc}
-          alt={servicio.imageAlt}
-          fill
-          sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 25vw"
-        />
-        <div className={styles.imagenOverlay} />
-        <span className={styles.cardNumber}>{servicio.num}</span>
-      </div>
-
-      <div className={styles.cardFooter}>
-        <h3 className={styles.cardTitle}>{servicio.tec.titulo}</h3>
-        <svg
-          className={styles.arrow}
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M2 7h10M8 3l4 4-4 4"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+      <Link href={`/servicios/${servicio.slug}`} className={styles.cardLink}>
+        <div className={styles.imagenWrap}>
+          <Image
+            className={styles.imagen}
+            src={servicio.imageSrc}
+            alt={servicio.imageAlt}
+            fill
+            sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 25vw"
           />
-        </svg>
-      </div>
-    </Link>
+          <div className={styles.imagenOverlay} />
+          <span className={styles.cardNumber}>{servicio.num}</span>
+        </div>
+
+        <div className={styles.cardFooter}>
+          <h3 className={styles.cardTitle}>{servicio.tec.titulo}</h3>
+          <svg
+            className={styles.arrow}
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M2 7h10M8 3l4 4-4 4"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+      </Link>
+
+      {/* Lleva al flujo de requerimientos con el servicio ya elegido */}
+      <Link
+        href={`/cotizar?servicio=${servicio.slug}`}
+        className={styles.cotizar}
+        aria-label={`Cotizar ${servicio.tec.titulo}`}
+      >
+        Cotizar
+      </Link>
+    </article>
   );
 }
 

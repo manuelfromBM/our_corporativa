@@ -1,0 +1,337 @@
+/* ─────────────────────────────────────────
+   FormularioRegistro.module.css
+   Formulario por pasos del registro al sorteo
+   Paleta alineada a BM-theme (verde / azul sobre oscuro)
+───────────────────────────────────────── */
+
+/* ── SECCIÓN Y VARIABLES LOCALES ── */
+.seccion {
+  --r-green: #16c47f;
+  --r-blue: #2f6fed;
+  --r-gradient: linear-gradient(135deg, #16c47f, #2f6fed);
+  --r-bg: #0d0f14;
+  --r-card: #11151c;
+  --r-field: #161b23;
+  --r-line: #2a3140;
+  --r-line-soft: #232834;
+  --r-text: #f3f5f8;
+  --r-text-2: #c7cddb;
+  --r-muted: #9aa3b2;
+  --r-dim: #5b6472;
+  --r-error: #f87171;
+
+  position: relative;
+  min-height: 100vh;
+  padding: 4rem 16px 5rem;
+  background: var(--r-bg);
+  color: var(--r-text);
+  overflow: hidden;
+}
+
+/* Resplandor sutil detrás de la card */
+.seccion::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  width: 720px;
+  max-width: 100%;
+  height: 480px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(22, 196, 127, 0.08) 0%, rgba(47, 111, 237, 0.05) 40%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.contenedor {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ── ENCABEZADO ── */
+.encabezado {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.etiqueta {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(22, 196, 127, 0.3);
+  border-radius: 999px;
+  background: rgba(22, 196, 127, 0.08);
+  color: var(--r-green);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.titulo {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.subtitulo {
+  margin: 0;
+  color: var(--r-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ── STEPPER ── */
+.stepper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.paso {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--r-dim);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.3;
+  transition: color 0.2s ease;
+}
+
+.pasoBarra {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--r-line-soft);
+  overflow: hidden;
+}
+
+.pasoBarra::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--r-gradient);
+  transition: width 0.35s ease;
+}
+
+.pasoActivo {
+  color: var(--r-text);
+}
+
+.pasoActivo .pasoBarra::after {
+  width: 50%;
+}
+
+.pasoCompleto {
+  color: var(--r-green);
+}
+
+.pasoCompleto .pasoBarra::after {
+  width: 100%;
+}
+
+.pasoNumero {
+  font-weight: 700;
+  margin-right: 0.25rem;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--r-card);
+  border: 1px solid var(--r-line);
+  border-radius: 20px;
+  padding: 2.25rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  animation: aparecer 0.35s ease both;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.bloqueEtiqueta {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--r-green);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.legend {
+  float: left; /* evita el comportamiento especial de <legend> sobre el borde */
+  width: 100%;
+  margin: 0 0 0.4rem;
+  padding: 0;
+  color: var(--r-text);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.descripcion {
+  clear: both;
+  margin: 0 0 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--r-line-soft);
+  color: var(--r-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.campos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+/* ── ERROR GENERAL DE ENVÍO ── */
+.errorEnvio {
+  margin: 1.5rem 0 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 10px;
+  background: rgba(248, 113, 113, 0.08);
+  color: var(--r-error);
+  font-size: 0.88rem;
+}
+
+/* ── ACCIONES ── */
+.acciones {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--r-line-soft);
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0 1.5rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botonPrimario {
+  margin-left: auto;
+  border: 0;
+  background: var(--r-gradient);
+  color: #fff;
+}
+
+.botonPrimario:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.botonSecundario {
+  border: 1px solid var(--r-line);
+  background: transparent;
+  color: var(--r-text-2);
+}
+
+.botonSecundario:not(:disabled):hover {
+  border-color: var(--r-muted);
+  color: var(--r-text);
+}
+
+.boton:focus-visible {
+  outline: 2px solid var(--r-green);
+  outline-offset: 2px;
+}
+
+/* ── ESTADO DE ÉXITO ── */
+.exito {
+  text-align: center;
+  padding: 3rem 2.25rem;
+}
+
+.exitoIcono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  background: rgba(22, 196, 127, 0.12);
+  color: var(--r-green);
+  font-size: 1.75rem;
+}
+
+.exitoTitulo {
+  margin: 0 0 0.75rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.exitoTexto {
+  max-width: 440px;
+  margin: 0 auto;
+  color: var(--r-muted);
+  line-height: 1.65;
+}
+
+.exitoTexto + .exitoTexto {
+  margin-top: 1rem;
+}
+
+/* CTA para pasar al detalle del sitio web */
+.exitoAcciones {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.75rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .seccion {
+    padding-top: 2.5rem;
+  }
+
+  .card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .pasoTexto {
+    display: none;
+  }
+
+  .acciones {
+    flex-direction: column-reverse;
+  }
+
+  .boton {
+    width: 100%;
+  }
+}

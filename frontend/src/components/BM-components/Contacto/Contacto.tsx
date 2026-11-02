@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import styles from "./Contacto.module.css";
 import nano from "../NanoForge/NanoForge.module.css";
 import CircuitBackground from "../Circuit/CircuitBackground";
@@ -168,6 +169,9 @@ export default function SeccionContacto() {
             <button type="submit" className={styles.submitButton} disabled={estado === 'cargando'}>
               {estado === 'cargando' ? 'Enviando...' : 'Enviar mensaje'}
             </button>
+            <Link href="/cotizar" className={styles.detalleButton}>
+              ¿Quieres decirnos tu sistema?
+            </Link>
             {estado === 'ok' && (
               <p className={styles.mensajeOk}>
                 ✅ ¡Mensaje enviado! Te responderemos en menos de 24 horas.

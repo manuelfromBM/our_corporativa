@@ -1,0 +1,199 @@
+=====================================================================
+ CONTEXTO DEL PROYECTO — BM Code Lab (our_corporativa)
+ Estado al 31-10-2026 · rama: reestructura-frontend
+=====================================================================
+
+QUÉ ES
+------
+Sitio corporativo de BM Code Lab (https://www.bmcodelab.cl), empresa
+chilena de desarrollo de software a medida: desarrollo web, apps móviles,
+integración de IA, automatización, DevOps, seguridad, soporte y
+consultoría tecnológica.
+
+El sitio cumple tres funciones:
+
+  1. Presentar a la empresa, sus servicios y su equipo.
+  2. Captar clientes: contacto, cotización, asesoría y sorteo.
+  3. Dar soporte interno: panel para revisar las solicitudes recibidas.
+
+El siguiente objetivo es sumar un acceso con login para el equipo y un
+portal donde los clientes sigan sus proyectos (ver sección 5).
+
+El detalle técnico está en stack_tecnologico.txt.
+
+
+=====================================================================
+ 1. ESTRUCTURA DEL REPOSITORIO
+=====================================================================
+
+  frontend/                 Sitio en Next.js (páginas, formularios, panel)
+  backend/                  API en Go: equipo y solicitudes de cotización
+  backend_go/               Carpeta vacía
+  levantar.command          Levanta backend y frontend en local
+  enviar_bienvenida.py      Envía el correo de bienvenida a un cliente
+  correo_bienvenida.html    Plantilla y vista previa de ese correo
+  diseno.html y similares   Prototipos de diseño
+  pendientes.txt            Pendiente de SEO (sitemap y Search Console)
+  cambios_backend_equipo.txt  Bitácora de la migración del equipo a SQLite
+  stack backend.txt         Documentación detallada del backend
+
+
+=====================================================================
+ 2. FUNCIONALIDADES ACTUALES
+=====================================================================
+
+Sitio público
+  /                    Inicio: hero, servicios, asesoría, equipo,
+                       promoción de Krona y contacto
+  /servicios           Listado de servicios
+  /servicios/[slug]    Detalle de cada uno de los 8 servicios
+  /equipo/[slug]       Perfil de cada integrante, con vista técnica y de
+                       negocio. Los datos vienen del backend
+  /asesoria            Página de asesoría
+  /krona               Landing de Krona, con tema y navbar propios
+
+Captación
+  Contacto             Formulario de la portada; envía un correo con Resend
+  /cotizar             Formulario por pasos con preguntas distintas por
+                       servicio. Guarda la solicitud en el backend y
+                       entrega un código de seguimiento (REQ-XXXXXX).
+                       Acepta ?servicio=<slug>. Aún sin indexar, en pruebas
+  /sorteo              Landing del sorteo. Guarda participantes en Turso y
+                       envía correos con Resend
+  /registro-sorteo     Nuevo registro al sorteo. EN PROTOTIPO: el envío de
+                       los datos del registro solo se simula
+
+Uso interno
+  /admin/solicitudes   Panel para leer las solicitudes de cotización.
+                       Protegido con una contraseña compartida
+
+Los 8 servicios (slugs): desarrollo-web, aplicaciones-moviles,
+integracion-ia, automatizacion, devops-hosting, seguridad-gestion,
+soporte-mantenimiento y consultoria-tecnica.
+
+Equipo actual en la base: manuel, bastian, cristian y byron.
+
+
+=====================================================================
+ 3. ESTADO DEL TRABAJO
+=====================================================================
+
+  - La rama reestructura-frontend tiene mucho trabajo sin commitear,
+    incluidos backend/, el panel admin, /registro-sorteo y middleware.ts.
+  - El backend ya tiene login, cuentas, clientes, proyectos y portal
+    (ver sección 5), con migraciones y tests de integración.
+  - El frontend aún no los usa: /admin sigue con contraseña compartida y
+    no existen las páginas de login ni del portal.
+  - Las solicitudes no tienen estado (nueva, contactada, cerrada).
+  - El hosting de producción del backend no está documentado en el repo.
+  - Pendiente: validar el sitemap en Google Search Console. El sitemap
+    lista /Sorteo con mayúscula, pero la ruta real es /sorteo.
+
+
+=====================================================================
+ 4. CONVENCIONES
+=====================================================================
+
+  - Interfaz, nombres de negocio y comentarios en español.
+  - El navegador no llama directo al backend en Go: pasa por Next.js.
+  - Los componentes se agrupan por área en src/components/
+    (BM-components, Krona-components, Admin-components, etc.).
+  - Estilos con CSS Modules y temas por sección en src/Styles/.
+
+
+=====================================================================
+ 5. OBJETIVO NUEVO: LOGIN Y PORTAL DE CLIENTES
+=====================================================================
+
+ESTADO: backend implementado; falta el frontend. Quedaron resueltas estas
+decisiones: cuentas por invitación del equipo, varios usuarios por cliente
+y login con correo y contraseña.
+
+REQUERIMIENTOS
+--------------
+  A. Crear un módulo de login donde inicien sesión los usuarios y los
+     integrantes de BM Code Lab.
+
+  B. Crear uno o más módulos donde los clientes, al iniciar sesión,
+     puedan ver la información de su proyecto, sus estados y demás datos
+     relacionados.
+
+Se interpreta que los "usuarios" son los clientes, además de los
+integrantes del equipo. Esto queda por confirmar (sección 5.5).
+
+
+5.1 PERFILES DE ACCESO (PROPUESTA)
+----------------------------------
+  Cliente       Ve solo los proyectos de su propia empresa o cuenta.
+                No accede a datos de otros clientes ni a herramientas
+                internas.
+  Integrante    Accede a las herramientas internas y gestiona los
+                proyectos: estados, avances e información para el cliente.
+  Administrador Integrante que además gestiona cuentas y permisos.
+
+
+5.2 MÓDULOS PROPUESTOS
+----------------------
+  Autenticación
+    - Inicio y cierre de sesión.
+    - Recuperación de contraseña por correo.
+    - Las cuentas de cliente las crea el equipo o se activan por
+      invitación; no se propone registro público.
+
+  Portal del cliente
+    - Lista de proyectos propios.
+    - Detalle: servicio contratado, estado actual, porcentaje o etapa
+      de avance, próximos hitos y fechas estimadas.
+    - Historial de avances publicados por el equipo.
+    - Como extensiones posibles: documentos, entregables, pagos y
+      mensajes con el equipo.
+
+  Gestión interna
+    - Crear y editar clientes y proyectos.
+    - Cambiar estados y publicar avances visibles para el cliente.
+    - Convertir una solicitud de /cotizar en un proyecto.
+    - Reemplazar la contraseña compartida de /admin por el login real.
+
+Estados sugeridos para un proyecto: Por iniciar, Levantamiento, En
+diseño, En desarrollo, En revisión, Entregado, Pausado.
+
+
+5.3 DATOS NUEVOS QUE HARÍAN FALTA (PROPUESTA)
+---------------------------------------------
+  usuarios             correo, hash de contraseña, rol, activo, fechas
+  clientes             empresa o persona, datos de contacto
+  usuarios_clientes    qué usuarios pertenecen a qué cliente
+  proyectos            cliente, servicio, nombre, estado, fechas y
+                       enlace opcional a la solicitud de origen
+  proyecto_hitos       etapas planificadas y su estado
+  proyecto_avances     publicaciones del equipo, con marca de visibilidad
+                       para el cliente
+
+Los integrantes pueden enlazarse con la tabla members existente, para no
+duplicar sus datos.
+
+
+5.4 CRITERIOS A RESPETAR
+------------------------
+  - Autorización en el backend: cada consulta debe comprobar que el
+    proyecto pertenece al cliente que inició sesión. Ocultarlo en la
+    interfaz no basta.
+  - Contraseñas guardadas solo como hash (bcrypt o argon2).
+  - Sesión en cookie HttpOnly, Secure y SameSite, gestionada a través de
+    Next.js, respetando que el navegador no llame directo al backend.
+  - Límite de intentos en el login.
+  - Las notas internas no deben llegar al portal del cliente.
+  - Rutas privadas sin indexar (fuera del sitemap y con noindex).
+
+
+5.5 DECISIONES PENDIENTES
+-------------------------
+  - Confirmar si "usuarios" son solo clientes o también otro tipo de
+    usuario.
+  - Qué información exacta verá el cliente en la primera versión.
+  - Si más adelante se agrega login con Google u otro proveedor.
+  - Dónde se alojará el backend en producción. SQLite necesita disco
+    persistente, y esto influye en si conviene seguir con SQLite o usar
+    otra base para los datos de clientes.
+  - Rutas sugeridas, por confirmar: /login, /portal/* para clientes y
+    /admin/* para el equipo.

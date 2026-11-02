@@ -5,7 +5,7 @@ import FlujoRequerimientos from "@/components/Requerimientos-components/FlujoReq
 export const metadata: Metadata = {
     title: "Cotiza tu proyecto",
     description: "Cuéntanos qué necesitas y llegamos a la primera reunión con tu caso estudiado.",
-    // Sin indexar mientras el flujo funciona con datos simulados.
+    // Sin indexar mientras el flujo está en pruebas.
     robots: { index: false, follow: false },
 };
 
