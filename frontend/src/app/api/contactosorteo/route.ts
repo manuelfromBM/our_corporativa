@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { emailHtml } from "./correo";
 import { emailHtmlAdmin } from "./notificacion";
-import { prisma } from '@/lib/prisma'
+import { guardarEnBackend } from '@/lib/guardarEnBackend'
 
 
 const opcionesNegocio = [
@@ -64,30 +64,10 @@ export async function POST(req: Request) {
         { status: 400 }
       )
     }
-    const yaExiste = await prisma.participante.findUnique({
-        where: { correo: body.correo }
-      })
+  // El backend rechaza con 409 un correo ya registrado.
+  const errorAlGuardar = await guardarEnBackend('/api/sorteo/participantes', body)
+  if (errorAlGuardar) return errorAlGuardar
 
-      if (yaExiste) {
-        return NextResponse.json(
-          { error: 'Este correo ya está registrado.' },
-          { status: 409 }
-        )
-      }
-
-  await prisma.participante.create({
-    data: {
-      nombre: body.nombre,
-      apellido: body.apellido,
-      correo: body.correo,
-      usuario_instagram: body.usuario_instagram,
-      tipo_negocio: body.tipo_negocio,
-      nombre_negocio: body.nombre_negocio,
-      comuna: body.comuna,
-      tiene_sitio_web: body.tiene_sitio_web,
-      url_sitio_web: body.url_sitio_web,
-    }
-  })
   // new Resend() lanza una excepción sin API key. En local se permite registrar sin correos;
   // en producción la falta de la key sigue siendo un error.
   const apiKey = process.env.RESEND_API_KEY
