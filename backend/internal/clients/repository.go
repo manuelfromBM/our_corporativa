@@ -12,7 +12,7 @@ import (
 
 var errNotFound = httpx.NotFound("cliente no encontrado")
 
-const columns = `id, name, contact_name, email, phone, created_at, updated_at`
+const columns = `id, nombre, nombre_contacto, correo, telefono, creado_en, actualizado_en`
 
 type Repository struct {
 	db *sql.DB
@@ -29,7 +29,7 @@ func scanClient(row interface{ Scan(...any) error }) (Client, error) {
 }
 
 func (r *Repository) list(ctx context.Context) ([]Client, error) {
-	rows, err := r.db.QueryContext(ctx, `SELECT `+columns+` FROM clients ORDER BY name`)
+	rows, err := r.db.QueryContext(ctx, `SELECT `+columns+` FROM clientes ORDER BY nombre`)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (r *Repository) list(ctx context.Context) ([]Client, error) {
 }
 
 func (r *Repository) get(ctx context.Context, id int64) (*Client, error) {
-	c, err := scanClient(r.db.QueryRowContext(ctx, `SELECT `+columns+` FROM clients WHERE id = $1`, id))
+	c, err := scanClient(r.db.QueryRowContext(ctx, `SELECT `+columns+` FROM clientes WHERE id = $1`, id))
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, errNotFound
 	}
@@ -60,7 +60,7 @@ func (r *Repository) get(ctx context.Context, id int64) (*Client, error) {
 func (r *Repository) create(ctx context.Context, in Input) (int64, error) {
 	var id int64
 	err := r.db.QueryRowContext(ctx,
-		`INSERT INTO clients (name, contact_name, email, phone) VALUES ($1, $2, $3, $4) RETURNING id`,
+		`INSERT INTO clientes (nombre, nombre_contacto, correo, telefono) VALUES ($1, $2, $3, $4) RETURNING id`,
 		in.Name, in.ContactName, in.Email, in.Phone,
 	).Scan(&id)
 	return id, err
@@ -68,7 +68,7 @@ func (r *Repository) create(ctx context.Context, in Input) (int64, error) {
 
 func (r *Repository) update(ctx context.Context, id int64, in Input) error {
 	res, err := r.db.ExecContext(ctx,
-		`UPDATE clients SET name = $1, contact_name = $2, email = $3, phone = $4, updated_at = $5 WHERE id = $6`,
+		`UPDATE clientes SET nombre = $1, nombre_contacto = $2, correo = $3, telefono = $4, actualizado_en = $5 WHERE id = $6`,
 		in.Name, in.ContactName, in.Email, in.Phone, database.Time(time.Now()), id,
 	)
 	if err != nil {

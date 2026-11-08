@@ -16,9 +16,9 @@ const suffix = ".up.sql"
 
 // Migrate aplica en orden las migraciones pendientes, cada una en su propia transacción.
 func Migrate(ctx context.Context, db *sql.DB) error {
-	if _, err := db.ExecContext(ctx, `CREATE TABLE IF NOT EXISTS schema_migrations (
-		version    TEXT PRIMARY KEY,
-		applied_at TEXT NOT NULL DEFAULT (to_char(now() AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"'))
+	if _, err := db.ExecContext(ctx, `CREATE TABLE IF NOT EXISTS migraciones_esquema (
+		version     TEXT PRIMARY KEY,
+		aplicada_en TEXT NOT NULL DEFAULT (to_char(now() AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"'))
 	)`); err != nil {
 		return err
 	}
@@ -34,7 +34,7 @@ func Migrate(ctx context.Context, db *sql.DB) error {
 		}
 		version := strings.TrimSuffix(e.Name(), suffix)
 		var applied int
-		if err := db.QueryRowContext(ctx, `SELECT COUNT(*) FROM schema_migrations WHERE version = $1`, version).Scan(&applied); err != nil {
+		if err := db.QueryRowContext(ctx, `SELECT COUNT(*) FROM migraciones_esquema WHERE version = $1`, version).Scan(&applied); err != nil {
 			return err
 		}
 		if applied > 0 {
@@ -62,7 +62,7 @@ func apply(ctx context.Context, db *sql.DB, version, file string) error {
 	if _, err := tx.ExecContext(ctx, string(script)); err != nil {
 		return err
 	}
-	if _, err := tx.ExecContext(ctx, `INSERT INTO schema_migrations (version) VALUES ($1)`, version); err != nil {
+	if _, err := tx.ExecContext(ctx, `INSERT INTO migraciones_esquema (version) VALUES ($1)`, version); err != nil {
 		return err
 	}
 	return tx.Commit()

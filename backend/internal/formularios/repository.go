@@ -18,7 +18,7 @@ func NewRepository(db *sql.DB) *Repository {
 
 func (r *Repository) createContacto(ctx context.Context, c Contacto) error {
 	_, err := r.db.ExecContext(ctx,
-		`INSERT INTO contactos (nombre, email, telefono, tipo_proyecto, mensaje) VALUES ($1, $2, $3, $4, $5)`,
+		`INSERT INTO contactos (nombre, correo, telefono, tipo_proyecto, mensaje) VALUES ($1, $2, $3, $4, $5)`,
 		c.Nombre, c.Email, c.Telefono, c.TipoProyecto, c.Mensaje,
 	)
 	return err

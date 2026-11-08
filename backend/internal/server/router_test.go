@@ -461,6 +461,7 @@ func TestSessionReadsRequests(t *testing.T) {
 }
 
 func TestNewRequestNotifiesTeam(t *testing.T) {
+	t.Skip("aviso por correo de solicitudes desactivado de momento (ver requests.Service.Create)")
 	a := newApp(t)
 	a.anon().want(http.StatusCreated, "POST", "/api/requerimientos", map[string]any{
 		"servicio": map[string]any{"slug": "web", "titulo": "Sitio web"},

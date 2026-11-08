@@ -13,7 +13,8 @@ import { pasosProductoSorteo, SLUG_PRODUCTO_SORTEO, TITULO_PRODUCTO_SORTEO } fro
 interface DetalleProductoSorteoProps {
     // Datos que ya entregó en el registro, para no volver a pedirlos.
     valoresIniciales: ValoresFormulario;
-    onOmitir: () => void;
+    // Sin onOmitir (al llegar desde el enlace del correo), "Ahora no" vuelve a /sorteo.
+    onOmitir?: () => void;
 }
 
 // Mismo flujo por pasos que /cotizar, pero con un formulario fijo del sitio web del premio.
@@ -192,11 +193,15 @@ const DetalleProductoSorteo = ({ valoresIniciales, onOmitir }: DetalleProductoSo
                                     className={`${styles.boton} ${styles.botonSecundario}`}>
                                     ← Anterior
                                 </button>
-                            ) : (
+                            ) : onOmitir ? (
                                 <button type="button" onClick={onOmitir} disabled={cargando}
                                     className={`${styles.boton} ${styles.botonSecundario}`}>
                                     Ahora no
                                 </button>
+                            ) : (
+                                <Link href="/sorteo" className={`${styles.boton} ${styles.botonSecundario}`}>
+                                    Ahora no
+                                </Link>
                             )}
                             <button type="submit" disabled={cargando} className={`${styles.boton} ${styles.botonPrimario}`}>
                                 {textoBoton}

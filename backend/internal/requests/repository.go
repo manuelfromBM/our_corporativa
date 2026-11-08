@@ -49,7 +49,7 @@ func (r *Repository) Create(ctx context.Context, req Requerimiento) (string, err
 	for _, s := range req.Secciones {
 		for _, resp := range s.Respuestas {
 			if _, err := tx.ExecContext(ctx,
-				`INSERT INTO requerimiento_respuestas (requerimiento_id, seccion_id, seccion_titulo, campo_id, pregunta, respuesta, position)
+				`INSERT INTO requerimiento_respuestas (requerimiento_id, seccion_id, seccion_titulo, campo_id, pregunta, respuesta, posicion)
 				 VALUES ($1, $2, $3, $4, $5, $6, $7)`,
 				id, s.ID, s.Titulo, resp.ID, resp.Pregunta, string(resp.Respuesta), position,
 			); err != nil {
@@ -122,7 +122,7 @@ func (r *Repository) GetAll(ctx context.Context, soloSorteo *bool) ([]Requerimie
 
 	rows, err = r.db.QueryContext(ctx,
 		`SELECT requerimiento_id, seccion_id, seccion_titulo, campo_id, pregunta, respuesta
-		 FROM requerimiento_respuestas ORDER BY requerimiento_id, position`,
+		 FROM requerimiento_respuestas ORDER BY requerimiento_id, posicion`,
 	)
 	if err != nil {
 		return nil, err

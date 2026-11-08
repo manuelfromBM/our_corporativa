@@ -1,0 +1,97 @@
+MOVER NEON DE SAO PAULO A VIRGINIA (us-east-1)
+
+Por qué: Render no tiene región en Sudamérica. Con la base en São Paulo, /api/team
+tarda entre 5 y 7 segundos y /equipo se siente lenta. Neon no permite cambiar la
+región de un proyecto, así que hay que crear uno nuevo.
+
+Nunca pegues la cadena de conexión en el repositorio ni la subas a git.
+
+
+1. REVISAR ANTES DE EMPEZAR
+
+[ ] BACKEND_URL ya está en Vercel, en el proyecto our-corporativa
+    (https://our-corporativa.onrender.com), y se hizo Redeploy.
+[ ] Render está en Virginia: Render > our-corporativa > Settings > Region.
+    Si no está en Virginia, hay que crear otro servicio en esa región, copiar sus
+    variables y actualizar BACKEND_URL en Vercel.
+[ ] En la base actual de Neon, revisa si hay datos que quieras conservar:
+    requerimientos, requerimiento_respuestas, contactos y participantes_sorteo.
+    Mira las tablas en Neon > Tables.
+
+Si hay datos reales que conservar: usa la OPCIÓN B.
+Si solo hay pruebas: usa la OPCIÓN A.
+
+
+2. CREAR EL PROYECTO NUEVO
+
+1. En Neon, crea un proyecto con región AWS US East (N. Virginia).
+2. En Connect, copia la cadena de conexión. Guárdala solo en un lugar seguro.
+
+
+3. OPCIÓN A: EMPEZAR CON LA BASE LIMPIA
+
+Se pierden los datos de la base actual y las contraseñas actuales del equipo.
+
+1. Cambia DATABASE_URL en Render: Environment > editar > Save.
+   Va sin comillas. Render vuelve a desplegar; si no lo hace, usa Manual Deploy.
+2. Cambia también DATABASE_URL en el .env de la raíz del proyecto.
+3. En Logs de Render deben aparecer las migraciones aplicadas y
+   "servidor escuchando en :...". El backend crea las tablas y carga el equipo solo.
+4. Crea las 4 cuentas:
+
+     cd backend
+     go run ./cmd/crear-equipo
+
+5. Entrega a cada persona su contraseña de backend/credenciales_equipo.txt
+   y borra ese archivo.
+
+
+4. OPCIÓN B: COPIAR LOS DATOS
+
+Se conservan los datos y las contraseñas actuales. No necesitas crear-equipo.
+Hazlo en un momento tranquilo: lo que entre a la base vieja después del paso 3
+no se copiará.
+
+1. Instala las herramientas de Postgres si no las tienes:
+
+     brew install libpq
+     echo 'export PATH="/usr/local/opt/libpq/bin:$PATH"' >> ~/.zshrc
+     source ~/.zshrc
+
+2. Prepara las cadenas de conexión en la terminal. Usa las conexiones directas,
+   sin -pooler en el host:
+
+     export NEON_VIEJA='cadena de la base actual'
+     export NEON_NUEVA='cadena del proyecto nuevo'
+
+3. Copia la base:
+
+     pg_dump "$NEON_VIEJA" -Fc --no-owner --no-privileges -f neon.dump
+     pg_restore -d "$NEON_NUEVA" --no-owner --no-privileges neon.dump
+
+4. Compara la cantidad de filas de cada tabla importante en ambas bases.
+5. Cambia DATABASE_URL en Render y en el .env de la raíz.
+   No antes de terminar la copia.
+6. Borra neon.dump: contiene datos reales y hashes de contraseñas.
+
+
+5. COMPROBAR
+
+[ ] Esto debe responder 200 y tardar muy por debajo de 1 segundo:
+
+      curl -s -o /dev/null -w '%{http_code} %{time_total}s\n' https://our-corporativa.onrender.com/api/team
+
+    Repítelo si la primera vez tarda mucho: Render pudo estar dormido.
+[ ] https://www.bmcodelab.cl/equipo/manuel carga bien.
+[ ] El login funciona.
+[ ] Una prueba en /cotizar se guarda y llega el correo al equipo.
+[ ] Una prueba de contacto se guarda y llega el correo.
+
+Si /api/team sigue lenta: hay que agrupar las consultas de
+backend/internal/team/repository.go, que hoy hace muchas por cada miembro.
+
+
+6. AL TERMINAR
+
+[ ] Deja el proyecto viejo de Neon unos días como respaldo.
+[ ] Si todo sigue bien, bórralo.

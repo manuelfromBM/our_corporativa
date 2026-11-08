@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Navbar.module.css";
+import { sorteoAbierto } from "@/components/Sorteo-components/fechas";
 
 const NAV_ITEMS = [
     { href: "/#inicio", label: "Inicio" },
@@ -16,6 +17,16 @@ const NAV_ITEMS = [
 
 const NavbarPrincipal: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    // Se calcula en el cliente para que el HTML del servidor no quede con un estado viejo.
+    const [sorteoActivo, setSorteoActivo] = useState(false);
+
+    // Revisa cada 30 s para apagar el link al cerrar el sorteo, sin esperar a que se recargue la página
+    useEffect(() => {
+        const update = () => setSorteoActivo(sorteoAbierto());
+        update();
+        const interval = setInterval(update, 30_000);
+        return () => clearInterval(interval);
+    }, []);
 
     // Cierra el menú móvil al hacer scroll o al pasar a escritorio
     useEffect(() => {
@@ -59,6 +70,21 @@ const NavbarPrincipal: React.FC = () => {
                             {item.label}
                         </Link>
                     ))}
+                    {sorteoActivo ? (
+                        <Link href="/sorteo" className={`${styles.link} ${styles.sorteo}`} onClick={closeMenu}>
+                            <span className={styles.sorteoDot} aria-hidden="true" />
+                            Sorteo
+                        </Link>
+                    ) : (
+                        <span
+                            className={`${styles.link} ${styles.sorteo} ${styles.sorteoOff}`}
+                            aria-disabled="true"
+                            title="No hay un sorteo activo"
+                        >
+                            <span className={styles.sorteoDot} aria-hidden="true" />
+                            Sorteo
+                        </span>
+                    )}
                     <Link href="/#contacto" className={styles.cta} onClick={closeMenu}>
                         Contáctanos
                     </Link>

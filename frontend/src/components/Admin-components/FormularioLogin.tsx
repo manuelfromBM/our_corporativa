@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
 import styles from "./Admin.module.css";
@@ -69,6 +70,9 @@ export default function FormularioLogin() {
                 <button type="submit" className={styles.boton} disabled={enviando}>
                     {enviando ? "Ingresando…" : "Ingresar"}
                 </button>
+                <Link href="/recuperar-contrasena" className={styles.botonSecundario}>
+                    ¿Olvidaste tu contraseña?
+                </Link>
             </form>
         </section>
     );
