@@ -12,6 +12,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: { absolute: 'BM Code Lab — Desarrollo web y consultoría tecnológica' },
   description: 'Desarrollamos soluciones digitales a medida: desarrollo web, apps móviles, integración de IA y consultoría tecnológica para empresas en Chile.',
+  alternates: { canonical: 'https://www.bmcodelab.cl' },
 };
 
 export default function Home() {

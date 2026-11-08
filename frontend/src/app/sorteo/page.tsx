@@ -8,6 +8,20 @@ import Formulario from "@/components/Sorteo-components/sections/Formulario/Formu
 import Footer from "@/components/Sorteo-components/sections/Footer/Footer";
 import Preguntas from "@/components/Sorteo-components/sections/FAQ/Preguntas";
 import Fecha from "@/components/Sorteo-components/sections/Fecha/Fecha";
+import type { Metadata } from "next";
+import { OG_BASE } from "@/lib/seo";
+
+export const metadata: Metadata = {
+    title: "Sorteo — Gana una web profesional",
+    description: "Participa en el sorteo de BM Code Lab y gana una web profesional para tu negocio. Revisa los premios, los pasos y las reglas.",
+    alternates: { canonical: "https://www.bmcodelab.cl/sorteo" },
+    openGraph: {
+        ...OG_BASE,
+        title: "Sorteo — Gana una web profesional | BM Code Lab",
+        description: "Participa y gana una web profesional para tu negocio.",
+        url: "https://www.bmcodelab.cl/sorteo",
+    },
+};
 
 export default function SorteoPage() {
     return (
