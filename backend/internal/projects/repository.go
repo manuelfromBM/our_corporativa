@@ -16,12 +16,12 @@ var (
 	errUpdateNotFound    = httpx.NotFound("avance no encontrado")
 )
 
-const projectSelect = `SELECT p.id, p.client_id, c.name, p.request_id, p.name, p.service_slug, p.description,
-	p.internal_notes, p.status, p.progress, p.started_on, p.due_on, p.created_at, p.updated_at
-	FROM projects p JOIN clients c ON c.id = p.client_id`
+const projectSelect = `SELECT p.id, p.cliente_id, c.nombre, p.requerimiento_id, p.nombre, p.servicio_slug, p.descripcion,
+	p.notas_internas, p.estado, p.avance, p.fecha_inicio, p.fecha_entrega, p.creado_en, p.actualizado_en
+	FROM proyectos p JOIN clientes c ON c.id = p.cliente_id`
 
 // Condición de todas las consultas del portal: el proyecto debe ser de un cliente del usuario.
-const ownedByUser = ` JOIN client_users cu ON cu.client_id = p.client_id AND cu.user_id = $1`
+const ownedByUser = ` JOIN cliente_usuarios cu ON cu.cliente_id = p.cliente_id AND cu.usuario_id = $1`
 
 type Repository struct {
 	db *sql.DB
@@ -85,7 +85,7 @@ func projectOrNotFound(p Project, err error) (*Project, error) {
 func (r *Repository) create(ctx context.Context, in ProjectInput) (int64, error) {
 	var id int64
 	err := r.db.QueryRowContext(ctx,
-		`INSERT INTO projects (client_id, request_id, name, service_slug, description, internal_notes, progress, started_on, due_on)
+		`INSERT INTO proyectos (cliente_id, requerimiento_id, nombre, servicio_slug, descripcion, notas_internas, avance, fecha_inicio, fecha_entrega)
 		 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`,
 		in.ClientID, in.RequestID, in.Name, in.ServiceSlug, in.Description, in.InternalNotes, in.Progress, in.StartedOn, in.DueOn,
 	).Scan(&id)
@@ -95,11 +95,11 @@ func (r *Repository) create(ctx context.Context, in ProjectInput) (int64, error)
 	return id, nil
 }
 
-// update no toca request_id: el origen de un proyecto no cambia.
+// update no toca requerimiento_id: el origen de un proyecto no cambia.
 func (r *Repository) update(ctx context.Context, id int64, in ProjectInput) error {
 	res, err := r.db.ExecContext(ctx,
-		`UPDATE projects SET client_id = $1, name = $2, service_slug = $3, description = $4, internal_notes = $5,
-		 progress = $6, started_on = $7, due_on = $8, updated_at = $9 WHERE id = $10`,
+		`UPDATE proyectos SET cliente_id = $1, nombre = $2, servicio_slug = $3, descripcion = $4, notas_internas = $5,
+		 avance = $6, fecha_inicio = $7, fecha_entrega = $8, actualizado_en = $9 WHERE id = $10`,
 		in.ClientID, in.Name, in.ServiceSlug, in.Description, in.InternalNotes, in.Progress, in.StartedOn, in.DueOn,
 		database.Time(time.Now()), id,
 	)
@@ -123,8 +123,8 @@ func projectWriteError(err error) error {
 // no se salten las transiciones. Al entregar, el avance queda en 100.
 func (r *Repository) setStatus(ctx context.Context, id int64, from, to string) error {
 	res, err := r.db.ExecContext(ctx,
-		`UPDATE projects SET status = $1, progress = CASE WHEN $2 = 'entregado' THEN 100 ELSE progress END, updated_at = $3
-		 WHERE id = $4 AND status = $5`,
+		`UPDATE proyectos SET estado = $1, avance = CASE WHEN $2 = 'entregado' THEN 100 ELSE avance END, actualizado_en = $3
+		 WHERE id = $4 AND estado = $5`,
 		to, to, database.Time(time.Now()), id, from,
 	)
 	if err != nil {
@@ -135,8 +135,8 @@ func (r *Repository) setStatus(ctx context.Context, id int64, from, to string) e
 
 func (r *Repository) milestones(ctx context.Context, projectID int64) ([]Milestone, error) {
 	rows, err := r.db.QueryContext(ctx,
-		`SELECT id, project_id, title, description, status, due_on, completed_on, position
-		 FROM project_milestones WHERE project_id = $1 ORDER BY position, id`, projectID)
+		`SELECT id, proyecto_id, titulo, descripcion, estado, fecha_limite, fecha_completado, posicion
+		 FROM proyecto_hitos WHERE proyecto_id = $1 ORDER BY posicion, id`, projectID)
 	if err != nil {
 		return nil, err
 	}
@@ -156,9 +156,9 @@ func (r *Repository) milestones(ctx context.Context, projectID int64) ([]Milesto
 func (r *Repository) addMilestone(ctx context.Context, projectID int64, in MilestoneInput) error {
 	today := time.Now().UTC().Format(dateLayout)
 	_, err := r.db.ExecContext(ctx,
-		`INSERT INTO project_milestones (project_id, title, description, status, due_on, completed_on, position)
+		`INSERT INTO proyecto_hitos (proyecto_id, titulo, descripcion, estado, fecha_limite, fecha_completado, posicion)
 		 VALUES ($1, $2, $3, $4, $5, CASE WHEN $6 = 'completado' THEN $7 END,
-		   (SELECT COALESCE(MAX(position) + 1, 0) FROM project_milestones WHERE project_id = $8))`,
+		   (SELECT COALESCE(MAX(posicion) + 1, 0) FROM proyecto_hitos WHERE proyecto_id = $8))`,
 		projectID, in.Title, in.Description, in.Status, in.DueOn, in.Status, today, projectID,
 	)
 	if database.IsForeignKey(err) {
@@ -170,9 +170,9 @@ func (r *Repository) addMilestone(ctx context.Context, projectID int64, in Miles
 func (r *Repository) updateMilestone(ctx context.Context, projectID, id int64, in MilestoneInput) error {
 	today := time.Now().UTC().Format(dateLayout)
 	res, err := r.db.ExecContext(ctx,
-		`UPDATE project_milestones SET title = $1, description = $2, status = $3, due_on = $4,
-		 completed_on = CASE WHEN $5 = 'completado' THEN COALESCE(completed_on, $6) END
-		 WHERE id = $7 AND project_id = $8`,
+		`UPDATE proyecto_hitos SET titulo = $1, descripcion = $2, estado = $3, fecha_limite = $4,
+		 fecha_completado = CASE WHEN $5 = 'completado' THEN COALESCE(fecha_completado, $6) END
+		 WHERE id = $7 AND proyecto_id = $8`,
 		in.Title, in.Description, in.Status, in.DueOn, in.Status, today, id, projectID,
 	)
 	if err != nil {
@@ -182,7 +182,7 @@ func (r *Repository) updateMilestone(ctx context.Context, projectID, id int64, i
 }
 
 func (r *Repository) deleteMilestone(ctx context.Context, projectID, id int64) error {
-	res, err := r.db.ExecContext(ctx, `DELETE FROM project_milestones WHERE id = $1 AND project_id = $2`, id, projectID)
+	res, err := r.db.ExecContext(ctx, `DELETE FROM proyecto_hitos WHERE id = $1 AND proyecto_id = $2`, id, projectID)
 	if err != nil {
 		return err
 	}
@@ -191,11 +191,11 @@ func (r *Repository) deleteMilestone(ctx context.Context, projectID, id int64) e
 
 // updates lista del más reciente al más antiguo. Con onlyVisible solo trae lo publicado.
 func (r *Repository) updates(ctx context.Context, projectID int64, onlyVisible bool) ([]Update, error) {
-	query := `SELECT n.id, n.project_id, COALESCE(u.name, ''), n.title, n.body, n.visible_to_client, n.created_at
-		FROM project_updates n LEFT JOIN users u ON u.id = n.author_id
-		WHERE n.project_id = $1`
+	query := `SELECT n.id, n.proyecto_id, COALESCE(u.nombre, ''), n.titulo, n.contenido, n.visible_al_cliente, n.creado_en
+		FROM proyecto_avances n LEFT JOIN usuarios u ON u.id = n.autor_id
+		WHERE n.proyecto_id = $1`
 	if onlyVisible {
-		query += ` AND n.visible_to_client = TRUE`
+		query += ` AND n.visible_al_cliente = TRUE`
 	}
 	rows, err := r.db.QueryContext(ctx, query+` ORDER BY n.id DESC`, projectID)
 	if err != nil {
@@ -216,7 +216,7 @@ func (r *Repository) updates(ctx context.Context, projectID int64, onlyVisible b
 
 func (r *Repository) addUpdate(ctx context.Context, projectID, authorID int64, in UpdateInput) error {
 	_, err := r.db.ExecContext(ctx,
-		`INSERT INTO project_updates (project_id, author_id, title, body, visible_to_client) VALUES ($1, $2, $3, $4, $5)`,
+		`INSERT INTO proyecto_avances (proyecto_id, autor_id, titulo, contenido, visible_al_cliente) VALUES ($1, $2, $3, $4, $5)`,
 		projectID, authorID, in.Title, in.Body, in.VisibleToClient,
 	)
 	if database.IsForeignKey(err) {
@@ -227,7 +227,7 @@ func (r *Repository) addUpdate(ctx context.Context, projectID, authorID int64, i
 
 func (r *Repository) updateUpdate(ctx context.Context, projectID, id int64, in UpdateInput) error {
 	res, err := r.db.ExecContext(ctx,
-		`UPDATE project_updates SET title = $1, body = $2, visible_to_client = $3 WHERE id = $4 AND project_id = $5`,
+		`UPDATE proyecto_avances SET titulo = $1, contenido = $2, visible_al_cliente = $3 WHERE id = $4 AND proyecto_id = $5`,
 		in.Title, in.Body, in.VisibleToClient, id, projectID,
 	)
 	if err != nil {
@@ -237,7 +237,7 @@ func (r *Repository) updateUpdate(ctx context.Context, projectID, id int64, in U
 }
 
 func (r *Repository) deleteUpdate(ctx context.Context, projectID, id int64) error {
-	res, err := r.db.ExecContext(ctx, `DELETE FROM project_updates WHERE id = $1 AND project_id = $2`, id, projectID)
+	res, err := r.db.ExecContext(ctx, `DELETE FROM proyecto_avances WHERE id = $1 AND proyecto_id = $2`, id, projectID)
 	if err != nil {
 		return err
 	}

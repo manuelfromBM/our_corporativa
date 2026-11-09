@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next'
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: 'https://www.bmcodelab.cl',           priority: 1,   changeFrequency: 'monthly' },
-    { url: 'https://www.bmcodelab.cl/Sorteo',     priority: 0.9, changeFrequency: 'monthly' },
+    { url: 'https://www.bmcodelab.cl/sorteo',     priority: 0.9, changeFrequency: 'monthly' },
     { url: 'https://www.bmcodelab.cl/asesoria',  priority: 0.8, changeFrequency: 'monthly' },
     { url: 'https://www.bmcodelab.cl/krona',     priority: 0.7, changeFrequency: 'monthly' },
     // los slugs de servicios:

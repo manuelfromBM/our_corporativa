@@ -3,6 +3,7 @@ package team
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"errors"
 
 	"backend/internal/platform/httpx"
@@ -18,121 +19,65 @@ func NewRepository(db *sql.DB) *Repository {
 	return &Repository{db: db}
 }
 
+// memberJSON arma el perfil completo de m en Postgres con la forma de Member, para
+// traerlo en una sola consulta: con la base lejos, cada viaje extra se nota.
+const memberJSON = `json_build_object(
+	'slug', m.slug, 'initials', m.iniciales, 'img', m.imagen, 'alt', m.texto_alternativo,
+	'badge', m.insignia, 'name', m.nombre, 'role', m.cargo,
+	'tech', json_build_object(
+		'bio', m.bio_tecnica,
+		'experience', COALESCE((SELECT json_agg(json_build_object('company', e.empresa, 'role', e.cargo, 'period', e.periodo, 'description', e.descripcion) ORDER BY e.posicion)
+			FROM miembro_experiencias e WHERE e.miembro_id = m.id), '[]'::json),
+		'education', COALESCE((SELECT json_agg(json_build_object('institution', e.institucion, 'degree', e.titulo, 'period', e.periodo) ORDER BY e.posicion)
+			FROM miembro_estudios e WHERE e.miembro_id = m.id), '[]'::json),
+		'stats', COALESCE((SELECT json_agg(json_build_object('value', s.valor, 'label', s.etiqueta) ORDER BY s.posicion)
+			FROM miembro_estadisticas s WHERE s.miembro_id = m.id), '[]'::json),
+		'skills', COALESCE((SELECT json_agg(h.nombre ORDER BY h.posicion)
+			FROM miembro_habilidades h WHERE h.miembro_id = m.id), '[]'::json),
+		'tools', COALESCE((SELECT json_agg(h.nombre ORDER BY h.posicion)
+			FROM miembro_herramientas h WHERE h.miembro_id = m.id), '[]'::json),
+		'libraries', COALESCE((SELECT json_agg(json_build_object('category', c.categoria, 'items', COALESCE((SELECT json_agg(l.nombre ORDER BY l.posicion)
+			FROM miembro_librerias l WHERE l.categoria_id = c.id), '[]'::json)) ORDER BY c.posicion)
+			FROM miembro_categorias_librerias c WHERE c.miembro_id = m.id), '[]'::json)
+	),
+	'biz', json_build_object(
+		'bio', m.bio_negocio,
+		'cards', COALESCE((SELECT json_agg(json_build_object('icon', t.icono, 'title', t.titulo, 'desc', t.descripcion) ORDER BY t.posicion)
+			FROM miembro_tarjetas_negocio t WHERE t.miembro_id = m.id), '[]'::json)
+	)
+)`
+
 // GetAll devuelve todos los miembros con su perfil completo, en el orden original.
 func (r *Repository) GetAll(ctx context.Context) ([]Member, error) {
-	ids, err := queryList(ctx, r.db, `SELECT id FROM members ORDER BY position`, nil, func(rows *sql.Rows) (int64, error) {
-		var id int64
-		return id, rows.Scan(&id)
-	})
+	var raw []byte
+	err := r.db.QueryRowContext(ctx,
+		`SELECT COALESCE(json_agg(`+memberJSON+` ORDER BY m.posicion), '[]'::json) FROM miembros m`,
+	).Scan(&raw)
 	if err != nil {
 		return nil, err
 	}
-
-	members := make([]Member, 0, len(ids))
-	for _, id := range ids {
-		m, err := r.getByID(ctx, id)
-		if err != nil {
-			return nil, err
-		}
-		members = append(members, *m)
-	}
-	return members, nil
+	members := []Member{}
+	return members, json.Unmarshal(raw, &members)
 }
 
 // GetSlugs devuelve solo los slugs, para generar las rutas en el frontend.
 func (r *Repository) GetSlugs(ctx context.Context) ([]string, error) {
-	return queryList(ctx, r.db, `SELECT slug FROM members ORDER BY position`, nil, scanString)
+	return queryList(ctx, r.db, `SELECT slug FROM miembros ORDER BY posicion`, nil, scanString)
 }
 
 func (r *Repository) GetBySlug(ctx context.Context, slug string) (*Member, error) {
-	var id int64
-	err := r.db.QueryRowContext(ctx, `SELECT id FROM members WHERE slug = $1`, slug).Scan(&id)
+	var raw []byte
+	err := r.db.QueryRowContext(ctx, `SELECT `+memberJSON+` FROM miembros m WHERE m.slug = $1`, slug).Scan(&raw)
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, errNotFound
 	}
 	if err != nil {
 		return nil, err
 	}
-	return r.getByID(ctx, id)
-}
-
-func (r *Repository) getByID(ctx context.Context, id int64) (*Member, error) {
 	var m Member
-	err := r.db.QueryRowContext(ctx,
-		`SELECT slug, initials, img, alt, badge, name, role, tech_bio, biz_bio FROM members WHERE id = $1`, id,
-	).Scan(&m.Slug, &m.Initials, &m.Img, &m.Alt, &m.Badge, &m.Name, &m.Role, &m.Tech.Bio, &m.Biz.Bio)
-	if err != nil {
+	if err := json.Unmarshal(raw, &m); err != nil {
 		return nil, err
 	}
-
-	if m.Tech.Experience, err = queryList(ctx, r.db,
-		`SELECT company, role, period, description FROM member_experience WHERE member_id = $1 ORDER BY position`, id,
-		func(rows *sql.Rows) (Experience, error) {
-			var e Experience
-			return e, rows.Scan(&e.Company, &e.Role, &e.Period, &e.Description)
-		}); err != nil {
-		return nil, err
-	}
-
-	if m.Tech.Education, err = queryList(ctx, r.db,
-		`SELECT institution, degree, period FROM member_education WHERE member_id = $1 ORDER BY position`, id,
-		func(rows *sql.Rows) (Education, error) {
-			var e Education
-			return e, rows.Scan(&e.Institution, &e.Degree, &e.Period)
-		}); err != nil {
-		return nil, err
-	}
-
-	if m.Tech.Stats, err = queryList(ctx, r.db,
-		`SELECT value, label FROM member_stats WHERE member_id = $1 ORDER BY position`, id,
-		func(rows *sql.Rows) (Stat, error) {
-			var s Stat
-			return s, rows.Scan(&s.Value, &s.Label)
-		}); err != nil {
-		return nil, err
-	}
-
-	if m.Tech.Skills, err = queryList(ctx, r.db,
-		`SELECT name FROM member_skills WHERE member_id = $1 ORDER BY position`, id, scanString); err != nil {
-		return nil, err
-	}
-
-	if m.Tech.Tools, err = queryList(ctx, r.db,
-		`SELECT name FROM member_tools WHERE member_id = $1 ORDER BY position`, id, scanString); err != nil {
-		return nil, err
-	}
-
-	type category struct {
-		id   int64
-		name string
-	}
-	cats, err := queryList(ctx, r.db,
-		`SELECT id, category FROM member_library_categories WHERE member_id = $1 ORDER BY position`, id,
-		func(rows *sql.Rows) (category, error) {
-			var c category
-			return c, rows.Scan(&c.id, &c.name)
-		})
-	if err != nil {
-		return nil, err
-	}
-	for _, c := range cats {
-		items, err := queryList(ctx, r.db,
-			`SELECT name FROM member_library_items WHERE category_id = $1 ORDER BY position`, c.id, scanString)
-		if err != nil {
-			return nil, err
-		}
-		m.Tech.Libraries = append(m.Tech.Libraries, LibraryCategory{Category: c.name, Items: items})
-	}
-
-	if m.Biz.Cards, err = queryList(ctx, r.db,
-		`SELECT icon, title, description FROM member_biz_cards WHERE member_id = $1 ORDER BY position`, id,
-		func(rows *sql.Rows) (BizCard, error) {
-			var c BizCard
-			return c, rows.Scan(&c.Icon, &c.Title, &c.Desc)
-		}); err != nil {
-		return nil, err
-	}
-
 	return &m, nil
 }
 

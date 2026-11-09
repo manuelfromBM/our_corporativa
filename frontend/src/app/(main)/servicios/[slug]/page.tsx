@@ -3,6 +3,7 @@ import SERVICIOS from "@/components/BM-components/servicios/Servicios.data";
 import DetalleServicio from "@/components/BM-components/servicios/Detalle/Detalle";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { OG_BASE } from "@/lib/seo";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -27,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         description: servicio.tec.desc,
         alternates: { canonical: url },
         openGraph: {
+            ...OG_BASE,
             title: `${servicio.tec.titulo} | BM Code Lab`,
             description: servicio.tec.desc,
             url,

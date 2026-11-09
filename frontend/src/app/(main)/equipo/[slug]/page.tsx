@@ -1,6 +1,7 @@
 import { getMemberBySlug, getTeam } from "@/lib/teamApi";
 import { notFound } from "next/navigation";
 import TeamProfileClient from "@/components/BM-components/Nosotros/ProfileTeam/ProfileTeam";
+import { OG_BASE } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -23,6 +24,7 @@ export async function generateMetadata({
     description: member.biz.bio,
     alternates: { canonical: url },
     openGraph: {
+      ...OG_BASE,
       title: `${member.name} — BMCodeLab`,
       description: member.biz.bio,
       url,

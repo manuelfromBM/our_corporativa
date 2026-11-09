@@ -13,12 +13,32 @@
 .inner {
   position: relative;
   z-index: 1;
-  max-width: 680px;
+  max-width: 1120px;
   margin: 0 auto;
   text-align: center;
 }
 
 .header { margin-bottom: 40px; }
+
+/* ── LOGO + FORMULARIO ── */
+.cuerpo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 620px);
+  align-items: center;
+  gap: 56px;
+}
+
+.logoWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  filter: drop-shadow(0 0 32px rgba(22, 196, 127, 0.18));
+}
 
 .eyebrow {
   display: inline-flex;
@@ -272,6 +292,14 @@
 }
 
 /* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .cuerpo {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .logo { max-width: 220px; }
+}
+
 @media (max-width: 768px) {
   .section { padding: 64px 16px; }
   .form { padding: 24px 20px; }

@@ -66,6 +66,21 @@ export function emailHtml(data: DatosFormSorteo): string {
               </td>
             </tr>
 
+            <!-- CTA detallar sitio web -->
+            <tr>
+              <td style="padding:0 40px 28px;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.25);border-radius:12px;">
+                  <tr>
+                    <td style="padding:22px 24px;">
+                      <p style="margin:0 0 6px;color:#ffffff;font-size:15px;font-weight:700;">Cuéntanos cómo sería tu sitio web</p>
+                      <p style="margin:0 0 16px;color:rgba(255,255,255,0.6);font-size:13px;line-height:1.6;">Es opcional, pero si ganas partimos con tu proyecto ya entendido. Te toma unos minutos.</p>
+                      <a href="https://www.bmcodelab.cl/registro-sorteo/detalle" style="display:inline-block;background:#00e5ff;color:#070b16;font-size:14px;font-weight:700;letter-spacing:0.5px;padding:12px 26px;border-radius:8px;text-decoration:none;">Detallar mi sitio web →</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
             <!-- Datos del registro -->
             <tr>
               <td style="padding:0 40px 28px;">

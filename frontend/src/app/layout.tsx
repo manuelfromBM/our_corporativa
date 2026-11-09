@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OG_BASE } from "@/lib/seo";
 import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -22,9 +23,7 @@ export const metadata: Metadata = {
     keywords: ['desarrollo web', 'consultoría tecnológica', 'aplicaciones móviles', 'inteligencia artificial', 'Next.js', 'Chile'],
     authors: [{ name: 'BM Code Lab' }],
     creator: 'BM Code Lab',
-    alternates: {
-        canonical: "https://www.bmcodelab.cl",
-    },
+    // Sin canonical global: cada página declara el suyo para no apuntar todo al home.
     verification: {
         google: "SA9rT9y12MHP8MJuzmfnmvYfSfygZqPWMTMY56z7osE",
     },
@@ -32,16 +31,13 @@ export const metadata: Metadata = {
         title: 'BM Code Lab — Desarrollo web y consultoría tecnológica',
         description: 'Desarrollamos soluciones digitales a medida para empresas en Chile.',
         url: 'https://www.bmcodelab.cl',
-        siteName: 'BM Code Lab',
-        images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'BM Code Lab' }],
-        locale: 'es_CL',
-        type: 'website',
+        ...OG_BASE,
     },
     twitter: {
         card: 'summary_large_image',
         title: 'BM Code Lab',
         description: 'Desarrollamos soluciones digitales a medida para empresas en Chile.',
-        images: ['/og-image.jpg'],
+        images: [OG_BASE.images[0].url],
     },
     robots: {
         index: true,

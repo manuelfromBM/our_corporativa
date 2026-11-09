@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import styles from "./burbuja.module.css";
+import { CIERRE_SORTEO } from "../../fechas";
 
 export default function BurbujaTiempoRestante() {
-    const targetDate = new Date("2026-07-19T23:59:59-04:00");
+    const targetDate = CIERRE_SORTEO;
 
     const calculateTimeLeft = () => {
         const difference = targetDate.getTime() - new Date().getTime();

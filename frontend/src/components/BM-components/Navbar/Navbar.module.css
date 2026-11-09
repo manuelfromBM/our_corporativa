@@ -94,6 +94,48 @@
 .link:hover { color: var(--c-green); }
 .link:hover::after { transform: scaleX(1); }
 
+/* ── SORTEO: verde con punto pulsante si está abierto, gris si no ── */
+.sorteo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--c-green);
+}
+
+.sorteoDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-green);
+  box-shadow: 0 0 0 0 rgba(22, 196, 127, 0.6);
+  animation: sorteoPulso 1.8s ease-out infinite;
+}
+
+@keyframes sorteoPulso {
+  0%   { box-shadow: 0 0 0 0 rgba(22, 196, 127, 0.6); }
+  70%  { box-shadow: 0 0 0 7px rgba(22, 196, 127, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 196, 127, 0); }
+}
+
+.sorteoOff,
+.sorteoOff:hover {
+  color: var(--c-text-2);
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sorteoOff:hover::after { transform: scaleX(0); }
+
+.sorteoOff .sorteoDot {
+  background: var(--c-text-2);
+  animation: none;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sorteoDot { animation: none; }
+}
+
 .cta {
   display: inline-flex;
   align-items: center;
@@ -167,7 +209,7 @@
   }
 
   .links:not(.open) { border-bottom-color: transparent; box-shadow: none; }
-  .links.open { max-height: 440px; }
+  .links.open { max-height: 520px; }
 
   .link {
     padding: 14px 24px;
