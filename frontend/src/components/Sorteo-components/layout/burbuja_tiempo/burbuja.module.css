@@ -104,5 +104,5 @@
   line-height: 1;
   margin-top: 4px;
   opacity: 0.9;
-  letter-spacing: 0.5px;
+  white-space: nowrap;
 }

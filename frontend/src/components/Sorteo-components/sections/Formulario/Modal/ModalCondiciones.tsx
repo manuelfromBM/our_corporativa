@@ -37,7 +37,7 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
 
                 <div className={styles.cuerpo}>
                     <p className={styles.fecha}>
-                        &quot;Gana una Página Web Profesional&quot; · BM Code Lab · Vigencia: hasta el 15 de julio de 2026 · Versión 2.0
+                        &quot;Gana una Página Web Profesional&quot; · BM Code Lab · Vigencia: hasta el 20 de noviembre de 2026 · Versión 2.0
                     </p>
 
                     <h3 className={styles.seccionTitulo}>Artículo 1. Organizador</h3>
@@ -56,8 +56,8 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
                     <h3 className={styles.seccionTitulo}>Artículo 3. Período de participación</h3>
                     <ul className={styles.lista}>
                         <li><strong>Apertura:</strong> desde la publicación oficial en Instagram de BM Code Lab.</li>
-                        <li><strong>Cierre:</strong> 15 de julio de 2026, a las 23:59 hrs (hora de Chile continental, UTC-4).</li>
-                        <li><strong>Anuncio de ganadores:</strong> 17 de julio de 2026, mediante publicación en Instagram.</li>
+                        <li><strong>Cierre:</strong> 20 de noviembre de 2026, a las 23:59 hrs (hora de Chile continental, UTC-3).</li>
+                        <li><strong>Anuncio de ganadores:</strong> 23 de noviembre de 2026, mediante publicación en Instagram.</li>
                     </ul>
                     <p>BM Code Lab se reserva el derecho de modificar estas fechas por causas justificadas, notificando el cambio con anticipación en su cuenta de Instagram.</p>
 
@@ -126,7 +126,7 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
 
                     <h3 className={styles.seccionTitulo}>Artículo 11. Notificación y aceptación del premio</h3>
                     <ul className={styles.lista}>
-                        <li>Los ganadores serán anunciados el <strong>17 de julio de 2026</strong> mediante publicación en Instagram y contactados por mensaje directo desde la cuenta oficial.</li>
+                        <li>Los ganadores serán anunciados el <strong>23 de noviembre de 2026</strong> mediante publicación en Instagram y contactados por mensaje directo desde la cuenta oficial.</li>
                         <li>El ganador dispone de <strong>7 días corridos</strong> desde el anuncio para responder.</li>
                         <li>Si un ganador no responde en el plazo, el premio será cedido al primer suplente.</li>
                         <li>El premio es personal e intransferible. No es canjeable por dinero ni por otros servicios.</li>
