@@ -25,7 +25,7 @@ export const teamData: TeamMember[] = [
   {
     slug: "manuel",
     initials: "MD",
-    img: "/BM-imagenes/BM_Team/manuel_ia.png",
+    img: "/BM-imagenes/BM_Team/manuel_ia_fondo_blanco.png",
     alt: "Foto de Manuel Díaz",
     badge: "Fundador",
     name: "Manuel Díaz",
@@ -110,7 +110,7 @@ export const teamData: TeamMember[] = [
   {
     slug: "bastian",
     initials: "BM",
-    img: "/BM-imagenes/BM_Team/bastian_ai.png",
+    img: "/BM-imagenes/BM_Team/bastian_ai_fondo_blanco.png",
     alt: "Foto de Bastián Madrid",
     badge: "Fundador",
     name: "Bastián Madrid",
@@ -155,7 +155,7 @@ export const teamData: TeamMember[] = [
   {
     slug: "cristian",
     initials: "CS",
-    img: "/BM-imagenes/BM_Team/sanma_ia.png",
+    img: "/BM-imagenes/BM_Team/sanma_ia_fondo_blanco.png",
     alt: "Foto de Cristian San Martín",
     badge: "Cofundador",
     name: "Cristian San Martín",
@@ -201,7 +201,7 @@ export const teamData: TeamMember[] = [
 {
   slug: "byron",
   initials: "BS",
-  img: "/BM-imagenes/BM_Team/byron_ia.png",
+  img: "/BM-imagenes/BM_Team/byron_fondo_blanco.png",
   alt: "Foto de Byron Santis Salgado",
   badge: "Cofundandor Tardio",
   name: "Byron Santis",
