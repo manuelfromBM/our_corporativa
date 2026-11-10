@@ -25,6 +25,30 @@ export default function SeccionContacto() {
   const launchRef = useRef<HTMLButtonElement>(null);
   const { phase, build } = useNanoForge({ canvasRef, cardRef: formRef, originRef: launchRef });
 
+  // El "Contáctanos" del nav también lo arma: espera a que la sección esté a la vista
+  // para que los nanobots se vean después del scroll
+  const stageRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (phase !== "idle") return;
+    let observer: IntersectionObserver | null = null;
+    const pedir = () => {
+      if (observer || !stageRef.current) return;
+      observer = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer?.disconnect();
+        build();
+      }, { threshold: 0.5 });
+      observer.observe(stageRef.current);
+    };
+
+    if (window.location.hash === "#contacto") pedir();
+    window.addEventListener("bm:contacto", pedir);
+    return () => {
+      window.removeEventListener("bm:contacto", pedir);
+      observer?.disconnect();
+    };
+  }, [phase, build]);
+
   // Una vez construido, el foco pasa al primer campo
   useEffect(() => {
     if (phase === "built") {
@@ -84,7 +108,7 @@ export default function SeccionContacto() {
             />
           </div>
 
-          <div className={styles.stage}>
+          <div ref={stageRef} className={styles.stage}>
             <canvas ref={canvasRef} className={nano.canvas} aria-hidden="true" />
             <div className={`${nano.blueprint} ${phase !== "idle" ? nano.blueprintHidden : ""}`} aria-hidden="true" />
 

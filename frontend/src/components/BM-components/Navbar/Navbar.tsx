@@ -85,7 +85,15 @@ const NavbarPrincipal: React.FC = () => {
                             Sorteo
                         </span>
                     )}
-                    <Link href="/#contacto" className={styles.cta} onClick={closeMenu}>
+                    <Link
+                        href="/#contacto"
+                        className={styles.cta}
+                        onClick={() => {
+                            closeMenu();
+                            // Avisa a la sección de contacto para que los nanobots armen el formulario
+                            window.dispatchEvent(new Event("bm:contacto"));
+                        }}
+                    >
                         Contáctanos
                     </Link>
                 </div>
