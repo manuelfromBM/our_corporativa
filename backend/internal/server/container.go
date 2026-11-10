@@ -39,7 +39,7 @@ func NewContainer(db *sql.DB, cfg config.Config) *Container {
 	requestsService := requests.NewService(requests.NewRepository(db), requests.NewNotificador(mailer, cfg.TeamEmails, cfg.AppURL))
 	projectsService := projects.NewService(projects.NewRepository(db), requestsService)
 	teamService := team.NewService(team.NewRepository(db))
-	formulariosService := formularios.NewService(formularios.NewRepository(db))
+	formulariosService := formularios.NewService(formularios.NewRepository(db), formularios.NewNotificador(mailer, cfg.TeamEmails, cfg.AppURL))
 
 	return &Container{
 		Config:          cfg,

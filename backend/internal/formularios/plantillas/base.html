@@ -1,0 +1,74 @@
+{{- /* Piezas comunes de los correos de formularios, con el mismo estilo que requests/plantillas/solicitud.html. */ -}}
+{{- define "inicio"}}<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="supported-color-schemes" content="dark">
+<title>{{.Asunto}}</title>
+</head>
+<body style="margin:0;padding:0;background:#0d0f14;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">{{.Resumen}}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0d0f14;">
+<tr><td align="center" style="padding:32px 12px;">
+
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#11151c;border:1px solid #2a3140;border-radius:12px;overflow:hidden;">
+
+    <tr><td style="height:4px;line-height:4px;font-size:0;background:#16c47f;background-image:linear-gradient(90deg,#16c47f,#2f6fed);">&nbsp;</td></tr>
+
+    <tr><td style="padding:28px 32px 0;">
+      <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+        <td valign="middle"><img src="https://www.bmcodelab.cl/BM-imagenes/logotransparente.png" width="36" height="36" alt="BM Code Lab" style="display:block;border:0;"></td>
+        <td valign="middle" style="padding-left:10px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:17px;font-weight:700;color:#f3f5f8;">BM <span style="color:#16c47f;">Code Lab</span></td>
+      </tr></table>
+    </td></tr>
+
+    <tr><td style="padding:28px 32px 0;">
+      <span style="display:inline-block;padding:5px 12px;border:1px solid #1c5a43;border-radius:999px;background:#122a22;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#16c47f;">{{.Etiqueta}}</span>
+    </td></tr>
+{{- end}}
+
+{{- define "titulo-seccion"}}
+    <tr><td style="padding:28px 32px 10px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#16c47f;">{{.}}</td></tr>
+{{- end}}
+
+{{- define "abrir-datos"}}
+    <tr><td style="padding:0 32px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#13161f;border-left:3px solid #2f6fed;border-radius:0 8px 8px 0;">
+        <tr><td style="padding:10px 18px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+{{- end}}
+
+{{- define "cerrar-datos"}}
+          </table>
+        </td></tr>
+      </table>
+    </td></tr>
+{{- end}}
+
+{{- define "fila"}}<tr>
+  <td width="130" valign="top" style="padding:7px 12px 7px 0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#9aa3b2;">{{.}}</td>
+{{- end}}
+
+{{- define "boton"}}
+    <tr><td style="padding:30px 32px 0;">
+      <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+        <td style="border-radius:8px;background:#16c47f;">
+          <a href="{{.URL}}" style="display:inline-block;padding:12px 22px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;color:#06140e;text-decoration:none;">{{.Texto}}</a>
+        </td>
+      </tr></table>
+    </td></tr>
+{{- end}}
+
+{{- define "fin"}}
+    <tr><td style="padding:28px 32px 28px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#5b6472;">
+      {{.Fecha}}<br>© {{.Anio}} BM Code Lab · {{.Pie}}
+    </td></tr>
+  </table>
+
+</td></tr>
+</table>
+</body>
+</html>
+{{- end}}

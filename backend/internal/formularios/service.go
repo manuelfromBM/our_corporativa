@@ -11,25 +11,34 @@ import (
 var correoValido = regexp.MustCompile(`^[^\s@]+@[^\s@]+\.[^\s@]+$`)
 
 type Service struct {
-	repo *Repository
+	repo        *Repository
+	notificador *Notificador
 }
 
-func NewService(repo *Repository) *Service {
-	return &Service{repo: repo}
+func NewService(repo *Repository, notificador *Notificador) *Service {
+	return &Service{repo: repo, notificador: notificador}
 }
 
 func (s *Service) CreateContacto(ctx context.Context, c Contacto) error {
 	if msg := validarContacto(&c); msg != "" {
 		return httpx.Invalid(msg)
 	}
-	return s.repo.createContacto(ctx, c)
+	if err := s.repo.createContacto(ctx, c); err != nil {
+		return err
+	}
+	s.notificador.AvisarContacto(c)
+	return nil
 }
 
 func (s *Service) CreateParticipante(ctx context.Context, p Participante) error {
 	if msg := validarParticipante(&p); msg != "" {
 		return httpx.Invalid(msg)
 	}
-	return s.repo.createParticipante(ctx, p)
+	if err := s.repo.createParticipante(ctx, p); err != nil {
+		return err
+	}
+	s.notificador.AvisarParticipante(p)
+	return nil
 }
 
 func validarContacto(c *Contacto) string {

@@ -27,8 +27,7 @@ func (s *Service) Create(ctx context.Context, req Requerimiento) (string, error)
 	if err != nil {
 		return "", err
 	}
-	// Aviso por correo desactivado de momento; para reactivarlo, descomentar la línea.
-	// s.notificador.Avisar(req, codigo)
+	s.notificador.Avisar(req, codigo)
 	return codigo, nil
 }
 
