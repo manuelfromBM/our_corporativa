@@ -8,9 +8,10 @@ import styles from "./ModalCondiciones.module.css";
 interface Props {
     abierto: boolean;
     onCerrar: () => void;
+    onAceptar?: () => void;
 }
 
-const ModalTerminos = ({ abierto, onCerrar }: Props) => {
+const ModalTerminos = ({ abierto, onCerrar, onAceptar }: Props) => {
     useEffect(() => {
         if (abierto) {
             document.body.style.overflow = "hidden";
@@ -179,8 +180,8 @@ const ModalTerminos = ({ abierto, onCerrar }: Props) => {
                 </div>
 
                 <div className={styles.pie}>
-                    <button className={styles.botonAceptar} onClick={onCerrar}>
-                        Entendido
+                    <button type="button" className={styles.botonAceptar} onClick={onAceptar ?? onCerrar}>
+                        {onAceptar ? "Leí y acepto las bases" : "Entendido"}
                     </button>
                 </div>
 
