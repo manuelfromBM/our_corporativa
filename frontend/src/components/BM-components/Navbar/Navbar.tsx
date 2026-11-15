@@ -86,9 +86,13 @@ const NavbarPrincipal: React.FC = () => {
                         </Link>
                     ))}
                     {sorteoActivo ? (
-                        <Link href="/sorteo" className={`${styles.link} ${styles.sorteo}`} onClick={closeMenu}>
+                        <Link
+                            href={enSorteo ? "#formulario" : "/sorteo"}
+                            className={`${styles.link} ${styles.sorteo}`}
+                            onClick={closeMenu}
+                        >
                             <span className={styles.sorteoDot} aria-hidden="true" />
-                            Sorteo
+                            {enSorteo ? "Ir a participar" : "Sorteo"}
                         </Link>
                     ) : (
                         <span
