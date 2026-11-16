@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
     '@prisma/adapter-libsql',
     '@libsql/hrana-client',
     ],
+    async redirects() {
+        return [
+            // URL antigua con mayúscula que quedó en el índice de Google.
+            { source: '/Sorteo', destination: '/sorteo', permanent: true },
+        ];
+    },
 };
 
 export default nextConfig;

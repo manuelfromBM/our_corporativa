@@ -5,8 +5,8 @@ import FlujoRequerimientos from "@/components/Requerimientos-components/FlujoReq
 export const metadata: Metadata = {
     title: "Cotiza tu proyecto",
     description: "Cuéntanos qué necesitas y llegamos a la primera reunión con tu caso estudiado.",
-    // Sin indexar mientras el flujo está en pruebas.
-    robots: { index: false, follow: false },
+    // Las variantes ?servicio=<slug> apuntan a la URL base para no duplicar.
+    alternates: { canonical: "https://www.bmcodelab.cl/cotizar" },
 };
 
 // Acepta ?servicio=<slug> para llegar con el servicio ya elegido (ej: desde el detalle de un servicio).

@@ -6,6 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: 'https://www.bmcodelab.cl/sorteo',     priority: 0.9, changeFrequency: 'monthly' },
     { url: 'https://www.bmcodelab.cl/asesoria',  priority: 0.8, changeFrequency: 'monthly' },
     { url: 'https://www.bmcodelab.cl/krona',     priority: 0.7, changeFrequency: 'monthly' },
+    { url: 'https://www.bmcodelab.cl/servicios', priority: 0.9, changeFrequency: 'monthly' },
+    { url: 'https://www.bmcodelab.cl/cotizar',   priority: 0.8, changeFrequency: 'monthly' },
     // los slugs de servicios:
     { url: 'https://www.bmcodelab.cl/servicios/desarrollo-web',       priority: 0.9, changeFrequency: 'monthly' },
     { url: 'https://www.bmcodelab.cl/servicios/consultoria-tecnica',  priority: 0.9, changeFrequency: 'monthly' },
