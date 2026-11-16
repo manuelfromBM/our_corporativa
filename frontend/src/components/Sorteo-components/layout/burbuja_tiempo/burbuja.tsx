@@ -29,15 +29,18 @@ export default function BurbujaTiempoRestante() {
         };
     };
 
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    // Se calcula en el cliente para que el HTML del servidor no quede con un tiempo viejo.
+    const [timeLeft, setTimeLeft] = useState<ReturnType<typeof calculateTimeLeft> | null>(null);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setTimeLeft(calculateTimeLeft());
-        }, 1000);
+        const update = () => setTimeLeft(calculateTimeLeft());
+        update();
+        const interval = setInterval(update, 1000);
 
         return () => clearInterval(interval);
     }, []);
+
+    if (!timeLeft) return null;
 
     const getUrgencyClass = () => {
         if (timeLeft.expired) return styles.expired;
@@ -62,7 +65,7 @@ export default function BurbujaTiempoRestante() {
                     <span className={styles.days}>{timeLeft.days}</span>
                     <span className={styles.time}>días</span>
                     <span className={styles.clock}>
-                        {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}
+                        {pad(timeLeft.hours)}h {pad(timeLeft.minutes)}m {pad(timeLeft.seconds)}s
                     </span>
                 </>
             )}

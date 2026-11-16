@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, CircleCheckBig } from "lucide-react";
+import { ArrowRight, CircleCheckBig, FileText } from "lucide-react";
 import styles from "./Formulario.module.css";
 import { CamposFormulario } from "./campos";
 import { ErroresFormulario } from "./campos";
@@ -371,9 +371,42 @@ const Formulario = () => {
                         <ModalTerminos
                             abierto={modalAbierto}
                             onCerrar={() => setModalAbierto(false)}
+                            onAceptar={() => {
+                                setAceptaTerminos(true);
+                                setModalAbierto(false);
+                                if (errores.terminos) setErrores((prev) => ({ ...prev, terminos: undefined }));
+                            }}
                         />
 
-                        <div className={styles.grupo}>
+                        <div className={`${styles.terminosCard} ${errores.terminos ? styles.terminosCardError : ""} ${aceptaTerminos ? styles.terminosCardOk : ""}`}>
+                            <div className={styles.terminosCabecera}>
+                                <div className={styles.terminosIcono}>
+                                    {aceptaTerminos ? <CircleCheckBig size={20} /> : <FileText size={20} />}
+                                </div>
+                                <div>
+                                    <p className={styles.terminosTitulo}>
+                                        Bases y condiciones <span className={styles.requerido}>*</span>
+                                    </p>
+                                    <p className={styles.terminosTexto}>
+                                        {aceptaTerminos
+                                            ? "Aceptaste las bases del sorteo. ¡Ya puedes registrar tu participación!"
+                                            : "Antes de participar, lee las bases del sorteo (premios, requisitos y fechas)."}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button
+                                type="button"
+                                className={`${styles.botonTerminos} ${!terminosVistos ? styles.botonTerminosPendiente : ""}`}
+                                onClick={() => {
+                                    setModalAbierto(true);
+                                    setTerminosVistos(true);  // ← se habilita el checkbox al abrir
+                                }}
+                            >
+                                <FileText size={16} />
+                                {terminosVistos ? "Volver a leer las bases" : "Leer bases y condiciones"}
+                            </button>
+
                             <label className={`${styles.checkLabel} ${!terminosVistos ? styles.checkLabelDeshabilitado : ""}`}>
                                 <input
                                     type="checkbox"
@@ -385,22 +418,10 @@ const Formulario = () => {
                                     }}
                                     className={styles.checkbox}
                                 />
-                                <span>
-                                    He leído y acepto los{" "}
-                                    <button
-                                        type="button"
-                                        className={styles.linkTerminos}
-                                        onClick={() => {
-                                            setModalAbierto(true);
-                                            setTerminosVistos(true);  // ← se habilita el checkbox al abrir
-                                        }}
-                                    >
-                                        términos y condiciones
-                                    </button>
-                                </span>
+                                <span>He leído y acepto las bases y condiciones del sorteo</span>
                             </label>
                             {!terminosVistos && (
-                                <span className={styles.ayuda}>Debes leer los términos antes de aceptar.</span>
+                                <span className={styles.ayuda}>Abre las bases para poder aceptarlas.</span>
                             )}
                             {errores.terminos && <span className={styles.error}>{errores.terminos}</span>}
                         </div>

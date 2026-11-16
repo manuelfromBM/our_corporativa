@@ -136,6 +136,28 @@
   .sorteoDot { animation: none; }
 }
 
+/* Botón de sorteo que queda a la vista en la barra cuando el menú pasa a hamburguesa */
+.sorteoMovil {
+  display: none;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  margin-right: 14px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 999px;
+  background: var(--c-green);
+  box-shadow: 0 6px 18px rgba(22, 196, 127, 0.35);
+  white-space: nowrap;
+}
+
+.sorteoMovil:hover { color: #ffffff; }
+
+.sorteoMovil .sorteoDot { background: #ffffff; }
+
 .cta {
   display: inline-flex;
   align-items: center;
@@ -191,6 +213,7 @@
 
 @media (max-width: 900px) {
   .toggle { display: flex; }
+  .sorteoMovil { display: inline-flex; }
 
   .links {
     position: absolute;
@@ -222,4 +245,9 @@
     justify-content: center;
     margin: 14px 24px 18px;
   }
+}
+
+@media (max-width: 360px) {
+  .inner { padding: 14px 16px; }
+  .sorteoMovil { margin-right: 10px; padding: 6px 11px; font-size: 12px; }
 }

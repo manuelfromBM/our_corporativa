@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import styles from "./Navbar.module.css";
 import { sorteoAbierto } from "@/components/Sorteo-components/fechas";
@@ -17,6 +18,7 @@ const NAV_ITEMS = [
 
 const NavbarPrincipal: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const enSorteo = usePathname() === "/sorteo";
     // Se calcula en el cliente para que el HTML del servidor no quede con un estado viejo.
     const [sorteoActivo, setSorteoActivo] = useState(false);
 
@@ -53,6 +55,19 @@ const NavbarPrincipal: React.FC = () => {
                     BM <span className={styles.highlight}>Code Lab</span>
                 </Link>
 
+                {/* En móvil el link del nav queda escondido en la hamburguesa, así que el sorteo se muestra afuera.
+                    Ya dentro de la página del sorteo, el mismo botón baja al formulario. */}
+                {sorteoActivo && (
+                    <Link
+                        href={enSorteo ? "#formulario" : "/sorteo"}
+                        className={styles.sorteoMovil}
+                        onClick={closeMenu}
+                    >
+                        <span className={styles.sorteoDot} aria-hidden="true" />
+                        {enSorteo ? "Ir a participar" : "Sorteo"}
+                    </Link>
+                )}
+
                 <button
                     type="button"
                     className={`${styles.toggle} ${menuOpen ? styles.open : ""}`}
@@ -71,9 +86,13 @@ const NavbarPrincipal: React.FC = () => {
                         </Link>
                     ))}
                     {sorteoActivo ? (
-                        <Link href="/sorteo" className={`${styles.link} ${styles.sorteo}`} onClick={closeMenu}>
+                        <Link
+                            href={enSorteo ? "#formulario" : "/sorteo"}
+                            className={`${styles.link} ${styles.sorteo}`}
+                            onClick={closeMenu}
+                        >
                             <span className={styles.sorteoDot} aria-hidden="true" />
-                            Sorteo
+                            {enSorteo ? "Ir a participar" : "Sorteo"}
                         </Link>
                     ) : (
                         <span
@@ -85,7 +104,15 @@ const NavbarPrincipal: React.FC = () => {
                             Sorteo
                         </span>
                     )}
-                    <Link href="/#contacto" className={styles.cta} onClick={closeMenu}>
+                    <Link
+                        href="/#contacto"
+                        className={styles.cta}
+                        onClick={() => {
+                            closeMenu();
+                            // Avisa a la sección de contacto para que los nanobots armen el formulario
+                            window.dispatchEvent(new Event("bm:contacto"));
+                        }}
+                    >
                         Contáctanos
                     </Link>
                 </div>
