@@ -6,12 +6,8 @@ const nextConfig: NextConfig = {
     '@prisma/adapter-libsql',
     '@libsql/hrana-client',
     ],
-    async redirects() {
-        return [
-            // URL antigua con mayúscula que quedó en el índice de Google.
-            { source: '/Sorteo', destination: '/sorteo', permanent: true },
-        ];
-    },
+    // OJO: no poner aquí el redirect /Sorteo -> /sorteo. Next compara redirects sin distinguir
+    // mayúsculas, así que /sorteo también calza y queda en loop. Está en src/middleware.ts.
 };
 
 export default nextConfig;
